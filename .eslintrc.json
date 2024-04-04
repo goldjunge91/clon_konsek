@@ -1,0 +1,32 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "plugin:@typescript-eslint/recommended"
+  ]
+}
+// {
+//   "extends": "next/core-web-vitals"
+// }
+// {
+//   "extends": [
+//     "next/core-web-vitals",
+//     "next",
+//     "plugin:@typescript-eslint/recommended" // This line extends the recommended rules from the typescript-eslint plugin
+//   ],
+//   "rules": {
+//     "react/no-unescaped-entities": "off",
+//     "@next/next/no-page-custom-font": "off"
+//     // "@typescript-eslint/no-explicit-any": "warn" // You can set this to "error" to prevent any usage, or "off" to allow it
+//   }
+// }
+// {
+//   "extends": "next",
+//   "rules": {
+//     "react/no-unescaped-entities": "off",
+//     "@next/next/no-page-custom-font": "off",
+//     "@typescript-eslint/no-explicit-any": "warn" // This disables the rule
+//   }
+// }
