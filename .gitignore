@@ -57,3 +57,4 @@ public/downloads
 downloads
 src/lib/main_v3.py_03-04-2024_.log
 src/lib/__pycache__/db_utils.cpython-312.pyc
+env.production
