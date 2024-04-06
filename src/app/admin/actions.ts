@@ -6,7 +6,10 @@ import { redirect } from "next/navigation";
 import { User } from "@/db/schema";
 import { getSession } from "@/app/api/auth/[...nextauth]/options";
 
-import bcrypt from "bcrypt";
+// import bcryptjs from "bcryptjs";
+
+
+import bcrypt from 'bcryptjs';
 const saltRounds = 10;
 
 export async function createUserAction(userData: Omit<User, "id" | "sharedId">) {
