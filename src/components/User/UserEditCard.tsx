@@ -8,10 +8,12 @@ import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import bcrypt from "bcryptjs";
 import { deleteUserAction } from "@/app/admin/actions";
 import { useRouter } from "next/navigation";
+// import bcryptjs from "bcryptjs";
 
+
+import bcrypt from 'bcryptjs';
 const editUserSchema = z.object({
   username: z.string().min(1).max(50),
   password: z.string().min(6).max(50),
