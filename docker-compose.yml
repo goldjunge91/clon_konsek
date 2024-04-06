@@ -10,7 +10,7 @@ services:
       POSTGRES_PASSWORD: Iphone5S
       PGDATA: /data/postgres
     volumes:
-      - c:/Users/tozzi/Git/devfinder/dockervolume/postgres:/data/postgres
+      - ~/dockerfiles/postgres:/data/postgres
 
 volumes:
   postgres:
