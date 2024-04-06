@@ -31,7 +31,8 @@ from db_utils import update_task_status_in_db
 # + Variablen für den gesamten Code...
 LOG_FILE_EXT = ".log"
 now = datetime.datetime.now()
-base_path = "/home/marco/pdf-website/DATA/downloads/"
+base_path = "/home/marco/git/pdf-website/DATA/downloads/"
+# base_path = "/home/marco/pdf-website/DATA/downloads/"
 # base_path = r'C:\\Users\\tozzi\\Git\\pdf-website\\DATA\\downloads\\'
 
 
@@ -544,6 +545,7 @@ if __name__ == "__main__":
         print(f"Total runtime of the program is {total_time} seconds.")
         logging.info(total_time)
         progress_logger.info("Programm beendet. Gesamtlaufzeit: {total_time} Sekunden.")
+        # time.sleep(10)
         update_task_status_in_db(task_id, "completed")
         logging.info("Programm beendet.")
         progress_logger.info("Programm beendet.")
