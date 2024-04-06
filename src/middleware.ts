@@ -14,12 +14,12 @@ export default withAuth(
         // console.log(request.nextUrl.pathname)
         // console.log(request.nextauth.token)
 
-        if (request.nextUrl.pathname.startsWith("/extra")
-            && request.nextauth.token?.role !== "admin") {
-            return NextResponse.rewrite(
-                new URL("/denied", request.url)
-            )
-        }
+        // if (request.nextUrl.pathname.startsWith("/extra")
+        //     && request.nextauth.token?.role !== "admin") {
+        //     return NextResponse.rewrite(
+        //         new URL("/denied", request.url)
+        //     )
+        // }
 
         if (request.nextUrl.pathname.startsWith("/client")
             && request.nextauth.token?.role !== "admin"
