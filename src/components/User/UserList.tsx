@@ -1,10 +1,8 @@
-/* eslint-disable */
 // src/components/UserList.tsx
 import { User } from "@/db/schema";
 import { UserEditCard } from "./UserEditCard";
 import { useEffect, useState } from "react";
 import { deleteUserAction } from "@/app/admin/actions";
-import { useRouter } from "next/navigation";
 
 export function UserList() {
   const [users, setUsers] = useState<User[]>([]);
