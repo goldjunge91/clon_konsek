@@ -1,5 +1,5 @@
 "use client";
-import { runpythonscriptAction1 } from "@/lib/actions";
+import { runpythonscriptAction2 } from "@/lib/actions";
 // import { runScript } from "@/lib/actions";
 import React from "react";
 
@@ -8,7 +8,7 @@ const ServerActionTestPage = () => {
   const handleRunScriptClick = async () => {
     // Code to run the Python script will go here
     try {
-      const result = await runpythonscriptAction1();
+      const result = await runpythonscriptAction2();
       console.log(result);
       if (result.error) {
         alert(`Error running script: ${result.error}`);
