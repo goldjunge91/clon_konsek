@@ -1,12 +1,12 @@
 /* eslint-disable */
 "use client";
-// Remember you must use an AuthProvider for
 // client components to useSession
 import { useState } from 'react';
 import { useSession, signIn } from 'next-auth/react';
-import { useParams } from 'next/navigation';
 import UserCard from '@/components/UserCard';
-import { Suspense } from 'react';
+
+// import { button } from '@/components/ui/button';
+// Remember you must use an AuthProvider for
 const fetchData = () => new Promise(resolve => setTimeout(resolve, 2000)); // Simulates data fetching
 
 export default function RunScriptPage() {
@@ -57,6 +57,7 @@ export default function RunScriptPage() {
     <div>
       <UserCard user={session?.user} pagetype={"Client"} />
       {/* <button onClick={handleRunScript}>Python-Skript ausführen</button> */}
+      <button onSubmit={handleRunScript}>Python-Skript ausführen</button>
       <UserCard user={session?.user} pagetype={"Client"} />
       <form className="flex flex-col gap-3">
         <input type="text" placeholder="Your Name" className="input-class" />
@@ -67,6 +68,7 @@ export default function RunScriptPage() {
 
       </form>
       <div>
+        <button onClick={handleRunScript}>Run Script</button>
         <p>This is a paragraph within a div element.</p>
       </div>
       <pre>{output}</pre>
