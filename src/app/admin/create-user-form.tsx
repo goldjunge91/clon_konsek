@@ -1,4 +1,3 @@
-/* eslint-disable */
 // src/app/admin/create-user-form.tsx
 "use client";
 
@@ -46,7 +45,7 @@ export function CreateUserForm() {
     },
   });
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const user = await createUserAction(values);
+    await createUserAction(values);
     toast({
       title: "User Created",
       description: "The user was successfully created",
