@@ -1,10 +1,11 @@
 // src/data-access/users.ts
 import { User, users } from "@/db/schema";
 import { eq } from "drizzle-orm";
-// import bcrypt from 'bcrypt';
 import { db } from "@/db";
-import bcrypt from 'bcryptjs';
+// import bcryptjs from "bcryptjs";
 
+
+import bcrypt from 'bcryptjs';
 const saltRounds = 10;
 
 export async function EditUser(userData: Partial<User>, userId: string): Promise<Partial<User>> { // Replace "Us" with "User" in the function signature
