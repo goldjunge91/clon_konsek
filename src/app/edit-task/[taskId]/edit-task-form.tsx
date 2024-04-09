@@ -24,7 +24,7 @@ import { toast } from "@/components/ui/use-toast";
 const formSchema = z.object({
   name: z.string().min(1).max(50),
   dsmpassword: z.string(),
-  dsmmail: z.string().email({ message: "Invalid email address" }),
+  dsm_mail: z.string().email({ message: "Invalid email address" }),
   dsm_url: z.string().min(1).max(50),
 
 });
@@ -36,7 +36,7 @@ export function EditTaskForm({ task }: { task: Task }) {
     defaultValues: {
       name: task.name,
       dsmpassword:  "",
-      dsmmail: "",
+      dsm_mail: "",
       dsm_url: task.dsm_url ?? "",
     },
   });
@@ -93,7 +93,7 @@ export function EditTaskForm({ task }: { task: Task }) {
 
         <FormField
           control={form.control}
-          name="dsmmail"
+          name="dsm_mail"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Q.Wiki Usermail adresse</FormLabel>

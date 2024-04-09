@@ -46,7 +46,7 @@ export async function getUsers() {
 }
 
 
-export async function createUser(userData: Omit<User, 'id' | 'sharedId'>) {
+export async function createUser(userData: Omit<User, 'id'>) {
   const inserted = await db
     .insert(users)
     .values(userData)

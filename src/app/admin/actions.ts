@@ -12,20 +12,21 @@ import { getSession } from "@/app/api/auth/[...nextauth]/options";
 import bcrypt from 'bcryptjs';
 const saltRounds = 10;
 
-export async function createUserAction(userData: Omit<User, "id" | "sharedId">) {
+export async function createUserAction(userData: Omit<User, "id">) {
   const session = await getSession();
 
   if (!session || session.user.role !== "admin") {
     throw new Error("You must be an admin to create a user");
   }
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { emailVerified, sharedid, isAdmin, ...requiredUserData } = userData;
+  // const { emailVerified, isAdmin, ...requiredUserData } = userData;
+  const { ...requiredUserData } = userData;
   //* wegen eslint image entfernt
   // const { image, emailVerified, sharedid, isAdmin, ...requiredUserData } = userData;
   const hashedPassword = await bcrypt.hash(requiredUserData.password ?? "", saltRounds);
 
-  const userDataWithHashedPassword: Omit<User, "id" | "sharedId"> = {
-    ...userData,
+  const userDataWithHashedPassword: Omit<User, "id"> = {
+   ...userData,
     password: hashedPassword,
   };
 
