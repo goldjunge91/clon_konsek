@@ -19,24 +19,10 @@ export const users = pgTable('user', {
   email: text('email').notNull(),
   password: text('password'),
   emailVerified: timestamp('emailVerified', { mode: 'date' }),
-  sharedid: uuid('sharedId').default(sql`gen_random_uuid()`),
   image: text('image'),
   isAdmin: boolean('isAdmin').default(false),
   role: text('role').default('user'),
 });
-// export const users = pgTable("user", {
-//   id: text("id").notNull().primaryKey(),
-//   name: text("name"),
-//   username: text("username").unique(), // Markiere den Benutzernamen als eindeutig
-//   email: text("email").notNull(),
-//   password: text("password"),
-//   emailVerified: timestamp("emailVerified", { mode: "date" }),
-//   sharedid: uuid("sharedId")
-//     .default(sql`gen_random_uuid()`),
-//   image: text("image"),
-//   isAdmin: boolean("isAdmin").default(false),
-//   role: text("role").default("user"),
-// });
 
 export const accounts = pgTable(
   "account",
@@ -65,32 +51,15 @@ export const accounts = pgTable(
     }),
   })
 );
-
 export const sessions = pgTable("session", {
   sessionToken: text("sessionToken").notNull().primaryKey(),
   userId: text("userId")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
-  sharedid: uuid("sharedId")
-    .default(sql`gen_random_uuid()`),
   isAdmin: boolean("isAdmin").default(false),
     expires: timestamp("expires", { mode: "date" }).notNull(),
     role: text("role"),
 });
-
-export const verificationTokens = pgTable(
-  "verificationToken",
-  {
-    identifier: text("identifier").notNull(),
-    token: text("token").notNull(),
-    expires: timestamp("expires", { mode: "date" }).notNull(),
-    sharedid: uuid("sharedId")
-    .default(sql`gen_random_uuid()`),
-  },
-  (vt) => ({
-    compoundKey: primaryKey({ columns: [vt.identifier, vt.token] }),
-  })
-);
 
 
 export const task = pgTable("task", {
@@ -99,19 +68,13 @@ export const task = pgTable("task", {
     .notNull()
     .primaryKey(),
   name: text("name").notNull(),
-  // description: text("description"),
   dsm_url: text("url"),
   username: text("username").references(() => users.username),
-  taskid: serial("did"),
-  completed: boolean("completed").default(false),
+  taskid: serial("task0_id"),
   userId: text("userId")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
-  // tags: text("tags"),
-  dsmpassword: text("dsm_password"),
-  dsmmail: text("dsmmail"),
-  zippassword: text("zippassword"),
-  downloadZip: text("downloadZip"),
+  dsm_mail: text("dsm_mail"),
   status: text("status").default("not started"),
 });
 
