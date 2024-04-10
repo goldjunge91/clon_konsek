@@ -7,11 +7,10 @@ import { revalidatePath } from "next/cache";
 import { writeFile, mkdir } from 'fs/promises';
 import validator from 'validator';
 import path from 'path';
-import { runpythonscriptAction1, runpythonscriptAction2, runpythonscriptAction22 } from "@/lib/actions";
+import { runpythonscriptAction2 } from "@/lib/actions";
 import { randomUUID } from 'crypto';
 
 import { uniqueNamesGenerator, adjectives, colors, animals } from 'unique-names-generator';
-import { run } from "node:test";
 
 // Funktion, um einen zufälligen Namen zu generieren
 function generateRandomName() {
@@ -74,7 +73,7 @@ export async function saveDataTask2(formData: FormData) {
   try {
     // Task in der Datenbank erstellen
     const savedTask = await createTask(taskData, session.user.id);
-    console.log("createTask SaveDataTask2", savedTask);
+    // console.log("createTask SaveDataTask2", savedTask);
     const uploadsDir = path.join(process.cwd(), 'DATA', 'downloads');
     const taskFolderPath = path.join(uploadsDir, savedTask.id.toString());
     await mkdir(taskFolderPath, { recursive: true });
@@ -84,7 +83,7 @@ export async function saveDataTask2(formData: FormData) {
       const filePath = path.join(taskFolderPath, "liste.csv");
       const fileBuffer = await file.arrayBuffer();
       await writeFile(filePath, new Uint8Array(fileBuffer));
-      console.log(`File saved to ${filePath}`);
+      // console.log(`File saved to ${filePath}`);
     }
     // Konvertiert und speichert formDataFields als JSON
     const formDataFields = {
@@ -104,9 +103,7 @@ export async function saveDataTask2(formData: FormData) {
     revalidatePath("/your-tasks");
     // Verzögertes Ausführen des Python-Skripts
     setTimeout(async () => {
-      console.log("hallo welt task:", {runpythonscriptAction1});
-      await runpythonscriptAction1(savedTask.id);
-      console.log("hallo welt task:", {runpythonscriptAction1});
+      await runpythonscriptAction2(savedTask.id);
 
     }, 5000); // 5000 ms (5 Sekunden) Verzögerung
     return { success: true, taskId: savedTask.id };
