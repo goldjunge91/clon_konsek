@@ -40,9 +40,8 @@ export default async function Home({
       </div>
 
       <div className="mb-8">
-        {/* <SearchBar /> */}
+        
       </div>
-
       <div className="grid grid-cols-3 gap-4">
         {tasks.map((task) => {
           return <TaskCard key={task.id} task={task} />;
