@@ -43,7 +43,6 @@ export default async function TaskPage(props: { params: { taskId: string } }) {
 
           <p className="text-base text-gray-600">{task?.status}</p>
 
-          {/* <TagsList tags={splitTags(room.tags)} /> */}
         </div>
       </div>
     </div>
