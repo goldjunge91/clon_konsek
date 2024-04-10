@@ -5,8 +5,6 @@ import { useState } from 'react';
 import { useSession, signIn } from 'next-auth/react';
 import UserCard from '@/components/UserCard';
 
-// import { button } from '@/components/ui/button';
-// Remember you must use an AuthProvider for
 const fetchData = () => new Promise(resolve => setTimeout(resolve, 2000)); // Simulates data fetching
 
 export default function RunScriptPage() {
@@ -52,9 +50,7 @@ export default function RunScriptPage() {
 
   return (
     <div>
-      <UserCard user={session?.user} pagetype={"Client"} />
-      {/* <button onClick={handleRunScript}>Python-Skript ausführen</button> */}
-      <button onSubmit={handleRunScript}>Python-Skript ausführen</button>
+
       <UserCard user={session?.user} pagetype={"Client"} />
       <form className="flex flex-col gap-3">
         <input type="text" placeholder="Your Name" className="input-class" />
