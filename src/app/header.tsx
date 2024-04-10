@@ -107,32 +107,32 @@ export function Header() {
         <nav className="flex gap-8">
           {isLoggedIn && (
             <>
-              <Link className="hover:underline" href="/server">
+              {/* <Link className="hover:underline" href="/server">
                 Server test
-              </Link>
+              </Link> */}
               <Link className="hover:underline" href="/your-tasks">
                 Your Tasks
               </Link>
               {isAdmin && (
                 <Link className="hover:underline" href="/admin">
-                  Admin
+                  Adminpanel
                 </Link>
               )}
               {isAdmin && (
                 <Link className="hover:underline" href="/browse">
-                  Alle Tasks
+                  Browse
                 </Link>
               )}
             </>
           )}
         </nav>
         <ul className="flex gap-4">
-          <li>
+          {/* <li>
             <Link href="/client">Client</Link>
           </li>
           <li>
             <Link href="/extra">extra</Link>
-          </li>
+          </li> */}
         </ul>
         <div className="flex items-center gap-4">
           {isLoggedIn && <AccountDropdown />}
