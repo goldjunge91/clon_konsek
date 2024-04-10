@@ -29,9 +29,11 @@ def update_task_status_in_db(task_id: str, new_status: str) -> None:
         updated_rows = cursor.rowcount
 
         if updated_rows > 0:
-            print(f"Task mit ID {task_id} wurde auf '{new_status}' gesetzt.")
+            return
+            # print(f"Task mit ID {task_id} wurde auf '{new_status}' gesetzt.")
         else:
-            print(f"Task mit ID {task_id} konnte nicht aktualisiert werden.")
+            return
+            # print(f"Task mit ID {task_id} konnte nicht aktualisiert werden.")
 
         cursor.close()
         conn.close()

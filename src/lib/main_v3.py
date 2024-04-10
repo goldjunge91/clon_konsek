@@ -118,7 +118,7 @@ def get_user_input(base_path):
                 raise FileNotFoundError("Weder liste.csv noch liste.xlsx wurden gefunden.")
         return user_email, user_password, user_link, zip_password, zip_name, file_path, taskid
     except Exception as error:
-        print(f"{error} in main script:{error} {get_user_input} ")
+        ###print(f"{error} in main script:{error} {get_user_input} ")
         logging.info('Error in main script: ', error)
         raise
 
@@ -156,13 +156,13 @@ def create_pdf_from_url(driver, url, pdf_path):
         open_new_tab(driver)
         navigate_and_wait_for_load(driver, url)
         generate_and_save_pdf(driver, pdf_path)
-        print("logging.info(f'Aktuelles Datum und Uhrzeit:')")
+        #print("logging.info(f'Aktuelles Datum und Uhrzeit:')")
         logging.info(f'Aktuelles Datum und Uhrzeit: {now}')
         # extract_and_save_metadata(driver, pdf_path)
         driver.close()
         driver.switch_to.window(driver.window_handles[0])
     except Exception as error:
-        print(f"Error creating PDF from {url}: {error}")
+        #print(f"Error creating PDF from {url}: {error}")
         logging.info('Error creating PDF from ', url, error)
         raise
 
@@ -173,9 +173,8 @@ def check_datei_endung(file_path):
         logging.info('Start der Funktion: ', check_datei_endung)
         if file_extension == '.csv':
             data = pd.read_csv(file_path, delimiter=';', encoding='utf-8')
-            print(
-                f"Func:cde... Aktuelles Datum und Uhrzeit: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
-            )
+            #print(
+                # f"Func:cde... Aktuelles Datum und Uhrzeit: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
             logging.info(
                 'Aktuelles Datum und Uhrzeit: ',
                 datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
@@ -191,8 +190,8 @@ def process_csv(file_path):
     try:
         df = pd.read_csv(file_path, delimiter=';', encoding='utf-8')
 
-        print("Eingabedaten:")
-        # print(df.head())
+        #print("Eingabedaten:")
+        # #print(df.head())
 
         # Extrahieren von Titel und URL mit regulären Ausdrücken
         df[['Title', 'URL']] = df['Titel'].str.extract(r'^(.*?)\s*(\(https?://[^\s()]+\))?$', expand=True)
@@ -201,8 +200,8 @@ def process_csv(file_path):
         # Wenn die URL nicht extrahiert werden konnte, verwenden wir den Titel als URL
         df['URL'] = df['URL'].fillna(df['Title'])
 
-        print("Daten nach Titel- und URL-Extraktion:")
-        print(df.head())
+        #print("Daten nach Titel- und URL-Extraktion:")
+        #print(df.head())
 
         # Überschreiben der Eingabedatei mit den aktualisierten Daten
         df.to_csv(file_path, index=False, sep=';', encoding='utf-8')
@@ -217,8 +216,8 @@ def process_excel(file_path):
     try:
         df = pd.read_excel(file_path)
 
-        print("Eingabedaten:")
-        # print(df.head())
+        #print("Eingabedaten:")
+        # #print(df.head())
 
         # Extrahieren von Titel und URL mit regulären Ausdrücken
         df[['Title', 'URL']] = df['Titel'].str.extract(r'^(.*?)\s*(\(https?://[^\s()]+\))?$', expand=True, flags=re.UNICODE)
@@ -227,8 +226,8 @@ def process_excel(file_path):
         # Wenn die URL nicht extrahiert werden konnte, verwenden wir den Titel als URL
         df['URL'] = df['URL'].fillna(df['Title'])
 
-        print("Daten nach Titel- und URL-Extraktion:")
-        # print(df.head())
+        #print("Daten nach Titel- und URL-Extraktion:")
+        # #print(df.head())
 
         # Überschreiben der Eingabedatei mit den aktualisierten Daten
         df.to_excel(file_path, index=False)
@@ -266,13 +265,13 @@ def links(data):
 
         # Aktuelle Uhrzeit
         now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        print(f"logging.info(f'Aktuelles Datum und Uhrzeit:')")
+        #print(f"logging.info(f'Aktuelles Datum und Uhrzeit:')")
         logging.info(f'Aktuelles Datum und Uhrzeit: {now}')
 
         dataToSave = df[["Title", "URL"]]
 
-        print("Daten für dataToSave:")
-        print(dataToSave.head())
+        #print("Daten für dataToSave:")
+        #print(dataToSave.head())
 
         return df, base_url, dataToSave
 
@@ -293,7 +292,7 @@ def links(data):
 #             base_url = ''
 #         # Aktuelle Uhrzeit
 #         now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-#         print(f"logging.info(f'Aktuelles Datum und Uhrzeit:')")
+#         #print(f"logging.info(f'Aktuelles Datum und Uhrzeit:')")
 #         logging.info(f'Aktuelles Datum und Uhrzeit: {now}')
 
 #         # Überprüfen, ob die benötigten Spalten vorhanden sind
@@ -306,8 +305,8 @@ def links(data):
 #         else:
 #             dataToSave = df[["Title", "URL"] + required_columns]
 
-#         print("Daten für dataToSave:")
-#         print(dataToSave.head())
+#         #print("Daten für dataToSave:")
+#         #print(dataToSave.head())
 
 #         return df, base_url, dataToSave
 
@@ -316,7 +315,6 @@ def links(data):
 #         raise
 
 def save_csv(file_path, dataToSave):
-
     try:
         file_name, file_extension = os.path.splitext(file_path)
         modified_file_path = f"{file_name}_aenderung_{now}_{file_extension}"
@@ -330,7 +328,7 @@ def process_urls_to_pdf(user_email, user_password, user_link, file_path):
 
     setup_logging()  # Konfigurieren der Logging-Funktion
     start_time = time.time()  # Startzeitpunkt der Ausführung
-    print(f"Aktuelles Datum und Uhrzeit, Erste Zeile:, {file_path}")
+    #print(f"Aktuelles Datum und Uhrzeit, Erste Zeile:, {file_path}")
     logging.info(f"Aktuelles Datum und Uhrzeit: {now}, \"{file_path}\" Erste Zeile")
     if not all([user_email, user_password, user_link, file_path]):
         data = check_datei_endung(file_path)  # Überprüfen der Dateiendung
@@ -349,7 +347,7 @@ def process_urls_to_pdf(user_email, user_password, user_link, file_path):
         urls_data_frame = pd.read_csv(csv_file_path, delimiter=';')  # CSV-Datei einlesen
         folder_path = os.path.dirname(file_path)  # Ordnerpfad bestimmen
         pdf_folder = os.path.join(folder_path, "pdf/") # Pfad zum PDF-Ordner zusammenstellen
-        print(f"Aktuelles Datum und Uhrzeit, Erste Zeile:, {pdf_folder}")
+        #print(f"Aktuelles Datum und Uhrzeit, Erste Zeile:, {pdf_folder}")
         logging.info(f"Aktuelles Datum und Uhrzeit: {now}, \"{pdf_folder}\" Erste Zeile")
         try:
             os.makedirs(pdf_folder, exist_ok=True)
@@ -364,26 +362,26 @@ def process_urls_to_pdf(user_email, user_password, user_link, file_path):
                         create_pdf_from_url(driver, url, pdf_path)
                         logging.info(f"{index} von {total_links} erstellt: {url}")
                     else:
-                        print(f"File {pdf_path} already exists")
+                        #print(f"File {pdf_path} already exists")
                         logging.info(f"File {pdf_path} already exists")
                     progress = index / total_links
                     filled_width = int(progress * progress_bar_width)
                     progress_bar = '█' * filled_width + '░' * (progress_bar_width - filled_width)
-                    print(f"\rFortschritt: [{progress_bar}] {index}/{total_links}", end="")
+                    #print(f"\rFortschritt: [{progress_bar}] {index}/{total_links}", end="")
 
-        print("Alle Dateien erfolgreich erstellt")
+        #print("Alle Dateien erfolgreich erstellt")
         logging.info("Ende von process_urls_to_pdf")
         end_time = time.time()
         total_time = end_time - start_time
         logging.info(f"Gesamtlaufzeit: {total_time} Sekunden")
     except Exception as error: # Fehlermeldung ausgeben und loggen
-        print(f"Error in main script: {error}")
+        #print(f"Error in main script: {error}")
         logging.info('Error in main script: ', error)
     finally:
         logging.info("Programm beendet.")  # Loggen des Programmendes
     end_time = time.time()  # End time after the program has run
     total_time = end_time - start_time  # Total runtime
-    print(f"Total runtime of the program is {total_time} seconds.")
+    #print(f"Total runtime of the program is {total_time} seconds.")
     logging.info(total_time)
     logging.info("Ende von process_urls_to_pdf")
 
@@ -398,43 +396,28 @@ def zip_pdf_folder(pdf_folder, zip_password, zip_name, zip_path):
                     file_path = os.path.join(root, file)
                     zf.write(file_path, os.path.relpath(file_path, pdf_folder))
 
-        print(f"PDF-Ordner erfolgreich als ZIP-Datei gespeichert: {zip_path}")
+        #print(f"PDF-Ordner erfolgreich als ZIP-Datei gespeichert: {zip_path}")
         logging.info(f"PDF-Ordner erfolgreich als ZIP-Datei gespeichert: {zip_path}")
 
         # Löschen des PDF-Ordners (auskommentiert)
         shutil.rmtree(pdf_folder)
-        print(f"PDF-Ordner gelöscht: {pdf_folder}")
+        #print(f"PDF-Ordner gelöscht: {pdf_folder}")
         logging.info(f"PDF-Ordner gelöscht: {pdf_folder}")
 
     except Exception as error:
-        print(f"Fehler beim Komprimieren des PDF-Ordners: {error}")
+        #print(f"Fehler beim Komprimieren des PDF-Ordners: {error}")
         logging.error(f"Fehler beim Komprimieren des PDF-Ordners: {error}")
         raise
 
 
-
-
-# def update_task_status(task_data: Dict[str, Any]) -> None:
-#     task_id = task_data["taskid"]  # Extrahieren der Task-ID aus den Daten
-#     current_status = task_data["status"]  # Extrahieren des aktuellen Status
-
-#     # Überprüfen, ob der aktuelle Status "pending" ist
-#     if current_status == "pending":
-#         # Importieren der Funktion zum Aktualisieren des Task-Status
-#         # from db_utils import update_task_status_in_db
-
-#         update_task_status_in_db(str(task_id), "completed")
-#     else:
-#         print(f"Task mit ID {task_id} hat bereits den Status '{current_status}'.")
-
-
 if __name__ == "__main__":
     setup_logging()
+    start = {datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
     sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
     start_time = time.time()
-    print("Willkommen beim PDF-Exporter!")
-    print("Starte die Verarbeitung...")
+    # #print("Willkommen beim PDF-Exporter!")
+    # #print("Starte die Verarbeitung...")
     user_email, user_password, user_link, zip_password, zip_name, file_path, task_id = get_user_input(base_path)
 
     log_folder = os.path.dirname(file_path)
@@ -463,16 +446,16 @@ if __name__ == "__main__":
     progress_logger.addHandler(progress_file_handler)
 
     if not all([user_email, user_password, user_link, zip_password, zip_name, file_path]):
-        print("Überprüfe CSV/Excel-Datei...")
+        #print("Überprüfe CSV/Excel-Datei...")
         for _ in range(4):
-            print("...", end="\r")
+            #print("...", end="\r")
             time.sleep(0.5)
-        print("CSV/Excel-Datei erfolgreich überprüft!")
+        #print("CSV/Excel-Datei erfolgreich überprüft!")
         data = process_file(file_path)
         total_rows = len(data)
         total_urls = len(data[data['URL'].notnull()])
-        print(f"Gesamtanzahl der Zeilen: {total_rows}")
-        print(f"Anzahl der gefundenen URLs: {total_urls}")
+        # #print(f"Gesamtanzahl der Zeilen: {total_rows}")
+        #print(f"Anzahl der gefundenen URLs: {total_urls}")
         progress_logger.info(f"Gesamtanzahl der Zeilen: {total_rows}")
         progress_logger.info(f"Anzahl der gefundenen URLs: {total_urls}")
 
@@ -490,18 +473,18 @@ if __name__ == "__main__":
         urls_data_frame, base_url, dataToSave = links(csv_file_path)
         folder_path = os.path.dirname(file_path)
         pdf_folder = os.path.join(folder_path, "pdf/")
-        # print(f"logging.info(f'Aktuelles Datum und Uhrzeit:'), \"{pdf_folder}\" Erste Zeile")
+        # #print(f"logging.info(f'Aktuelles Datum und Uhrzeit:'), \"{pdf_folder}\" Erste Zeile")
         # progress_logger.info(f"logging.info(f'Aktuelles Datum und Uhrzeit:'), \"{pdf_folder}\" Erste Zeile")
         progress_logger.info(f"logging.info(f'Aktuelles Datum und Uhrzeit:'), \"{pdf_folder}\" Erste Zeile")
         if not os.path.exists(pdf_folder):
             os.makedirs(pdf_folder)
 
         total_links = len(urls_data_frame)
-        print(f"Insgesamt {total_links} Links gefunden. Beginne mit der PDF-Erstellung.")
+        #print(f"Insgesamt {total_links} Links gefunden. Beginne mit der PDF-Erstellung.")
         
-        # progress_logger.info(f"##################### Gesamtanzahl der Links  #####################")
+        progress_logger.info(f"##################### Gesamtanzahl der Links  #####################")
         progress_logger.info(f"Insgesamt {total_links} Links gefunden. Beginne mit der PDF-Erstellung.")
-        # progress_logger.info(f"##################### Gesamtanzahl der Links  #####################")
+        progress_logger.info(f"##################### Gesamtanzahl der Links  #####################")
         progress_bar_width = 50
 
         if 'URL' in urls_data_frame.columns and 'Title' in urls_data_frame.columns:
@@ -514,19 +497,19 @@ if __name__ == "__main__":
                     logging.info(f"{index} von {total_links} erstellt: {url}")
                     progress_logger.info(f"{index} von {total_links} erstellt: {url}")
                 else:
-                    print(f"File {pdf_path} already exists")
+                    #print(f"File {pdf_path} already exists")
                     logging.info(f"File {pdf_path} already exists")
                     progress_logger.info(f"File {pdf_path} already exists")
 
                 progress = index / total_links
                 filled_width = int(progress * progress_bar_width)
                 progress_bar = '█' * filled_width + '░' * (progress_bar_width - filled_width)
-                print(f"\rFortschritt: [{progress_bar}] {index}/{total_links}", end="")
+                #print(f"\rFortschritt: [{progress_bar}] {index}/{total_links}", end="")
                 progress_logger.info(f"Fortschritt: [{progress_bar}] {index}/{total_links}")
         else:
             logging.error("Die Spalten 'URL' und 'Title' sind nicht im DataFrame vorhanden.")
 
-        print("\nAlle Dateien erfolgreich erstellt!")
+        #print("\nAlle Dateien erfolgreich erstellt!")
         logging.info("Alle Dateien erfolgreich erstellt!")
         progress_logger.info("Alle Dateien erfolgreich erstellt!")
 
@@ -535,13 +518,13 @@ if __name__ == "__main__":
         time.time()
 
     except Exception as error:
-        # print(f"Error in main script: {error}")
+        # #print(f"Error in main script: {error}")
         logging.info('Error in main script: ', error)
 
     finally:
         end_time = time.time()
         total_time = end_time - start_time
-        print(f"Total runtime of the program is {total_time} seconds.")
+        #print(f"Total runtime of the program is {total_time} seconds.")
         logging.info(total_time)
         progress_logger.info("Programm beendet. Gesamtlaufzeit: {total_time} Sekunden.")
         # time.sleep(10)
