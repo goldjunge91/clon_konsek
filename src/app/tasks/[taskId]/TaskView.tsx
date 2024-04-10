@@ -14,7 +14,7 @@ export function TaskView({ task }: { task: Task }) {
     required: true,
     onUnauthenticated() {
       signIn(undefined, { callbackUrl: "/foo" });
-      redirect("/api/auth/signin?callbackUrl=/tasks/%5BtaskId%5D/task");
+      redirect("/api/auth/signin?callbackUrl=/tasks/[taskId]/task");
     },
   });
   const [isLoading, setIsLoading] = useState(true);

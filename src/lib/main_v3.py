@@ -27,13 +27,17 @@ import json
 import pyzipper
 from typing import Any
 from db_utils import update_task_status_in_db
+import sys
+import io
 
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
 # + Variablen für den gesamten Code...
 LOG_FILE_EXT = ".log"
 now = datetime.datetime.now()
-base_path = "/home/marco/git/pdf-website/DATA/downloads/"
+# base_path = "/home/marco/git/pdf-website/DATA/downloads/"
 # base_path = "/home/marco/pdf-website/DATA/downloads/"
-# base_path = r'C:\\Users\\tozzi\\Git\\pdf-website\\DATA\\downloads\\'
+base_path = r'C:\\Users\\tozzi\\Git\\pdf-website\\DATA\\downloads\\'
 
 
 options = webdriver.ChromeOptions()  # Initialize the options object
@@ -94,7 +98,7 @@ def get_user_input(base_path):
         # form-data.json lesen und Daten extrahieren
         with open(form_data_path, "r") as file:
             form_data = json.load(file)
-            user_email = form_data["dsmmail"]
+            user_email = form_data["dsm_mail"]
             user_password = form_data["dsmpassword"]
             user_link = form_data["dsm_url"]
             zip_password = form_data["zippassword"]
@@ -112,23 +116,17 @@ def get_user_input(base_path):
             file_path = os.path.join(path, "liste.xlsx")
             if not os.path.exists(file_path):
                 raise FileNotFoundError("Weder liste.csv noch liste.xlsx wurden gefunden.")
-
         return user_email, user_password, user_link, zip_password, zip_name, file_path, taskid
-
-
     except Exception as error:
         print(f"{error} in main script:{error} {get_user_input} ")
         logging.info('Error in main script: ', error)
         raise
-
-
 
 # ! Funktion für neuen Tab öffnen
 def open_new_tab(driver):
     driver.execute_script("window.open('');")
     time.sleep(1)
     driver.switch_to.window(driver.window_handles[-1])
-
 
 # ! Funktion zum warten auf die Website.
 def navigate_and_wait_for_load(driver, url):
@@ -194,7 +192,7 @@ def process_csv(file_path):
         df = pd.read_csv(file_path, delimiter=';', encoding='utf-8')
 
         print("Eingabedaten:")
-        print(df.head())
+        # print(df.head())
 
         # Extrahieren von Titel und URL mit regulären Ausdrücken
         df[['Title', 'URL']] = df['Titel'].str.extract(r'^(.*?)\s*(\(https?://[^\s()]+\))?$', expand=True)
@@ -220,7 +218,7 @@ def process_excel(file_path):
         df = pd.read_excel(file_path)
 
         print("Eingabedaten:")
-        print(df.head())
+        # print(df.head())
 
         # Extrahieren von Titel und URL mit regulären Ausdrücken
         df[['Title', 'URL']] = df['Titel'].str.extract(r'^(.*?)\s*(\(https?://[^\s()]+\))?$', expand=True, flags=re.UNICODE)
@@ -230,7 +228,7 @@ def process_excel(file_path):
         df['URL'] = df['URL'].fillna(df['Title'])
 
         print("Daten nach Titel- und URL-Extraktion:")
-        print(df.head())
+        # print(df.head())
 
         # Überschreiben der Eingabedatei mit den aktualisierten Daten
         df.to_excel(file_path, index=False)
@@ -432,11 +430,11 @@ def zip_pdf_folder(pdf_folder, zip_password, zip_name, zip_path):
 
 if __name__ == "__main__":
     setup_logging()
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
     start_time = time.time()
     print("Willkommen beim PDF-Exporter!")
     print("Starte die Verarbeitung...")
-
-    # user_email, user_password, user_link, zip_password, zip_name, file_path = get_user_input(base_path)
     user_email, user_password, user_link, zip_password, zip_name, file_path, task_id = get_user_input(base_path)
 
     log_folder = os.path.dirname(file_path)
@@ -444,16 +442,15 @@ if __name__ == "__main__":
     progress_log_file = os.path.join(log_folder, f"{zip_name}.log")
 
     # Fehlertolerante Codierung für stdout und stderr
-    sys.stdout = codecs.getwriter('utf-8')(sys.stdout.detach())
     sys.stderr = codecs.getwriter('utf-8')(sys.stderr.detach())
-
     logger = logging.getLogger()
     progress_logger = logging.getLogger('progress_logger')
 
     logger.setLevel(logging.INFO)
     progress_logger.setLevel(logging.INFO)
-
+    
     file_handler = logging.FileHandler(log_file, encoding='utf-8')
+    # file_handler = logging.FileHandler(log_file, encoding='utf-8')
     progress_file_handler = logging.FileHandler(progress_log_file, encoding='utf-8')
 
     formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
@@ -471,9 +468,7 @@ if __name__ == "__main__":
             print("...", end="\r")
             time.sleep(0.5)
         print("CSV/Excel-Datei erfolgreich überprüft!")
-
         data = process_file(file_path)
-
         total_rows = len(data)
         total_urls = len(data[data['URL'].notnull()])
         print(f"Gesamtanzahl der Zeilen: {total_rows}")
@@ -495,14 +490,18 @@ if __name__ == "__main__":
         urls_data_frame, base_url, dataToSave = links(csv_file_path)
         folder_path = os.path.dirname(file_path)
         pdf_folder = os.path.join(folder_path, "pdf/")
-        print(f"logging.info(f'Aktuelles Datum und Uhrzeit:'), \"{pdf_folder}\" Erste Zeile")
+        # print(f"logging.info(f'Aktuelles Datum und Uhrzeit:'), \"{pdf_folder}\" Erste Zeile")
+        # progress_logger.info(f"logging.info(f'Aktuelles Datum und Uhrzeit:'), \"{pdf_folder}\" Erste Zeile")
         progress_logger.info(f"logging.info(f'Aktuelles Datum und Uhrzeit:'), \"{pdf_folder}\" Erste Zeile")
         if not os.path.exists(pdf_folder):
             os.makedirs(pdf_folder)
 
         total_links = len(urls_data_frame)
         print(f"Insgesamt {total_links} Links gefunden. Beginne mit der PDF-Erstellung.")
+        
+        # progress_logger.info(f"##################### Gesamtanzahl der Links  #####################")
         progress_logger.info(f"Insgesamt {total_links} Links gefunden. Beginne mit der PDF-Erstellung.")
+        # progress_logger.info(f"##################### Gesamtanzahl der Links  #####################")
         progress_bar_width = 50
 
         if 'URL' in urls_data_frame.columns and 'Title' in urls_data_frame.columns:

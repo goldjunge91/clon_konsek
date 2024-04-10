@@ -3,11 +3,13 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
+    "noErrorTruncation": true,                                 /* Skip type checking all .d.ts files. */
     "strict": true,
     "noEmit": true,
     "esModuleInterop": true,
+    "moduleDetection": "auto",                        /* Control what method is used to detect module-format JS files. */
     "module": "esnext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
@@ -21,6 +23,7 @@
       "@/*": ["./src/*"]
     }
   },
+
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }

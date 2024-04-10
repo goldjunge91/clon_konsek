@@ -1,4 +1,4 @@
-/* eslint-disable */
+/* @eslint-ignore */
 // src/app/create-task/create-task-form.tsx
 "use client";
 
@@ -21,23 +21,13 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 
 const formSchema = z.object({
-  name: z.string().min(1).max(50),
-  // description: z.string(),
-  // description: z.string().min(1).max(250),
-  dsm_url: z.string(),
-  // dsm_url: z.string().url({ message: "Invalid url" }),
-  // tags: z.string().min(1).max(50),
-  // userId: z.string(),
-  dsmpassword: z.string(),
-  // dsmpassword: z.string().min(1).max(50).refine((value) => value !== '', {
-  //   message: "Bitte ein Passwort eingeben",
-  // }),
-  dsmmail: z.string(),
-  // dsmmail: z.string().email({ message: "Invalid email address" }),
-  // taskid: z.string(),
-  // taskid: z.string().min(1).max(50),
-  zippassword: z.string(),
-  // zippassword: z.string().min(1).max(50),
+  dsm_url: z.string().url({ message: "URL ist im falschen Format: https://" }),
+  dsmpassword: z.string().min(1).max(50).refine((value) => value !== '', {
+    message: "Bitte ein Passwort eingeben",
+  }),
+  dsm_mail: z.string().email({ message: "Geben sie eine Gültigformatierte E-Mail ein" }),
+  secretId: z.string(),
+  zippassword: z.string().min(6).max(50),
   file: z
     .any()
     .optional()
@@ -47,8 +37,7 @@ const formSchema = z.object({
     .refine(
       (file) =>
         file?.type === "text/csv" ||
-        file?.type ===
-          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        file?.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       { message: "Bitte eine CSV oder Excel Datei auswählen" }
     )
     .refine((file) => (file?.size || 0) <= 5000000, {
@@ -62,32 +51,28 @@ export function CreateTaskForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "", // Habe ich
-      // description: "", // habe ich
+      // name: "",
       dsm_url: "", // habe ich
-      // tags: "", // habe ich
       dsmpassword: "", // habe ich
-      dsmmail: "",
-      // taskId:  "",
+      dsm_mail: "",
+      secretId: "",
       zippassword: "",
       file: undefined,
     },
   });
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const formData = new FormData();
-    formData.append("name", values.name);
-    // formData.append("description", values.description);
     formData.append("dsm_url", values.dsm_url);
     formData.append("dsmpassword", values.dsmpassword);
-    formData.append("dsmmail", values.dsmmail);
-    // formData.append("tags", values.tags);
-    // formData.append("taskId", values.taskId);
+    formData.append("dsm_mail", values.dsm_mail);
+    formData.append("secretId", values.secretId);
     formData.append("zippassword", values.zippassword);
     formData.append("file", values.file);
     if (values.file) {
       formData.append("file", values.file);
 
-      const {taskId} = await saveDataTask2(formData); // Remove 'values' from the arguments
+      const { taskId } = await saveDataTask2(formData); // Remove 'values' from the arguments
 
       toast({
         title: "Task Created",
@@ -99,7 +84,7 @@ export function CreateTaskForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
+        {/* <FormField
           control={form.control}
           name="name"
           render={({ field }) => (
@@ -112,7 +97,7 @@ export function CreateTaskForm() {
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> */}
 
         <FormField
           control={form.control}
@@ -149,7 +134,7 @@ export function CreateTaskForm() {
 
         <FormField
           control={form.control}
-          name="dsmmail"
+          name="dsm_mail"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Q.Wiki User Mail</FormLabel>
@@ -182,7 +167,9 @@ export function CreateTaskForm() {
         <FormField
           control={form.control}
           name="file"
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           render={({ field: { value, onChange, ...fieldProps } }) => (
+            // @typescript-eslint/no-unused-vars
             <FormItem>
               <FormLabel>file</FormLabel>
               <FormControl>
@@ -190,7 +177,7 @@ export function CreateTaskForm() {
                   {...fieldProps}
                   placeholder="file"
                   type="file"
-                  accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                  accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                   onChange={(event) => {
                     const file = event.target.files?.[0];
                     if (event.target.files && event.target.files.length > 0) {

@@ -1,13 +1,14 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { getTasks } from "@/data-access/tasks";
-// import { SearchBar } from "./search-bar";
 import { TaskCard } from "./task-card";
 import { options } from "../api/auth/[...nextauth]/options"
 import { unstable_noStore } from "next/cache";
 import Image from "next/image";
 import { getServerSession } from "next-auth/next"
 import { redirect } from 'next/navigation'
+
+
 export default async function Home({
   searchParams,
 }: {

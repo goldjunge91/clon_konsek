@@ -90,7 +90,7 @@ export async function getTasks(search: string | undefined) {
 }
 
 export async function getUserTasks() {
-console.log(getSession);
+// console.log(getSession);
   const session = await getSession();
   if (!session) {
     throw new Error("User not authenticated");
@@ -98,7 +98,7 @@ console.log(getSession);
   const tasks = await db.query.task.findMany({
     where: eq(task.userId, session.user.id),
   });
-  console.log(tasks);
+  // console.log(tasks);
   return tasks;
 }
 

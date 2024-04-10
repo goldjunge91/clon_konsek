@@ -5,25 +5,21 @@ import Link from "next/link";
 import {
   Card,
   CardContent,
-  // CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Task } from "@/db/schema";
 import { GithubIcon } from "lucide-react";
-// import { TagsList } from "@/components/tags-list";
-// import { splitTags } from "@/lib/utils";
+
 
 export function TaskCard({ task }: { task: Task }) {
   return (
     <Card>
       <CardHeader>
         <CardTitle>{task.name}</CardTitle>
-        {/* <CardDescription>{task.description}</CardDescription> */}
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
-        {/* <TagsList tags={splitTags(task.tags)} /> */}
         {task.dsm_url && (
           <Link
             href={task.dsm_url}
@@ -32,13 +28,13 @@ export function TaskCard({ task }: { task: Task }) {
             rel="noopener noreferrer"
           >
             <GithubIcon />
-            Github Project
+            Q.Wiki URL
           </Link>
         )}
       </CardContent>
       <CardFooter>
         <Button asChild>
-          <Link href={`/tasks/${task.id}`}>Join Task</Link>
+          <Link href={`/tasks/${task.id}`}>Task Öffnen</Link>
         </Button>
       </CardFooter>
     </Card>

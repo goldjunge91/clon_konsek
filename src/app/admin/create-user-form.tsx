@@ -1,9 +1,10 @@
 // src/app/admin/create-user-form.tsx
 "use client";
 
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
+
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -15,18 +16,17 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { createUserAction } from "./actions";
-import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
+import { createUserAction } from "./actions";
 
 const formSchema = z.object({
-  name: z.string().min(1).max(50),
+  name: z.string().max(50).nullable().default(""),
   username: z.string().min(1).max(50),
   email: z.string().email(),
   password: z.string().min(6).max(50),
   role: z.enum(["user", "admin"]),
   emailVerified: z.date().nullable().default(null),
-  sharedid: z.string().nullable().default(null),
   image: z.string().nullable().default(null),
   isAdmin: z.boolean().default(false),
 });
@@ -37,18 +37,19 @@ export function CreateUserForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
+      // name: "",
       username: "",
       email: "",
       password: "",
       role: "user",
     },
   });
+  
   async function onSubmit(values: z.infer<typeof formSchema>) {
     await createUserAction(values);
     toast({
-      title: "User Created",
-      description: "The user was successfully created",
+      title: "Neuen Benutzer erstellt!",
+      description: "Benutzer wurde erfolgreich erstellt!",
     });
     router.refresh(); // Aktualisiere die Seite, um die aktualisierte Benutzerliste anzuzeigen
     // router.push("/admin");
@@ -59,28 +60,14 @@ export function CreateUserForm() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input {...field} placeholder="John Doe" />
-              </FormControl>
-              <FormDescription>This is the user's full name.</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
           name="username"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input {...field} placeholder="johndoe" />
+                <Input {...field} placeholder="Benutzername" />
               </FormControl>
-              <FormDescription>This is the user's username.</FormDescription>
+              <FormDescription>Benutzername zum Login</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -92,9 +79,8 @@ export function CreateUserForm() {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input {...field} placeholder="john@example.com" />
+                <Input {...field} placeholder="email@example.com" />
               </FormControl>
-              <FormDescription>This is the user's email address.</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -108,7 +94,7 @@ export function CreateUserForm() {
               <FormControl>
                 <Input {...field} type="password" placeholder="********" />
               </FormControl>
-              <FormDescription>This is the user's password.</FormDescription>
+              <FormDescription>Benutzer Passwort</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -125,12 +111,12 @@ export function CreateUserForm() {
                   <option value="admin">Admin</option>
                 </select>
               </FormControl>
-              <FormDescription>This is the user's role.</FormDescription>
+              <FormDescription>Benutzer Role </FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit">Create User</Button>
+        <Button type="submit">Neuen Benutzer erstellen.</Button>
       </form>
     </Form>
   );

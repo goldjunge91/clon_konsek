@@ -23,7 +23,7 @@ import { toast } from "@/components/ui/use-toast";
 
 const formSchema = z.object({
   name: z.string().min(1).max(50),
-  dsmpassword: z.string(),
+  // dsmpassword: z.string(),
   dsm_mail: z.string().email({ message: "Invalid email address" }),
   dsm_url: z.string().min(1).max(50),
 
@@ -34,9 +34,9 @@ export function EditTaskForm({ task }: { task: Task }) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: task.name,
-      dsmpassword:  "",
-      dsm_mail: "",
+      name: "",
+      // dsmpassword:  "",
+      dsm_mail: task.dsm_mail ?? "",
       dsm_url: task.dsm_url ?? "",
     },
   });
@@ -107,7 +107,7 @@ export function EditTaskForm({ task }: { task: Task }) {
             </FormItem>
           )}
         />
-        <FormField
+        {/* <FormField
           control={form.control}
           name="dsmpassword"
           render={({ field }) => (
@@ -122,7 +122,7 @@ export function EditTaskForm({ task }: { task: Task }) {
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> */}
 
         <Button type="submit">Submit</Button>
       </form>

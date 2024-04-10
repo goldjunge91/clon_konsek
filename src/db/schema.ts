@@ -3,7 +3,7 @@ import {
   timestamp,
   pgTable,
   text,
-  serial,
+  // serial,
   boolean,
   primaryKey,
   integer,
@@ -14,7 +14,7 @@ import { sql } from "drizzle-orm";
 
 export const users = pgTable('user', {
   id: text('id').primaryKey().default(sql`gen_random_uuid()`),
-  name: text('name'),
+  name: text('name').default(""),
   username: text('username').unique(),
   email: text('email').notNull(),
   password: text('password'),
@@ -67,13 +67,11 @@ export const task = pgTable("task", {
     .default(sql`gen_random_uuid()`)
     .notNull()
     .primaryKey(),
-  name: text("name").notNull(),
   dsm_url: text("url"),
-  username: text("username").references(() => users.username),
-  taskid: serial("task0_id"),
-  userId: text("userId")
-    .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
+  name: text("name"),
+  // username: text("username").references(() => users.username),
+  secretId: text("secretId"),
+  userId: text("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
   dsm_mail: text("dsm_mail"),
   status: text("status").default("not started"),
 });

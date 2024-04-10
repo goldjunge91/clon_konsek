@@ -14,10 +14,6 @@ export default function RunScriptPage() {
     // const router = useParams();
     const [output, setOutput] = useState("");
 
-    if (status === "loading") {
-        // return <Suspense fallback={<p>Loading feed...</p>}></Suspense>
-      return
-    }
 
     if (status === "unauthenticated") {
         signIn('auth-provider', { callbackUrl: '/client' }); // Leitet zur Anmeldeseite um
@@ -26,6 +22,7 @@ export default function RunScriptPage() {
 
     // Optional: Zugriffssteuerung basierend auf der Benutzerrolle
     if (session?.user.role !== "admin" && session?.user.role !== "user") {
+        console.log("User not authorized");
         return <h1>Zugriff verweigert</h1>;
     }
 

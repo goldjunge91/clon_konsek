@@ -1,6 +1,5 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import {
   Card,
   CardContent,
@@ -9,10 +8,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Task } from "@/db/schema";
 import { Progress } from "@/components/ui/progress";
+import { Task } from "@/db/schema";
+import Link from "next/link";
 
-import { GithubIcon, PencilIcon, TrashIcon } from "lucide-react";
+import { 
+  GithubIcon, 
+  PencilIcon, 
+  TrashIcon 
+} from "lucide-react";
 
 import {
   AlertDialog,
@@ -25,13 +29,15 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { deleteTaskAction } from "./actions";
 import * as React from "react";
+import { deleteTaskAction } from "./actions";
 
 
 
 export function ProgressDemo() {
   const [progress, setProgress] = React.useState(13);
+
+
 
   React.useEffect(() => {
     const timer = setTimeout(() => setProgress(66), 500);
@@ -42,6 +48,7 @@ export function ProgressDemo() {
   }
 
 export function UserTaskCard({ task }: { task: Task }) {
+  
   return (
     <Card>
       <CardHeader className="relative">
@@ -52,7 +59,7 @@ export function UserTaskCard({ task }: { task: Task }) {
         </Button>
         <CardTitle>{task.name}</CardTitle>
         <Progress value={33} />
-        <CardDescription>{task.dsmmail}</CardDescription>
+        <CardDescription>{task.dsm_mail}</CardDescription>
         <button className="button size-50">Click Me!</button>
         <Button asChild>
           <Link href="/create-task">Create Task</Link>

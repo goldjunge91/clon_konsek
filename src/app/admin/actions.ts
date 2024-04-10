@@ -18,11 +18,7 @@ export async function createUserAction(userData: Omit<User, "id">) {
   if (!session || session.user.role !== "admin") {
     throw new Error("You must be an admin to create a user");
   }
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  // const { emailVerified, isAdmin, ...requiredUserData } = userData;
   const { ...requiredUserData } = userData;
-  //* wegen eslint image entfernt
-  // const { image, emailVerified, sharedid, isAdmin, ...requiredUserData } = userData;
   const hashedPassword = await bcrypt.hash(requiredUserData.password ?? "", saltRounds);
 
   const userDataWithHashedPassword: Omit<User, "id"> = {

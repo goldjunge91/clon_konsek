@@ -63,7 +63,7 @@ export const options: NextAuthOptions = {
         }
         return {
           id: user.id,
-          name: user.name ?? "",
+          name: user.username ?? "",
           email: user.email,
           image: user.image ?? "",
           role: user.role ?? "user",
@@ -91,7 +91,7 @@ export const options: NextAuthOptions = {
 
       return {
         id: dbUser.id,
-        name: dbUser.name,
+        name: dbUser.username,
         email: dbUser.email,
         image: dbUser.image,
         role: dbUser.role,
@@ -114,10 +114,7 @@ export const options: NextAuthOptions = {
     },
   },
   // @ts-ignore
-
-  // } satisfies NextAuthOptions;
 } satisfies typeof NextAuthOptions;
-// @ts-ignore
 
 export function getSession() {
   return getServerSession(options);

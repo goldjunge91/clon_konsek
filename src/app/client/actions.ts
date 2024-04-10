@@ -1,12 +1,8 @@
 /* eslint-disable */
 "use server";
-
 // src/app/create-task/actions.ts
+
 import { getSession } from "@/app/api/auth/[...nextauth]/options";
-// import { getSession } from "@/lib/auth";
-// import { authOptions } from "@/lib/auth";
-// import { getServerSession } from "next-auth/react";
-// import { getServerSession } from "next-auth";
 import fs from "fs";
 import { promisify } from "util";
 import { spawn } from "child_process";
