@@ -23,9 +23,6 @@ export default async function YourTasksPage() {
           </Button>
         )}
 
-          {/* <Button asChild>
-            <Link href="/create-task">Erstelle Aufgabe</Link>
-          </Button> */}
         </div>
         <div className="grid grid-cols-3 gap-4">
         {tasks.map((task) => {
