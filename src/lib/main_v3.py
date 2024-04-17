@@ -1,4 +1,3 @@
-
 import codecs
 import shutil
 import base64
@@ -35,9 +34,7 @@ sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
 # + Variablen für den gesamten Code...
 LOG_FILE_EXT = ".log"
 now = datetime.datetime.now()
-# base_path = "/home/marco/git/pdf-website/DATA/downloads/"
-# base_path = "/home/marco/pdf-website/DATA/downloads/"
-base_path = r'C:\\Users\\tozzi\\Git\\pdf-website\\DATA\\downloads\\'
+base_path = "/home/marco/git/pdf-website/DATA/downloads/"
 
 
 options = webdriver.ChromeOptions()  # Initialize the options object

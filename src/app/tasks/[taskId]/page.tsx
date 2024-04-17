@@ -21,10 +21,8 @@ export default async function TaskPage(props: { params: { taskId: string } }) {
       <div className="col-span-3 p-4 pr-2">
         <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-4 min-h-screen">
           <TaskView task={task} />
-
         </div>
       </div>
-
       <div className="col-span-1 p-4 pl-2">
         <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-4 flex flex-col gap-4">
           <h1 className="text-base">{task?.name}</h1>
@@ -37,7 +35,7 @@ export default async function TaskPage(props: { params: { taskId: string } }) {
               rel="noopener noreferrer"
             >
               <GithubIcon />
-              Github Project
+              Q.Wiki URL
             </Link>
           )}
 
