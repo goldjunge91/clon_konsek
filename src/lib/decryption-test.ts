@@ -1,4 +1,7 @@
-const CryptoJS = require('crypto-js');
+/* eslint-disable */
+// @typescript-eslint/no-var-requires
+import CryptoJS from "crypto-js";
+// const CryptoJS = require('crypto-js');
 
 // Geheimnis
 const secretKey = "296876904925-ocip2egqj8g29hqblefr6p51funjro67";
