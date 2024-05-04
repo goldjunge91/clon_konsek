@@ -35,39 +35,60 @@ function generateSecretId() {
 
 function generateJsonOutput2(data: any): string {
     const jsonEntries = Object.entries(data)
-        .map(([key, value]) => {
-            let valueString: string;
-            if (typeof value === "string") {
-                // Strings unverändert lassen
-                valueString = `"${value}"`;
-            } else {
-                valueString = JSON.stringify(value);
-            }
-            // Nur Schlüssel sanitisieren
-            const sanitizedKey = validator.escape(key);
-            // Encrypt sensitive data (zippassword and dsmpassword)
-            if (key === "zippassword" || key === "dsmpassword") {
-                const secretKey = process.env.SECRET_KEY;
-                if (typeof secretKey === "string") {
-                    if (typeof value === "string") {
-                        const encryptedValue = CryptoJS.AES.encrypt(
-                            value,
-                            secretKey, {
-                                mode: CryptoJS.mode.ECB,
-                                padding: CryptoJS.pad.Pkcs7,
-                            }).toString();
-                        valueString = `"${encryptedValue}"`;
-                    } else {
-                        // Fehler ausgabe
-                        console.error(`Error: Value for key "${key}" is not a string.`);
-                    }
-                }
-            }
-            return `"${sanitizedKey}": ${valueString}`;
-        })
-        .join(",\n");
+      .map(([key, value]) => {
+        let valueString: string;
+  
+        if (typeof value === "string") {
+          // Strings unverändert lassen
+          valueString = `"${value}"`;
+        } else {
+          valueString = JSON.stringify(value);
+        }
+  
+        // Nur Schlüssel sanitisieren
+        const sanitizedKey = validator.escape(key);
+        return `"${sanitizedKey}": ${valueString}`;
+      })
+      .join(",\n");
+  
     return `{\n${jsonEntries}\n}`;
-}
+  }
+  
+// function generateJsonOutput2(data: any): string {
+//     const jsonEntries = Object.entries(data)
+//         .map(([key, value]) => {
+//             let valueString: string;
+//             if (typeof value === "string") {
+//                 // Strings unverändert lassen
+//                 valueString = `"${value}"`;
+//             } else {
+//                 valueString = JSON.stringify(value);
+//             }
+//             // Nur Schlüssel sanitisieren
+//             const sanitizedKey = validator.escape(key);
+//             // Encrypt sensitive data (zippassword and dsmpassword)
+//             if (key === "zippassword" || key === "dsmpassword") {
+//                 const secretKey = process.env.SECRET_KEY;
+//                 if (typeof secretKey === "string") {
+//                     if (typeof value === "string") {
+//                         const encryptedValue = CryptoJS.AES.encrypt(
+//                             value,
+//                             secretKey, {
+//                                 mode: CryptoJS.mode.ECB,
+//                                 padding: CryptoJS.pad.Pkcs7,
+//                             }).toString();
+//                         valueString = `"${encryptedValue}"`;
+//                     } else {
+//                         // Fehler ausgabe
+//                         console.error(`Error: Value for key "${key}" is not a string.`);
+//                     }
+//                 }
+//             }
+//             return `"${sanitizedKey}": ${valueString}`;
+//         })
+//         .join(",\n");
+//     return `{\n${jsonEntries}\n}`;
+// }
 
 
 export async function saveDataTask2(formData: FormData) {
