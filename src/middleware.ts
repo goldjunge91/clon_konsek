@@ -1,12 +1,11 @@
-
 // export { default } from "next-auth/middleware";
 
 // export const config = { matcher: ["/your-rooms", "/browse", "/edit-room"] };
 
 
 // export { default } from "next-auth/middleware";
-import { withAuth, NextRequestWithAuth } from "next-auth/middleware"
-import { NextResponse } from "next/server"
+import {withAuth, NextRequestWithAuth} from "next-auth/middleware"
+import {NextResponse} from "next/server"
 
 export default withAuth(
     // `withAuth` augments your `Request` with the user's token.
@@ -31,12 +30,12 @@ export default withAuth(
     },
     {
         callbacks: {
-            authorized: ({ token }) => !!token
+            authorized: ({token}) => !!token
         },
     }
 )
 
 // Applies next-auth only to matching routes - can be regex
 // Ref: https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher
-    // /export const config = {matcher: ["/your-tasks", "/dashboard", "/edit-task", "/task", "/browse"]}
-export const config = { matcher: ["/your-tasks", "/admin", "/edit-task", "/task", "/browse"] }
+// /export const config = {matcher: ["/your-tasks", "/dashboard", "/edit-task", "/task", "/browse"]}
+export const config = {matcher: ["/your-tasks", "/admin", "/edit-task", "/task", "/browse"]}
