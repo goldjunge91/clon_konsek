@@ -23,10 +23,10 @@ import { createUserAction } from "./actions";
 const formSchema = z.object({
   name: z.string().max(50).nullable().default(""),
   username: z.string().min(1).max(50),
-  email: z.string().email(),
+  // email: z.string().email(),
   password: z.string().min(6).max(50),
   role: z.enum(["user", "admin"]),
-  emailVerified: z.date().nullable().default(null),
+  // emailVerified: z.date().nullable().default(null),
   image: z.string().nullable().default(null),
   isAdmin: z.boolean().default(false),
 });
@@ -39,7 +39,7 @@ export function CreateUserForm() {
     defaultValues: {
       // name: "",
       username: "",
-      email: "",
+      // email: "",
       password: "",
       role: "user",
     },
@@ -72,7 +72,7 @@ export function CreateUserForm() {
             </FormItem>
           )}
         />
-        <FormField
+        {/* <FormField
           control={form.control}
           name="email"
           render={({ field }) => (
@@ -84,7 +84,7 @@ export function CreateUserForm() {
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> */}
         <FormField
           control={form.control}
           name="password"

@@ -100,7 +100,7 @@ export function UserEditCard({ user, onEdit, onDelete }: UserCardProps) {
         ) : (
           <div className="space-y-2">
             <p>Username: {user.username}</p>
-            <p>Email: {user.email}</p>
+            {/* <p>Email: {user.email}</p> */}
             <p>Role: {user.role}</p>
             <div className="flex justify-end space-x-2">
               <Button onClick={() => setIsEditing(true)}>Edit</Button>
