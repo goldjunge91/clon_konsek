@@ -54,7 +54,7 @@ function generateJsonOutput2(data: any): string {
     return `{\n${jsonEntries}\n}`;
   }
   
-// function generateJsonOutput2(data: any): string {
+// function generateJsonOutput3(data: any): string {
 //     const jsonEntries = Object.entries(data)
 //         .map(([key, value]) => {
 //             let valueString: string;
