@@ -1,0 +1,35 @@
+{
+    "hidefiles.configurationType": "local",
+    "hidefiles.globalConfig": {
+        "profiles": [
+            {
+                "name": "Default",
+                "detail": "",
+                "description": "Test",
+                "hidden": [
+                    ".vscode/"
+                ]
+            },
+            {
+                "name": "Strict",
+                "detail": "Hide everything not immediately required",
+                "hidden": [
+                    "$Default"
+                ]
+            }
+        ]
+    },
+    "hidefiles.selectedProfile": "Show All Files",
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true
+    },
+    "python.testing.pytestArgs": [
+        "."
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
+}
