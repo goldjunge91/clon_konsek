@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python selenium",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/lib/main_v3.py",
+            "args": ["ae7aa1a8-17bd-4078-a103-12ecef011ca2"],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}
