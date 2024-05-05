@@ -3,6 +3,7 @@ const nextConfig = {
   // output: 'export',
   cacheMaxMemorySize: 0,
   reactStrictMode: true,
+  
   devIndicators: {
     buildActivityPosition: 'bottom-right',
   },
