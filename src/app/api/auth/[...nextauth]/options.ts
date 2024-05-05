@@ -1,4 +1,3 @@
-/* eslint-disable */
 // src/app/auth/[...nextauth]/options.ts
 import { db } from "@/db";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
