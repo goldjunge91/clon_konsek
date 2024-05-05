@@ -34,7 +34,7 @@ export function TaskCard({ task }: { task: Task }) {
       </CardContent>
       <CardFooter>
         <Button asChild>
-          <Link href={`/tasks/${task.id}`}>Task Öffnen</Link>
+          <Link href={`/tasks/${task.id}`}>Open Task</Link>
         </Button>
       </CardFooter>
     </Card>
