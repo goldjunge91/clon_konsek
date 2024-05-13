@@ -26,22 +26,22 @@ export default function LandingPage() {
         {/* Main content container with max width */}
         <div className="mx-auto max-w-2xl  pt-80 ">
           {/* Centered text content */}
-          <div className="text-center">
+          <div className="text-center gap-y-10">
             {/* Logo image */}
             <Image
               className="inline-block"
-              src="/logo1.png"
-              width="200"
-              height="200"
+              src="/logo_konsek.svg"
+              width="400"
+              height="800"
               alt="PDF logo"
             />
             {/* Main heading */}
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-6xl">
-              Bereitgestellt von FIRMA XYZ
+              Provided by COMPANY XYZ
             </h1>
             {/* Description paragraph */}
             <p className="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-200">
-            Erstelle dine PDF Sammlung
+              Create your PDF Collection
             </p>
             {/* Call to action button */}
             <div className="mt-10 flex items-center justify-center gap-x-6">
