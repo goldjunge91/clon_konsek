@@ -84,7 +84,7 @@ export function EditTaskForm({ task }: { task: Task }) {
                 />
               </FormControl>
               <FormDescription>
-                Please put a link to the project you are working on
+              Insert the URL to your Q.Wiki / Document Management System
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -101,7 +101,7 @@ export function EditTaskForm({ task }: { task: Task }) {
                 <Input {...field} placeholder="name.nachname@mail.de" />
               </FormControl>
               <FormDescription>
-              E-Mail adresse von dem zugang zum Q.Wiki
+              Email address for accessing the Q.Wiki
               </FormDescription>
               <FormMessage />
             </FormItem>

@@ -157,7 +157,7 @@ export function TaskView({ task }: { task: Task }) {
           <span className="w-3 h-3 rounded-full bg-green-500"></span>
           <span>Status: {task.status}</span>
         </p>
-        <p>Participants: Placeholder for task participants</p>
+        {/* <p>Participants: Placeholder f</p> */}
       </div>
       {/* Python Log */}
       <div className="space-y-2">

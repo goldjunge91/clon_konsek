@@ -21,27 +21,36 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 
 const formSchema = z.object({
-  dsm_url: z.string().url({ message: "URL ist im falschen Format: https://" }),
-  dsmpassword: z.string().min(1).max(50).refine((value) => value !== '', {
-    message: "Bitte ein Passwort eingeben",
-  }),
-  dsm_mail: z.string().email({ message: "Geben sie eine Gültigformatierte E-Mail ein" }),
+  dsm_url: z
+    .string()
+    .url({ message: "The URL is in the wrong format: https://" }),
+  dsmpassword: z
+    .string()
+    .min(6)
+    .max(50)
+    .refine((value) => value !== "", {
+      message: "Please enter a password.",
+    }),
+  dsm_mail: z
+    .string()
+    .email({ message: "Enter a valid formatted email address" }),
   secretId: z.string(),
   zippassword: z.string().min(6).max(50),
   file: z
     .any()
     .optional()
     .refine((file) => file instanceof File, {
-      message: "Bitte eine Datei auswählen",
+      message: "Please select a file.",
     })
     .refine(
       (file) =>
         file?.type === "text/csv" ||
-        file?.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-      { message: "Bitte eine CSV oder Excel Datei auswählen" }
+        file?.type ===
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      { message: "Please select a CSV file." }
     )
     .refine((file) => (file?.size || 0) <= 5000000, {
-      message: "größe maximal 5MB.",
+      message: "Size maximum 5MB.",
     }),
 });
 
@@ -109,24 +118,9 @@ export function CreateTaskForm() {
                 <Input {...field} placeholder="https://konsek.de" />
               </FormControl>
               <FormDescription>
-                Bitte hinterlege die URL zum Q.wiki
+                Please provide the URL to your Q.wiki Login Like
+                "https://konsek.qwikinow.de/"
               </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="dsmpassword"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>dsmpassword</FormLabel>
-              <FormControl>
-                <Input {...field} placeholder="typescript, nextjs, tailwind" />
-              </FormControl>
-
-              <FormDescription>dsmpassword</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -137,27 +131,56 @@ export function CreateTaskForm() {
           name="dsm_mail"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Q.Wiki User Mail</FormLabel>
+              <FormLabel>Q.Wiki User Mail-Adress</FormLabel>
               <FormControl>
-                <Input {...field} placeholder="ihre@mail.de" />
+                <Input {...field} placeholder="ReadOnlyUSerLogin@mail.de" />
               </FormControl>
-              <FormDescription>Ihre Q.Wiki User Mail</FormDescription>
+              <FormDescription>The Q.Wiki User Mail-Adresse</FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
+
+        <FormField
+          control={form.control}
+          name="dsmpassword"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Q.Wiki User Mail Password</FormLabel>
+              <FormControl>
+                <Input
+                  {...field}
+                  type="password"
+                  placeholder="Password to your Read-Only User"
+                />
+              </FormControl>
+              <FormDescription>
+                Provide the password to the User Email Address that is
+                associated with your Q.Wiki account.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <FormField
           control={form.control}
           name="zippassword"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>zippassword</FormLabel>
+              <FormLabel>
+                Enter a password to compress and protect the files from
+                unauthorized access{" "}
+              </FormLabel>
               <FormControl>
-                <Input {...field} placeholder="zippassword" />
+                <Input {...field} 
+                type="password"
+                placeholder="Zip-Password" />
               </FormControl>
               <FormDescription>
-                zippassword wenn sie es vergessen oder sich vertippen kann
-                keiner das
+                Please make sure to remember or enter the correct password. If
+                you forget or make a typo, nobody will be able to access the
+                contents.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -171,11 +194,11 @@ export function CreateTaskForm() {
           render={({ field: { value, onChange, ...fieldProps } }) => (
             // @typescript-eslint/no-unused-vars
             <FormItem>
-              <FormLabel>file</FormLabel>
+              <FormLabel>Only .CSV File</FormLabel>
               <FormControl>
                 <Input
                   {...fieldProps}
-                  placeholder="file"
+                  placeholder="CSV file with Q.Wiki URL"
                   type="file"
                   accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                   onChange={(event) => {
