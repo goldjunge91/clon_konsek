@@ -1,20 +1,7 @@
 /* eslint-disable */
 // /src/app/header.tsx
 "use client";
-
 import { ModeToggle } from "@/components/mode-toggle";
-import { Button } from "@/components/ui/button";
-import { signIn, signOut, useSession } from "next-auth/react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { DeleteIcon, LogInIcon, LogOutIcon } from "lucide-react";
-import Image from "next/image";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import Link from "next/link";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -23,11 +10,26 @@ import {
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
+  AlertDialogTitle
 } from "@/components/ui/alert-dialog";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { DeleteIcon, LogInIcon, LogOutIcon } from "lucide-react";
+import { signIn, signOut, useSession } from "next-auth/react";
+import { useTheme } from "next-themes";
+import Link from "next/link";
 import { useState } from "react";
 import { deleteAccountAction } from "./actions";
+import Image from "next/image";
+
+// import DarkIcon from "@/app/saturn_magenta.svg";
+// import LightIcon from "@/app/saturn_sw.svg";
 
 function AccountDropdown() {
   const session = useSession();
@@ -38,10 +40,10 @@ function AccountDropdown() {
       <AlertDialog open={open} onOpenChange={setOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Sind Sie absolut sicher?</AlertDialogTitle>
+            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
             <AlertDialogDescription>
-              Diese Aktion kann nicht rückgängig gemacht werden. Dadurch werden Ihr Konto und alle
-              Konto und alle Daten, die Sie haben.
+              This action cannot be undone. It will delete your account and all
+              data associated with it.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -52,7 +54,7 @@ function AccountDropdown() {
                 signOut({ callbackUrl: "/" });
               }}
             >
-              Ja, mein Konto löschen
+              Yes, delete my account.
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
@@ -85,7 +87,7 @@ function AccountDropdown() {
               setOpen(true);
             }}
           >
-            <DeleteIcon className="mr-2" /> Konto löschen
+            <DeleteIcon className="mr-2" /> Delete Account
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -96,20 +98,31 @@ function AccountDropdown() {
 export function Header() {
   const session = useSession();
   const isLoggedIn = !!session.data;
+  const { theme } = useTheme();
   const isAdmin = session.data?.user?.role === "admin";
   return (
     <header className="bg-gray-100 py-2 dark:bg-gray-900 z-10 relative">
       <div className="container mx-auto flex justify-between items-center">
-        <Link href="/" className="flex gap-2 items-center text-xl hover:underline">
-          <Image src="/icon.png" width="60" height="60" alt="the application icon of a magnifying glass" />
+        <Link
+          href="/"
+          className="flex gap-2 items-center text-xl hover:underline"
+        >
+          {theme === "dark" ? (
+            // wenn dark mode aktiviert dann dieses Logo
+            <Image src="/saturn_magenta.svg" width="110" height="80" alt="light logo" />
+            // <Image src="@/app/saturn_magenta.svg" width={110} height={80}  alt="icon for dark theme" />
+            // <LightIcon />
+            ) : (
+            // <DarkIcon />
+            // Wenn light mode aktiviert dann schwarzes logo anzeigen
+            // <Image src="/saturn_sw.svg" width={110} height={80} alt="icon for dark theme" />
+            <Image src="/saturn_sw.svg" width={110} height={80} alt="dark logo" />
+          )}
           PDF generator
         </Link>
         <nav className="flex gap-8">
           {isLoggedIn && (
             <>
-              {/* <Link className="hover:underline" href="/server">
-                Server test
-              </Link> */}
               <Link className="hover:underline" href="/your-tasks">
                 Your Tasks
               </Link>
@@ -126,20 +139,13 @@ export function Header() {
             </>
           )}
         </nav>
-        <ul className="flex gap-4">
-          {/* <li>
-            <Link href="/client">Client</Link>
-          </li>
-          <li>
-            <Link href="/extra">extra</Link>
-          </li> */}
-        </ul>
+        <ul className="flex gap-4"></ul>
         <div className="flex items-center gap-4">
           {isLoggedIn && <AccountDropdown />}
           {!isLoggedIn && (
             <Button onClick={() => signIn()} variant="link">
               <LogInIcon className="mr-2" />
-              Einloggen
+              Login
             </Button>
           )}
           <ModeToggle />
