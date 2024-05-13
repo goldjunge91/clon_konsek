@@ -192,7 +192,7 @@ def create_pdf_from_url(driver, url, pdf_path):
         open_new_tab(driver)
         navigate_and_wait_for_load(driver, url)
         generate_and_save_pdf(driver, pdf_path)
-        logging.info(f'Aktuelles Datum und Uhrzeit: {now}')
+        # logging.info(f"fun_create_pdf_from_url")
         driver.close()
         driver.switch_to.window(driver.window_handles[0])
     except Exception as error:
@@ -206,9 +206,7 @@ def check_datei_endung(file_path):
         logging.info('Start der Funktion: ', check_datei_endung)
         if file_extension == '.csv':
             data = pd.read_csv(file_path, delimiter=';', encoding='utf-8')
-            logging.info(
-                'Aktuelles Datum und Uhrzeit: ',
-                datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),)
+            logging.info(f"check_datei_endung. Aktuelles Datum und Uhrzeit:", datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
             return data
         logging.error("Nicht unterstützte Dateierweiterung.")
         raise ValueError("Nicht unterstützte Dateierweiterung.")
@@ -260,8 +258,7 @@ def links(data):
             base_url = df['URL'].str.extract(r'^(https?://[^/]+)')[0].mode()[0]
         else:
             base_url = ''
-        now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logging.info(f'Aktuelles Datum und Uhrzeit: {now}')
+        # logging.info(f"Func_links. \n")
 
         dataToSave = df[["Title", "URL"]]
         return df, base_url, dataToSave
@@ -283,7 +280,7 @@ def process_urls_to_pdf(user_email, user_password, user_link, file_path):
 
     setup_logging()  # Konfigurieren der Logging-Funktion
     start_time = time.time()  # Startzeitpunkt der Ausführung
-    logging.info(f"Aktuelles Datum und Uhrzeit: {now}, \"{file_path}\" Erste Zeile")
+    logging.info(f"Aktuelles Datum und Uhrzeit: \"{now}\", \"{file_path}\" Erste Zeile")
     if not all([user_email, user_password, user_link, file_path]):
         data = check_datei_endung(file_path)  # Überprüfen der Dateiendung
         processed_data = links(data)  # Speichern der verarbeiteten Daten in einer CSV-Datei
@@ -300,7 +297,7 @@ def process_urls_to_pdf(user_email, user_password, user_link, file_path):
         urls_data_frame = pd.read_csv(csv_file_path, delimiter=';')  # CSV-Datei einlesen
         folder_path = os.path.dirname(file_path)  # Ordnerpfad bestimmen
         pdf_folder = os.path.join(folder_path, "pdf/") # Pfad zum PDF-Ordner zusammenstellen
-        logging.info(f"Aktuelles Datum und Uhrzeit: {now}, \"{pdf_folder}\" Erste Zeile")
+        # logging.info(f'Aktuelles Datum und Uhrzeit: {now}, \"{pdf_folder}\" Erste Zeile')
         try:
             os.makedirs(pdf_folder, exist_ok=True)
         except FileExistsError:
@@ -348,69 +345,74 @@ def zip_pdf_folder(pdf_folder, zip_password, zip_name, zip_path):
         raise
 
 
-if __name__ == "__main__":
-    setup_logging()
-    if len(sys.argv) < 2:
-        raise ValueError("Bitte übergeben Sie den Pfad als Argument.")
-    path = os.path.join(base_path, sys.argv[1])
-    form_data_path = os.path.join(path, "form-data.json")
-    if not os.path.exists(form_data_path):
-        raise FileNotFoundError(f"Die Datei {form_data_path} wurde nicht gefunden.")
-    # Encrypt sensitive data if the file exists
-    encrypt_sensitive_data_in_json(form_data_path)  # Ensure this function is defined as discussed previously
-    # Now proceeding with getting user input, which will decrypt the necessary data in-memory
-    user_email, user_password, user_link, zip_password, zip_name, file_path, task_id = get_user_input(base_path)
-    start = {datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}
-    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
-    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
-    start_time = time.time()
-    user_email, user_password, user_link, zip_password, zip_name, file_path, task_id = get_user_input(base_path)
-    log_folder = os.path.dirname(file_path)
-    log_file = os.path.join(log_folder, f"pdf_export_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.log")
-    progress_log_file = os.path.join(log_folder, f"{zip_name}.log")
-    sys.stderr = codecs.getwriter('utf-8')(sys.stderr.detach())
-    logger = logging.getLogger()
-    progress_logger = logging.getLogger('progress_logger')
+def setup_loggers(logger, progress_logger, log_file, progress_log_file):
     logger.setLevel(logging.INFO)
     progress_logger.setLevel(logging.INFO)
     file_handler = logging.FileHandler(log_file, encoding='utf-8')
     progress_file_handler = logging.FileHandler(progress_log_file, encoding='utf-8')
-    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
-    progress_formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+    # formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s', datefmt='%d.%m.%Y %H:%M')
+    # progress_formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+    progress_formatter = logging.Formatter('%(asctime)s - %(message)s', datefmt='%d.%m.%Y %H:%M')
     file_handler.setFormatter(formatter)
     progress_file_handler.setFormatter(progress_formatter)
     logger.addHandler(file_handler)
     progress_logger.addHandler(progress_file_handler)
+
+
+if __name__ == "__main__":
+    setup_logging()
+    if len(sys.argv) < 2:
+        raise ValueError("Wrong Value contact admin.")
+    path = os.path.join(base_path, sys.argv[1])
+    form_data_path = os.path.join(path, "form-data.json")
+    if not os.path.exists(form_data_path):
+        raise FileNotFoundError(f"File {form_data_path} was not found.")
+    encrypt_sensitive_data_in_json(form_data_path)
+    user_email, user_password, user_link, zip_password, zip_name, file_path, task_id = get_user_input(base_path)
+    start_time = time.time()
+    beginn_uhrzeit = datetime.datetime.now()
+    start_uhrtzeit = beginn_uhrzeit.strftime("%d.%m.%Y, %H:%M")
+    jetzt = datetime.datetime.now()
+    current_datetime = jetzt.strftime("%d.%m.%Y, %H:%M")
+
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
+    log_folder = os.path.dirname(file_path)
+    log_file = os.path.join(log_folder, f"pdf_export_{current_datetime}.log")
+    progress_log_file = os.path.join(log_folder, f"{zip_name}.log")
+    logger = logging.getLogger('main_logger')
+    progress_logger = logging.getLogger('progress_logger')
+    setup_loggers(logger, progress_logger, log_file, progress_log_file)
+    
     if not all([user_email, user_password, user_link, zip_password, zip_name, file_path]):
         for _ in range(4):
             time.sleep(0.5)
         data = process_file(file_path)
         total_rows = len(data)
-        total_urls = len(data[data['URL'].notnull()])
-        progress_logger.info(f"Gesamtanzahl der Zeilen: {total_rows}")
-        progress_logger.info(f"Anzahl der gefundenen URLs: {total_urls}")
-
+        total_links = len(data[data['URL'].notnull()])
+        progress_logger.info(f"Total number of rows: {total_rows}")
+        progress_logger.info(f"Number of URLs found: {total_links}")
+        logging.info(f"Total number of rows: {total_rows}")
+        logging.info(f"Number of URLs found: {total_links}")
         urls_data_frame, base_url, dataToSave = links(data)
         save_csv(file_path, dataToSave)
         raise ValueError("All fields must be filled out.")
-
     try:
-        logging.info('Start der Funktion:\n')
         driver.get(user_link)
         driver.find_element(By.NAME, 'username').send_keys(user_email)
         driver.find_element(By.NAME, 'password').send_keys(user_password, Keys.RETURN)
         WebDriverWait(driver, 10)
-        csv_file_path = file_path
-        urls_data_frame, base_url, dataToSave = links(csv_file_path)
-        folder_path = os.path.dirname(file_path)
-        pdf_folder = os.path.join(folder_path, "pdf/")
-        progress_logger.info(f"logging.info(f'Aktuelles Datum und Uhrzeit:'), \"{pdf_folder}\" Erste Zeile")
-        if not os.path.exists(pdf_folder):
-            os.makedirs(pdf_folder)
+        urls_data_frame, base_url, dataToSave = links(file_path)
+        pdf_folder = os.path.join(log_folder, "pdf/")
+        progress_logger.info(f'Start of extraction: {current_datetime}, Start Process')
+        os.makedirs(pdf_folder, exist_ok=True)
         total_links = len(urls_data_frame)
-        progress_logger.info(f"##################### Gesamtanzahl der Links  #####################")
-        progress_logger.info(f"Insgesamt {total_links} Links gefunden. Beginne mit der PDF-Erstellung.")
-        progress_logger.info(f"##################### Gesamtanzahl der Links  #####################")
+        progress_logger.info(f"################ Total number of links ################")
+        progress_logger.info(f"Found {total_links} links in total. Starting PDF creation.")
+        progress_logger.info(f"################ Total number of links ################")
+        progress_logger.info(f"Quick timer to read total number of links: 10 seconds")
+        time.sleep(10)
         progress_bar_width = 50
         if 'URL' in urls_data_frame.columns and 'Title' in urls_data_frame.columns:
             for index, row in enumerate(urls_data_frame.itertuples(), start=1):
@@ -419,36 +421,139 @@ if __name__ == "__main__":
                 pdf_path = os.path.join(pdf_folder, clean_filename(f"{pdf_name}.pdf"))
                 if not os.path.exists(pdf_path):
                     create_pdf_from_url(driver, url, pdf_path)
-                    logging.info(f"{index} von {total_links} erstellt: {url}")
-                    progress_logger.info(f"{index} von {total_links} erstellt: {url}")
+                    logging.info(f"{index} of {total_links} created: {url}")
+                    progress_logger.info(f"{index} of {total_links} created: {url}")
                 else:
                     logging.info(f"File {pdf_path} already exists")
                     progress_logger.info(f"File {pdf_path} already exists")
                 progress = index / total_links
                 filled_width = int(progress * progress_bar_width)
                 progress_bar = '█' * filled_width + '░' * (progress_bar_width - filled_width)
-                progress_logger.info(f"Fortschritt: [{progress_bar}] {index}/{total_links}")
+                progress_logger.info(f"Progress: [{progress_bar}] {index}/{total_links}")
         else:
-            logging.error("Die Spalten 'URL' und 'Title' sind nicht in der Datei vorhanden.")
-        logging.info("Alle Dateien erfolgreich erstellt!")
-        progress_logger.info("Alle Dateien erfolgreich erstellt!")
+            logging.error("The columns 'URL' and 'Title' are not present in the file.")
+        logging.info("All files created successfully!")
+        progress_logger.info("All files created successfully!")
         zip_path = os.path.join(os.path.dirname(file_path), f"{zip_name}.zip")
         zip_pdf_folder(pdf_folder, zip_password, zip_name, zip_path)
-        time.time()
+        folder_to_delete = os.path.join(base_path, task_id)
     except Exception as error:
-        logging.info('Error in main script: ', error)
+        logging.exception('Error in main script: ')
     finally:
         end_time = time.time()
         total_time = end_time - start_time
         logging.info(total_time)
-        progress_logger.info("Programm beendet. Gesamtlaufzeit: {total_time} Sekunden.")
-        # update_task_status_in_db(task_id, "completed")
-        updated = update_task_status_in_db(task_id, "completed")
-        if updated:
-                folder_to_delete = os.path.join(base_path, task_id)
-                schedule_delete_folder_cronjob(folder_to_delete)
-        else:
-                logging.error(f"Task mit ID {task_id} konnte nicht aktualisiert werden.")
-        logging.info("Programm beendet.")
-        progress_logger.info("Programm beendet.")
-        sys.stdout.close()
+        progress_logger.info(f"Program finished. Total runtime: {total_time} seconds.")
+        update_task_status_in_db(task_id, "completed")
+        schedule_delete_folder_cronjob(folder_to_delete)
+        logging.info("Program finished.")
+        progress_logger.info("Program finished.")
+
+
+# if __name__ == "__main__":
+#     setup_logging()
+#     if len(sys.argv) < 2:
+#         raise ValueError("Wrong Value contact admin.")
+#     path = os.path.join(base_path, sys.argv[1])
+#     form_data_path = os.path.join(path, "form-data.json")
+#     if not os.path.exists(form_data_path):
+#         raise FileNotFoundError(f"File {form_data_path} was not found.")
+#     # Encrypt sensitive data if the file exists
+#     encrypt_sensitive_data_in_json(form_data_path)  # Ensure this function is defined as discussed previously
+#     # Now proceeding with getting user input, which will decrypt the necessary data in-memory
+#     user_email, user_password, user_link, zip_password, zip_name, file_path, task_id = get_user_input(base_path)
+#     start = {datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}
+#     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+#     sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
+#     start_time = time.time()
+#     user_email, user_password, user_link, zip_password, zip_name, file_path, task_id = get_user_input(base_path)
+#     log_folder = os.path.dirname(file_path)
+#     log_file = os.path.join(log_folder, f"pdf_export_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.log")
+#     progress_log_file = os.path.join(log_folder, f"{zip_name}.log")
+#     sys.stderr = codecs.getwriter('utf-8')(sys.stderr.detach())
+#     logger = logging.getLogger()
+#     progress_logger = logging.getLogger('progress_logger')
+#     logger.setLevel(logging.INFO)
+#     progress_logger.setLevel(logging.INFO)
+#     file_handler = logging.FileHandler(log_file, encoding='utf-8')
+#     progress_file_handler = logging.FileHandler(progress_log_file, encoding='utf-8')
+#     formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+#     progress_formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+#     file_handler.setFormatter(formatter)
+#     progress_file_handler.setFormatter(progress_formatter)
+#     logger.addHandler(file_handler)
+#     progress_logger.addHandler(progress_file_handler)
+#     if not all([user_email, user_password, user_link, zip_password, zip_name, file_path]):
+#         for _ in range(4):
+#             time.sleep(0.5)
+#         data = process_file(file_path)
+#         total_rows = len(data)
+#         total_urls = len(data[data['URL'].notnull()])
+#         progress_logger.info(f"Gesamtanzahl der Zeilen: {total_rows}")
+#         progress_logger.info(f"Anzahl der gefundenen URLs: {total_urls}")
+
+#         urls_data_frame, base_url, dataToSave = links(data)
+#         save_csv(file_path, dataToSave)
+#         raise ValueError("All fields must be filled out.")
+
+#     try:
+#         # logging.info('Start der Funktion:\n')
+#         driver.get(user_link)
+#         driver.find_element(By.NAME, 'username').send_keys(user_email)
+#         driver.find_element(By.NAME, 'password').send_keys(user_password, Keys.RETURN)
+#         WebDriverWait(driver, 10)
+#         csv_file_path = file_path
+#         urls_data_frame, base_url, dataToSave = links(csv_file_path)
+#         folder_path = os.path.dirname(file_path)
+#         pdf_folder = os.path.join(folder_path, "pdf/")
+#         progress_logger.info(f"logging.info(f'Aktuelles Datum und Uhrzeit:'), \"{pdf_folder}\" Erste Zeile")
+#         if not os.path.exists(pdf_folder):
+#             os.makedirs(pdf_folder)
+#         total_links = len(urls_data_frame)
+#         progress_logger.info(f"##################### Gesamtanzahl der Links  #####################")
+#         progress_logger.info(f"Insgesamt {total_links} Links gefunden. Beginne mit der PDF-Erstellung.")
+#         progress_logger.info(f"##################### Gesamtanzahl der Links  #####################")
+#         progress_logger.info(f"quick timer to read total number of links 10 seconds")
+#         time.sleep(10)
+#         progress_bar_width = 50
+#         if 'URL' in urls_data_frame.columns and 'Title' in urls_data_frame.columns:
+#             for index, row in enumerate(urls_data_frame.itertuples(), start=1):
+#                 url = row.URL
+#                 pdf_name = row.Title
+#                 pdf_path = os.path.join(pdf_folder, clean_filename(f"{pdf_name}.pdf"))
+#                 if not os.path.exists(pdf_path):
+#                     create_pdf_from_url(driver, url, pdf_path)
+#                     logging.info(f"{index} von {total_links} erstellt: {url}")
+#                     progress_logger.info(f"{index} von {total_links} erstellt: {url}")
+#                 else:
+#                     logging.info(f"File {pdf_path} already exists")
+#                     progress_logger.info(f"File {pdf_path} already exists")
+#                 progress = index / total_links
+#                 filled_width = int(progress * progress_bar_width)
+#                 progress_bar = '█' * filled_width + '░' * (progress_bar_width - filled_width)
+#                 progress_logger.info(f"Fortschritt: [{progress_bar}] {index}/{total_links}")
+#         else:
+#             logging.error("Die Spalten 'URL' und 'Title' sind nicht in der Datei vorhanden.")
+            
+#         logging.info("Alle Dateien erfolgreich erstellt!")
+#         progress_logger.info("Alle Dateien erfolgreich erstellt!")
+#         zip_path = os.path.join(os.path.dirname(file_path), f"{zip_name}.zip")
+#         zip_pdf_folder(pdf_folder, zip_password, zip_name, zip_path)
+#         folder_to_delete = os.path.join(base_path, task_id)
+#         time.time()
+#     except Exception as error:
+#         logging.info('Error in main script: ', error)
+#     finally:
+#         end_time = time.time()
+#         total_time = end_time - start_time
+#         logging.info(total_time)
+#         progress_logger.info(f"Programm beendet. Gesamtlaufzeit: {total_time} Sekunden.")
+#         update_task_status_in_db(task_id, "completed")
+#         # updated = update_task_status_in_db(task_id, "completed")
+#         # if updated:
+#         schedule_delete_folder_cronjob(folder_to_delete)
+#         # else:
+#                 # logging.error(f"Task mit ID {task_id} konnte nicht aktualisiert werden.")
+#         logging.info("Programm beendet.")
+#         progress_logger.info("Programm beendet.")
+#         sys.stdout.close()

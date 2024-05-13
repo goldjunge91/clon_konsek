@@ -39,20 +39,22 @@ def update_task_status_in_db(task_id: str, new_status: str) -> bool:
         logging.error(f"Fehler beim Aktualisieren des Task-Status: {error}")
         return False
 
-def schedule_delete_folder_cronjob(folder_path: str) -> None:
+def schedule_delete_folder_cronjob(folder_to_delete: str) -> None:
+
     try:
         # Create a new cron job
         cron = CronTab(user=True)
-        command = f"rm -rf {folder_path}"
+        command = f"rm -rf {folder_to_delete}"
         job = cron.new(command=command)
 
-        # Set the job to run in 2 hours
-        job.setall("0 */2 * * *")
-
+        # Set the job to run in 120 minutes
+        now = datetime.now()
+        execution_time = now + timedelta(minutes=120)
+        job.setall(execution_time.strftime("%-M %-H %-d %-m *"))
         # Write the cron job to the crontab file
         cron.write()
-
-        print(f"Cronjob scheduled to delete folder: {folder_path}")
-
+        # logging.info(f"Cronjob scheduled to delete folder: {folder_to_delete} at {execution_time}")
     except Exception as error:
         print(f"Fehler beim Planen des Cronjobs: {error}")
+        
+    
