@@ -4,9 +4,9 @@ const nextConfig = {
   cacheMaxMemorySize: 0,
   reactStrictMode: true,
   
-  devIndicators: {
-    buildActivityPosition: 'bottom-right',
-  },
+  // devIndicators: {
+  //   buildActivityPosition: 'bottom-right',
+  // },
   images: {
     unoptimized: true
   },
@@ -36,6 +36,11 @@ const nextConfig = {
     ],
   },
   webpack: (config, { isServer }) => {
+    config.module.rules.push({
+      // https://www.npmjs.com/package/@svgr/webpack
+      test: /\.svg$/,
+      use: ['@svgr/webpack'],
+    });
     if (!isServer) {
       config.resolve.fallback = {
         ...config.resolve.fallback,
