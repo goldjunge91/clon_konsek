@@ -11,7 +11,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "PdF-Generator",
   description:
-    "Eine Anwendung um automatisiert PDFs zu erstellen und zum Download bereitzustellen.",
+    "An application to automatically generate and download PDFs.",
 };
 
 export default function RootLayout({
