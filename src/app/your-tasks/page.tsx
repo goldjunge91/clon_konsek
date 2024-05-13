@@ -5,27 +5,25 @@ import { getUserTasks } from "@/data-access/tasks";
 import { UserTaskCard } from "./user-task-card";
 import { unstable_noStore } from "next/cache";
 import Image from "next/image";
-
-
+import { Task } from "../../db/schema";
 
 export default async function YourTasksPage() {
   unstable_noStore();
   const tasks = await getUserTasks();
 
-// const isAUthenticated = getServerSideProps (
+  // const isAUthenticated = getServerSideProps (
   return (
-    <main className="min-h-screen p-16">
-      <div className="flex justify-between items-center mb-8">
+    <main className="min-h-screen p-20">
+      <div className="flex justify-between items-center mb-10">
         <h1 className="text-4xl">Your Tasks</h1>
         {tasks.length === 0 && (
           <Button asChild>
             <Link href="/create-task">Create Task</Link>
           </Button>
         )}
-
-        </div>
-        <div className="grid grid-cols-3 gap-4">
-        {tasks.map((task) => {
+      </div>
+      <div className="grid grid-cols-3 gap-4">
+        {tasks.map((task: Task) => {
           return <UserTaskCard key={task.id} task={task} />;
         })}
       </div>

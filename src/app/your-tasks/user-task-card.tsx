@@ -63,22 +63,22 @@ export function UserTaskCard({ task }: { task: Task; }) {
         link.click();
         document.body.removeChild(link);
         toast({
-          title: "Task abgeschlossen",
-          description: "Die Aufgabe wurde erfolgreich abgeschlossen, und die Datei kann heruntergeladen werden.",
+          title: "Task completed",
+          description: "The task has been successfully completed, and the file can be downloaded.",
           variant: "default",
         });
       } catch (error) {
-        console.error("Fehler beim Herunterladen:", error);
+        console.error("Download error:", error);
         toast({
-          title: "Fehler",
-          description: "Ein Fehler ist aufgetreten. Bitte wenden Sie sich an den Administrator.",
+          title: "Error",
+          description: "An error occurred. Please contact the administrator.",
           variant: "destructive",
         });
       }
     } else {
       toast({
-        title: "Aufgabe nicht abgeschlossen",
-        description: "Die Aufgabe ist noch nicht abgeschlossen. Sie können die Datei erst herunterladen, wenn die Aufgabe abgeschlossen ist.",
+        title: "Task not completed",
+        description: "The task is not yet completed. You can only download the file once the task is completed.",
       });
     }
   };
@@ -124,7 +124,7 @@ export function UserTaskCard({ task }: { task: Task; }) {
           <div className="items-center relative top-4">
           {task.status === "completed" && (
             <div className="bg-green-100 text-green-800 px-4 py-2 Flex item-center rounded">
-              <p>Zip Datei bereit zum Download</p>
+              <p>Zip-Archive Ready to Download</p>
             </div>
           )}
           </div>
@@ -145,13 +145,12 @@ export function UserTaskCard({ task }: { task: Task; }) {
             href={task.dsm_url}
             className="flex items-center gap-6"
             target="_blank"
-            rel="noopener noreferrer"
-          >
+            rel="noopener noreferrer">
             <GithubIcon />
             URL zum Q.Wiki "https://name.qwiki.de/"
-          </Link>
-        )}
+          </Link>)}
       </CardContent>
+
       <CardFooter className="flex gap-12">
         <Button asChild>
           <Link href={`/tasks/${task.id}`}>Öffne Task</Link>
