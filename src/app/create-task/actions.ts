@@ -1,21 +1,24 @@
 /* eslint-disable */
 // src/app/create-task/actions.ts
 "use server";
-import {createTask} from "@/data-access/tasks";
-import {getSession} from "@/app/api/auth/[...nextauth]/options";
-import {revalidatePath} from "next/cache";
-import {writeFile, mkdir} from "fs/promises";
-import validator from "validator";
-import path, {join} from "path";
-import {runpythonscriptAction2} from "@/lib/actions";
-import {randomUUID} from "crypto";
+import { getSession } from "@/app/api/auth/[...nextauth]/options";
+import { createTask } from "@/data-access/tasks";
+import { runpythonscriptAction2 } from "@/lib/actions";
+import { randomUUID } from "crypto";
+import { mkdir, writeFile } from "fs/promises";
+import { revalidatePath } from "next/cache";
+import path from "path";
 import {
-    uniqueNamesGenerator,
     adjectives,
-    colors,
     animals,
+    colors,
+    uniqueNamesGenerator,
 } from "unique-names-generator";
-import CryptoJS from "crypto-js";
+import validator from "validator";
+
+// import CryptoJS from "crypto-js";
+// import {dotenv} from "dotenv"
+
 
 // Funktion, um einen zufälligen Namen zu generieren
 function generateRandomName() {
