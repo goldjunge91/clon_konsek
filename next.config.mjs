@@ -1,56 +1,52 @@
-/** @type {import('next').NextConfig} */
+/** @type {{cacheMaxMemorySize: number, images: {remotePatterns: [{protocol: string, hostname: string},{protocol: string, hostname: string},{protocol: string, hostname: string, port: string, pathname: string},{protocol: string, hostname: string, port: string, pathname: string}], formats: string[], unoptimized: string}, webpack: (function(*, {isServer: *}): *), reactStrictMode: boolean}} */
 const nextConfig = {
-  // output: 'export',
-  cacheMaxMemorySize: 0,
-  reactStrictMode: true,
-  
-  // devIndicators: {
-  //   buildActivityPosition: 'bottom-right',
-  // },
-  images: {
-    unoptimized: true
-  },
-  // swcMinify: true,
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: '**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'avatars.googleusercontent.com',
-      },
-      {
-        protocol: 'http',
-        hostname: 'lh3.googleusercontent.com',
-        port: '',
-        pathname: '**',
-      },
-      {
-        protocol: 'http',
-        hostname: 'lh3.googleusercontent.com',
-        port: '',
-        pathname: '/u/**',
-      },
-    ],
-  },
-  webpack: (config, { isServer }) => {
-    config.module.rules.push({
-      // https://www.npmjs.com/package/@svgr/webpack
-      test: /\.svg$/,
-      use: ['@svgr/webpack'],
-    });
-    if (!isServer) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        fs: false,
-        path: false,
-        os: false,
-      };
-    }
-    return config;
-  },
-};
+    cacheMaxMemorySize: 0,
+    reactStrictMode: true,
 
+    // devIndicators: {
+    //   buildActivityPosition: 'bottom-right',
+    // },
+    // swcMinify: true,
+    images: {
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: '**',
+            },
+            {
+                protocol: 'https',
+                hostname: 'avatars.googleusercontent.com',
+            },
+            {
+                protocol: 'http',
+                hostname: 'lh3.googleusercontent.com',
+                port: '',
+                pathname: '**',
+            },
+            {
+                protocol: 'http',
+                hostname: 'lh3.googleusercontent.com',
+                port: '',
+                pathname: '/u/**',
+            },
+        ],
+        unoptimized: false,
+    },
+    webpack: (config, {isServer}) => {
+        config.module.rules.push({
+            // https://www.npmjs.com/package/@svgr/webpack
+            test: /\.svg$/,
+            use: ['@svgr/webpack'],
+        });
+        if (!isServer) {
+            config.resolve.fallback = {
+                ...config.resolve.fallback,
+                fs: false,
+                path: false,
+                os: false,
+            };
+        }
+        return config;
+    },
+};
 export default nextConfig;

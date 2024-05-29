@@ -1,60 +1,63 @@
-import { withAuth, NextRequestWithAuth } from "next-auth/middleware";
-import { NextResponse } from "next/server";
+import {withAuth, NextRequestWithAuth} from "next-auth/middleware";
+import {NextResponse} from "next/server";
 
-// Description:
-// This code represents the middleware configuration for the application.
-// It uses the `withAuth` middleware from `next-auth` to augment the request with the user's token.
-// The middleware checks the user's role and restricts access to certain routes based on the role.
-// If the user tries to access a restricted route, they are redirected to the "/denied" page.
+
+// Beschreibung:
+// Dieser Code repräsentiert die Middleware-Konfiguration für die Anwendung.
+// Er verwendet die withAuth Middleware von next-auth, um die Anfrage mit dem Token des Benutzers zu erweitern.
+// Die Middleware überprüft die Rolle des Benutzers und beschränkt den Zugriff auf bestimmte Routen basierend auf der Rolle.
+// Wenn der Benutzer versucht, auf eine eingeschränkte Route zuzugreifen, wird er zur Seite "/denied" umgeleitet.
+
 
 export default withAuth(
-  // `withAuth` augments your `Request` with the user's token.
-  function middleware(request: NextRequestWithAuth) {
-    // Check if the user is trying to access the "/browse" route
-    if (
-      request.nextUrl.pathname.startsWith("/browse") &&
-      request.nextauth.token?.role !== "admin"
-    ) {
-      // If the user is not an admin, redirect them to the "/denied" page
-      return NextResponse.rewrite(new URL("/denied", request.url));
-    }
+    // `withAuth` ergänzt Ihre `Request` mit dem Token des Benutzers.
+    function middleware(request: NextRequestWithAuth) {
+        // Überprüfen Sie, ob der Benutzer versucht, auf die Route "/browse" zuzugreifen
+        if (
+            request.nextUrl.pathname.startsWith("/browse") &&
+            request.nextauth.token?.role !== "admin"
+        ) {
+            // Wenn der Benutzer kein Admin ist, leiten Sie ihn auf die Seite "/denied" um
+            return NextResponse.rewrite(new URL("/denied", request.url));
+        }
 
-    // Check if the user is trying to access the "/client" route
-    if (
-      request.nextUrl.pathname.startsWith("/client") &&
-      request.nextauth.token?.role !== "admin" &&
-      request.nextauth.token?.role !== "manager"
-    ) {
-      // If the user is not an admin or manager, redirect them to the "/denied" page
-      return NextResponse.rewrite(new URL("/_denied", request.url));
-    }
-  },
-  {
-    callbacks: {
-      // Callback to determine if the user is authorized
-      authorized: ({ token }) => !!token,
+        // Überprüfen Sie, ob der Benutzer versucht, auf die Route "/client" zuzugreifen
+        if (
+            request.nextUrl.pathname.startsWith("/client") &&
+            request.nextauth.token?.role !== "admin" &&
+            request.nextauth.token?.role !== "manager"
+        ) {
+            // Wenn der Benutzer weder Admin noch Manager ist, leiten Sie ihn auf die Seite "/denied" um
+            return NextResponse.rewrite(new URL("/_denied", request.url));
+        }
     },
-  }
+    {
+        callbacks: {
+            // Callback to determine if the user is authorized
+            authorized: ({ token }) => !!token,
+        },
+    }
 );
 
-// Configuration for applying next-auth only to matching routes
+// Konfiguration für die Anwendung von next-auth nur auf passende Routen
 export const config = {
-  matcher: [
-    "/your-tasks",
-    "/admin",
-    "/edit-task",
-    "/task",
-    "/browse",
-    "/create-task",
-  ],
+    matcher: [
+        "/your-tasks",
+        "/admin",
+        "/edit-task",
+        "/task",
+        "/browse",
+        "/create-task",
+    ],
 };
 
-// Brief explanation:
-// The code represents the middleware configuration for the application.
-// It imports the necessary dependencies from next-auth/middleware and next/server.
-// The withAuth middleware is used to augment the request with the user's token.
-// Inside the middleware function, it checks the user's role based on the requested route.
-// If the user is trying to access the "/browse" route and is not an admin, they are redirected to the "/denied" page.
-// If the user is trying to access the "/client" route and is neither an admin nor a manager, they are redirected to the "/denied" page.
-// The authorized callback is used to determine if the user is authorized based on the presence of a token.
-// The config object specifies the routes to which next-auth should be applied using the matcher property.
+
+// Kurze Erklärung:
+// Der Code stellt die Middleware-Konfiguration für die Anwendung dar.
+// Er importiert die notwendigen Abhängigkeiten von next-auth/middleware und next/server.
+// Die withAuth-Middleware wird verwendet, um die Anfrage mit dem Token des Benutzers zu ergänzen.
+// Innerhalb der Middleware-Funktion überprüft sie die Rolle des Benutzers basierend auf der angeforderten Route.
+// Wenn der Benutzer versucht, auf die Route "/browse" zuzugreifen und kein Admin ist, wird er auf die Seite "/denied" umgeleitet.
+// Wenn der Benutzer versucht, auf die Route "/client" zuzugreifen und weder Admin noch Manager ist, wird er auf die Seite "/denied" umgeleitet.
+// Der autorisierte Callback wird verwendet, um zu bestimmen, ob der Benutzer aufgrund des Vorhandenseins eines Tokens autorisiert ist.
+// Das Konfigurationsobjekt gibt die Routen an, auf die next-auth mit der Eigenschaft matcher angewendet werden soll.
