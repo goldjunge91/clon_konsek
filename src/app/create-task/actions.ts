@@ -1,12 +1,12 @@
 /* eslint-disable */
 // src/app/create-task/actions.ts
 "use server";
-import { getSession } from "@/app/api/auth/[...nextauth]/options";
-import { createTask } from "@/data-access/tasks";
-import { runpythonscriptAction2 } from "@/lib/actions";
-import { randomUUID } from "crypto";
-import { mkdir, writeFile } from "fs/promises";
-import { revalidatePath } from "next/cache";
+import {getSession} from "@/app/api/auth/[...nextauth]/options";
+import {createTask} from "@/data-access/tasks";
+import {runpythonscriptAction2} from "@/lib/actions";
+import {randomUUID} from "crypto";
+import {mkdir, writeFile} from "fs/promises";
+import {revalidatePath} from "next/cache";
 import path from "path";
 import {
     adjectives,
@@ -38,25 +38,25 @@ function generateSecretId() {
 
 function generateJsonOutput2(data: any): string {
     const jsonEntries = Object.entries(data)
-      .map(([key, value]) => {
-        let valueString: string;
-  
-        if (typeof value === "string") {
-          // Strings unverändert lassen
-          valueString = `"${value}"`;
-        } else {
-          valueString = JSON.stringify(value);
-        }
-  
-        // Nur Schlüssel sanitisieren
-        const sanitizedKey = validator.escape(key);
-        return `"${sanitizedKey}": ${valueString}`;
-      })
-      .join(",\n");
-  
+        .map(([key, value]) => {
+            let valueString: string;
+
+            if (typeof value === "string") {
+                // Strings unverändert lassen
+                valueString = `"${value}"`;
+            } else {
+                valueString = JSON.stringify(value);
+            }
+
+            // Nur Schlüssel sanitisieren
+            const sanitizedKey = validator.escape(key);
+            return `"${sanitizedKey}": ${valueString}`;
+        })
+        .join(",\n");
+
     return `{\n${jsonEntries}\n}`;
-  }
-  
+}
+
 // function generateJsonOutput3(data: any): string {
 //     const jsonEntries = Object.entries(data)
 //         .map(([key, value]) => {
