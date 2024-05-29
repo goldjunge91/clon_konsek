@@ -1,73 +1,73 @@
 // src/app/auth/[...nextauth]/options.ts
-import { db } from "@/db";
-import { DrizzleAdapter } from "@auth/drizzle-adapter";
-import { Adapter } from "next-auth/adapters";
+import {db} from "@/db";
+import {DrizzleAdapter} from "@auth/drizzle-adapter";
+import {Adapter} from "next-auth/adapters";
 
-import type { NextAuthOptions } from "next-auth";
-import { getServerSession } from "next-auth";
+import type {NextAuthOptions} from "next-auth";
+import {getServerSession} from "next-auth";
 
 // import GoogleProvider from "next-auth/providers/google";
 // import { GoogleProfile } from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-import { findUserByUsername, verifyPassword } from "@/data-access/users";
+import {findUserByUsername, verifyPassword} from "@/data-access/users";
 
-  
+
 export const options: NextAuthOptions = {
-  adapter: DrizzleAdapter(db) as Adapter,
-  session: {
-    strategy: "jwt",
-    maxAge: 60 * 60 * 24 * 30,
-  },
-  providers: [
-    CredentialsProvider({
-      name: "Credentials",
-      credentials: {
-        username: { label: "Username:", type: "text", placeholder: "Username" },
-        password: { label: "Password:", type: "password", placeholder: "Password" },
-      },
-      async authorize(credentials) {
-        if (!credentials?.username || !credentials?.password) {
-          throw new Error("Missing username or password");
-        }
-        const user = await findUserByUsername(credentials.username);
-        if (!user) {
-          throw new Error("No user found with the provided username");
-        }
-        if (user.password === null) {
-          throw new Error("User password is null");
-        }
-        const isPasswordValid = await verifyPassword(credentials.password, user.password);
-        if (!isPasswordValid) {
-          throw new Error("Invalid password");
-        }
-        return {
-          id: user.id,
-          name: user.username ?? "",
-          image: user.image ?? "",
-          role: user.role ?? "user",
-        };
-      },
-    }),
-  ],
-  callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
-        token.id = user.id;
-        token.name = user.name;
-        token.role = user.role;
-      }
-      return token;
+    adapter: DrizzleAdapter(db) as Adapter,
+    session: {
+        strategy: "jwt",
+        maxAge: 60 * 60 * 24 * 30,
     },
-    async session({ session, token }) {
-      if (token && session.user) {
-        session.user.id = token.id as string;
-        session.user.name = token.name as string;
-        session.user.role = token.role as string;
-      }
-      return session;
+    providers: [
+        CredentialsProvider({
+            name: "Credentials",
+            credentials: {
+                username: {label: "Username:", type: "text", placeholder: "Username"},
+                password: {label: "Password:", type: "password", placeholder: "Password"},
+            },
+            async authorize(credentials) {
+                if (!credentials?.username || !credentials?.password) {
+                    throw new Error("Missing username or password");
+                }
+                const user = await findUserByUsername(credentials.username);
+                if (!user) {
+                    throw new Error("No user found with the provided username");
+                }
+                if (user.password === null) {
+                    throw new Error("User password is null");
+                }
+                const isPasswordValid = await verifyPassword(credentials.password, user.password);
+                if (!isPasswordValid) {
+                    throw new Error("Invalid password");
+                }
+                return {
+                    id: user.id,
+                    name: user.username ?? "",
+                    image: user.image ?? "",
+                    role: user.role ?? "user",
+                };
+            },
+        }),
+    ],
+    callbacks: {
+        async jwt({token, user}) {
+            if (user) {
+                token.id = user.id;
+                token.name = user.name;
+                token.role = user.role;
+            }
+            return token;
+        },
+        async session({session, token}) {
+            if (token && session.user) {
+                session.user.id = token.id as string;
+                session.user.name = token.name as string;
+                session.user.role = token.role as string;
+            }
+            return session;
+        },
     },
-  },
 };
 
 // // export const NextAuthOptions = {
@@ -177,5 +177,5 @@ export const options: NextAuthOptions = {
 // } satisfies typeof NextAuthOptions;
 
 export function getSession() {
-  return getServerSession(options);
+    return getServerSession(options);
 }
