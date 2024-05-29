@@ -1,6 +1,3 @@
-There is various encryption library for python. You can check it here
-
-I choose PyCryptodome which is well documented and supports Python 2.7, Python 3.5 and newer, and PyPy. Just for information PyCrypto is no more maintened, so would not recommend using it.
 
 Installing PyCryptodome:
 `pip install pycryptodome
@@ -16,8 +13,12 @@ from Crypto.Random import get_random_bytes #only for AES CBC mode
 
 ```
 
-In our case we gonna work with this 2 modes: AES ECB and CBC mode. The first one ECB mode is interessant for som case use where you cannot send the intialization Vector(IV) to the JavaScript code (even if its possible to put it in the header of a post HTTP request) I do not recommend using AES ECB for production. Over the net use CBC. But that not the purpose of this post if you want to learn more about cryptografy there a lot of good text on the web.
-we gonna make an AES128 encryption. 128-bit keys are sufficient to ensure a good security, but is up to you to choose an AES192 or AES256.
+In our case we gonna work with this 2 modes: AES ECB and CBC mode. The first one ECB mode is interessant for som case
+use where you cannot send the intialization Vector(IV) to the JavaScript code (even if its possible to put it in the
+header of a post HTTP request) I do not recommend using AES ECB for production. Over the net use CBC. But that not the
+purpose of this post if you want to learn more about cryptografy there a lot of good text on the web.
+we gonna make an AES128 encryption. 128-bit keys are sufficient to ensure a good security, but is up to you to choose an
+AES192 or AES256.
 
 ```python
 
@@ -46,14 +47,19 @@ print('encrypted ECB Base64:',encrypted.decode("utf-8", "ignore"))
 decrypted = decrypt(encrypted)
 print('data: ',decrypted.decode("utf-8", "ignore"))
 ```
+
 ## Output:
+
 ```python
 python test.py
 >> encrypted ECB Base64: gfp6wzvTH3lN5TO2B37yWQ==
 >> data:  I love Medium
 ```
+
 We have now a base 64 string that can be passed to JavaScript
-For the AES CBC mode we just have one diference the IV ( Initialization Vector) which should be 128 bits pr 16 char too. We can use a fix IV or random IV. That’s up to you the random is more secure both should be passed to the Javascript for decryption.
+For the AES CBC mode we just have one diference the IV ( Initialization Vector) which should be 128 bits pr 16 char too.
+We can use a fix IV or random IV. That’s up to you the random is more secure both should be passed to the Javascript for
+decryption.
 
 ## **AES CBC MODE**
 
@@ -88,6 +94,7 @@ print('encrypted CBC base64 : ',encrypted.decode("utf-8", "ignore"))
 decrypted = decrypt(encrypted,key,iv)
 print('data: ', decrypted.decode("utf-8", "ignore"))
 ```
+
 ## Output:
 
 ```python
@@ -132,6 +139,7 @@ print('encrypted CBC base64 : ',encrypted.decode("utf-8", "ignore"))
 decrypted = decrypt(encrypted,key,iv)
 print('data: ', decrypted.decode("utf-8", "ignore"))
 ```
+
 Output:
 
 ```python
@@ -141,6 +149,7 @@ python test.py
 >>encrypted CBC base64 :  CyL3j8VSHrGPBcujlo4b4Q==
 >>data:  I love Medium
 ```
+
 OK everything fine with Python.
 
 You can test it live here:
@@ -165,7 +174,6 @@ I used crypto-js true CDN in our .html file.
 
 From python we got various base64 string for all of our 3 cases:
 For the ECB encryption we get :gfp6wzvTH3lN5TO2B37yWQ==
-
 
 ```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
@@ -211,6 +219,7 @@ var key ='AAAAAAAAAAAAAAAA'//key used in Python
  alert(decrypted);
 </script>
 ```
+
 **Output in the developper console:**
 ---------------------------------
 
@@ -219,7 +228,8 @@ test.html
 >>I love Medium
 ```
 
-Just comment the PYTHON FIX IV ENCRYPTION AND PYTHON FIX IV and uncomment the //PYTHON RANDOM IV ENCRYPTION AND PYTHON RANDOM IV to test the random solution :
+Just comment the PYTHON FIX IV ENCRYPTION AND PYTHON FIX IV and uncomment the //PYTHON RANDOM IV ENCRYPTION AND PYTHON
+RANDOM IV to test the random solution :
 
 ```
 //PYTHON FIX IV ENCRYPTION AND PYTHON FIX IV
@@ -232,6 +242,7 @@ var iv = CryptoJS.enc.Base64.parse('l5I5Toqn5RoX0JfTLQB9Pw==');
 
 **To encrypt in Javascript:**
 ---------------------------------
+
 ```javascript
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
@@ -268,4 +279,5 @@ VEX7Eequ5TM9+jlgrwnkNw== same output as our python CBC with fix iv
 Txi+ue8bqPCHrcVORbiSrg== not the same. We generate random iV in JS
 gfp6wzvTH3lN5TO2B37yWQ== same output as our python ECB
 ```
+
 ## Thats it!!!
