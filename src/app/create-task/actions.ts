@@ -121,7 +121,8 @@ export async function saveDataTask2(formData: FormData) {
         const savedTask = await createTask(taskData, session.user.id);
         // console.log("createTask SaveDataTask2", savedTask);
         const uploadsDir = path.join(process.cwd(), "DATA", "downloads");
-        const taskFolderPath = path.join(uploadsDir, savedTask.id.toString());
+        // const taskFolderPath = path.join(uploadsDir, savedTask.id?.toString() ||);
+        const taskFolderPath = path.join(uploadsDir, savedTask?.id?.toString() || "");
         await mkdir(taskFolderPath, {recursive: true});
         // Datei speichern, falls vorhanden
         const file = formData.get("file") as File | undefined;
@@ -150,10 +151,11 @@ export async function saveDataTask2(formData: FormData) {
         await writeFile(jsonFilePath, jsonOutput);
         revalidatePath("/your-tasks");
         // Verzögertes Ausführen des Python-Skripts
+        // TODO: Hier muss die ID des Tasks übergeben werden
         setTimeout(async () => {
-            await runpythonscriptAction2(savedTask.id);
+            await runpythonscriptAction2(savedTask?.id || "");
         }, 5000); // 5000 ms (5 Sekunden) Verzögerung
-        return {success: true, taskId: savedTask.id};
+        return {success: true, taskId: savedTask?.id};
     } catch (error) {
         console.error(error);
         throw new Error("Failed to create task: ");

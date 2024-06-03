@@ -44,7 +44,8 @@ export function EditTaskForm({task}: { task: Task }) {
     async function onSubmit(values: z.infer<typeof formSchema>) {
         // @ts-ignore
         await editTaskAction({
-            id: params.taskId as string,
+            // TODO id: params.taskId as string,
+            id: params["taskId"] as string,
             ...values,
         });
         toast({

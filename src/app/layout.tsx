@@ -1,15 +1,14 @@
+/* eslint-disable @next/next/no-sync-scripts */
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+// import { Inter } from "next/font/google";
 import "./globals.css";
 import AuthProvider from "@/lib/AuthProvider";
 import { Header } from "./header";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "@/components/ui/toaster";
-import Image from "next/image";
-import backround from "../../public/backround.jpg";
 
-const inter = Inter({ subsets: ["latin"] });
-// TODO Fertigstellen des backround image
+// const inter = Inter({ subsets: ["latin"] });
+
 
 export const metadata: Metadata = {
   title: "PdF-Generator",
@@ -23,26 +22,27 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
-        <div className="relative">
-          <div>
-            <Image
-              alt="backround"
-              src={backround}
-              placeholder="blur"
-              layout="fill"
-              objectFit="cover"
-              quality={100}
-            />
-            <AuthProvider>
-              <Toaster />
-              <NextTopLoader />
-              <Header />
-              <div className="container mx-auto">{children}</div>
-            </AuthProvider>
-          </div>
-        </div>
+      {/* <body className={inter.className}> */}
+      <body className={"bg-fullscreen font-custom"}>
+        <AuthProvider>
+          <Toaster />
+          <NextTopLoader />
+          <Header />
+          <div className="container mx-auto">{children}</div>
+        </AuthProvider>
       </body>
     </html>
   );
 }
+
+//            <body className={`bg-fullscreen ${inter.className}`}>
+// import backround from "../../public/backround.jpg";
+/* <Image
+//               alt="backround"
+//               src={backround}
+//               placeholder="blur"
+//               // layout="fill"
+//               objectFit="cover"
+//               quality={100}
+//               fill
+//             /> */

@@ -1,7 +1,8 @@
-/* eslint-disable */
-// /src/app/header.tsx
-"use client";
-import { ModeToggle } from "@/components/mode-toggle";
+/* eslint-disable */ // Disable ESLint for this file
+// /src/app/header.tsx // Path to the header.tsx file in the app directory
+"use client"; // Use the 'use client' directive for client-side code
+
+// import { ModeToggle } from "@/components/mode-toggle"; // Import ModeToggle component (currently commented out)
 import {
   AlertDialog,
   AlertDialogAction,
@@ -10,30 +11,28 @@ import {
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
-  AlertDialogTitle
-} from "@/components/ui/alert-dialog";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog"; // Import AlertDialog components from the UI library
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"; // Import Avatar components from the UI library
+import { Button } from "@/components/ui/button"; // Import Button component from the UI library
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { DeleteIcon, LogInIcon, LogOutIcon } from "lucide-react";
-import { signIn, signOut, useSession } from "next-auth/react";
-import { useTheme } from "next-themes";
-import Link from "next/link";
-import { useState } from "react";
-import { deleteAccountAction } from "./actions";
-import Image from "next/image";
-
-// import DarkIcon from "@/app/saturn_magenta.svg";
-// import LightIcon from "@/app/saturn_sw.svg";
+} from "@/components/ui/dropdown-menu"; // Import DropdownMenu components from the UI library
+import { DeleteIcon, LogInIcon, LogOutIcon } from "lucide-react"; // Import icons from lucide-react
+import { signIn, signOut, useSession } from "next-auth/react"; // Import authentication hooks from next-auth/react
+import Link from "next/link"; // Import Link component from next/link
+import { useState } from "react"; // Import useState hook from react
+import { deleteAccountAction } from "./actions"; // Import deleteAccountAction function from actions
+import logo_konsek from "../../public/logo_konsek.svg"; // Import logo_konsek.svg from the public directory
+import backround from "../../public/backround.jpg";
+import Image from "next/image"; // Import Image component from next/image
 
 function AccountDropdown() {
-  const session = useSession();
-  const [open, setOpen] = useState(false);
+  const session = useSession(); // Get session data
+  const [open, setOpen] = useState(false); // State for controlling the AlertDialog
 
   return (
     <>
@@ -79,7 +78,7 @@ function AccountDropdown() {
               })
             }
           >
-            <LogOutIcon className="mr-2" /> Logout
+            <LogOutIcon className="mr-20" /> Logout
           </DropdownMenuItem>
 
           <DropdownMenuItem
@@ -87,7 +86,7 @@ function AccountDropdown() {
               setOpen(true);
             }}
           >
-            <DeleteIcon className="mr-2" /> Delete Account
+            <DeleteIcon className="mr-10" /> Delete Account
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -98,49 +97,41 @@ function AccountDropdown() {
 export function Header() {
   const session = useSession();
   const isLoggedIn = !!session.data;
-  const { theme } = useTheme();
   const isAdmin = session.data?.user?.role === "admin";
   return (
-    <header className="bg-gray-100 py-2 dark:bg-gray-900 z-10 relative">
-      <div className="container mx-auto flex justify-between items-center">
-        <Link
-          href="/"
-          className="flex gap-2 items-center text-xl hover:underline"
-        >
-          {theme === "dark" ? (
-            // wenn dark mode aktiviert dann dieses Logo
-            <Image src="/saturn_magenta.svg" width="110" height="80" alt="light logo" />
-            // <Image src="@/app/saturn_magenta.svg" width={110} height={80}  alt="icon for dark theme" />
-            // <LightIcon />
-            ) : (
-            // <DarkIcon />
-            // Wenn light mode aktiviert dann schwarzes logo anzeigen
-            // <Image src="/saturn_sw.svg" width={110} height={80} alt="icon for dark theme" />
-            <Image src="/saturn_sw.svg" width={110} height={80} alt="dark logo" />
-          )}
-          PDF generator
+    // <header className="bg-gray-950 py-2 dark:bg-gray-900 z-10 relative">
+    <header className="headingNavbar">
+      <div className="containerNavbar">
+        <Link href="/" className="linkNavbar">
+          <Image
+            className="logoNavbar"
+            src="/logo_konsek.svg"
+            width="200"
+            height="60"
+            alt="KONSEK logo"
+          />
         </Link>
-        <nav className="flex gap-8">
+        <nav className="navbarLinksNavbar">
           {isLoggedIn && (
             <>
-              <Link className="hover:underline" href="/your-tasks">
+              <Link className="navLinkNavbar1" href="/your-tasks">
                 Your Tasks
               </Link>
               {isAdmin && (
-                <Link className="hover:underline" href="/admin">
+                <Link className="navLinkNavbar2" href="/admin">
                   Adminpanel
                 </Link>
               )}
-              {isAdmin && (
-                <Link className="hover:underline" href="/browse">
-                  Browse
-                </Link>
-              )}
+              <Link className="navLinkNavbar3" href="/browse">
+                Browse
+              </Link>
             </>
           )}
         </nav>
-        <ul className="flex gap-4"></ul>
-        <div className="flex items-center gap-4">
+        {/* <ul className="buttonNavbar">
+          Hello World
+        </ul> */}
+        <div className="actionsNavbar">
           {isLoggedIn && <AccountDropdown />}
           {!isLoggedIn && (
             <Button onClick={() => signIn()} variant="link">
@@ -148,7 +139,7 @@ export function Header() {
               Login
             </Button>
           )}
-          <ModeToggle />
+          {/* <ModeToggle /> */}
         </div>
       </div>
     </header>

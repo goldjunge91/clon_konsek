@@ -1,0 +1,79 @@
+/* page.module.css */
+.page-container {
+    @apply bg-black container mx-auto flex flex-col gap-8 pt-12 pb-24;
+  }
+  
+  .page-heading {
+    @apply bg-red-900 text-4xl font-bold;
+  }
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    background-color: #f9f9f9;
+  }
+  
+  .form-heading {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .form-subheading {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-item {
+    width: 100%;
+    background-color: tomato;
+    max-width: 500px;
+  }
+  
+  .form-label {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-description {
+    font-size: 0.875rem;
+    color: #666;
+    margin-top: 0.5rem;
+  }
+  
+  .form-message {
+    font-size: 0.875rem;
+    color: #e53e3e;
+    margin-top: 0.5rem;
+  }
+  
+  .form-button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.25rem;
+    color: white;
+    background-color: #333;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .form-button:hover {
+    background-color: #555;
+  }
+  
