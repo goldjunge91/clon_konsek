@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  MyWebsite:
+    image: postgres
+    restart: always
+    container_name: MyWebsite
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: Iphone5S
+      PGDATA: /data/postgres
+    volumes:
+      - ~/dockerfiles/postgres:/data/postgres
+
+volumes:
+  postgres:

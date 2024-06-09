@@ -1,0 +1,41 @@
+@font-face {
+  font-family: 'helvetica200';
+  src: url('https://www.konsek.de/wp-content/themes/twentytwentythree/assets/fonts/helveticaneuelt-std-thin_normal_250.ttf');
+}
+
+@font-face {
+  font-family: 'helvetica500';
+  src: url('https://www.konsek.de/wp-content/themes/twentytwentythree/assets/fonts/helvetica-neue-lt-std_normal_500.otf');
+}
+
+@font-face {
+  font-family: 'roboto300';
+  src: url('https://www.konsek.de/wp-content/themes/twentytwentythree/assets/fonts/roboto-slab-light_normal_300.ttf');
+}
+
+@font-face {
+  font-family: 'roboto500';
+  src: url('https://www.konsek.de/wp-content/themes/twentytwentythree/assets/fonts/roboto-slab-medium_normal_500.ttf');
+}
+
+
+h1 {
+  @apply text-3xl font-helvetica200 mb-8 leading-tight;
+}
+
+.boldweight {
+  @apply font-helvetica500;
+}
+
+p {
+  @apply text-base leading-relaxed font-roboto300;
+}
+
+a:link, a:visited {
+  @apply text-primary;
+}
+
+button {
+  @apply border-2 border-primary rounded-lg bg-transparent py-3 px-8 text-center inline-block font-roboto500 text-lg my-8 cursor-pointer tracking-wide;
+}
+

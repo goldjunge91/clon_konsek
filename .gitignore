@@ -66,3 +66,4 @@ pm2.txt
 node_modules
 /.next
 .idea
+src/lib/__pycache__/crypto_utils.cpython-312.pyc
