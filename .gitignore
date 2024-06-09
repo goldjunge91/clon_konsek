@@ -1,0 +1,68 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+.env*.local
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+certificates
+.env
+dockervolume
+application.log
+public/falsch
+public/uploads
+src/app/api/script/config.ini
+src/app/servertest/script/config.ini
+.ini
+*.csv
+src/app/serveractiontest/script/__pycache__/app_1.cpython-312.pyc
+src/app/serveractiontest/script/config.ini
+logs.log
+server_action.log
+*config.ini
+src/app/serveractiontest/script/config.ini
+server_action.log
+.env.production
+public/downloads
+downloads
+src/lib/main_v3.py_03-04-2024_.log
+src/lib/__pycache__/db_utils.cpython-312.pyc
+src/lib/main_v3.*.log
+# .vscode/settings.json
+src/lib/Python/__pycache__/aesecb.cpython-312.pyc
+src/lib/Python/__pycache__/aescbcfixiv.cpython-312.pyc
+src/lib/Python/__pycache__/aescbcrandomiv.cpython-312.pyc
+pm2.txt
+node_modules
+/.next
+.idea
