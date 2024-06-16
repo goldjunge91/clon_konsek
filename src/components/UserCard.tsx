@@ -1,5 +1,5 @@
 /* eslint-disable */
-import Image from "next/legacy/image"
+import Image from "next/image"
 import type {User} from "next-auth"
 
 type Props = {
@@ -24,7 +24,10 @@ export default function Card({user, pagetype}: Props) {
             height={200}
             alt={user?.name ?? "Profile Pic"}
             priority={true}
-        />
+            style={{
+                maxWidth: "100%",
+                height: "auto"
+            }} />
     ) : null
 
     return (

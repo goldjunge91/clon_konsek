@@ -20,7 +20,7 @@ export const metadata: typeof inter = {
 // export default function RootLayout({ children }: Readonly<{ children: React.ReactNode; }>) {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
-		<html lang="en" suppressHydrationWarning>
+        <html lang="en" suppressHydrationWarning>
 			{/* <body className={inter.className}> */}
 			<body className={inter.className}
 				style={{
@@ -29,10 +29,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 					width: "100vw",
 					height: "100vh",
 				}}	>
-				<Image alt="sky" src={backround} layout="cover" objectFit="cover" quality={100} style={{
-					position: "absolute", top: 0, left: 0, width: "100%", height: "100%", zIndex: -1, backgroundSize: "cover", backgroundRepeat: "no-repeat", backgroundPosition: "center center",
-				}}
-				/>
+				<Image
+                    alt="sky"
+                    src={backround}
+                    quality={100}
+                    style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                        zIndex: -1,
+                        backgroundSize: "cover",
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "center center",
+                        objectFit: "cover"
+                    }} />
 				<AuthProvider>
 					<Toaster />
 					<NextTopLoader />
@@ -41,5 +53,5 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 				</AuthProvider>
 			</body>
 		</html>
-	);
+    );
 }
