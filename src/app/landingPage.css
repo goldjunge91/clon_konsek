@@ -1,0 +1,89 @@
+/* Global styles */
+@import './global.css';
+/* @import '../../public/backround.jpg'; */
+
+/* Background image */
+body {
+  background: url('../../public/backround.jpg') no-repeat center center fixed;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+}
+/* Container styles */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+  padding: 16px;
+  color: #333;
+}
+
+/* Title styles */
+.title-box {
+  border: 2px solid #ddd;
+  padding: 16px;
+  margin-bottom: 16px;
+  background-color: #f9f9f9;
+}
+
+.title-box h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+/* Intermediate text styles */
+.text-box {
+  border: 2px solid #ddd;
+  padding: 16px;
+  margin-bottom: 16px;
+  background-color: #f9f9f9;
+}
+
+.text-box p {
+  font-size: 1.125rem;
+}
+
+/* Button styles */
+.button-box {
+  border: 2px solid #ddd;
+  padding: 16px;
+  margin-bottom: 16px;
+  background-color: #f9f9f9;
+}
+
+.button-box .button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #0070f3;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+.button-box .button:hover {
+  background-color: #005bb5;
+}
+
+/* Footer text styles */
+.footer-box {
+  border: 2px solid #ddd;
+  padding: 16px;
+  background-color: #f9f9f9;
+}
+
+.footer-box p {
+  font-size: 1rem;
+}
+
+.footer-box a {
+  color: #0070f3;
+  text-decoration: none;
+}
+
+.footer-box a:hover {
+  text-decoration: underline;
+}

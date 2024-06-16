@@ -28,7 +28,7 @@ import { useState } from "react"; // Import useState hook from react
 import { deleteAccountAction } from "./actions"; // Import deleteAccountAction function from actions
 import logo_konsek from "../../public/logo_konsek.svg"; // Import logo_konsek.svg from the public directory
 import backround from "../../public/backround.jpg";
-import Image from "next/image"; // Import Image component from next/image
+import Image from "next/legacy/image"; // Import Image component from next/image
 
 function AccountDropdown() {
   const session = useSession(); // Get session data

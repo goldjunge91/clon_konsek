@@ -1,7 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @font-face {
   font-family: 'helvetica200';
   src: url('https://www.konsek.de/wp-content/themes/twentytwentythree/assets/fonts/helveticaneuelt-std-thin_normal_250.ttf');

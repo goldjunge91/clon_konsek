@@ -4,7 +4,7 @@ import Link from "next/link";
 import {getUserTasks} from "@/data-access/tasks";
 import {UserTaskCard} from "./user-task-card";
 import {unstable_noStore} from "next/cache";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import {Task} from "../../db/schema";
 
 export default async function YourTasksPage() {

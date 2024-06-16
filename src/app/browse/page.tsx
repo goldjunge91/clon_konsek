@@ -2,7 +2,7 @@ import {Button} from "@/components/ui/button";
 import {getTasks} from "@/data-access/tasks";
 import {getServerSession} from "next-auth/next";
 import {unstable_noStore} from "next/cache";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 import {TaskCard} from "./task-card";
 import {redirect} from "next/navigation";
