@@ -6,7 +6,7 @@ import AuthProvider from "@/lib/AuthProvider";
 import { Header } from "./header";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "@/components/ui/toaster";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import backround from "../../public/backround.jpg";
 import "./global.css";
 // const inter = Inter({ subsets: ["latin"] });
@@ -24,7 +24,7 @@ export default function RootLayout({
 	return (
 		<html lang="en" suppressHydrationWarning>
 			{/* <body className={inter.className}> */}
-			<body
+			{/* <body
 				style={{
 					zIndex: -1,
 					position: "relative",
@@ -34,7 +34,7 @@ export default function RootLayout({
 				<Image
 					alt="sky"
 					src={backround}
-					layout="cover"
+					layout="responsive"
 					objectFit="cover"
 					quality={100}
 					style={{
@@ -48,7 +48,7 @@ export default function RootLayout({
 						backgroundRepeat: "no-repeat",
 						backgroundPosition: "center center",
 					}}
-				/>
+				/> */}
 				{/* <body className={"bg-fullscreen"}> */}
 				<AuthProvider>
 					<Toaster />
@@ -56,7 +56,7 @@ export default function RootLayout({
 					<Header />
 					<div className="mx-auto">{children}</div>
 				</AuthProvider>
-			</body>
+			{/* </body> */}
 		</html>
 	);
 }
