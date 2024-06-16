@@ -18,6 +18,7 @@
   src: url('https://www.konsek.de/wp-content/themes/twentytwentythree/assets/fonts/roboto-slab-medium_normal_500.ttf');
 }
 
+/* 
 body {
   @apply bg-gray-100 text-gray-800;
 }
@@ -41,4 +42,4 @@ a:visited {
 
 button {
   @apply border-2 border-primary rounded-lg bg-transparent py-3 px-8 text-center inline-block font-roboto500 text-lg my-8 cursor-pointer tracking-wide;
-}
+} */

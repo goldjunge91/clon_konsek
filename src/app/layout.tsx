@@ -1,62 +1,45 @@
 /* eslint-disable @next/next/no-sync-scripts */
-import type { Metadata } from "next";
-// import { Inter } from "next/font/google";
-// import "@/app/styles/global.css";
+// import type { Metadata } from "next";
+import React from "react";
+import { Inter } from "next/font/google";
+// import "./globals.css";
 import AuthProvider from "@/lib/AuthProvider";
 import { Header } from "./header";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "@/components/ui/toaster";
-import Image from "next/legacy/image";
+import Image from "next/image";
 import backround from "../../public/backround.jpg";
-import "./global.css";
-// const inter = Inter({ subsets: ["latin"] });
+// import "./layout.css";
+const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
+export const metadata: typeof inter = {
 	title: "PdF-Generator",
 	description: "An application to automatically generate and download PDFs.",
 };
 
-export default function RootLayout({
-	children,
-}: Readonly<{
-	children: React.ReactNode;
-}>): React.ReactNode {
+// export default function RootLayout({ children }: Readonly<{ children: React.ReactNode; }>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="en" suppressHydrationWarning>
 			{/* <body className={inter.className}> */}
-			{/* <body
+			<body className={inter.className}
 				style={{
-					zIndex: -1,
+					zIndex: +1,
 					position: "relative",
 					width: "100vw",
 					height: "100vh",
-				}}>
-				<Image
-					alt="sky"
-					src={backround}
-					layout="responsive"
-					objectFit="cover"
-					quality={100}
-					style={{
-						position: "absolute",
-						top: 0,
-						left: 0,
-						width: "100%",
-						height: "100%",
-						zIndex: -1,
-						backgroundSize: "cover",
-						backgroundRepeat: "no-repeat",
-						backgroundPosition: "center center",
-					}}
-				/> */}
-				{/* <body className={"bg-fullscreen"}> */}
+				}}	>
+				<Image alt="sky" src={backround} layout="cover" objectFit="cover" quality={100} style={{
+					position: "absolute", top: 0, left: 0, width: "100%", height: "100%", zIndex: -1, backgroundSize: "cover", backgroundRepeat: "no-repeat", backgroundPosition: "center center",
+				}}
+				/>
 				<AuthProvider>
 					<Toaster />
 					<NextTopLoader />
 					<Header />
-					<div className="mx-auto">{children}</div>
+					<div className="container">{children}</div>
 				</AuthProvider>
-			{/* </body> */}
+			</body>
 		</html>
 	);
 }

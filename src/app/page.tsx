@@ -3,7 +3,8 @@
 import Link from "next/link";
 // import './custom.css';
 // import "./global.css";
-import "./landingPage.css";
+// import "./landingPage.css";
+
 
 export default function LandingPage() {
     return (
