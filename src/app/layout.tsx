@@ -41,7 +41,7 @@ export default function RootLayout({
 						left: 0,
 						width: "100%",
 						height: "100%",
-						zIndex: -1,
+						zIndex: -10,
 						backgroundSize: "cover",
 						backgroundRepeat: "no-repeat",
 						backgroundPosition: "center center",
@@ -52,7 +52,7 @@ export default function RootLayout({
 					<Toaster />
 					<NextTopLoader />
 					<Header />
-					<div className="container">{children}</div>
+					<div>{children}</div>
 				</AuthProvider>
 			</body>
 		</html>

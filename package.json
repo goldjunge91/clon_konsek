@@ -8,7 +8,7 @@
 		"start": "next start",
 		"pod": "PORT=3000 next start",
 		"lint": "next lint",
-		"build:css": "postcss src/app/custom.css -o public/css/styles.css",
+		"build:css": "postcss src/app/header.css -o app/styles.css",
 		"db:push": "drizzle-kit push:pg --config=drizzle.config.ts",
 		"db:studio": "drizzle-kit studio"
 	},
