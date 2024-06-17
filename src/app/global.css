@@ -18,8 +18,226 @@
 	src: url("/fonts/roboto-slab-medium_normal_500.ttf") format("truetype");
 }
 
+/* Background image */
+body {
+	background: url("../../public/backround.jpg") no-repeat center center fixed;
+	background-size: cover;
+	margin: 0;
+	padding: 0;
+}
 
-/* @.navLinkNavbar2{
-	position: relative;
-	background-color: red;
-} */
+
+/* Container styles LandingPage */
+.header {
+	top: -5px;
+	margin-top: -40px;
+	margin-left: 0px;
+	gap: 0px 0px;
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
+	padding: 10px 20px;
+	background-color: rgb(255, 255, 255);
+	height: 140px;
+
+}
+
+.header-logo{
+		top: 15px;
+		padding: 10px;
+		margin-bottom: 20px;
+}
+
+.nav-link:hover {
+    text-decoration: underline;
+}
+
+
+.header a {
+    color: #fff;
+    text-decoration: none;
+    margin-right: 15px;
+}
+
+.header a:hover {
+    text-decoration: underline;
+}
+
+.header-logo img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Navigation Styling */
+.nav {
+    display: flex;
+    align-items: center;
+}
+
+.nav-link {
+    color: #fff;
+    text-decoration: none;
+    margin-right: 20px;
+    font-size: 1rem;
+}
+
+.nav-link:hover {
+    text-decoration: underline;
+}
+
+.nav-link:last-child {
+    margin-right: 0;
+}
+
+/* Account Dropdown Styling */
+.avatar {
+    display: flex;
+    align-items: center;
+}
+
+.avatar img {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+.dropdown-menu {
+    background-color: #444;
+    border: 1px solid #555;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-menu a {
+    color: #fff;
+    padding: 10px 20px;
+    display: block;
+    text-decoration: none;
+}
+
+.dropdown-menu a:hover {
+    background-color: #555;
+}
+
+/* Button Styling */
+button {
+    background-color: transparent;
+
+    border: none;
+    color: #000000;
+    cursor: pointer;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: right;
+}
+
+button:hover {
+    text-decoration: underline;
+}
+
+button svg {
+    margin-right: 5px;
+}
+
+.account-actions {
+    display: flex;
+    align-items: center;
+}
+
+.login-button {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.login-button:hover {
+    text-decoration: underline;
+}
+
+
+/* Container styles LandingPage */
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+	min-height: 60vh;
+	margin-left: 100px;
+	padding: 5px;
+	left: 60px;
+	/* Adjust the value as needed */
+	color: #000000;
+	text-align: left;
+}
+
+/* Title box styling */
+.title-box {
+	background-color: transparent;
+}
+
+.title-box {
+	color: #000000;
+	font-family: Arial, Helvetica;
+	/* font-family: helvetica200, arial;  */
+	font-size: 3rem;
+	font-weight: 600;
+	line-height: 2.6rem;
+	margin-bottom: 1rem;
+}
+
+.title-light {
+	font-family: helvetica200;
+	font-size: 3rem;
+	font-weight: lighter;
+	line-height: 2.6rem;
+	margin-bottom: 1rem;
+	color: #000000;
+}
+
+/* Intermediate text styles */
+.text-box {
+	border: black;
+	padding: 10px;
+	margin-bottom: 10px;
+	/* background-color: transparent; */
+	width: 90%;
+	max-width: 800px;
+}
+
+.text-box p {
+	font-family: roboto300;
+	font-size: 1.05rem;
+	line-height: 1.6rem;
+}
+
+/* Button styles */
+.button-box {
+	border: solid 2px #000;
+	border-radius: 0.5rem;
+	background-color: transparent;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-family: roboto500;
+	font-size: 1.2rem;
+	margin: 2rem 0;
+	cursor: pointer;
+	letter-spacing: 0.03rem;
+}
+
+/* Footer text styles */
+.footer-box {
+	border: 2px solid #00000000;
+	padding: 4px;
+	background-color: #00000000;
+}
+
+a:link,
+a:visited {
+	color: #000;
+}

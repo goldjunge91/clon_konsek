@@ -12,15 +12,11 @@ export async function deleteTaskAction(taskId: string) {
     if (!session) {
         throw new Error("User not authenticated");
     }
-
     const task = await getTask(taskId);
-
     if (task?.userId !== session.user.id) {
         throw new Error("User not authorized");
     }
-
     await deleteTask(taskId);
-
     revalidatePath("/your-tasks");
 }
 
@@ -33,7 +29,6 @@ export async function getServerSideProps(options: NextAuthOptions) {
                 permanent: false,
             },
         };
-    }
-    // Additional checks for roles or permissions can also be performed here
+    }    // Additional checks for roles or permissions can also be performed here
     return {props: {session}};
 }

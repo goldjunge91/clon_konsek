@@ -1,9 +1,6 @@
 // Imports necessary components from Next.js and React
-// import Image from "next/image";
 import Link from "next/link";
-// import './custom.css';
-// import "./global.css";
-import "./landingPage.css";
+import "./global.css";
 
 
 export default function LandingPage() {
@@ -27,7 +24,7 @@ export default function LandingPage() {
                     <p>
                         Create a printable document from your QM documentary.
                         <br />
-                        This service is part of the{""}
+                        This service is part of the{" "}
                         <a href="https://www.konsek.de/17025-starter/" target="_blank" rel="noopener noreferrer">
                             17025starter program.
                         </a>

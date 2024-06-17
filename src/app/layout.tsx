@@ -8,8 +8,7 @@ import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "@/components/ui/toaster";
 import Image from "next/image";
 import backround from "../../public/backround.jpg";
-// import "./globals.css";
-// import "./layout.css";
+
 
 export const metadata: Metadata = {
 	title: "PdF-Generator",
