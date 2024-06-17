@@ -1,3 +1,6 @@
+/* Global styles */
+@import "./global.css";
+/* @import '../../public/backround.jpg'; */
 @font-face {
 	font-family: "helvetica200";
 	src: url("../../public/fonts/helveticaneuelt-std-thin_normal_250.ttf") format("truetype");
