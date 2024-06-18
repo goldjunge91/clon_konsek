@@ -49,14 +49,9 @@ const nextConfig = {
 		config.module.rules.push(
 			{
 				// https://www.npmjs.com/package/@svgr/webpack
-
 				test: /\.svg$/,
 				use: ['@svgr/webpack'],
 			},
-			// {
-			// 	test: /\.css$/,
-			// 	use: ["style-loader", "css-loader", "postcss-loader"],
-			// }
 		);
 		if (!isServer) {
 			config.resolve.fallback = {

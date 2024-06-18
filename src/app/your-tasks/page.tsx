@@ -17,7 +17,7 @@ export default async function YourTasksPage() {
             <div className="flex justify-between items-center mb-10">
                 <h1 className="text-4xl">Your Tasks</h1>
                 {tasks.length === 0 && (
-                    <Button asChild>
+                    <Button asChild className="">
                         <Link href="/create-task">Create Task</Link>
                     </Button>
                 )}

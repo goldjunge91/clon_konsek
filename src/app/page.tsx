@@ -1,6 +1,6 @@
 // Imports necessary components from Next.js and React
 import Link from "next/link";
-import "./global.css";
+// import "./globals.css";
 
 
 export default function LandingPage() {
@@ -9,8 +9,6 @@ export default function LandingPage() {
             {/* <meta charSet="utf-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" /> */}
             {/* <title>Titel</title> */}
-
-
             {/* Erste box  */}
             <div className="container">
                 <div className="title-box h1">

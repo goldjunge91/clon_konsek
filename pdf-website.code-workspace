@@ -1,0 +1,23 @@
+{
+	"folders": [
+		{
+			"path": "/home/marco/git/pdf-website"
+		}
+	],
+	"settings": {
+		"thunder-client.sidebar.treeIndentation": 5,
+		"prettier.useTabs": true,
+		"workbench.tree.renderIndentGuides": "always",
+		"editor.autoIndent": "advanced",
+		"editor.guides.highlightActiveIndentation": "always",
+		"editor.wrappingIndent": "indent",
+		"editor.acceptSuggestionOnEnter": "smart",
+		"workbench.editor.scrollToSwitchTabs": false,
+		"editor.stickyScroll.defaultModel": "outlineModel",
+		"editor.stickyTabStops": true,
+		"editor.insertSpaces": false,
+		"editor.detectIndentation": true,
+		"editor.unusualLineTerminators": "auto",
+		"typescript.tsdk": "node_modules/typescript/lib"
+	}
+}

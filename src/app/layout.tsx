@@ -7,7 +7,9 @@ import { Header } from "./header";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "@/components/ui/toaster";
 import Image from "next/image";
-import backround from "../../public/backround.jpg";
+import background from "../../public/background.jpg";
+import "./globals.css";
+
 
 
 export const metadata: Metadata = {
@@ -23,16 +25,13 @@ export default function RootLayout({
 	return (
 		<html lang="en" suppressHydrationWarning>
 			{/* <body className={inter.className}> */}
-			<body
-				style={{
-					zIndex: -1,
-					position: "relative",
-					width: "100vw",
-					height: "100vh",
-				}}>
-				<Image
-					alt="sky"
-					src={backround}
+			<body className="body-background" 
+			style={{
+				zIndex: -1, position: "relative", width: "100vw",
+				height: "100vh",
+			}}>
+				<Image alt="sky"
+					src={background}
 					quality={100}
 					style={{
 						position: "absolute",
