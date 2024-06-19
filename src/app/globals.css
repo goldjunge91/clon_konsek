@@ -225,23 +225,8 @@ body {
 	background-color: #efefef;
 }
 
-.your-tasks-page {
-	min-height: 100vh;
-	padding: 2rem;
-}
 
-.your-tasks-page .header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 2rem;
-}
 
-.your-tasks-page .tasks-grid {
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	gap: 1rem;
-}
 
 .your-tasks-page .task-card {
 	display: flex;
@@ -425,15 +410,26 @@ body {
 	gap: 1rem;
 }
 
-.user-card {
-	width: 100%;
-}
-
 
 /* 
 .your-tasks-page 
 .header, 
 .your-tasks-page .tasks-grid, .your-tasks-page .task-card, .your-tasks-page .open-task-button .your-tasks-page .no-tasks 
 
+.your-tasks-page .tasks-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 1rem;
+}
+.your-tasks-page {
+	min-height: 100vh;
+	padding: 2rem;
+ .your-tasks-page .header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 2rem;
+}
 
+ 
  */
