@@ -1,5 +1,5 @@
 "use client";
-import {Button} from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
     Card,
     CardContent,
@@ -7,8 +7,8 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
-import {Task} from "@/db/schema";
-import {TrashIcon} from "lucide-react";
+import { Task } from "@/db/schema";
+import { TrashIcon } from "lucide-react";
 import {
     AlertDialog,
     AlertDialogAction,
@@ -20,22 +20,13 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import {deleteAsAdminTask} from "./actions";
+import { deleteAsAdminTask } from "./actions";
 
-// {/* Card header */}: Indicates the card header section.
-// {/* Card content */}: Indicates the card content section.
-// {/* Display task status */}: Explains that this section displays the task status.
-// {/* Display green button if task is completed */}: Explains that a green button is displayed if the task status is "completed".
-// {/* Placeholder for timer */}: Indicates that this is a placeholder for the timer component or logic.
-// {/* Card footer */}: Indicates the card footer section.
-// {/* Alert dialog for deleting the task */}: Explains that this section contains an alert dialog for deleting the task. 
-
-
-export function TaskCard({task}: { task: Task }) {
+export function TaskCard({ task }: { task: Task }) {
     return (
         <Card>
             {/* Card header */}
-            <CardHeader className="relative size-20">
+            <CardHeader className="CardHeader">
                 <CardTitle>{task.name}</CardTitle>
             </CardHeader>
 
@@ -65,7 +56,7 @@ export function TaskCard({task}: { task: Task }) {
                 <AlertDialog>
                     <AlertDialogTrigger asChild>
                         <Button variant={"destructive"}>
-                            <TrashIcon className="w-4 h-4 mr-2"/> Delete Task
+                            <TrashIcon className="w-4 h-4 mr-2" /> Delete Task
                         </Button>
                     </AlertDialogTrigger>
 

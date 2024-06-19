@@ -43,6 +43,7 @@
 	margin: 0;
 	padding: 0;
 	gap: 10;
+	/* background-color: red; */
 	box-sizing: border-box;
 }
 
@@ -279,10 +280,6 @@ body {
 	background-color: #efefef;
 }
 
-/* Admin Page */
-.admin-page {
-	/* Add specific styles for admin page */
-}
 
 /* Your Tasks Page */
 .your-tasks-page {
@@ -325,12 +322,6 @@ body {
 .your-tasks-page .no-tasks h2 {
 	font-size: 1.5rem;
 	margin-top: 1rem;
-}
-
-
-/* Browse Page */
-.browse-page {
-	/* Add specific styles for browse page */
 }
 
 /* tasks[taskId] Page */
@@ -389,4 +380,90 @@ body {
 /* Edit Task Page */
 .edit-task-page {
 	/* Add specific styles for edit task page */
+}
+
+
+
+
+/* Browse Page */
+.browse-page {
+	/* min-h-screen: p-20 */
+	min-height: 20;
+}
+
+.browse-page .task-card {
+	/* min-h-screen: p-20 */
+	min-height: 20;
+}
+
+.browse-page .display {
+	/* min-h-screen: p-20 */
+	grid-column: 3;
+	gap: 4;
+	background-color: red;
+}
+
+
+.browse-page .CardHeader {
+	position: relative;
+	size: 20;
+}
+
+/* 
+"flex justify-between items-center mb-10"> */
+
+
+
+/* Admin Page */
+.admin-page {
+	display: inline-flex;
+	/* max-width: 800px; */
+	margin: 0 auto;
+	padding: 2rem 1rem;
+	
+}
+
+.admin-page h1 {
+	font-size: 2.5rem;
+	font-weight: bold;
+}
+
+.admin-container {
+	display: inline-flex;
+	flex-direction: column;
+	gap: 2rem;
+	padding-top: 3rem;
+	padding-bottom: 6rem;
+}
+
+.admin-user-list {
+	padding-top: 2rem;
+	padding-bottom: 2rem;
+}
+
+.form-container {
+	background-color: #ffffff33;
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+}
+
+.form-field {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+/* .form-button {
+	background-color: #0070f3;
+	color: white;
+	padding: 0.5rem 1rem;
+	border: none;
+	border-radius: 0.25rem;
+	cursor: pointer;
+	transition: background-color 0.3s;
+} */
+
+.form-button:hover {
+	background-color: #005bb5;
 }
