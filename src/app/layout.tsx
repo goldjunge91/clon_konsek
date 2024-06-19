@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 	title: "PdF-Generator",
 	description: "An application to automatically generate and download PDFs.",
 };
-
+// layout.tsx
 export default function RootLayout({
 	children,
 }: Readonly<{
@@ -23,9 +23,9 @@ export default function RootLayout({
 }>): React.ReactNode {
 	return (
 		<html lang="en" suppressHydrationWarning>
-			<body className="body-background">
+			<body>
 				<Image
-					className="background-image"
+					className="imagebackground"
 					alt="sky"
 					src={background}
 					quality={100}
@@ -33,7 +33,7 @@ export default function RootLayout({
 				<AuthProvider>
 					<Toaster />
 					<NextTopLoader />
-					<Header />
+					<Header  />
 					<div>{children}</div>
 				</AuthProvider>
 			</body>

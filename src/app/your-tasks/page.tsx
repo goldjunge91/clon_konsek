@@ -1,34 +1,26 @@
 /* eslint-disable */
-import {Button} from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import {getUserTasks} from "@/data-access/tasks";
-import {UserTaskCard} from "./user-task-card";
-import {unstable_noStore} from "next/cache";
+import { getUserTasks } from "@/data-access/tasks";
+import { UserTaskCard } from "./user-task-card";
+import { unstable_noStore } from "next/cache";
 import Image from "next/image";
-import {Task} from "../../db/schema";
+import { Task } from "@/db/schema";
 
 export default async function YourTasksPage() {
     unstable_noStore();
     const tasks = await getUserTasks();
-
-    // const isAUthenticated = getServerSideProps (
     return (
-        <main className="min-h-screen p-20">
-            <div className="flex justify-between items-center mb-10">
-                <h1 className="text-4xl">Your Tasks</h1>
-                {tasks.length === 0 && (
-                    <Button asChild className="">
-                        <Link href="/create-task">Create Task</Link>
-                    </Button>
-                )}
+        <main className="your-tasks-page">
+            <div className="tasks-header">
+                <h1 >Your Tasks</h1>
             </div>
-            <div className="grid grid-cols-3 gap-4">
-                {tasks.map((task: Task) => {
-                    return <UserTaskCard key={task.id} task={task}/>;
-                })}
+            <div className="tasks-grid">
+                {tasks.map((task: Task) => { return <UserTaskCard  key={task.id} task={task}  />; })}
             </div>
+
             {tasks.length === 0 && (
-                <div className="flex flex-col gap-4 justify-center items-center mt-24">
+                <div className="no-tasks">
                     <Image
                         src="/no-data.svg"
                         width="200"
@@ -36,10 +28,10 @@ export default async function YourTasksPage() {
                         alt="no data image"
                         style={{
                             maxWidth: "100%",
-                            height: "auto"
+                            height: "auto",
                         }} />
-                    <h2 className="text-2xl">You have no tasks</h2>
-                    <Button asChild>
+                    <h2 >You have no tasks</h2>
+                    <Button asChild className="button">
                         <Link href="/create-task">Create Task</Link>
                     </Button>
                 </div>

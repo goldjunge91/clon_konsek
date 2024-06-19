@@ -1,13 +1,13 @@
 // tailwind.config.ts
-// import type { Config } from "tailwindcss"; // Importiert den Typ "Config" aus TailwindCSS
+// import type { Config } from "tailwindcss"
 import { Config } from "tailwindcss";
 const config: Config = {
 	content: [
-		"./pages/**/*.{js,ts,jsx,tsx,mdx}", // Path to all relevant files
+		"./pages/**/*.{js,ts,jsx,tsx,mdx}",
 		"./components/**/*.{js,ts,jsx,tsx,mdx}",
 		"./app/**/*.{js,ts,jsx,tsx,mdx}",
-		"./src/**/*.{js,ts,jsx,tsx,mdx}", // Include this path
-		"./src/globals.css", // Ensure this path is included
+		"./src/**/*.{js,ts,jsx,tsx,mdx}", 
+		"./src/globals.css", 
 	],
 	prefix: "", // Kein Präfix wird auf die generierten Utility-Klassen angewendet
 	theme: {

@@ -1,19 +1,19 @@
 "use client";
-import {Task} from "@/db/schema";
-import {useSession} from "next-auth/react";
-import {redirect} from "next/navigation";
-import {signIn} from "next-auth/react";
-import {useToast} from "@/components/ui/use-toast";
-import {getDownloadFile2} from "./actions";
-import {useState, useEffect} from "react";
-import {readPythonLog2} from '@/lib/readPythonLog';
+import { Task } from "@/db/schema";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
+import { signIn } from "next-auth/react";
+import { useToast } from "@/components/ui/use-toast";
+import { getDownloadFile2 } from "./actions";
+import { useState, useEffect } from "react";
+import { readPythonLog2 } from '@/lib/readPythonLog';
 
 
-export function TaskView({task}: { task: Task }) {
-    const {data: session, status} = useSession({
+export function TaskView({ task }: { task: Task }) {
+    const { data: session, status } = useSession({
         required: true,
         onUnauthenticated() {
-            signIn(undefined, {callbackUrl: "/foo"});
+            signIn(undefined, { callbackUrl: "/foo" });
             redirect("/api/auth/signin?callbackUrl=/tasks/[taskId]/task");
         },
     });
@@ -33,7 +33,6 @@ export function TaskView({task}: { task: Task }) {
     }, [status]);
 
     const [pythonLog, setPythonLog] = useState<string[]>([]);
-
     useEffect(() => {
         const fetchPythonLog = async () => {
             const maxLines = 10; // Anzahl der Zeilen, die angezeigt werden sollen
@@ -41,10 +40,9 @@ export function TaskView({task}: { task: Task }) {
                 const log = await readPythonLog2(task.id, maxLines);
                 setPythonLog(log);
             } catch (error) {
-                // Keine kein log des Fehlers
+                console.error("Error fetching Python log:", error);
             }
         };
-
         fetchPythonLog();     // Initialer Aufruf von fetchPythonLog
 
         const timer = setInterval(fetchPythonLog, 2000); // Timer, der fetchPythonLog alle 5 Sekunden aufruft
@@ -54,7 +52,7 @@ export function TaskView({task}: { task: Task }) {
         };
     }, [task.id]);
 
-    const {toast} = useToast();
+    const { toast } = useToast();
 
     const onSubmitDownload = async () => {
         if (task.status === "completed") {
@@ -139,7 +137,7 @@ export function TaskView({task}: { task: Task }) {
                 className={`py-2 px-4 rounded font-semibold ${task.status === "completed"
                     ? "bg-primary text-primary-foreground hover:bg-primary-foreground hover:text-primary"
                     : "bg-muted text-muted-foreground cursor-not-allowed"
-                }`}
+                    }`}
                 onClick={onSubmitDownload}
                 disabled={task.status !== "completed"}
             >

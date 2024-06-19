@@ -1,5 +1,5 @@
 "use client";
-import {Button} from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
     Card,
     CardContent,
@@ -8,15 +8,13 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
-import {Progress} from "@/components/ui/progress";
-import {Task} from "@/db/schema";
+import { Progress } from "@/components/ui/progress";
+import { Task } from "@/db/schema";
 import Link from "next/link";
 
-import {
-    GithubIcon,
-    TrashIcon
-} from "lucide-react";
+import { GithubIcon, TrashIcon } from "lucide-react";
 
+import { getDownloadFile2 } from "@/app/tasks/[taskId]/actions";
 import {
     AlertDialog,
     AlertDialogAction,
@@ -28,14 +26,11 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { useToast } from "@/components/ui/use-toast";
 import * as React from "react";
-import {deleteTaskAction} from "./actions";
-import {getDownloadFile2} from "@/app/tasks/[taskId]/actions";
-import {useToast} from "@/components/ui/use-toast";
+import { deleteTaskAction } from "./actions";
 
-
-export function UserTaskCard({task}: { task: Task; }) {
-
+export function UserTaskCard({ task }: { task: Task }) {
     const statusToProgress = (status: string) => {
         switch (status) {
             case "not started":
@@ -48,7 +43,7 @@ export function UserTaskCard({task}: { task: Task; }) {
                 return 0;
         }
     };
-    const {toast} = useToast();
+    const { toast } = useToast();
 
     const onSubmitDownload = async () => {
         if (task.status === "completed") {
@@ -63,7 +58,8 @@ export function UserTaskCard({task}: { task: Task; }) {
                 document.body.removeChild(link);
                 toast({
                     title: "Task completed",
-                    description: "The task has been successfully completed, and the file can be downloaded.",
+                    description:
+                        "The task has been successfully completed, and the file can be downloaded.",
                     variant: "default",
                 });
             } catch (error) {
@@ -77,32 +73,26 @@ export function UserTaskCard({task}: { task: Task; }) {
         } else {
             toast({
                 title: "Task not completed",
-                description: "The task is not yet completed. You can only download the file once the task is completed.",
+                description:
+                    "The task is not yet completed. You can only download the file once the task is completed.",
             });
         }
     };
     const status: string | null = task.status;
 
-
     const progressValue = statusToProgress(status ?? "defaultStatus");
     return (
         <Card>
             <CardHeader className="relative">
-                {/* <Button className="absolute top-2 right-2" size="icon">
-          <Link href={`/edit-task/${task.id}`}>
-            <PencilIcon />
-          </Link>
-        </Button> */}
                 <CardTitle>{task.name}</CardTitle>
 
-                <Progress value={progressValue} className="w-[80%] top-2 "/>
+                <Progress value={progressValue} className="w-[80%] top-2 " />
 
                 <CardDescription>{task.dsm_mail}</CardDescription>
             </CardHeader>
             <CardContent>
                 <div className="card p-5 m-3">
                     <div className="card p-5 gap-6">
-
                         <div className="text-2xl flex-col px-3">Status: {task.status}</div>
                     </div>
 
@@ -112,10 +102,9 @@ export function UserTaskCard({task}: { task: Task; }) {
                             className={`py-3 px-5 mx-0 rounded font-semibold ${task.status === "completed"
                                 ? "bg-primary text-primary-foreground hover:bg-primary-foreground hover:text-primary"
                                 : "bg-muted text-muted-foreground cursor-not-allowed"
-                            }`}
+                                }`}
                             onClick={onSubmitDownload}
-                            disabled={task.status !== "completed"}
-                        >
+                            disabled={task.status !== "completed"}>
                             {task.status === "completed" ? "Download" : "Pending"}
                         </button>
                     </div>
@@ -146,9 +135,10 @@ export function UserTaskCard({task}: { task: Task; }) {
                         className="flex items-center gap-6"
                         target="_blank"
                         rel="noopener noreferrer">
-                        <GithubIcon/>
+                        <GithubIcon />
                         URL zum Q.Wiki "https://name.qwiki.de/"
-                    </Link>)}
+                    </Link>
+                )}
             </CardContent>
 
             <CardFooter className="flex gap-12">
@@ -159,15 +149,15 @@ export function UserTaskCard({task}: { task: Task; }) {
                 <AlertDialog>
                     <AlertDialogTrigger asChild>
                         <Button variant={"destructive"}>
-                            <TrashIcon className="w-4 h-4 mr-2"/> Delete Task
+                            <TrashIcon className="w-4 h-4 mr-2" /> Delete Task
                         </Button>
                     </AlertDialogTrigger>
                     <AlertDialogContent>
                         <AlertDialogHeader>
                             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                             <AlertDialogDescription>
-                                This action cannot be undone. This will permanently remove the
-                                task and any data associated with it.
+                                This action cannot be undone. This will permanently remove the task
+                                and any data associated with it.
                             </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
@@ -175,8 +165,7 @@ export function UserTaskCard({task}: { task: Task; }) {
                             <AlertDialogAction
                                 onClick={() => {
                                     deleteTaskAction(task.id);
-                                }}
-                            >
+                                }}>
                                 Yes, delete
                             </AlertDialogAction>
                         </AlertDialogFooter>

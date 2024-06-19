@@ -1,0 +1,278 @@
+
+## css backup 
+
+
+
+```css
+/*  Custom Background Klasse für das Hintergrund Bild das in der layout.tsx */
+/* @layer base { */
+.body-background {
+	position: relative;
+	width: 100vw;
+	height: 100vh;
+	z-index: -1;
+}
+
+.background-image {
+	position: absolute;
+	top: 0;
+	left: 0;
+	size-adjust: 150%;
+	width: 100%;
+	height: 100%;
+	z-index: -10;
+	background-size: 200%;
+	/* Adjust this value to zoom in/out */
+	background-repeat: no-repeat;
+	background-position: center center;
+	object-fit: cover;
+}
+
+
+.button {
+	border: solid 2px #000;
+	border-radius: 0.5rem;
+	background-color: transparent;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-family: roboto500, arial;
+	font-size: 1.2rem;
+	margin: 2rem 0;
+	cursor: pointer;
+	letter-spacing: 0.03rem;
+}
+
+/* @layer components {
+} */
+
+.headerNavbar {
+	order: 0;
+	display: flex;
+	flex-wrap: wrap;
+	background-color: #e53e3e;
+	justify-content: space-evenly;
+	align-items: center;
+	padding: 0.5rem 1rem;
+}
+
+.containerLogo {
+	display: inline-flex;
+	justify-content: left;
+	align-items: left;
+	padding: 0.5rem;
+	background-color: rgb(0, 255, 8);
+	position: relative;
+	max-width: 100%;
+	height: auto;
+}
+
+
+
+.nav-container {
+	display: flex;
+	order: 1;
+	align-content: flex-start;
+	/* display: inline-flex; */
+	/* position: relative;
+	align-content: center;
+	flex-wrap: wrap;
+	gap: 10px */
+}
+
+.nav-link {
+	color: #360079;
+	text-decoration: none;
+	font-size: 1rem;
+
+	margin-right: 100px;
+}
+
+.nav-link:hover {
+	text-decoration: underline;
+}
+
+.nav-link:last-child {
+	margin-right: 0;
+}
+
+.account-actions {
+	display: flex;
+	align-items: center;
+}
+
+.dropdown-trigger {
+	background-color: #e53e3e;
+}
+
+.title-box {
+	background-color: transparent;
+}
+
+.title-box {
+	color: #000000;
+	font-family: Arial, Helvetica;
+	/* font-family: helvetica200, arial;  */
+	font-size: 3rem;
+	font-weight: 600;
+	line-height: 2.6rem;
+	margin-bottom: 1rem;
+}
+
+.title-light {
+	font-family: helvetica200;
+	font-size: 3rem;
+	font-weight: lighter;
+	line-height: 2.6rem;
+	margin-bottom: 1rem;
+	color: #000000;
+}
+
+.text-box {
+	border: black;
+	padding: 10px;
+	margin-bottom: 10px;
+	/* background-color: transparent; */
+	width: 90%;
+	max-width: 800px;
+}
+
+.text-box p {
+	font-family: roboto300;
+	font-size: 1.05rem;
+	line-height: 1.6rem;
+}
+
+
+.button {
+	border: solid 2px #000;
+	border-radius: 0.5rem;
+	background-color: transparent;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-family: roboto500, arial;
+	font-size: 1.2rem;
+	margin: 2rem 0;
+	cursor: pointer;
+	letter-spacing: 0.03rem;
+}
+
+.footer-box {
+	border: 2px solid #00000000;
+	padding: 4px;
+	background-color: #00000000;
+}
+
+a:link,
+a:visited {
+	color: #000;
+}
+
+/*  Create Task page */
+/*  TODO Create TASK */
+.page-container {
+	background-color: red;
+	/* container mx-auto flex flex-col gap-8 pt-12 pb-24; */
+}
+
+.page-heading {
+	background-color: red;
+
+	/* bg-red-900 text-4xl font-bold; */
+}
+
+.form-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2rem;
+	padding-top: 2rem;
+	padding-bottom: 2rem;
+	background-color: #f9f9f9;
+}
+
+.form-heading {
+	font-size: 2.5rem;
+	font-weight: bold;
+	text-align: center;
+}
+
+.form-subheading {
+	font-size: 1.5rem;
+	text-align: center;
+	margin-bottom: 1.5rem;
+}
+
+.form-item {
+	width: 100%;
+	background-color: tomato;
+	max-width: 500px;
+}
+
+.form-label {
+	font-size: 1.25rem;
+	font-weight: bold;
+	margin-bottom: 0.5rem;
+	display: block;
+}
+
+.form-control {
+	width: 100%;
+	padding: 0.75rem;
+	font-size: 1rem;
+	border: 1px solid #ccc;
+	border-radius: 0.5rem;
+	box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.form-description {
+	font-size: 0.875rem;
+	color: #666;
+	margin-top: 0.5rem;
+}
+
+.form-message {
+	font-size: 0.875rem;
+	color: #e53e3e;
+	margin-top: 0.5rem;
+}
+
+.form-button {
+	padding: 0.75rem 1.5rem;
+	font-size: 1.25rem;
+	color: white;
+	background-color: #333;
+	border: none;
+	border-radius: 0.5rem;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.form-button:hover {
+	background-color: #555;
+}
+
+
+/* TODO Button Eingabe formular */
+.form-button3 {
+	background-color: transparent;
+	border: 1px solid black;
+	color: black;
+	padding: 15px 65px;
+	text-align: center;
+	text-decoration: center;
+	text-justify: auto;
+	display: inline-block;
+	font-size: 16px;
+	margin: 10px 0px;
+	cursor: pointer;
+	border-radius: 12px
+}
+
+.form-button3:hover {
+	background-color: #555;
+}
+´´´

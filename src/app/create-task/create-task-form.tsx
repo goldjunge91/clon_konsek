@@ -19,7 +19,7 @@ import { Input } from "@/components/ui/input";
 import { saveDataTask2 } from "./actions";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
-import "../globals.css"; 
+import "../globals.css";
 
 
 const formSchema = z.object({
@@ -88,38 +88,20 @@ export function CreateTaskForm() {
 
 	return (
 		<Form {...form}>
-			{/* <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 bg-green-950"> */}
-			<form onSubmit={form.handleSubmit(onSubmit)}>
-				{/* <FormField
-					control={form.control}
-					name="name"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Name</FormLabel>
-							<FormControl>
-								<Input {...field} placeholder="PDF-Placeholder" />
-							</FormControl>
-							<FormDescription>PDF-Placeholder-Desc</FormDescription>
-							<FormMessage />
-						</FormItem>
-					)}
-				/> */}
-				{/* <div > */}
-
+			<form onSubmit={form.handleSubmit(onSubmit)} className="form">
 				<FormField
 					control={form.control}
 					name="dsm_url"
 					render={({ field }) => (
 						<FormItem>
 							<FormLabel>Q.Wiki URL</FormLabel>
-							{/* <FormControl className="{styles['form-container']}"> */}
 							<div
 								style={{
 									width: "30%",
 									backgroundColor: "white",
 									borderRadius: "10px",
 								}}>
-								<FormControl>
+								<FormControl className="{styles['form-container']}" >
 									<Input {...field} placeholder="https://konsek.de" />
 								</FormControl>
 							</div>
@@ -131,7 +113,6 @@ export function CreateTaskForm() {
 						</FormItem>
 					)}
 				/>
-				{/* </div> */}
 
 				<FormField
 					control={form.control}

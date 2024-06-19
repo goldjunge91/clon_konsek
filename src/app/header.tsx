@@ -58,7 +58,7 @@ function AccountDropdown() {
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild>
 					<Button variant={"link"} className="dropdown-trigger">
-						<Avatar className="mr-2">
+						<Avatar className="avatar">
 							<AvatarImage src={session.data?.user?.image ?? ""} />
 							{/* <AvatarImage src={} /> */}
 							<AvatarFallback>CN</AvatarFallback>
@@ -73,13 +73,13 @@ function AccountDropdown() {
 								callbackUrl: "/",
 							})
 						}>
-						<LogOutIcon className="mr-20" /> Logout
+						<LogOutIcon className="icon" /> Logout
 					</DropdownMenuItem>
 					<DropdownMenuItem
 						onClick={() => {
 							setOpen(true);
 						}}>
-						<DeleteIcon className="mr-10" /> Delete Account
+						<DeleteIcon className="icon" /> Delete Account
 					</DropdownMenuItem>
 				</DropdownMenuContent>
 			</DropdownMenu>
@@ -92,20 +92,19 @@ export function Header() {
 	const isLoggedIn = !!session.data;
 	const isAdmin = session.data?.user?.role === "admin";
 	return (
-		<header className="headerNavbar">
-			<div className="containerLogo">
-					<Link href="/" className="header-logo">
-						<Image
-							src="/logo_konsek.svg" // Direct path to the image
-							width={200}
-							height={60}
-							alt="KONSEK logo"
-							style={{ maxWidth: "100%", height: "auto",}}
-						/>
-					</Link>
-				</div>
-			<nav className="nav-container">
-				
+		<header className="navbar">
+			<div >
+				<Link href="/" >
+					<Image className="logo"
+						src="/logo_konsek.svg" // Direct path to the image
+						alt="KONSEK logo"
+						width={200}
+						height={60}
+					/>
+				</Link>
+			</div>
+
+			<div className="links">
 				{isLoggedIn && (
 					<>
 						<Link href="/your-tasks" className="nav-link">
@@ -121,16 +120,16 @@ export function Header() {
 						</Link>
 					</>
 				)}
-				<div className="account-actions">
-					{isLoggedIn && <AccountDropdown />}
-					{!isLoggedIn && (
-						<Button onClick={() => signIn()} variant="link">
-							<LogInIcon className="account-actions" />
-							Login
-						</Button>
-					)}
-				</div>
-			</nav>
+			</div>
+			<div className="login">
+				{isLoggedIn && <AccountDropdown />}
+				{!isLoggedIn && (
+					<Button onClick={() => signIn()} variant="link">
+						<LogInIcon className="icon" />
+						Login
+					</Button>
+				)}
+			</div>
 		</header>
 	);
 }
