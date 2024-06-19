@@ -19,7 +19,8 @@ import { Input } from "@/components/ui/input";
 import { saveDataTask2 } from "./actions";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
-import "./create-task.module.css";
+import "../globals.css"; 
+
 
 const formSchema = z.object({
 	dsm_url: z.string().url({ message: "The URL is in the wrong format: https://" }),
@@ -256,20 +257,7 @@ export function CreateTaskForm() {
 						);
 					}}
 				/>
-				<Button
-					style={{
-						backgroundColor: "transparent",
-						border: "1px solid black",
-						color: "black",
-						padding: "15px 32px",
-						textAlign: "center",
-						textDecoration: "center",
-						display: "inline-block",
-						fontSize: "16px",
-						margin: "4px 2px",
-						cursor: "pointer",
-						borderRadius: "12px",
-					}}
+				<Button className="form-button3"
 					type="submit">
 					Submit
 				</Button>

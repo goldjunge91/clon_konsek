@@ -22,264 +22,83 @@
 /*  Custom Background Klasse für das Hintergrund Bild das in der layout.tsx */
 @layer base {
 	.body-background {
-		/* @apply */
-		/* bg-custom-background bg-no-repeat bg-cover touch-pinch-zoom; */
-	background-position-x: -1000px;
-		background-position-y: -150px;
-		background-size: 150%;
-	
+		position: relative;
+		width: 100vw;
+		height: 100vh;
+		z-index: -1;
+	}
+
+	.background-image {
+		position: absolute;
+		top: 0;
+		left: 0;
+		size-adjust: 150%;
+		width: 100%;
+		height: 100%;
+		z-index: -10;
+		background-size: 200%;
+		/* Adjust this value to zoom in/out */
+		background-repeat: no-repeat;
+		background-position: center center;
+		object-fit: cover;
 	}
 }
 
-.heading {
-	@apply bg-red-900 px-96 text-gray-900 sm:text-6xl;
-}
-
-/* 
-@layer components {
-  .headingNavbar {
-    @apply bg-white text-black h-32 text-sm md:text-base lg:text-lg px-4 py-2 relative top-0 w-full;
-  }
-
-  .containerNavbar {
-    @apply mx-auto flex justify-between items-center py-6 px-8;
-  }
-
-  .linkNavbar {
-    @apply flex gap-2 items-center text-xl hover:underline;
-  }
-
-  .navbarLinksNavbar {
-    @apply flex content-between gap-40 hover:underline;
-  }
-
-  .actionsNavbar {
-    @apply flex items-center gap-4;
-  }
-
-  .navLinkNavbar1 {
-    @apply text-lg px-4 py-2;
-  }
-  .navLinkNavbar2 {
-    @apply text-lg px-4 py-2;
-  }
-  .navLinkNavbar3 {
-    @apply text-lg px-4 py-2;
-  }
-
-  .buttonNavbar {
-    @apply text-sm md:text-base lg:text-lg px-4 py-2 rounded-md bg-indigo-600 text-white hover:bg-indigo-500;
-  }
+/* @layer components {
 } */
 
-@layer components {
-	.headingNavbar {
-		font-family: "custom-roboto-slab-light";
-		@apply bg-white text-black h-32 text-sm md:text-base lg:text-lg px-4 py-2 relative top-0 w-full;
-	}
-
-	.containerNavbar {
-		font-family: "custom-roboto-slab-light";
-		@apply mx-auto flex justify-between items-center py-6 px-8;
-	}
-
-	.linkNavbar {
-		font-family: "custom-roboto-slab-light";
-		@apply flex gap-2 items-center text-xl hover:underline;
-	}
-
-	.navbarLinksNavbar {
-		font-family: "custom-roboto-slab-light";
-		@apply flex content-between gap-40 hover:underline;
-	}
-
-	.actionsNavbar {
-		font-family: "custom-roboto-slab-light";
-		@apply flex items-center gap-4;
-	}
-
-	.navLinkNavbar1,
-	.navLinkNavbar2,
-	.navLinkNavbar3 {
-		@apply text-lg px-4 py-2;
-	}
-
-	.dropdownMenuContent {
-		@apply bg-white shadow-lg rounded-lg border border-gray-200;
-	}
-
-	.dropdownMenuItem {
-		@apply px-4 py-2 hover:bg-gray-100 cursor-pointer;
-	}
-
-	.buttonNavbar {
-		@apply text-sm md:text-base lg:text-lg px-4 py-2 rounded-md bg-indigo-600 text-white hover:bg-indigo-500;
-	}
-}
-
-.nav-container {
-	display: inline-block;
-	background-color: red;
-	align-items: left;
-}
-
-.nav {
-	display: inline-block;
-	align-items: center;
-	background-color: yellow;
-}
-
-.nav-link {
-	color: #fff;
-
-	text-decoration: none;
-	margin-right: -10px;
-	font-size: 1rem;
-}
-
-.nav-link:hover {
-	text-decoration: underline;
-}
-
-.nav-link:last-child {
-	margin-right: 0;
-}
-
-.header-logo {
-	top: 15px;
-	padding: 10px;
-	margin-bottom: 20px;
-}
-
-/* 
-.body {
-	@apply bg-no-repeat bg-center bg-fixed;
-	background-image: url("../../public/background.jpg");
-	background-size: cover;
-	@apply m-0 p-0;
-}
-
-/* Container styles LandingPage */
-/* .header {
-	top: -5px;
-	margin-top: -40px;
-	margin-left: 0px;
-	gap: 0px 0px;
+.headerNavbar {
+	background-color: #e53e3e;
 	display: flex;
-	align-items: center;
 	justify-content: space-between;
-	padding: 10px 20px;
-	background-color: rgb(255, 255, 255);
-	height: 140px;
+	align-items: center;
+	padding: 0.5rem 1rem;
 }
-.nav-link:hover {
-	text-decoration: underline;
-}
-.header a {
-	color: #fff;
-	text-decoration: none;
-	margin-right: 15px;
-}
-.header a:hover {
-	text-decoration: underline;
-}
+
 .header-logo img {
 	max-width: 100%;
 	height: auto;
 }
-.nav-container {
-	display: inline-block;
-	background-color: red;
-	align-items: left;
-}
-.nav {
-	display: inline-block;
-	align-items: center;
-	background-color: yellow;
-}
-.nav-link {
-	color: #fff;
 
-	text-decoration: none;
-	margin-right: -10px;
-	font-size: 1rem;
+.containerLogo {
+	display: flex;
+	justify-content: left;
+	align-items: left;
+	padding: 0.5rem;
+	background-color: rgb(0, 255, 8);
+	position: relative;
+	background-position-x: 100px;
 }
+
+.nav-container {
+	display: flex;
+	gap: 1rem;
+}
+
+.nav-link {
+	color: #360079;
+	text-decoration: none;
+	font-size: 1rem;
+
+	margin-right: 100px;
+}
+
 .nav-link:hover {
 	text-decoration: underline;
 }
+
 .nav-link:last-child {
 	margin-right: 0;
 }
-.avatar {
-	display: flex;
-	align-items: center;
-}
-.avatar img {
-	border-radius: 50%;
-	width: 40px;
-	height: 40px;
-}
-.dropdown-menu {
-	background-color: #444;
-	border: 1px solid #555;
-	border-radius: 5px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-.dropdown-menu a {
-	color: #fff;
-	padding: 10px 20px;
-	display: block;
-	text-decoration: none;
-}
 
-.dropdown-menu a:hover {
-	background-color: #555;
-}
-button {
-	background-color: transparent;
-
-	border: none;
-	color: #000000;
-	cursor: pointer;
-	font-size: 1.5rem;
-	display: flex;
-	align-items: right;
-}
-button:hover {
-	text-decoration: underline;
-}
-button svg {
-	margin-right: 5px;
-}
 .account-actions {
 	display: flex;
 	align-items: center;
 }
-.login-button {
-	background-color: transparent;
-	border: none;
-	color: #fff;
-	cursor: pointer;
-	font-size: 1rem;
-	display: flex;
-	align-items: center;
+
+.dropdown-trigger {
+	background-color: #e53e3e;
 }
-.login-button:hover {
-	text-decoration: underline;
-}
-.container {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	justify-content: center;
-	min-height: 60vh;
-	margin-left: 100px;
-	padding: 5px;
-	left: 60px;
-	/* Adjust the value as needed */
-/* color: #000000; */
-/* text-align: left; */
-/* } */
 
 .title-box {
 	background-color: transparent;
@@ -343,4 +162,104 @@ button svg {
 a:link,
 a:visited {
 	color: #000;
+}
+
+/*  Create Task page */
+/*  TODO Create TASK */
+.page-container {
+	@apply bg-black container mx-auto flex flex-col gap-8 pt-12 pb-24;
+}
+
+.page-heading {
+	@apply bg-red-900 text-4xl font-bold;
+}
+
+.form-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2rem;
+	padding-top: 2rem;
+	padding-bottom: 2rem;
+	background-color: #f9f9f9;
+}
+
+.form-heading {
+	font-size: 2.5rem;
+	font-weight: bold;
+	text-align: center;
+}
+
+.form-subheading {
+	font-size: 1.5rem;
+	text-align: center;
+	margin-bottom: 1.5rem;
+}
+
+.form-item {
+	width: 100%;
+	background-color: tomato;
+	max-width: 500px;
+}
+
+.form-label {
+	font-size: 1.25rem;
+	font-weight: bold;
+	margin-bottom: 0.5rem;
+	display: block;
+}
+
+.form-control {
+	width: 100%;
+	padding: 0.75rem;
+	font-size: 1rem;
+	border: 1px solid #ccc;
+	border-radius: 0.5rem;
+	box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.form-description {
+	font-size: 0.875rem;
+	color: #666;
+	margin-top: 0.5rem;
+}
+
+.form-message {
+	font-size: 0.875rem;
+	color: #e53e3e;
+	margin-top: 0.5rem;
+}
+
+.form-button {
+	padding: 0.75rem 1.5rem;
+	font-size: 1.25rem;
+	color: white;
+	background-color: #333;
+	border: none;
+	border-radius: 0.5rem;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+.form-button:hover {
+	background-color: #555;
+}
+
+
+/* TODO Button Eingabe formular */
+.form-button3 {
+	background-color: transparent;
+		border: 1px solid black;
+		color: black;
+		padding: 15px 65px;
+		text-align: center;
+		text-decoration: center;
+		text-justify: auto;
+		display: inline-block;
+		font-size: 16px;
+		margin: 10px 0px;
+		cursor: pointer;
+		border-radius: 12px
+}
+.form-button3:hover {
+	background-color: #555;
 }

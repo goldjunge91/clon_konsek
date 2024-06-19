@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-sync-scripts */
 import type { Metadata } from "next";
 import React from "react";
-// import { Inter } from "next/font/google";
 import AuthProvider from "@/lib/AuthProvider";
 import { Header } from "./header";
 import NextTopLoader from "nextjs-toploader";
@@ -24,27 +23,12 @@ export default function RootLayout({
 }>): React.ReactNode {
 	return (
 		<html lang="en" suppressHydrationWarning>
-			{/* <body className={inter.className}> */}
-			<body className="body-background" 
-			style={{
-				zIndex: -1, position: "relative", width: "100vw",
-				height: "100vh",
-			}}>
-				<Image alt="sky"
+			<body className="body-background">
+				<Image
+					className="background-image"
+					alt="sky"
 					src={background}
 					quality={100}
-					style={{
-						position: "absolute",
-						top: 0,
-						left: 0,
-						width: "100%",
-						height: "100%",
-						zIndex: -10,
-						backgroundSize: "cover",
-						backgroundRepeat: "no-repeat",
-						backgroundPosition: "center center",
-						objectFit: "cover",
-					}}
 				/>
 				<AuthProvider>
 					<Toaster />

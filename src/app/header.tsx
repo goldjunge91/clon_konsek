@@ -92,24 +92,20 @@ export function Header() {
 	const isLoggedIn = !!session.data;
 	const isAdmin = session.data?.user?.role === "admin";
 	return (
-		<header className="containerNavbar">
-			{/* // <header className="headingNavbar"> */}
-			{/* <div className="containerNavbar"> */}
-			<nav className="nav-container">
-				<div className="nav">
+		<header className="headerNavbar">
+			<div className="containerLogo">
 					<Link href="/" className="header-logo">
 						<Image
 							src="/logo_konsek.svg" // Direct path to the image
 							width={200}
 							height={60}
 							alt="KONSEK logo"
-							style={{
-								maxWidth: "100%",
-								height: "auto",
-							}}
+							style={{ maxWidth: "100%", height: "auto",}}
 						/>
 					</Link>
 				</div>
+			<nav className="nav-container">
+				
 				{isLoggedIn && (
 					<>
 						<Link href="/your-tasks" className="nav-link">
@@ -129,13 +125,12 @@ export function Header() {
 					{isLoggedIn && <AccountDropdown />}
 					{!isLoggedIn && (
 						<Button onClick={() => signIn()} variant="link">
-							<LogInIcon className="" />
+							<LogInIcon className="account-actions" />
 							Login
 						</Button>
 					)}
 				</div>
 			</nav>
-			{/* </div> */}
 		</header>
 	);
 }
