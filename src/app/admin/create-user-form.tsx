@@ -3,12 +3,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
 import { Button } from "@/components/ui/button";
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -52,40 +50,32 @@ export function CreateUserForm() {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="form-container">
+            <form className="form-container" onSubmit={form.handleSubmit(onSubmit)}>
                 <FormField
                     control={form.control}
-                    name="username"
-                    render={({ field }) => (
-                        <FormItem className="form-field">
+                    name="username" render={({ field }) => (
+                        <FormItem className="form-styles">
                             <FormLabel>Username</FormLabel>
                             <FormControl>
                                 <Input {...field} placeholder="Username" />
                             </FormControl>
-                            {/* <FormDescription>Benutzername zum Login</FormDescription> */}
                             <FormMessage />
-                        </FormItem>
-                    )}
-                />
+                        </FormItem>)} />
                 <FormField
                     control={form.control}
                     name="password"
                     render={({ field }) => (
-                        <FormItem className="form-field">
+                        <FormItem className="form-styles">
                             <FormLabel>Password</FormLabel>
                             <FormControl>
                                 <Input {...field} type="password" placeholder="********" />
                             </FormControl>
-                            {/* <FormDescription>Benutzer Passwort</FormDescription> */}
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
+                            <FormMessage /></FormItem>)} />
                 <FormField
                     control={form.control}
                     name="role"
                     render={({ field }) => (
-                        <FormItem className="form-field">
+                        <FormItem className="form-styles">
                             <FormLabel>Role</FormLabel>
                             <FormControl>
                                 <select {...field}>

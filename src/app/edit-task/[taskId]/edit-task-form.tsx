@@ -61,7 +61,7 @@ export function EditTaskForm({task}: { task: Task }) {
                     control={form.control}
                     name="name"
                     render={({field}) => (
-                        <FormItem>
+                        <FormItem className="form-styles">className="form-field">
                             <FormLabel>Name</FormLabel>
                             <FormControl>
                                 <Input {...field} placeholder="Kundenname"/>
@@ -76,7 +76,7 @@ export function EditTaskForm({task}: { task: Task }) {
                     control={form.control}
                     name="dsm_url"
                     render={({field}) => (
-                        <FormItem>
+                        <FormItem className="form-styles">
                             <FormLabel>Q.Wiki URL</FormLabel>
                             <FormControl>
                                 <Input
@@ -96,7 +96,7 @@ export function EditTaskForm({task}: { task: Task }) {
                     control={form.control}
                     name="dsm_mail"
                     render={({field}) => (
-                        <FormItem>
+                        <FormItem className="form-styles">
                             <FormLabel>Q.Wiki Usermail adresse</FormLabel>
                             <FormControl>
                                 <Input {...field} placeholder="name.nachname@mail.de"/>
@@ -112,7 +112,7 @@ export function EditTaskForm({task}: { task: Task }) {
           control={form.control}
           name="dsmpassword"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="form-styles">
               <FormLabel>Passwort der Usermail</FormLabel>
               <FormControl>
                 <Input {...field} placeholder="placeholder" />

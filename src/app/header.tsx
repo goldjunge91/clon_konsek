@@ -57,7 +57,7 @@ function AccountDropdown() {
 			</AlertDialog>
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild>
-					<Button variant={"link"} className="dropdown-trigger">
+					<Button variant={"link"} className="zf1">
 						<Avatar className="avatar">
 							<AvatarImage src={session.data?.user?.image ?? ""} />
 							{/* <AvatarImage src={} /> */}
@@ -104,7 +104,7 @@ export function Header() {
 				</Link>
 			</div>
 
-			<div className="links">
+			<div className="zf1">
 				{isLoggedIn && (
 					<>
 						<Link href="/your-tasks" className="nav-link">
@@ -121,7 +121,7 @@ export function Header() {
 					</>
 				)}
 			</div>
-			<div className="login">
+			<div className="zf1">
 				{isLoggedIn && <AccountDropdown />}
 				{!isLoggedIn && (
 					<Button onClick={() => signIn()} variant="link">

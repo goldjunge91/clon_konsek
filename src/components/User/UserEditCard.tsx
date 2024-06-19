@@ -70,7 +70,7 @@ export function UserEditCard({user, onEdit, onDelete}: UserCardProps) {
                                 control={form.control}
                                 name="username"
                                 render={({field}) => (
-                                    <FormItem>
+                                    <FormItem className="form-styles">
                                         <FormLabel>Username</FormLabel>
                                         <FormControl>
                                             <Input {...field} />
@@ -82,7 +82,7 @@ export function UserEditCard({user, onEdit, onDelete}: UserCardProps) {
                                 control={form.control}
                                 name="password"
                                 render={({field}) => (
-                                    <FormItem>
+                                    <FormItem className="form-styles">
                                         <FormLabel>Password</FormLabel>
                                         <FormControl>
                                             <Input type="password" {...field} />

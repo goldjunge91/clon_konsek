@@ -19,12 +19,12 @@ export default async function TaskPage(props: { params: { taskId: string } }) {
         // der block für das TaskView-Element komponente die TaskView-Komponente
         <div className="task-page">
             <div className="task-view">
-                <div className="task-view-content">
+                <div className="card-styles">
                     <TaskView task={task}/>
                 </div>
             </div>
-            <div className="task-sidebar">
-                <div className="task-sidebar-content">
+            <div className="card-styles">
+                <div className="card-styles">
                     <h1 >{task?.name}</h1>
 
                     {task.dsm_url && (

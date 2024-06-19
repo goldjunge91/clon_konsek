@@ -11,19 +11,17 @@ export default function CreateUserPage() {
       signIn("auth-provider", { callbackUrl: "/admin" });
     },
   });
-
   if (session?.user.role !== "admin") {
     return <h1>Access Denied</h1>;
   }
-
   return (
-    <div className="admin-page">
+    <div>
       <div className="admin-container">
         <h1>Admin Panel</h1>
         <CreateUserForm />
       </div>
       <div className="admin-user-list">
-        <h1>Admin Panel</h1>
+        <h1>Userlist</h1>
         <UserList />
       </div>
     </div>
