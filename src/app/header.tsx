@@ -104,7 +104,7 @@ export function Header() {
 				</Link>
 			</div>
 
-			<div className="zf1">
+			<div className="links">
 				{isLoggedIn && (
 					<>
 						<Link href="/your-tasks" className="nav-link">

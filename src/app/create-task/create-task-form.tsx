@@ -88,12 +88,12 @@ export function CreateTaskForm() {
 
 	return (
 		<Form {...form}>
-			<form className="form" onSubmit={form.handleSubmit(onSubmit)} >
+			<form className=".create-task-page-form" onSubmit={form.handleSubmit(onSubmit)} >
 				<FormField
 					control={form.control}
 					name="dsm_url"
 					render={({ field }) => (
-						<FormItem className="form-field">
+						<FormItem className="form-styles">
 							<FormLabel>Q.Wiki URL</FormLabel>
 							<div
 								style={{
@@ -118,14 +118,9 @@ export function CreateTaskForm() {
 					control={form.control}
 					name="dsm_mail"
 					render={({ field }) => (
-						<FormItem className="form-field">className="form-field">
+						<FormItem className="form-styles">
 							<FormLabel>Q.Wiki User Mail-Adress</FormLabel>
-							<div
-								style={{
-									width: "30%",
-									backgroundColor: "white",
-									borderRadius: "10px",
-								}}>
+							<div>
 								<FormControl>
 									<Input {...field} placeholder="ReadOnlyUSerLogin@mail.de" />
 								</FormControl>{" "}
@@ -140,7 +135,7 @@ export function CreateTaskForm() {
 					control={form.control}
 					name="dsmpassword"
 					render={({ field }) => (
-						<FormItem className="form-field">
+						<FormItem className="form-styles">
 							<div>
 								<FormLabel>Q.Wiki User Mail Password</FormLabel>
 							</div>
@@ -171,7 +166,7 @@ export function CreateTaskForm() {
 					control={form.control}
 					name="zippassword"
 					render={({ field }) => (
-						<FormItem className="form-field">
+						<FormItem className="form-styles">
 							<FormLabel>
 								Enter a password to compress and protect the files from unauthorized
 								access{" "}
@@ -206,12 +201,7 @@ export function CreateTaskForm() {
 
 							<FormItem className="form-field">
 								<FormLabel>Only .CSV File</FormLabel>
-								<div
-									style={{
-										width: "30%",
-										backgroundColor: "white",
-										borderRadius: "10px",
-									}}>
+								<div>
 									<FormControl>
 										<Input
 											{...fieldProps}
@@ -238,7 +228,7 @@ export function CreateTaskForm() {
 						);
 					}}
 				/>
-				<Button className="form-button3"
+				<Button className="form-button"
 					type="submit">
 					Submit
 				</Button>

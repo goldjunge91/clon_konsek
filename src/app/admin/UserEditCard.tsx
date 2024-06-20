@@ -55,14 +55,14 @@ export function UserEditCard({ user, onEdit, onDelete }: UserCardProps) {
     }
 
     return (
-        <Card className="w-full">
+        <Card className="zf1">
             <CardHeader>
                 <CardTitle>{user.name}</CardTitle>
             </CardHeader>
             <CardContent>
                 {isEditing ? (
                     <Form {...form}>
-                        <form className="form-container" onSubmit={form.handleSubmit(onSubmit)} >
+                        <form className="zf1" onSubmit={form.handleSubmit(onSubmit)} >
                             <FormField
                                 control={form.control}
                                 name="username"
@@ -87,7 +87,7 @@ export function UserEditCard({ user, onEdit, onDelete }: UserCardProps) {
                                     </FormItem>
                                 )}
                             />
-                            <div className="flex justify-end space-x-2">
+                            <div className="user-details">
                                 <Button type="submit">Save</Button>
                                 <Button type="button" variant="outline" onClick={() => setIsEditing(false)}>
                                     Cancel

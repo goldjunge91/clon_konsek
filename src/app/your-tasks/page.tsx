@@ -12,7 +12,7 @@ export default async function YourTasksPage() {
     const tasks = await getUserTasks();
     return (
         <main className="your-tasks-page">
-            <div className="tasks-header">
+            <div className="header">
                 <h1 >Your Tasks</h1>
             </div>
             <div className="tasks-grid">

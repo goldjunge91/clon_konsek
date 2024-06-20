@@ -4,19 +4,19 @@
 
 @font-face {
 	font-family: "helvetica200";
-	src: url("/fonts/helveticaneuelt-std-thin_normal_250.ttf") format("truetype");
+	src: url("../../public/fonts/helveticaneuelt-std-thin_normal_250.ttf") format("truetype");
 	font-weight: 200;
 	font-style: normal;
 }
 
 @font-face {
 	font-family: "roboto300";
-	src: url("/fonts/roboto-slab-light_normal_300.ttf") format("truetype");
+	src: url("../../public/fonts/roboto-slab-light_normal_300.ttf") format("truetype");
 }
 
 @font-face {
 	font-family: "roboto500";
-	src: url("/fonts/roboto-slab-medium_normal_500.ttf") format("truetype");
+	src: url("../../public/fonts/roboto-slab-medium_normal_500.ttf") format("truetype");
 }
 
 .helvetica {
@@ -104,8 +104,18 @@ img {
 	flex-direction: row;
 	flex-wrap: wrap;
 	align-items: center;
+	columns: gap 5rem;
+	row-gap: 4rem;
 }
 
+.links {
+	display: inline-flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: center;
+	column-gap: 5rem;
+	row-gap: 1.5rem;
+}
 
 .navbar {
 	display: flex;
@@ -120,8 +130,6 @@ img {
 
 .logo {
 	display: flex;
-	width: 200;
-	height: 60;
 	align-self: flex-start;
 }
 
@@ -154,6 +162,7 @@ img {
 
 .icon {
 	margin-right: 0.5rem;
+
 }
 
 .imagebackground {
@@ -166,6 +175,7 @@ img {
 	background-repeat: no-repeat;
 	background-position: center center;
 	object-fit: cover;
+	overflow: hidden;
 }
 
 .create-task-page {
@@ -180,7 +190,7 @@ img {
 	font-weight: bold;
 }
 
-.create-task-page .form {
+.create-task-page-form {
 	display: flex;
 	flex-direction: column;
 	align-content: flex-start;
@@ -220,13 +230,6 @@ img {
 	background-color: #000;
 	color: #fff;
 }
-
-body {
-	background-color: #efefef;
-}
-
-
-
 
 .your-tasks-page .task-card {
 	display: flex;
@@ -298,8 +301,6 @@ body {
 .task-sidebar {
 	padding: 1rem 1rem 1rem 0.5rem;
 }
-
-
 
 .task-title {
 	font-size: 1rem;
@@ -394,6 +395,7 @@ body {
 .form-styles {
 	display: flex;
 	flex-direction: column;
+	align-self: flex-start;
 	gap: 1rem;
 }
 
@@ -410,26 +412,21 @@ body {
 	gap: 1rem;
 }
 
-
-/* 
-.your-tasks-page 
-.header, 
-.your-tasks-page .tasks-grid, .your-tasks-page .task-card, .your-tasks-page .open-task-button .your-tasks-page .no-tasks 
-
 .your-tasks-page .tasks-grid {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	gap: 1rem;
 }
+
+ */
 .your-tasks-page {
 	min-height: 100vh;
 	padding: 2rem;
- .your-tasks-page .header {
+}
+
+.your-tasks-page .header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	margin-bottom: 2rem;
 }
-
- 
- */

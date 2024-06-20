@@ -16,7 +16,6 @@ export default function LandingPage() {
                         PDF <span className="title-light">stack processor</span>
                     </h1>
                 </div>
-
                 {/*  mittlere box */}
                 <div className="textbox">
                     <p>

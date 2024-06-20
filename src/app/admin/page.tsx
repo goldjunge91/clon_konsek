@@ -20,7 +20,7 @@ export default function CreateUserPage() {
         <h1>Admin Panel</h1>
         <CreateUserForm />
       </div>
-      <div className="admin-user-list">
+      <div className="zf1">
         <h1>Userlist</h1>
         <UserList />
       </div>
