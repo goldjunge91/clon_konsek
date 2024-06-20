@@ -61,7 +61,7 @@ export function EditTaskForm({task}: { task: Task }) {
                     control={form.control}
                     name="name"
                     render={({field}) => (
-                        <FormItem className="form-styles">className="form-field">
+                        <FormItem className="form-styles">
                             <FormLabel>Name</FormLabel>
                             <FormControl>
                                 <Input {...field} placeholder="Kundenname"/>
