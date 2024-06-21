@@ -8,7 +8,7 @@
 		"start": "next start",
 		"pod": "PORT=3000 next start",
 		"lint": "next lint",
-		"build:css": "postcss src/app/globals.css",
+		"build:css": "postcss src/app/globals.css -o ../../.. /globals.css",
 		"db:push": "drizzle-kit push:pg --config=drizzle.config.ts",
 		"db:studio": "drizzle-kit studio"
 	},
@@ -69,7 +69,6 @@
 		"eslint": "^8.57.0",
 		"eslint-config-next": "14.1.3",
 		"postcss": "^8.4.38",
-		"tailwindcss": "^3.4.4",
 		"ts-node": "^10.9.2",
 		"tslib": "^2.6.2",
 		"typescript": "^5.4.5"

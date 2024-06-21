@@ -18,12 +18,15 @@ export default function CreateTaskPage() {
         },
     });
     if (!session) {
-        return <h1 className="text-5xl">Access Denied</h1>;
+        return <h1>Access Denied</h1>;
     }
     return (
         <div className="create-task-page">
-            <h1>Create Task</h1>
-            <CreateTaskForm  />
+            <h1>
+                <span className="boldweight">Create </span>
+                <span className="title-light">Create Task</span>
+            </h1>
+            <CreateTaskForm />
         </div>
     );
 }

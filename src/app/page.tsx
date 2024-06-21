@@ -8,12 +8,12 @@ export default function LandingPage() {
         <>
             <meta charSet="utf-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            <title>Titel</title>
+            <title>PDF stack processor</title>
             {/* Erste box  */}
             <div className="container">
                 <div className="title-box h1">
                     <h1 className="Title">
-                        PDF <span className="title-light">stack processor</span>
+                        <span className="boldweight">PDF</span> <span className="title-light">stack processor</span>
                     </h1>
                 </div>
                 {/*  mittlere box */}
@@ -28,14 +28,16 @@ export default function LandingPage() {
                     </p>
                 </div>
                 {/* Button styling  */}
-                <div className="button">
-                    <Link href="/create-task">
-                        Create a new print file
-                    </Link>
+                <div>
+                    <button>
+                        <Link href="/create-task">
+                            Create a new print file
+                        </Link>
+                    </button>
                 </div>
                 <div className="footer">
                     <p>
-                        Provided by Konsek Engineering &amp; Consulting GmbH
+                        Provided by Konsek Engineering & Consulting GmbH
                         <br />
                         <a href="https://www.konsek.de/impressum/">Terms of use</a> | <a href="https://www.konsek.de/datenschutzerklaerung/">Privacy Policy</a> |{" "}
                         <a href="https://www.konsek.de/agb/">Legal</a>

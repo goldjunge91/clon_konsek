@@ -23,18 +23,20 @@ export default function RootLayout({
 }>): React.ReactNode {
 	return (
 		<html lang="en" suppressHydrationWarning>
-			<body>
-				<Image
-					className="imagebackground"
-					alt="sky"
-					src={background}
-					quality={100}
-				/>
+			<body className="layout-body" >
+				<div className="background-container">
+					<Image
+						className="imagebackground"
+						alt="sky"
+						src={background}
+						quality={100}
+					/>
+				</div>
 				<AuthProvider>
 					<Toaster />
 					<NextTopLoader />
-					<Header  />
-					<div>{children}</div>
+					<Header />
+					<main  >{children}</main>
 				</AuthProvider>
 			</body>
 		</html>

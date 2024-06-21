@@ -27,7 +27,7 @@ import Link from "next/link"; // Import Link component from next/link
 import Image from "next/image"; // Import Image component from next/image
 import { useState } from "react"; // Import useState hook from react
 import { deleteAccountAction } from "./actions"; // Import deleteAccountAction function from actions
-// import "./globals.css";
+import "./globals.css";
 
 function AccountDropdown() {
 	const session = useSession(); // Get session data
@@ -55,9 +55,9 @@ function AccountDropdown() {
 					</AlertDialogFooter>
 				</AlertDialogContent>
 			</AlertDialog>
-			<DropdownMenu>
-				<DropdownMenuTrigger asChild>
-					<Button variant={"link"} className="zf1">
+			<DropdownMenu >
+				<DropdownMenuTrigger asChild className="login-container-button" >
+					<Button className="button" variant={"link"} >
 						<Avatar className="avatar">
 							<AvatarImage src={session.data?.user?.image ?? ""} />
 							{/* <AvatarImage src={} /> */}
@@ -79,7 +79,7 @@ function AccountDropdown() {
 						onClick={() => {
 							setOpen(true);
 						}}>
-						<DeleteIcon className="icon" /> Delete Account
+						<DeleteIcon /> Delete Account
 					</DropdownMenuItem>
 				</DropdownMenuContent>
 			</DropdownMenu>
@@ -93,18 +93,17 @@ export function Header() {
 	const isAdmin = session.data?.user?.role === "admin";
 	return (
 		<header className="navbar">
-			<div >
-				<Link href="/" >
-					<Image className="logo"
-						src="/logo_konsek.svg" // Direct path to the image
-						alt="KONSEK logo"
-						width={200}
-						height={60}
-					/>
-				</Link>
-			</div>
-
-			<div className="links">
+			{/* <div > */}
+			<Link href="/" >
+				<Image className="logo"
+					src="/logo_konsek.svg" // Direct path to the image
+					alt="KONSEK logo"
+					width={200}
+					height={60}
+				/>
+			</Link>
+			{/* </div> */}
+			<div className="link-container">
 				{isLoggedIn && (
 					<>
 						<Link href="/your-tasks" className="nav-link">
@@ -115,21 +114,23 @@ export function Header() {
 								Adminpanel
 							</Link>
 						)}
-						<Link href="/browse" className="nav-link">
-							Browse
-						</Link>
+						{isAdmin && (
+							<Link href="/browse" className="nav-link">
+								Browse
+							</Link>
+						)}
 					</>
 				)}
 			</div>
-			<div className="zf1">
+			<div>
 				{isLoggedIn && <AccountDropdown />}
 				{!isLoggedIn && (
 					<Button onClick={() => signIn()} variant="link">
-						<LogInIcon className="icon" />
+						<LogInIcon />
 						Login
 					</Button>
 				)}
-			</div>
+			</div >
 		</header>
 	);
 }

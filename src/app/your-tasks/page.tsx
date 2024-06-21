@@ -12,13 +12,12 @@ export default async function YourTasksPage() {
     const tasks = await getUserTasks();
     return (
         <main className="your-tasks-page">
-            <div className="header">
+            <div className="title-container" >
                 <h1 >Your Tasks</h1>
             </div>
-            <div className="tasks-grid">
+            <div className="tasks-container">
                 {tasks.map((task: Task) => { return <UserTaskCard  key={task.id} task={task}  />; })}
             </div>
-
             {tasks.length === 0 && (
                 <div className="no-tasks">
                     <Image

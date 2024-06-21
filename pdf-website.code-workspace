@@ -30,7 +30,6 @@
 			"**/CVS": true
 		},
 		"editor.renderWhitespace": "boundary",
-		"editor.cursorStyle": "underline",
 		"editor.wordWrap": "on",
 		"editor.bracketPairColorization.independentColorPoolPerBracketType": true,
 		"editor.experimentalInlineEdit.backgroundColoring": true,

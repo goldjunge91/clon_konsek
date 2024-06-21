@@ -9,11 +9,11 @@ import { Button } from "@/components/ui/button";
 import {
 	Form,
 	FormControl,
-	FormDescription,
 	FormField,
 	FormItem,
 	FormLabel,
 	FormMessage,
+	// FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { saveDataTask2 } from "./actions";
@@ -96,19 +96,15 @@ export function CreateTaskForm() {
 						<FormItem className="form-styles">
 							<FormLabel>Q.Wiki URL</FormLabel>
 							<div
-								style={{
-									width: "30%",
-									backgroundColor: "white",
-									borderRadius: "10px",
-								}}>
+							>
 								<FormControl className="{styles['form-container']}" >
 									<Input {...field} placeholder="https://konsek.de" />
 								</FormControl>
 							</div>
-							<FormDescription>
+							{/* <FormDescription>
 								Please provide the URL to your Q.wiki Login Like
 								"https://konsek.qwikinow.de/"
-							</FormDescription>
+							</FormDescription> */}
 							<FormMessage />
 						</FormItem>
 					)}
@@ -125,7 +121,7 @@ export function CreateTaskForm() {
 									<Input {...field} placeholder="ReadOnlyUSerLogin@mail.de" />
 								</FormControl>{" "}
 							</div>
-							<FormDescription>The Q.Wiki User Mail-Adresse</FormDescription>
+							{/* <FormDescription>The Q.Wiki User Mail-Adresse</FormDescription> */}
 							<FormMessage />
 						</FormItem>
 					)}
@@ -139,12 +135,7 @@ export function CreateTaskForm() {
 							<div>
 								<FormLabel>Q.Wiki User Mail Password</FormLabel>
 							</div>
-							<div
-								style={{
-									width: "30%",
-									backgroundColor: "white",
-									borderRadius: "10px",
-								}}>
+							<div>
 								<FormControl>
 									<Input
 										{...field}
@@ -153,10 +144,10 @@ export function CreateTaskForm() {
 									/>
 								</FormControl>
 							</div>
-							<FormDescription>
+							{/* <FormDescription>
 								Provide the password to the User Email Address that is associated
 								with your Q.Wiki account.
-							</FormDescription>
+							</FormDescription> */}
 							<FormMessage />
 						</FormItem>
 					)}
@@ -172,20 +163,11 @@ export function CreateTaskForm() {
 								access{" "}
 							</FormLabel>
 
-							<div
-								style={{
-									width: "30%",
-									backgroundColor: "white",
-									borderRadius: "10px",
-								}}>
+							<div>
 								<FormControl>
 									<Input {...field} type="password" placeholder="Zip-Password" />
 								</FormControl>
 							</div>
-							<FormDescription>
-								Please make sure to remember or enter the correct password. If you
-								forget or make a typo, nobody will be able to access the contents.
-							</FormDescription>
 							<FormMessage />
 						</FormItem>
 					)}
@@ -193,13 +175,11 @@ export function CreateTaskForm() {
 
 				<FormField
 					control={form.control}
-					name="file"
-					// eslint-disable-next-line @typescript-eslint/no-unused-vars
+					name="file" // eslint-disable-next-line @typescript-eslint/no-unused-vars
 					render={({ field: { value, onChange, ...fieldProps } }) => {
 						return (
 							// @typescript-eslint/no-unused-vars
-
-							<FormItem className="form-field">
+							<FormItem >
 								<FormLabel>Only .CSV File</FormLabel>
 								<div>
 									<FormControl>
@@ -218,17 +198,14 @@ export function CreateTaskForm() {
 												} else {
 													onChange(file ?? undefined);
 												}
-											}}
-										/>
+											}} />
 									</FormControl>
 								</div>
-
 								<FormMessage />
 							</FormItem>
 						);
-					}}
-				/>
-				<Button className="form-button"
+					}} />
+				<Button className="button"
 					type="submit">
 					Submit
 				</Button>
