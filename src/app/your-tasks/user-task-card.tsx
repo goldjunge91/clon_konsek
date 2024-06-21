@@ -82,18 +82,18 @@ export function UserTaskCard({ task }: { task: Task }) {
 
     const progressValue = statusToProgress(status ?? "defaultStatus");
     return (
-        <Card>
-            <CardHeader className="relative">
+        <Card className="user-task-card">
+            <CardHeader className="user-card-header">
                 <CardTitle>{task.name}</CardTitle>
 
                 <Progress value={progressValue} className="w-[80%] top-2 " />
 
                 <CardDescription>{task.dsm_mail}</CardDescription>
-            </CardHeader>
-            <CardContent>
-                <div className="card p-5 m-3">
+            </CardHeader >
+            <CardContent className="user-card-content">
+                 <div className="card">
                     <div className="card p-5 gap-6">
-                        <div className="text-2xl flex-col px-3">Status: {task.status}</div>
+                        <div className="status">Status: {task.status}</div>
                     </div>
 
                     {/* Download-Button */}
@@ -112,7 +112,7 @@ export function UserTaskCard({ task }: { task: Task }) {
                     {/* Statusanzeige */}
                     <div className="items-center relative top-4">
                         {task.status === "completed" && (
-                            <div className="bg-green-100 text-green-800 px-4 py-2 Flex item-center rounded">
+                            <div className="button">
                                 <p>Zip-Archive Ready to Download</p>
                             </div>
                         )}

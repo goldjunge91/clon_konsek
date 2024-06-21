@@ -56,12 +56,12 @@ export function EditTaskForm({task}: { task: Task }) {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="form-style">
                 <FormField
                     control={form.control}
                     name="name"
                     render={({field}) => (
-                        <FormItem className="form-styles">
+                        <FormItem>
                             <FormLabel>Name</FormLabel>
                             <FormControl>
                                 <Input {...field} placeholder="Kundenname"/>

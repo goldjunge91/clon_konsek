@@ -11,12 +11,12 @@ export default async function YourTasksPage() {
     unstable_noStore();
     const tasks = await getUserTasks();
     return (
-        <main className="your-tasks-page">
-            <div className="title-container" >
+        <main>
+            <div className="your-style" >
                 <h1 >Your Tasks</h1>
             </div>
-            <div className="tasks-container">
-                {tasks.map((task: Task) => { return <UserTaskCard  key={task.id} task={task}  />; })}
+            <div className=".user-task-card-container">
+                {tasks.map((task: Task) => { return <UserTaskCard key={task.id} task={task} />; })}
             </div>
             {tasks.length === 0 && (
                 <div className="no-tasks">

@@ -31,8 +31,8 @@ export default function RootLayout({
 						src={background}
 						quality={100}
 					/>
-				</div>
-				<AuthProvider>
+				</div >
+				<AuthProvider >
 					<Toaster />
 					<NextTopLoader />
 					<Header />
