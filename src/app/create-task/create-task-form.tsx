@@ -85,15 +85,15 @@ export function CreateTaskForm() {
 			router.push(`/tasks/${taskId}`);
 		}
 	}
-
+//   DONE 
 	return (
 		<Form {...form}>
-			<form className=".create-task-page-form" onSubmit={form.handleSubmit(onSubmit)} >
+			<form className="form-style" onSubmit={form.handleSubmit(onSubmit)} >
 				<FormField
 					control={form.control}
 					name="dsm_url"
 					render={({ field }) => (
-						<FormItem className="form-styles">
+						<FormItem className="custom-label">
 							<FormLabel>Q.Wiki URL</FormLabel>
 							<div
 							>
@@ -109,12 +109,12 @@ export function CreateTaskForm() {
 						</FormItem>
 					)}
 				/>
-
+				{/* DONE */}
 				<FormField
 					control={form.control}
 					name="dsm_mail"
 					render={({ field }) => (
-						<FormItem className="form-styles">
+						<FormItem className="custom-label">
 							<FormLabel>Q.Wiki User Mail-Adress</FormLabel>
 							<div>
 								<FormControl>
@@ -126,12 +126,11 @@ export function CreateTaskForm() {
 						</FormItem>
 					)}
 				/>
-
 				<FormField
 					control={form.control}
 					name="dsmpassword"
 					render={({ field }) => (
-						<FormItem className="form-styles">
+						<FormItem className="custom-label">
 							<div>
 								<FormLabel>Q.Wiki User Mail Password</FormLabel>
 							</div>
@@ -157,12 +156,11 @@ export function CreateTaskForm() {
 					control={form.control}
 					name="zippassword"
 					render={({ field }) => (
-						<FormItem className="form-styles">
+						<FormItem className="custom-label">
 							<FormLabel>
-								Enter a password to compress and protect the files from unauthorized
-								access{" "}
+								Enter a password to compress and protect<br/>the files from unauthorized
+									access.
 							</FormLabel>
-
 							<div>
 								<FormControl>
 									<Input {...field} type="password" placeholder="Zip-Password" />
@@ -172,18 +170,17 @@ export function CreateTaskForm() {
 						</FormItem>
 					)}
 				/>
-
 				<FormField
 					control={form.control}
 					name="file" // eslint-disable-next-line @typescript-eslint/no-unused-vars
 					render={({ field: { value, onChange, ...fieldProps } }) => {
 						return (
 							// @typescript-eslint/no-unused-vars
-							<FormItem >
+							<FormItem className="custom-label">
 								<FormLabel>Only .CSV File</FormLabel>
 								<div>
 									<FormControl>
-										<Input
+										<Input className="custom-input"
 											{...fieldProps}
 											placeholder="CSV file with Q.Wiki URL"
 											type="file"
@@ -207,7 +204,7 @@ export function CreateTaskForm() {
 					}} />
 				<Button className="button"
 					type="submit">
-					Submit
+					Create a new print file
 				</Button>
 			</form>
 		</Form>

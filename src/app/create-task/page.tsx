@@ -6,10 +6,11 @@ import "@/./app/globals.css";
 
 
 
-
+// DONE 
+// TODO
 export default function CreateTaskPage() {
     useEffect(() => {
-        console.log("CreateTaskPage mounted");
+        // console.log("CreateTaskPage mounted");
     }, []);
     const { data: session } = useSession({
         required: true,
@@ -22,10 +23,7 @@ export default function CreateTaskPage() {
     }
     return (
         <div className="create-task-page">
-            <h1>
-                <span className="boldweight">Create </span>
-                <span className="title-light">Create Task</span>
-            </h1>
+            <h1><span className="boldweight">Create </span>a new print file</h1>
             <CreateTaskForm />
         </div>
     );
