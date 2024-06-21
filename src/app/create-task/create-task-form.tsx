@@ -43,7 +43,7 @@ const formSchema = z.object({
 		.refine(
 			(file) =>
 				file?.type === "text/csv" ||
-				file?.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+				// file?.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
 			{ message: "Please select a CSV file." }
 		)
 		.refine((file) => (file?.size || 0) <= 5000000, {
@@ -151,7 +151,6 @@ export function CreateTaskForm() {
 						</FormItem>
 					)}
 				/>
-
 				<FormField
 					control={form.control}
 					name="zippassword"

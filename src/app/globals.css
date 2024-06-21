@@ -42,10 +42,13 @@
 	font-weight: 500;
 }
 .boldweight {
-	font-family: helvetica500;
+	font-family: "helvetica500";
 }
 /*  Font ende */
-
+/* .blur {
+    filter: blur(5px);
+    transition: filter 0.3s ease-in-out;
+} */
 * {
 	margin: 0;
 	padding: 0;

@@ -11,9 +11,6 @@ import {
 import { Progress } from "@/components/ui/progress";
 import { Task } from "@/db/schema";
 import Link from "next/link";
-
-import { GithubIcon, TrashIcon } from "lucide-react";
-
 import { getDownloadFile2 } from "@/app/tasks/[taskId]/actions";
 import {
     AlertDialog,
@@ -26,9 +23,11 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import {  TrashIcon } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import * as React from "react";
 import { deleteTaskAction } from "./actions";
+import saturnSw from '@/../../public/saturn_sw.svg';
 
 export function UserTaskCard({ task }: { task: Task }) {
     const statusToProgress = (status: string) => {
@@ -91,7 +90,7 @@ export function UserTaskCard({ task }: { task: Task }) {
                 <CardDescription>{task.dsm_mail}</CardDescription>
             </CardHeader >
             <CardContent className="user-card-content">
-                 <div className="card">
+                <div className="card">
                     <div className="card p-5 gap-6">
                         <div className="status">Status: {task.status}</div>
                     </div>
@@ -135,7 +134,7 @@ export function UserTaskCard({ task }: { task: Task }) {
                         className="flex items-center gap-6"
                         target="_blank"
                         rel="noopener noreferrer">
-                        <GithubIcon />
+                        <img src={saturnSw} alt="Saturn Icon" width={24} height={24} />
                         URL zum Q.Wiki "https://name.qwiki.de/"
                     </Link>
                 )}

@@ -35,7 +35,7 @@ const nextConfig = {
 				protocol: 'https',
 				hostname: 'konsek.de',
 				port: '',
-				pathname: '/wp-content/themes/twentytwentythree/assets/fonts/**',
+				pathname: '/wp-content/themes/twentytwentythree/assets/fonts/',
 			},
 			{
 				protocol: 'https',
@@ -63,5 +63,6 @@ const nextConfig = {
 		}
 		return config;
 	},
+	// distDir: "./build_dir"
 };
 export default nextConfig;

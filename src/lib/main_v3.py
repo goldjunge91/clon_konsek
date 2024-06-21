@@ -27,15 +27,19 @@ from typing import Any
 from db_utils import update_task_status_in_db, schedule_delete_folder_cronjob
 import sys
 import io
+import chardet
 from crypto_utils import encrypt_data, decrypt_data
 import binascii
+
+LOG_FILE_EXT = ".log"
+now = datetime.datetime.now()
+base_path = "/home/marco/git/pdf-website/DATA/downloads/"
 
 
 def encrypt_sensitive_data_in_json(form_data_path):
     with open(form_data_path, "r+") as file:
         data = json.load(file)
         encrypted = False
-
         # Only encrypt if not already encrypted; you can tweak this logic as needed
         if not data["dsmpassword"].startswith("ENC_"):
             data["dsmpassword"] = (
@@ -43,7 +47,6 @@ def encrypt_sensitive_data_in_json(form_data_path):
                 + binascii.hexlify(encrypt_data(data["dsmpassword"].encode())).decode()
             )
             encrypted = True
-
         if not data["zippassword"].startswith("ENC_"):
             data["zippassword"] = (
                 "ENC_"
@@ -60,9 +63,6 @@ def encrypt_sensitive_data_in_json(form_data_path):
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8")
 # + Variablen für den gesamten Code...
-LOG_FILE_EXT = ".log"
-now = datetime.datetime.now()
-base_path = "/home/marco/git/pdf-website/DATA/downloads/"
 
 
 options = webdriver.ChromeOptions()  # Initialize the options object
@@ -158,35 +158,6 @@ def get_user_input(base_path):
         raise
 
 
-# def get_user_input(base_path):
-#     try:
-#         if len(sys.argv) < 2:         # Überprüfen, ob der Pfad als Argument übergeben wurde
-#             raise ValueError("Bitte übergeben Sie den Pfad als Argument.") # Den übergebenen Pfad an den Basispfad anhängen
-#         path = os.path.join(base_path, sys.argv[1])
-#         form_data_path = os.path.join(path, "form-data.json") # Überprüfen, ob die form-data.json-Datei existiert
-#         if not os.path.exists(form_data_path):
-#             raise FileNotFoundError(f"Die Datei {form_data_path} wurde nicht gefunden.")
-#         with open(form_data_path, "r") as file:
-#             form_data = json.load(file)
-#             user_email = form_data["dsm_mail"]
-#             user_password = form_data["dsmpassword"]
-#             user_link = form_data["dsm_url"]
-#             zip_password = form_data["zippassword"]
-#             zip_name = form_data["id"]
-#             taskid = form_data["id"]
-#         if not user_email or not user_password or not user_link:
-#             raise ValueError("Unvollständige Daten in form-data.json.")
-#         file_path = os.path.join(path, "liste.csv")
-#         if not os.path.exists(file_path):
-#             file_path = os.path.join(path, "liste.xlsx")
-#             if not os.path.exists(file_path):
-#                 raise FileNotFoundError("Weder liste.csv noch liste.xlsx wurden gefunden.")
-#         return user_email, user_password, user_link, zip_password, zip_name, file_path, taskid
-#     except Exception as error:
-#         logging.info('Error in main script: ', error)
-#         raise
-
-
 # ! Funktion für neuen Tab öffnen
 def open_new_tab(driver):
     driver.execute_script("window.open('');")
@@ -252,19 +223,26 @@ def check_datei_endung(file_path):
         raise
 
 
+def detect_encoding(file_path):
+    with open(file_path, "rb") as f:
+        result = chardet.detect(f.read())
+    return result["encoding"]
+
+
 def process_csv(file_path):
     try:
-        df = pd.read_csv(file_path, delimiter=";", encoding="utf-8")
+        encoding = detect_encoding(file_path)
+        df = pd.read_csv(file_path, delimiter=";", encoding=encoding)
 
         df[["Title", "URL"]] = df["Titel"].str.extract(
             r"^(.*?)\s*(\(https?://[^\s()]+\))?$", expand=True
         )
         df["URL"] = df["URL"].str.strip("()")
         df["URL"] = df["URL"].fillna(df["Title"])
-        df.to_csv(file_path, index=False, sep=";", encoding="utf-8")
+        df.to_csv(file_path, index=False, sep=";", encoding=encoding)
         return df
     except Exception as error:
-        logging.error("Fehler bei der Verarbeitung der CSV-Datei: ", error)
+        logging.error("Fehler bei der Verarbeitung der CSV-Datei: ", {error})
         raise
 
 
@@ -468,6 +446,8 @@ if __name__ == "__main__":
         urls_data_frame, base_url, dataToSave = links(data)
         save_csv(file_path, dataToSave)
         raise ValueError("All fields must be filled out.")
+    folder_to_delete = None  # Define folder_to_delete before the try block
+
     try:
         driver.get(user_link)
         driver.find_element(By.NAME, "username").send_keys(user_email)
