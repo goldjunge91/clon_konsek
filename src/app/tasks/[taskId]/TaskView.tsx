@@ -10,7 +10,7 @@ import { readPythonLog2 } from '@/lib/readPythonLog';
 
 
 export function TaskView({ task }: { task: Task }) {
-    const { data: session, status } = useSession({
+    const { data: session } = useSession({
         required: true,
         onUnauthenticated() {
             // Wenn der Benutzer nicht authentifiziert ist, wird er zur Anmeldeseite weitergeleitet
@@ -18,24 +18,7 @@ export function TaskView({ task }: { task: Task }) {
             redirect("/api/auth/signin?callbackUrl=/tasks/[taskId]/task");
         },
     });
-    const [isLoading, setIsLoading] = useState(true);
-useEffect(() => {
-        if (status !== "loading") {
-            setIsLoading(false);
-        }
-    }, [status]);
-    // useEffect(() => {
-    //     if (status !== "loading") {
-    //         // Künstliche Verzögerung von 1 Sekunde (1000 ms)
-    //         const timer = setTimeout(() => {
-    //             setIsLoading(false);
-    //         }, 1000);
-    //         return () => { clearTimeout(timer); };
-    //     } else {
-    //         // Rückgabe einer leeren Aufräumfunktion
-    //         return () => {};
-    //     }
-    // }, [status]); // Abhängigkeit von "status", um die Wirkung bei Statusänderungen auszuführen
+
 
     const [pythonLog, setPythonLog] = useState<string[]>([]);
     useEffect(() => {
@@ -98,16 +81,7 @@ useEffect(() => {
         return <h1 className="text-5xl text-center mt-20">Access Denied</h1>;
     }
 
-    // if (isLoading) {
-    //     return (
-    //         <div role="status" className="flex justify-center items-center h-screen">
-    //             <p className="text-lg text-gray-500">Loading...</p>
-    //         </div>
-    //     );
-    // }
-
     return (
-        // <div className={`p-20 space-y-6 ${isLoading ? 'blur' : ''}`}>
         <div className="container">
             <h1 className="content-container">Task Details</h1>
             <p>placeholder </p>
@@ -121,11 +95,19 @@ useEffect(() => {
 
 
             {/* Download-Button */}
-            <button
+            {/* <button
                 className={`py-2 px-4 rounded font-semibold ${task.status === "completed"
                     ? "bg-primary text-primary-foreground hover:bg-primary-foreground hover:text-primary"
                     : "bg-muted text-muted-foreground cursor-not-allowed"
                     }`}
+                onClick={onSubmitDownload}
+                disabled={task.status !== "completed"}
+            >
+                {task.status === "completed" ? "Download" : "Pending"}
+            </button> */}
+            {/* Download-Button */}
+            <button
+                className={`buttonDownload ${task.status === "completed" ? "completed" : "pending"}`}
                 onClick={onSubmitDownload}
                 disabled={task.status !== "completed"}
             >

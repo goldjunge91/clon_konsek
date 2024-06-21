@@ -15,9 +15,7 @@ export default async function YourTasksPage() {
             <div className="your-style" >
                 <h1 >Your Tasks</h1>
             </div>
-            <div className=".user-task-card-container">
                 {tasks.map((task: Task) => { return <UserTaskCard key={task.id} task={task} />; })}
-            </div>
             {tasks.length === 0 && (
                 <div className="no-tasks">
                     <Image

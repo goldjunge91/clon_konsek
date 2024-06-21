@@ -23,7 +23,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import {  TrashIcon } from "lucide-react";
+import { TrashIcon } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import * as React from "react";
 import { deleteTaskAction } from "./actions";
@@ -78,56 +78,33 @@ export function UserTaskCard({ task }: { task: Task }) {
         }
     };
     const status: string | null = task.status;
-
     const progressValue = statusToProgress(status ?? "defaultStatus");
     return (
         <Card className="user-task-card">
             <CardHeader className="user-card-header">
-                <CardTitle>{task.name}</CardTitle>
-
+                {/* <CardTitle>{task.name}</CardTitle> */}
+                <CardTitle>TASK</CardTitle>
                 <Progress value={progressValue} className="w-[80%] top-2 " />
-
-                <CardDescription>{task.dsm_mail}</CardDescription>
             </CardHeader >
             <CardContent className="user-card-content">
-                <div className="card">
-                    <div className="card p-5 gap-6">
-                        <div className="status">Status: {task.status}</div>
-                    </div>
-
-                    {/* Download-Button */}
-                    <div className="flex flex-col items-center gap-2">
-                        <button
-                            className={`py-3 px-5 mx-0 rounded font-semibold ${task.status === "completed"
-                                ? "bg-primary text-primary-foreground hover:bg-primary-foreground hover:text-primary"
-                                : "bg-muted text-muted-foreground cursor-not-allowed"
-                                }`}
-                            onClick={onSubmitDownload}
-                            disabled={task.status !== "completed"}>
-                            {task.status === "completed" ? "Download" : "Pending"}
-                        </button>
-                    </div>
-
+                <div className="status">Status: {task.status}</div>
+                {/* Download-Button */}
+                <div className="flex flex-col items-center gap-2">
+                    <button
+                        className={`buttonDownload ${task.status === "completed" ? "completed" : "pending"}`}
+                        onClick={onSubmitDownload}
+                        disabled={task.status !== "completed"}>
+                        {task.status === "completed" ? "Download" : "Pending"}
+                    </button>
                     {/* Statusanzeige */}
                     <div className="items-center relative top-4">
                         {task.status === "completed" && (
-                            <div className="button">
+                            <div className="buttonDownload">
                                 <p>Zip-Archive Ready to Download</p>
                             </div>
                         )}
                     </div>
-                    {/* {task.status === "complete" && (
-            <Button asChild>
-              <Link href={`/download-task/${task.id}`}>Download Task</Link>
-            </Button>
-          )} */}
                 </div>
-            </CardContent>
-            {/* <CardFooter>
-        <p>Card Footer</p>
-      </CardFooter> */}
-
-            <CardContent className="flex flex-col gap-2">
                 {task.dsm_url && (
                     <Link
                         href={task.dsm_url}
@@ -139,12 +116,10 @@ export function UserTaskCard({ task }: { task: Task }) {
                     </Link>
                 )}
             </CardContent>
-
             <CardFooter className="flex gap-12">
                 <Button asChild>
                     <Link href={`/tasks/${task.id}`}>Öffne Task</Link>
                 </Button>
-
                 <AlertDialog>
                     <AlertDialogTrigger asChild>
                         <Button variant={"destructive"}>
