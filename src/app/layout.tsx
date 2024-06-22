@@ -25,11 +25,7 @@ export default function RootLayout({
 		<html lang="en" suppressHydrationWarning>
 			<body className="layout-body" >
 				<div className="background-container">
-					<Image
-						className="imagebackground"
-						alt="sky"
-						src={background}
-						quality={100}
+					<Image className="imagebackground" alt="sky" src={background} quality={100}
 					/>
 				</div >
 				<AuthProvider >

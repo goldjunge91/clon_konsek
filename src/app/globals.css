@@ -1,3 +1,9 @@
+@tailwind components;
+@tailwind utilities;
+@tailwind base
+
+ @base
+
 @font-face {
 	font-family: "helvetica200";
 	src: url("../../public/fonts/helveticaneuelt-std-thin_normal_250.ttf") format("truetype");
@@ -37,7 +43,6 @@
 }
 .roboto-medium {
 	font-family: "roboto500";
-
 }
 .boldweight {
 	font-family: "helvetica500";
@@ -101,11 +106,11 @@ header {
 	align-items: center;
 	padding: 1rem 2rem;
 	height: 3rem; */
-	/* Feste Höhe für den Header */
+/* Feste Höhe für den Header */
 /* } */
 
 button {
-	border: solid 2px #000;
+	border: solid 2px #000000;
 	border-radius: 0.5rem;
 	background-color: transparent;
 	padding: 15px 32px;
@@ -145,7 +150,7 @@ label {
 }
 
 input {
-	font-family: roboto300, arial;
+	font-family: roboto200, arial;
 	font-size: 1.05rem;
 	line-height: 1.6rem;
 	border-radius: 0.5rem;
@@ -154,35 +159,34 @@ input {
 	padding: 0.8rem 1rem 0.8rem 1rem;
 	margin-bottom: 1rem;
 }
-c
 /* TODO Layout.tsx*/
 .layout-body {
 	position: relative; /* Verwende relative Positionierung, um die Header-Positionierung zu ermöglichen */
 	width: 100vw;
 	height: 100vh;
 	background-color: #ffffff00;
+	/* max-width: 1440px; */
 }
 .background-container {
 	position: fixed; /* Fixieren des Hintergrunds, sodass er immer im Hintergrund bleibt */
 	/* top: 0;
 	left: 0; */
 	width: 100vw;
-	height: 100vh; 
+	height: 100vh;
 	z-index: -1; /* Stellt sicher, dass der Hintergrund hinter dem Inhalt liegt */
 	overflow: hidden; /* Verhindere Überlauf */
 }
 
 .imagebackground {
 	width: 100%;
-	transform: scale(1.8);
-	object-position: 120% 60%;
+	/* transform: scale(1.8); */
+	object-position: 20% 80%;
 	background-repeat: no-repeat;
 	background-position: center center;
 	z-index: -1;
-	-webkit-transform: scale(1.8);
-	-moz-transform: scale(1.8);
-	-ms-transform: scale(1.8);
-	-o-transform: scale(1.8);
+	transform: scale(1.8); /* Skalierung und Verschiebung nach links */
+    transform-origin: right top; /* Verschiebe den Ursprung der Skalierung nach links */
+
 }
 /*  Ende Layout.tsx */
 
@@ -190,35 +194,38 @@ c
 .navbar {
 	display: flex;
 	flex-wrap: wrap;
+	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
 	align-content: center;
+	column-gap: 5rem;
+	row-gap: 1.5rem;
 	background-color: #fff;
-	padding-left: 300rem;
-	border-bottom: 200rem;
-	padding-bottom: 450rem;
+
 	padding: 1rem 2rem;
-	box-shadow: 0rem 2rem 4rem rgba(0, 0, 0, 0.1);
+	/* box-shadow: 0rem 2rem 4rem rgba(0, 0, 0, 0.1); */
 }
 .navbar .logo {
 	display: flex;
+	margin-left: 10rem;
 	align-self: flex-start;
 }
 .navbar .link-container {
 	display: inline-flex;
 	flex-direction: row;
 	flex-wrap: wrap;
+	align-content: center;
 	align-items: center;
 	column-gap: 5rem;
 	row-gap: 1.5rem;
 }
 .nav-link {
-	display: inline-flex;
+	/* display: inline-flex;
 	flex-direction: row;
-	flex-wrap: wrap;
+	flex-wrap: wrap; */
 	font-size: 1.2rem;
 	color: #333;
-	text-decoration: none;
+	margin-right: 10rem;
 	transition: color 0.3s;
 }
 .nav-link:hover {
@@ -226,22 +233,18 @@ c
 	color: #0070f3;
 }
 /* TODO Login button Container */
-.login-container {
+.navbar .login-container {
 	display: inline-flex;
-	/* background-color: yellow; */
 	background-color: #fff;
 	flex-direction: row;
 	border-color: black;
-	border-radius: 10;
-	gap: 4;
-	flex-wrap: wrap;
+	margin-right: 15rem;
+	border-radius:10rem;
 }
 .login-container .button {
-	/* column-gap: 5px; */
-	/* border-color: red; */
+	margin-right: 15rem;
 	border-radius: 10px;
-	padding: 10px 20px;
-	/* margin-right: 40px; */
+	font-size: 1.2rem;
 }
 .login-link {
 	display: inline-flex;
@@ -250,6 +253,7 @@ c
 	font-size: 1.2rem;
 	color: #333;
 }
+
 .dropdown-trigger {
 	display: flex;
 	background-color: white;
@@ -285,6 +289,7 @@ c
 }
 .textbox {
 	margin-bottom: 1rem;
+	padding-top: 1rem;
 }
 .footer {
 	margin-top: 2rem;
@@ -387,11 +392,6 @@ nur damit die formfields ohne hintergrundbild erkennbar sind
 }
 /* wiederverwendbar für formfeder ende */
 
-.your-tasks-page {
-	display: grid;
-	background-color: blue;
-	grid-template-columns: 3fr 1fr;
-}
 
 .your-tasks-page .title-container {
 	display: flex;
@@ -466,13 +466,18 @@ nur damit die formfields ohne hintergrundbild erkennbar sind
 
 .your-tasks-page .tasks-grid {
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
+	/* grid-template-columns: repeat(3, 1fr); */
 	gap: 1rem;
 }
 
 .your-tasks-page {
-	min-height: 100vh;
+	/* min-height: 100vh; */
+	margin-left: 5rem;
 	padding: 2rem;
+	
+	/* display: grid; */
+	/* background-color: blue; */
+	/* grid-template-columns: 3fr 1fr; */
 }
 
 .your-tasks-page .header {
@@ -483,25 +488,38 @@ nur damit die formfields ohne hintergrundbild erkennbar sind
 }
 
 .user-task-card {
+	display: inline-flex;
+	flex-direction: column;
+	flex-wrap: wrap;
 	background-color: #ffffff; /* Hintergrundfarbe */
 	border: 1px solid #e0e0e0; /* Rahmenfarbe */
 	border-radius: 8px; /* Abgerundete Ecken */
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Schatteneffekt */
-	margin: 1rem; /* Außenabstand */
-	padding: 1rem; /* Innenabstand */
-	display: inline-flex;
-	flex-direction: column;
-	flex-wrap: wrap;
-	max-width: 600px; /* Maximale Breite der Karte */
-	width: 100%; /* Volle Breite innerhalb des Containers */
+	/* margin: 1rem; Außenabstand */
+	padding: 0rem; /* Innenabstand */
+	margin-left: 4rem;
+	max-width: 30rem; /* Maximale Breite der Karte */
+	width: 80%; /* Volle Breite innerhalb des Containers */
 }
 
 .user-card-header {
 	padding: 1rem;
 	border-bottom: 1px solid #e0e0e0; /* Unterer Rahmen */
-	display: flex;
+	/* display: flex; */
 	flex-direction: column;
+	padding-bottom: 0rem;
 	align-items: center;
+}
+.user-card-header .progress {
+	width: 70%;
+	height: 1rem;
+	/* background-color: #0055ff; */
+	border-radius: 0.5rem;
+	color: #28a745;
+	-webkit-border-radius: 0.51rem;
+	-moz-border-radius: 0.51rem;
+	-ms-border-radius: 0.51rem;
+	-o-border-radius: 0.51rem;
 }
 
 .user-card-content {
@@ -514,92 +532,107 @@ nur damit die formfields ohne hintergrundbild erkennbar sind
 
 .user-card-content .card {
 	padding: 1rem;
-	margin: 1rem 0;
+	margin: 1rem 0rem;
 	background-color: #f9f9f9; /* Hintergrundfarbe */
 	border-radius: 8px; /* Abgerundete Ecken */
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Schatteneffekt */
 }
 
 .user-card-content .status {
-	font-size: 1.25rem; /* Schriftgröße */
+	font-family: helvetica500;
+	font-size: 1.45rem; /* Schriftgröße */
 	font-weight: 500; /* Schriftgewicht */
-	padding: 0.5rem; /* Innenabstand */
-}
-
-.user-card-content .button {
-	padding: 0.5rem 1rem;
-	border-radius: 4px;
-	background-color: #0070f3; /* Hintergrundfarbe */
-	color: #fff; /* Textfarbe */
-	text-align: center;
-	cursor: pointer;
-	transition: background-color 0.3s; /* Übergangseffekt */
-}
-
-.user-card-content .button:hover {
-	background-color: #005bb5; /* Hover-Farbe */
-}
-
-.user-card-content .flex-center {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 0.5rem;
+	margin-bottom: 0rem;
+	margin-top: 0rem;
+	/* padding: 0.5rem; */
 }
 
 .user-card-content .download-button {
 	padding: 0.75rem 1.5rem;
-	border-radius: 4px;
+	border-radius: 0.5rem;
 	font-weight: 600;
-	background-color: #28a745; /* Hintergrundfarbe für Download-Button */
-	color: #fff; /* Textfarbe */
+	/*background-color: #28a745;
+	HintergrundfarbefürDownload-Button*/
+	color: #000000;
+	width: 55%;
+	-webkit-border-radius: 0.5rem;
+	-moz-border-radius: 0.5rem;
+	-ms-border-radius: 0.5rem;
+	-o-border-radius: 0.5rem;
+}
+.user-card-content .download-button:hover {
+	background-color: #00ffa2; /* Hover-Farbe */
 	cursor: pointer;
 }
-
 .user-card-content .download-button:disabled {
 	background-color: #6c757d; /* Hintergrundfarbe für deaktivierten Button */
 	cursor: not-allowed;
 }
 
 .user-card-footer {
-	display: flex;
-	justify-content: space-between;
-	padding: 1rem;
-	border-top: 1px solid #e0e0e0; /* Oberer Rahmen */
+	display: inline-block;
+	margin-left: 1rem;
+	padding: 0rem;
+	margin-top: 0rem;
+	/* margin-bottom: -5rem; */
+	/* margin-right: 1rem; */
+	border-top: solid #e0e0e0; /* Oberer Rahmen */
 }
 
 .user-card-footer .link {
-	font-size: 1rem; /* Schriftgröße */
-	color: #0070f3; /* Textfarbe */
-	text-decoration: none; /* Keine Unterstreichung */
+	border: solid 2px #000;
+	border-radius: 0.5rem;
+	background-color: transparent;
+	padding: 12px 32px;
+	display: inline-block;
+	width: 25%;
+	font-family: roboto500, arial;
+	font-size: 1.2rem;
+	/* margin: 2rem 0rem; */
+	margin-right: 2rem;
+	/* margin-bottom: 0rem; */
+	cursor: pointer;
 }
-
 .user-card-footer .link:hover {
+	color: #0070f3;
 	text-decoration: underline; /* Unterstreichung beim Hover */
 }
+.user-card-footer .button {
+	border: solid 2px #000;
+	/* padding: 1.2rem 1rem; */
+	margin: 2rem 0;
+	text-align: center;
+	justify-self: center;
+	margin-bottom: 0rem;
+	border-radius: 0.5rem;
+	cursor: pointer;
+}
 
-
-
-
+.user-card-footer .button:hover {
+	color: #0070f3;
+	margin-bottom: 0rem;
+	text-decoration: underline; /* Unterstreichung beim Hover */
+}
 /* DONE TASKVIEW BUTTON */
 .buttonDownload {
-    padding: 0.5rem 1rem;
-    border-radius: 0.375rem;
-    font-weight: 600;
+	padding: 0.5rem 1rem;
+
+	border-radius: 0.375rem;
+	font-weight: 600;
 }
 
 .buttonDownload .completed {
-    background-color: #ec0e0e;
-    color: #28a745;
+	background-color: #ec0e0e;
+	color: #28a745;
 }
 
 .buttonDownload .completed:hover {
-    background-color: #28a745;;
-    color:#28a745;
+	background-color: #28a745;
+	color: #28a745;
 }
 
 .buttonDownload .pending {
-    background-color: #6c757d;
-    color: #6c757d;
-    cursor: not-allowed;
+	background-color: #6c757d;
+	color: #6c757d;
+	cursor: not-allowed;
 }

@@ -1,18 +1,22 @@
 {
 	"compilerOptions": {
+		"target": "es5",
 		"lib": ["dom", "dom.iterable", "esnext"],
-		"allowJs": true,
+		"allowJs": false, // vorher true
 		"skipLibCheck": true,
 		"noErrorTruncation": false /* Skip type checking all .d.ts files. */,
 		"strict": true,
 		"noEmit": true,
 		"esModuleInterop": true,
-		"moduleDetection": "auto" /* Control what method is used to detect module-format JS files. */,
+		// "moduleDetection": "auto" /* Control what method is used to detect module-format JS files. */,
 		"module": "esnext",
 		"moduleResolution": "node",
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"jsx": "preserve",
+		"forceConsistentCasingInFileNames": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true,
 		"incremental": true,
 		"plugins": [
 			{
@@ -21,10 +25,7 @@
 		],
 		"paths": {
 			"@/*": ["./src/*"]
-		},
-		"forceConsistentCasingInFileNames": true,
-		"noImplicitReturns": true,
-		"noFallthroughCasesInSwitch": true
+		}
 	},
 	"include": [
 		"next-env.d.ts",

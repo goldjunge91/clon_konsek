@@ -12,7 +12,7 @@ export default async function YourTasksPage() {
     const tasks = await getUserTasks();
     return (
         <main>
-            <div className="your-style" >
+            <div className="your-tasks-page" >
                 <h1 >Your Tasks</h1>
             </div>
                 {tasks.map((task: Task) => { return <UserTaskCard key={task.id} task={task} />; })}

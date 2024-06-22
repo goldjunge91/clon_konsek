@@ -45,14 +45,24 @@ const nextConfig = {
 			},
 		],
 	},
+	experimental: {
+		turbo: {
+			rules: {
+				"*.svg": {
+					loaders: ["@svgr/webpack"],
+					as: "*.js",
+				},
+			},
+		},
+	},
 	webpack: (config, { isServer }) => {
 		config.module.rules.push(
 			{
 				// https://www.npmjs.com/package/@svgr/webpack
-				test: /\.svg$/,
-				use: ['@svgr/webpack'],
-			},
-		);
+				test: /\.svg$/i,
+				issuer: /\.[jt]sx?$/,
+				use: ["@svgr/webpack"],
+			});
 		if (!isServer) {
 			config.resolve.fallback = {
 				...config.resolve.fallback,

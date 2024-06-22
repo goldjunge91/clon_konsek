@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import {
     Card,
     CardContent,
-    CardDescription,
     CardFooter,
     CardHeader,
     CardTitle,
@@ -27,7 +26,7 @@ import { TrashIcon } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import * as React from "react";
 import { deleteTaskAction } from "./actions";
-import saturnSw from '@/../../public/saturn_sw.svg';
+
 
 export function UserTaskCard({ task }: { task: Task }) {
     const statusToProgress = (status: string) => {
@@ -72,58 +71,37 @@ export function UserTaskCard({ task }: { task: Task }) {
         } else {
             toast({
                 title: "Task not completed",
-                description:
-                    "The task is not yet completed. You can only download the file once the task is completed.",
-            });
-        }
-    };
+                description:"The task is not yet completed. You can only download the file once the task is completed.",});}};
+                
     const status: string | null = task.status;
     const progressValue = statusToProgress(status ?? "defaultStatus");
+
+    // console.log(`Progress value for task ${task.id}: ${progressValue}`); // Debugging line
+
     return (
         <Card className="user-task-card">
             <CardHeader className="user-card-header">
-                {/* <CardTitle>{task.name}</CardTitle> */}
                 <CardTitle>TASK</CardTitle>
-                <Progress value={progressValue} className="w-[80%] top-2 " />
-            </CardHeader >
+                <Progress value={progressValue} className="progress" />
+            </CardHeader>
             <CardContent className="user-card-content">
                 <div className="status">Status: {task.status}</div>
-                {/* Download-Button */}
-                <div className="flex flex-col items-center gap-2">
-                    <button
-                        className={`buttonDownload ${task.status === "completed" ? "completed" : "pending"}`}
-                        onClick={onSubmitDownload}
-                        disabled={task.status !== "completed"}>
-                        {task.status === "completed" ? "Download" : "Pending"}
-                    </button>
-                    {/* Statusanzeige */}
-                    <div className="items-center relative top-4">
-                        {task.status === "completed" && (
-                            <div className="buttonDownload">
-                                <p>Zip-Archive Ready to Download</p>
-                            </div>
-                        )}
-                    </div>
-                </div>
-                {task.dsm_url && (
-                    <Link
-                        href={task.dsm_url}
-                        className="flex items-center gap-6"
-                        target="_blank"
-                        rel="noopener noreferrer">
-                        <img src={saturnSw} alt="Saturn Icon" width={24} height={24} />
-                        URL zum Q.Wiki "https://name.qwiki.de/"
-                    </Link>
-                )}
-            </CardContent>
-            <CardFooter className="flex gap-12">
+                <button
+                    className={`download-button ${task.status === "completed" ? "completed" : "pending"}`}
+                    onClick={onSubmitDownload}
+                    disabled={task.status !== "completed"}>
+                    {task.status === "completed" ? "Click to Download" : "Pending"}
+                </button>
+            </CardContent >
+            <CardFooter className="user-card-footer">
+                
                 <Button asChild>
-                    <Link href={`/tasks/${task.id}`}>Öffne Task</Link>
+                    <Link className="link" href={`/tasks/${task.id}`} >Open Task</Link>
                 </Button>
                 <AlertDialog>
                     <AlertDialogTrigger asChild>
-                        <Button variant={"destructive"}>
-                            <TrashIcon className="w-4 h-4 mr-2" /> Delete Task
+                        <Button className="button"  variant={"destructive"}  >
+                            <TrashIcon /> Delete Task
                         </Button>
                     </AlertDialogTrigger>
                     <AlertDialogContent>
@@ -146,6 +124,6 @@ export function UserTaskCard({ task }: { task: Task }) {
                     </AlertDialogContent>
                 </AlertDialog>
             </CardFooter>
-        </Card>
+        </Card >
     );
 }

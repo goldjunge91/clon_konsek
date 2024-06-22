@@ -56,9 +56,9 @@ function AccountDropdown() {
 				</AlertDialogContent>
 			</AlertDialog>
 			<DropdownMenu >
-				<DropdownMenuTrigger asChild className="login-container-button" >
-					<Button className="button" variant={"link"} >
-						<Avatar className="avatar">
+				<DropdownMenuTrigger asChild  >
+					<Button variant={"link"} >
+						<Avatar >
 							<AvatarImage src={session.data?.user?.image ?? ""} />
 							{/* <AvatarImage src={} /> */}
 							<AvatarFallback>CN</AvatarFallback>
@@ -73,7 +73,7 @@ function AccountDropdown() {
 								callbackUrl: "/",
 							})
 						}>
-						<LogOutIcon className="icon" /> Logout
+						<LogOutIcon /> Logout
 					</DropdownMenuItem>
 					<DropdownMenuItem
 						onClick={() => {
@@ -103,7 +103,7 @@ export function Header() {
 				/>
 			</Link>
 			{/* </div> */}
-			<div className="link-container">
+			<div className=" link-container">
 				{isLoggedIn && (
 					<>
 						<Link href="/your-tasks" className="nav-link">
@@ -122,7 +122,7 @@ export function Header() {
 					</>
 				)}
 			</div>
-			<div>
+			<div className="login-container">
 				{isLoggedIn && <AccountDropdown />}
 				{!isLoggedIn && (
 					<Button onClick={() => signIn()} variant="link">
