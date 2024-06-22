@@ -2,9 +2,6 @@
 @tailwind utilities;
 /* @tailwind base */
 
-@base layer {
-}
-
 @font-face {
 	font-family: "helvetica200";
 	src: url("../../public/fonts/helveticaneuelt-std-thin_normal_250.ttf") format("truetype");
@@ -32,7 +29,7 @@
     src: url(https://www.konsek.de/wp-content/themes/twentytwentythree/assets/fonts/roboto-slab-light_normal_300.ttf);
 }
 @font-face {
-    font-family: roboto500;
+    font-family: helvetica500;
     src: url(https://www.konsek.de/wp-content/themes/twentytwentythree/assets/fonts/roboto-slab-medium_normal_500.ttf);
 } */
 
@@ -43,7 +40,7 @@
 	font-family: "roboto300";
 }
 .roboto-medium {
-	font-family: "roboto500";
+	font-family: "helvetica500";
 }
 .boldweight {
 	font-family: "helvetica500";
@@ -56,19 +53,16 @@
 	/* box-sizing: initial; */
 	box-sizing: border-box;
 }
-
-main {
-	position: relative;
-	z-index: 1;
-	padding: 1rem;
-}
-
+html,
 body {
 	font-family: "helvetica500";
 	color: #333;
 	line-height: 1.6;
+	height: 100%;
+	width: 100%;
 	margin: 0;
 	padding: 0;
+	overflow: hidden; /* Verhindert Scrollen */
 }
 
 h1 {
@@ -105,21 +99,6 @@ a {
 	color: inherit;
 	text-decoration: none;
 }
-/* 
-header {
-	position: fixed;
-	top: 0;
-	width: 100%;
-	background-color: #fff;
-	z-index: 1000;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 1rem 2rem;
-	height: 3rem; */
-/* Feste Höhe für den Header */
-/* } */
 
 button {
 	border: solid 2px #000000;
@@ -129,7 +108,7 @@ button {
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
-	font-family: roboto500, arial;
+	font-family: helvetica500, arial;
 	font-size: 1.2rem;
 	margin: 2rem 0;
 	cursor: pointer;
@@ -141,16 +120,6 @@ img {
 	height: 100%;
 }
 
-/* TODO Hinweistext unter den eingabe feldern */
-/* p {
-	font-family: roboto300, arial;
-	font-size: 1.05rem;
-	line-height: 1.6rem;
-	gap: 1.2rem;
-	padding-block: 2rem;
-} */
-
-/*  TODO labek bezeichnug*/
 label {
 	font-size: 1.05rem;
 	line-height: 1.6rem;
@@ -158,7 +127,7 @@ label {
 	padding: 0.8rem 1rem;
 	margin-bottom: 1rem;
 	text-transform: uppercase;
-	font-family: roboto500, arial;
+	font-family: helvetica500, arial;
 }
 
 input {
@@ -171,13 +140,21 @@ input {
 	padding: 0.8rem 1rem 0.8rem 1rem;
 	margin-bottom: 1rem;
 }
+
+main {
+	width: 100vw;
+	height: 100vh;
+	padding: 0;
+	overflow: hidden;
+	margin: 0;
+}
+
 /* TODO Layout.tsx*/
 .layout-body {
-	position: relative; /* Verwende relative Positionierung, um die Header-Positionierung zu ermöglichen */
+	position: relative;
 	width: 100vw;
 	height: 100vh;
 	background-color: #ffffff00;
-	/* max-width: 1440px; */
 }
 .background-container {
 	position: fixed;
@@ -188,105 +165,165 @@ input {
 }
 
 .imagebackground {
+	position: absolute;
 	width: 150%;
 	height: 150%;
 	object-fit: cover;
-	object-position: 70% 12%; 
+	object-position: 70% 12%;
 }
 
 /*  Ende Layout.tsx */
-
-/* TODO  Header.tsx*/
 .navbar {
 	display: flex;
 	flex-wrap: wrap;
-	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-	align-content: center;
-	column-gap: 5rem;
-	row-gap: 1.5rem;
 	background-color: #fff;
-
 	padding: 1rem 2rem;
-	/* box-shadow: 0rem 2rem 4rem rgba(0, 0, 0, 0.1); */
 }
+
 .navbar .logo {
 	display: flex;
-	margin-left: 10rem;
-	align-self: flex-start;
+	margin-left: 20rem; /* Anpassung des linken Randes */
 }
+
 .navbar .link-container {
-	display: inline-flex;
+	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	align-content: center;
 	align-items: center;
-	column-gap: 5rem;
+	column-gap: 1rem;
 	row-gap: 1.5rem;
 }
+
 .nav-link {
-	/* display: inline-flex;
-	flex-direction: row;
-	flex-wrap: wrap; */
 	font-size: 1.2rem;
 	color: #333;
-	margin-right: 10rem;
+	margin-right: 2rem; /* Anpassung des rechten Randes */
 	transition: color 0.3s;
 }
+
 .nav-link:hover {
 	text-decoration-line: underline;
 	color: #0070f3;
 }
-/* TODO Login button Container */
+
+/* Container für die Login-Schaltfläche */
 .navbar .login-container {
-	display: inline-flex;
+	display: flex;
 	background-color: #fff;
 	flex-direction: row;
+	align-items: center;
 	border-color: black;
-	margin-right: 15rem;
-	border-radius: 10rem;
+	min-width: 200px;
+	padding: 1rem;
+	margin-right: 6rem;
 }
-.login-container .button {
-	margin-right: 15rem;
-	border-radius: 10px;
-	font-size: 1.2rem;
-}
-.login-link {
+.login-container .button,
+.dropdown-button {
+	border-radius: 0.5rem;
+	border: solid 2px #000000;
+	padding: 1rem 2rem;
+	text-align: center;
 	display: inline-flex;
-	flex-direction: row;
-	flex-wrap: wrap;
+	font-family: helvetica500;
 	font-size: 1.2rem;
-	color: #333;
+	cursor: pointer;
+	letter-spacing: 0.05rem;
 }
 
-.dropdown-trigger {
-	display: flex;
-	background-color: white;
-	align-items: center;
-	gap: 0.5rem;
+/* Media Queries für Responsive Design */
+@media (max-width: 1024px) {
+	.navbar {
+		flex-direction: column; /* Ändert die Richtung der Navbar auf vertikal bei kleineren Bildschirmen */
+		align-items: flex-start; /* Links ausgerichtet */
+	}
+
+	.navbar .logo {
+		margin-left: 0; /* Entfernt das linke Margin bei kleineren Bildschirmen */
+	}
+
+	.navbar .link-container {
+		flex-direction: column; /* Ändert die Richtung der Links auf vertikal bei kleineren Bildschirmen */
+		align-items: flex-start; /* Links ausgerichtet */
+		margin-top: 1rem; /* Abstand nach oben hinzufügen */
+	}
+
+	.nav-link {
+		margin-right: 0; /* Entfernt das rechte Margin bei kleineren Bildschirmen */
+		margin-bottom: 1rem; /* Abstand nach unten hinzufügen */
+	}
+
+	.navbar .login-container {
+		margin-right: 0; /* Entfernt das rechte Margin bei kleineren Bildschirmen */
+		margin-top: 1rem; /* Abstand nach oben hinzufügen */
+	}
+
+	.login-container .button {
+		margin-right: 0; /* Entfernt das rechte Margin bei kleineren Bildschirmen */
+	}
 }
+
+/* Dropdown-Menü-Stile */
+.dropdown-menu-content {
+	background-color: #ffffff; /* Hintergrundfarbe */
+	border: 2px solid #000000; /* Rahmenfarbe */
+	border-radius: 0.5rem;
+	min-width: 200px; /* Mindestbreite */
+	padding: 1rem; /* Innenabstand */
+	z-index: 1000; /* Z-Index für das Dropdown-Menü */
+}
+
+.dropdown-menu-item {
+	padding: 0.5rem 1rem; /* Innenabstand für die Menüelemente */
+	cursor: pointer; /* Zeiger ändern */
+	transition: background-color 0.3s; /* Übergangseffekt für die Hintergrundfarbe */
+}
+
+.login-container .button:hover,
+.dropdown-button:hover,
+.dropdown-menu-item:hover {
+	background-color: #929292; /* Hintergrundfarbe beim Hover */
+}
+
+/* Styles für das Avatar-Bild */
 .avatar {
-	width: 2.5rem;
-	height: 2.5rem;
-	align-content: center;
+	width: 2rem;
+	height: 2rem;
 	border-radius: 50%;
 	overflow: hidden;
 }
-/* TODO HEADER file ende */
 
+.body {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	margin: 0;
+	height: 100vh;
+	width: 100vw;
+}
 .container {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start; /* Links ausgerichtet */
+	margin-top: -20rem;
+	margin-left: 20rem;
+	text-align: left;
+	z-index: 1;
+}
+/* .container {
+position: fixed;
+	top: 50%;
+	left: 36%; 
+	transform: translate(-50%, -50%);
 	display: inline-flex;
 	flex-direction: column;
-	flex-wrap: wrap;
-	align-items: left;
-	z-index: 1;
-	margin-top: 450px;
-	padding-left: 200px;
+	align-items: flex-start;
 	justify-content: center;
 	text-align: left;
 	padding: 5rem;
-}
+	z-index: 1;
+} */
 .title-box h1 {
 	margin-bottom: 1rem;
 }
@@ -350,52 +387,88 @@ input {
 	padding-top: 80px;
 }
 
-/*  
-TODO CUSTOM FORM FIELD
-.custom-p, .custom-label, .custom-input {
-font-family: roboto300, arial; 
-font-size: 1.05rem; 
-line-height:1.6rem;
+.form-styles {
+	display: flex;
+	flex-direction: column;
+	align-self: flex-start;
+	max-width: 100%;
+	background-color: red;
+	color: red;
+	gap: 1rem;
 }
-.custom-a:link, .custom-a:visited {
-color:#000;
-}
-.custom-form {margin:0;}
-.custom-fieldset {width:40%; max-width:600px; min-width:400px; border:none; margin:0; padding:0;}
-.custom-input, .custom-label {width:100%;}
 
-.custom-input {border-radius:0.5rem; border:none; background-color:#fff; padding:0.8rem 1rem 0.8rem 1rem; margin-bottom:1rem;}
-nur damit die formfields ohne hintergrundbild erkennbar sind
-.custom-body {background-color:#efefef;}
- */
-
-/* TODO wiederverwendbar für formfeder */
-.form-style {
-	margin: 0;
-}
 .form-style .custom-label {
 	text-transform: uppercase;
-	font-family: roboto500, arial;
-	background-color: aquamarine;
+	font-family: helvetica500, arial;
+	padding: 2rem;
+	text-align: left;
+	font-size: 1.2rem; /* Erhöht die Schriftgröße */
+	margin: 3rem -1rem;
 }
-.form-style .custom-body {
-	background-color: #efefef;
-}
+
 .form-style .custom-input {
 	border-radius: 0.5rem;
+	text-align: left;
 	border: none;
-	background-color: #fff;
-	padding: 0.8rem 1rem 0.8rem 1rem;
+	background-color: #fff; /* Weißer Hintergrund */
+	padding: 1rem; /* Erhöht die Innenabstände */
+	font-size: 1.2rem; /* Erhöht die Schriftgröße */
 	margin-bottom: 1rem;
+	width: 150%; /* Breite */
+	height: 3rem; /* Höhe */
 }
-.form-style .custom-fieldset {
-	width: 40%;
-	max-width: 600px;
-	min-width: 400px;
+/* Placeholder-Text-Stile */
+.form-style .custom-input::placeholder {
+	text-transform: lowercase;
+	font-size: 0.8rem; /* Erhöht die Schriftgröße */
+	color: rgba(0, 0, 0, 0.4); /* Weniger auffällige Farbe */
+	opacity: 1; /* Stellt sicher, dass die Deckkraft auch in Firefox funktioniert */
+}
+.form-style .custom-datei {
+	border-radius: 0.5rem;
+	text-align: left;
 	border: none;
-	margin: 0;
-	padding: 0;
+	background-color: #fff; /* Weißer Hintergrund */
+	padding: 1rem; /* Erhöht die Innenabstände */
+	font-size: 1.2rem; /* Erhöht die Schriftgröße */
+	margin-bottom: 1rem;
+	width: 150%; /* Breite */
+	height: 3rem; /* Höhe */
 }
+/* Placeholder-Text-Stile */
+.form-style .custom-datei::placeholder {
+	text-transform: lowercase;
+	text-decoration: solid;
+	font-size: 0.8rem; /* Erhöht die Schriftgröße */
+	opacity: 1; /* Stellt sicher, dass die Deckkraft auch in Firefox funktioniert */
+}
+/* Hover-Effekt für Eingabefelder */
+.form-style .custom-datei:hover {
+	cursor:pointer;
+	text-decoration: wavy;
+	box-decoration-break: slice;
+	background-color: #e0ffe0; /* Heller Grünton beim Hover */
+}
+
+.form-style .button {
+	border: solid 2px #000000;
+	border-radius: 0.5rem;
+	background-color: transparent;
+	padding: 1rem 5rem;
+	text-align: left;
+	text-decoration: none;
+	display: inline-flex;
+	font-family: helvetica500, arial;
+	font-size: 1.4rem; /* Erhöht die Schriftgröße */
+	margin: 2rem 0;
+	cursor: pointer;
+	letter-spacing: 0.05rem; /* Erhöht den Buchstabenabstand */
+}
+
+.form-style .button:hover {
+	background-color: #f0f0f0; /* Hintergrundfarbe beim Hover */
+}
+
 /* wiederverwendbar für formfeder ende */
 
 .your-tasks-page .title-container {
@@ -428,7 +501,7 @@ nur damit die formfields ohne hintergrundbild erkennbar sind
 }
 .your-style .custom-label {
 	text-transform: uppercase;
-	font-family: roboto500, arial;
+	font-family: helvetica500, arial;
 	background-color: aquamarine;
 }
 .your-style .custom-body {
@@ -448,13 +521,6 @@ nur damit die formfields ohne hintergrundbild erkennbar sind
 	border: none;
 	margin: 0;
 	padding: 0;
-}
-
-.form-styles {
-	display: flex;
-	flex-direction: column;
-	align-self: flex-start;
-	gap: 1rem;
 }
 
 .user-details {
@@ -591,7 +657,7 @@ nur damit die formfields ohne hintergrundbild erkennbar sind
 	padding: 12px 32px;
 	display: inline-block;
 	width: 25%;
-	font-family: roboto500, arial;
+	font-family: helvetica500, arial;
 	font-size: 1.2rem;
 	/* margin: 2rem 0rem; */
 	margin-right: 2rem;

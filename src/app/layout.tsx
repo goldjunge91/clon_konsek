@@ -33,7 +33,7 @@ export default function RootLayout({
 					<Toaster />
 					<NextTopLoader />
 					<Header />
-					<main  >{children}</main>
+					<main  className="body">{children}</main>
 				</AuthProvider>
 			</body>
 		</html>

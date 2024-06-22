@@ -22,7 +22,7 @@ export default function CreateTaskPage() {
         return <h1>Access Denied</h1>;
     }
     return (
-        <div className="create-task-page">
+        <div className="container">
             <h1><span className="boldweight">Create </span>a new print file</h1>
             <CreateTaskForm />
         </div>

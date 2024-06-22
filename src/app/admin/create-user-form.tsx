@@ -50,7 +50,7 @@ export function CreateUserForm() {
 
     return (
         <Form {...form}>
-            <form className=".card-styles" onSubmit={form.handleSubmit(onSubmit)}>
+            <form className=".form-style" onSubmit={form.handleSubmit(onSubmit)}>
                 <FormField
                     control={form.control}
                     name="username" render={({ field }) => (

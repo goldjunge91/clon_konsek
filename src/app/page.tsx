@@ -10,6 +10,7 @@ export default function LandingPage() {
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             <title>PDF stack processor</title>
             {/* Erste box  */}
+            <div className="body">
             <div className="container">
                 <div className="title-box h1">
                     <h1 className="Title">
@@ -43,6 +44,7 @@ export default function LandingPage() {
                         <a href="https://www.konsek.de/agb/">Legal</a>
                     </p>
                 </div>
+            </div>
             </div>
         </>
     );

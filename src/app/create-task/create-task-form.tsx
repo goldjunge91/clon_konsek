@@ -44,7 +44,7 @@ const formSchema = z.object({
 			(file) =>
 				file?.type === "text/csv" ||
 				// file?.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-			{ message: "Please select a CSV file." }
+				{ message: "Please select a CSV file." }
 		)
 		.refine((file) => (file?.size || 0) <= 5000000, {
 			message: "Size maximum 5MB.",
@@ -85,7 +85,7 @@ export function CreateTaskForm() {
 			router.push(`/tasks/${taskId}`);
 		}
 	}
-//   DONE 
+	//   DONE 
 	return (
 		<Form {...form}>
 			<form className="form-style" onSubmit={form.handleSubmit(onSubmit)} >
@@ -93,18 +93,14 @@ export function CreateTaskForm() {
 					control={form.control}
 					name="dsm_url"
 					render={({ field }) => (
-						<FormItem className="custom-label">
-							<FormLabel>Q.Wiki URL</FormLabel>
+						<FormItem >
+							<FormLabel className="custom-label">Q.Wiki URL</FormLabel>
 							<div
 							>
 								<FormControl className="{styles['form-container']}" >
-									<Input {...field} placeholder="https://konsek.de" />
+									<Input className="custom-input" {...field} placeholder="https://konsek.de" />
 								</FormControl>
 							</div>
-							{/* <FormDescription>
-								Please provide the URL to your Q.wiki Login Like
-								"https://konsek.qwikinow.de/"
-							</FormDescription> */}
 							<FormMessage />
 						</FormItem>
 					)}
@@ -114,11 +110,11 @@ export function CreateTaskForm() {
 					control={form.control}
 					name="dsm_mail"
 					render={({ field }) => (
-						<FormItem className="custom-label">
-							<FormLabel>Q.Wiki User Mail-Adress</FormLabel>
+						<FormItem >
+							<FormLabel className="custom-label">Q.Wiki User Mail-Adress</FormLabel>
 							<div>
 								<FormControl>
-									<Input {...field} placeholder="ReadOnlyUSerLogin@mail.de" />
+									<Input className="custom-input" {...field} placeholder="ReadOnlyUSerLogin@mail.de" />
 								</FormControl>{" "}
 							</div>
 							{/* <FormDescription>The Q.Wiki User Mail-Adresse</FormDescription> */}
@@ -130,23 +126,18 @@ export function CreateTaskForm() {
 					control={form.control}
 					name="dsmpassword"
 					render={({ field }) => (
-						<FormItem className="custom-label">
+						<FormItem>
 							<div>
-								<FormLabel>Q.Wiki User Mail Password</FormLabel>
+								<FormLabel className="custom-label">Q.Wiki User Mail Password</FormLabel>
 							</div>
 							<div>
 								<FormControl>
-									<Input
-										{...field}
+									<Input className="custom-input" {...field}
 										type="password"
 										placeholder="Password to your Read-Only User"
 									/>
 								</FormControl>
 							</div>
-							{/* <FormDescription>
-								Provide the password to the User Email Address that is associated
-								with your Q.Wiki account.
-							</FormDescription> */}
 							<FormMessage />
 						</FormItem>
 					)}
@@ -155,14 +146,13 @@ export function CreateTaskForm() {
 					control={form.control}
 					name="zippassword"
 					render={({ field }) => (
-						<FormItem className="custom-label">
-							<FormLabel>
-								Enter a password to compress and protect<br/>the files from unauthorized
-									access.
+						<FormItem >
+							<FormLabel className="custom-label">
+								Enter a password to protect the files.
 							</FormLabel>
 							<div>
 								<FormControl>
-									<Input {...field} type="password" placeholder="Zip-Password" />
+									<Input className="custom-input" {...field} type="password" placeholder="Zip-Password" />
 								</FormControl>
 							</div>
 							<FormMessage />
@@ -175,11 +165,11 @@ export function CreateTaskForm() {
 					render={({ field: { value, onChange, ...fieldProps } }) => {
 						return (
 							// @typescript-eslint/no-unused-vars
-							<FormItem className="custom-label">
-								<FormLabel>Only .CSV File</FormLabel>
+							<FormItem >
+								<FormLabel className="custom-label">Only .CSV File</FormLabel>
 								<div>
 									<FormControl>
-										<Input className="custom-input"
+										<Input className="custom-datei"
 											{...fieldProps}
 											placeholder="CSV file with Q.Wiki URL"
 											type="file"
