@@ -26,11 +26,11 @@ export default async function browse({ searchParams, }: {
         redirect("/api/auth/signin?callbackUrl=/server");
     }
     // Check if the user has the admin role
-    else if (session?.user.role === "admin" ||  session?.user.role === "user") {
+    else if (session?.user.role === "admin" || session?.user.role === "user") {
 
         return (
-            <main className="content-container ">
-                <div className="title-container">
+            <main className="bb">
+                <div className="browse">
                     <h1>Your Tasks</h1>
                     {tasks.length === 0 && (
                         <Button asChild>
@@ -39,11 +39,12 @@ export default async function browse({ searchParams, }: {
                     )}
                 </div>
                 {/* Display task cards */}
-                {/* <div className="grid grid-cols-3 gap-4"> */}
-                <div className="display">
-                    {tasks.map((task: Task) => {
-                        return <TaskCard key={task.id} task={task} />;
-                    })}
+                <div className="grid">
+                    <div>
+                        {tasks.map((task: Task) => {
+                            return <TaskCard key={task.id} task={task} />;
+                        })}
+                    </div>
                 </div>
                 {/* Display a message and a button if no tasks are available */}
                 {tasks.length === 0 && (
