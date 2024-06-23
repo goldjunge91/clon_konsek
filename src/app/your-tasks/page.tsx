@@ -6,31 +6,51 @@ import { UserTaskCard } from "./user-task-card";
 import { unstable_noStore } from "next/cache";
 import Image from "next/image";
 import { Task } from "@/db/schema";
+import { ListTodo } from 'lucide-react';
+
+// import "./your-task.styles.css";
+
+// { tasks.map((task: Task) => { return <UserTaskCard key={task.id} task={task} />; }) }
+
 
 export default async function YourTasksPage() {
     unstable_noStore();
     const tasks = await getUserTasks();
+
     return (
-        <main>
-            <div className="your-tasks-page" >
-                <h1 >Your Tasks</h1>
-            </div>
-                {tasks.map((task: Task) => { return <UserTaskCard key={task.id} task={task} />; })}
-            {tasks.length === 0 && (
-                <div className="no-tasks">
-                    <Image
-                        src="/no-data.svg"
-                        width="200"
-                        height="200"
-                        alt="no data image"
-                        style={{
-                            maxWidth: "100%",
-                            height: "auto",
-                        }} />
-                    <h2 >You have no tasks</h2>
-                    <Button asChild className="button">
-                        <Link href="/create-task">Create Task</Link>
-                    </Button>
+        <main className="your-tasks-page">
+
+            <h1 className="page-title">Your Tasks</h1>
+            {tasks.length === 0 ? (
+                <div>
+                    // Render when there are no tasks
+                    <div className="no-tasks-container">
+                        <Button asChild className="create-task-button">
+                            <Link href="/create-task">
+                                 <ListTodo />
+                                Create a Task
+                            </Link>
+                        </Button>
+                    </div>
+                </div>
+            ) : (
+                <div >
+                    <div className="tasks-container">
+                        <div className="task-header">
+                            <Button asChild className="create-task-button">
+                                <Link href="/create-task">
+                                    <ListTodo />
+
+                                    Create a Task
+                                </Link>
+                            </Button>
+                        </div>
+                        <div className="task-list">
+                            {tasks.map((task) => (
+                                <UserTaskCard key={task.id} task={task} />
+                            ))}
+                        </div>
+                    </div>
                 </div>
             )}
         </main>

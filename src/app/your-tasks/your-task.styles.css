@@ -1,0 +1,295 @@
+.your-tasks-page {
+	display: flex;
+	flex-direction: column;
+	align-items: left;
+	margin-left: 16rem;
+	padding: 4rem;
+}
+
+.page-title {
+	font-size: 4rem;
+	align-items: flex-start;
+	font-family: helvetica;
+	margin-bottom: 2rem;
+}
+
+.no-tasks-container {
+	display: flex;
+	justify-content: center;
+}
+
+.tasks-container {
+	display: flex;
+	flex-direction: column;
+	align-items: left;
+	width: 100%;
+}
+
+.task-header {
+	display: flex;
+	/* justify-content: flex-start; */
+	align-items: flex-start;
+	justify-content: space-between;
+	width: 100%;
+	margin-bottom: 1rem;
+	padding: 2rem;
+}
+
+.task-list {
+	display: grid;
+	grid-template-columns: 25rem 1.5fr 1.5fr 1.5fr;
+	width: 80%;
+	margin-left: -2rem; /* Adjust the margin to fit it more to the left */
+}
+
+.create-task-button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0.5rem 1rem;
+	background-color: #0070f3;
+	color: #fff;
+	border-radius: 0.5rem;
+	font-weight: bold;
+	cursor: pointer;
+}
+.create-task-button:hover {
+	background-color: gray;
+	text-decoration: underline;
+}
+.create-task-button img {
+	margin-right: 0.5rem;
+}
+
+
+
+.user-task-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #ffffff;
+    border: 2px solid #e0e0e0;
+    border-radius: 1.5rem;
+    padding: 2rem;
+    margin: 2rem;
+    width: calc(33% - 4rem); /* Adjust to fit three cards per row with spacing */
+    box-sizing: border-box;
+    height: 400px; /* Set a fixed height for consistency */
+}
+
+.user-card-header {
+    padding: 1rem 0;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.progress {
+    width: 100%; /* Adjusted to fit the card width */
+    height: 1rem;
+    background-color: #0055ff;
+    border-radius: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.user-card-content {
+    padding: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    flex-grow: 1; /* Allow content to grow */
+    justify-content: center; /* Center content vertically */
+    text-align: center; /* Center text */
+}
+
+.user-card-content .status {
+    font-family: helvetica, arial, sans-serif;
+    font-size: 1.2rem; /* Adjusted font size */
+    font-weight: 500;
+    margin: 0;
+}
+
+.user-card-content .download-button {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #28a745;
+    cursor: pointer;
+    border: none;
+    width: 100%;
+    max-width: 200px; /* Set a max width for consistency */
+    height: 40px; /* Set a fixed height for consistency */
+}
+
+.user-card-content .download-button:hover {
+    background-color: #218838;
+}
+
+.user-card-content .download-button:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+.user-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #e0e0e0;
+    padding-top: 1rem;
+    margin-top: 1rem;
+    flex-shrink: 0;
+}
+
+.user-card-footer .link {
+    border: 2px solid #000;
+    border-radius: 0.5rem;
+    background-color: transparent;
+    padding: 0.5rem 1rem;
+    display: inline-block;
+    font-family: helvetica, arial, sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+}
+
+.user-card-footer .link:hover {
+    color: #0070f3;
+    text-decoration: underline;
+}
+
+.user-card-footer .button {
+    border: 2px solid #000;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+}
+
+.user-card-footer .button:hover {
+    color: #0070f3;
+    text-decoration: underline;
+}
+
+
+/* 
+.user-task-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #ffffff;
+    border: 2px solid #e0e0e0;
+    border-radius: 1.5rem;
+    padding: 2rem;
+    margin: 2rem;
+    width: calc(80% - 4rem); 
+    box-sizing: border-box;
+    height: 350px; 
+}
+
+.user-card-header {
+    padding: 1rem 0;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: red;
+    flex-shrink: 0;
+}
+
+.progress {
+    width: 100%; 
+    height: 1rem;
+    background-color: #0055ff;
+    border-radius: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.user-card-content {
+    padding: 1rem 0;
+    background-color: #218838; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    flex-grow: 1;
+    justify-content: center; 
+}
+
+.user-card-content .status {
+    font-family: helvetica, arial, sans-serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 0;
+    text-align: center;
+}
+
+.user-card-content .download-button {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #28a745;
+    cursor: pointer;
+    border: none;
+    width: 100%;
+    max-width: 200px; 
+    align-self: center;
+    height: 40px; 
+}
+
+.user-card-content .download-button:hover {
+    background-color: #218838;
+}
+
+.user-card-content .download-button:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+.user-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #e0e0e0;
+    padding-top: 1rem;
+    margin-top: 1rem;
+    flex-shrink: 0;
+}
+
+.user-card-footer .link {
+    border: 2px solid #000;
+    border-radius: 0.5rem;
+    background-color: transparent;
+    padding: 0.5rem 1rem;
+    display: inline-block;
+    font-family: helvetica, arial, sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+}
+
+.user-card-footer .link:hover {
+    color: #0070f3;
+    text-decoration: underline;
+}
+
+.user-card-footer .button {
+    border: 2px solid #000;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+}
+
+.user-card-footer .button:hover {
+    color: #0070f3;
+    text-decoration: underline;
+} */

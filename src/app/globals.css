@@ -1,11 +1,11 @@
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* @tailwind base */
-
 @font-face {
 	font-family: "helvetica200";
 	src: url("../../public/fonts/helveticaneuelt-std-thin_normal_250.ttf") format("truetype");
 }
+
 @font-face {
 	font-family: "roboto300";
 	src: url("../../public/fonts/roboto-slab-light_normal_300.ttf") format("truetype");
@@ -16,32 +16,68 @@
 	src: url("../../public/fonts/helvetica-neue-lt-std_normal_500.otf") format("truetype");
 }
 
-/* @font-face {
-    font-family: helvetica200;
-    src: url(https://www.konsek.de/wp-content/themes/twentytwentythree/assets/fonts/helveticaneuelt-std-thin_normal_250.ttf);
+@layer base {
+	:root {
+		@font-face {
+			font-family: "helvetica200";
+			src: url("../../public/fonts/helveticaneuelt-std-thin_normal_250.ttf")
+				format("truetype");
+		}
+
+		@font-face {
+			font-family: "roboto300";
+			src: url("../../public/fonts/roboto-slab-light_normal_300.ttf") format("truetype");
+		}
+
+		@font-face {
+			font-family: "helvetica500";
+			src: url("../../public/fonts/helvetica-neue-lt-std_normal_500.otf") format("truetype");
+		}
+
+		--background: hsl(0, 0%, 100%);
+		--foreground: hsl(222.2, 84%, 4.9%);
+
+		--card: hsl(0, 0%, 100%);
+		--card-foreground: hsl(222.2, 84%, 4.9%);
+
+		--popover: hsl(0, 0%, 100%);
+		--popover-foreground: hsl(222.2, 84%, 4.9%);
+
+		--primary: hsl(222.2, 47.4%, 11.2%);
+		--primary-foreground: hsl(210, 40%, 98%);
+
+		--secondary: hsl(210, 40%, 96.1%);
+		--secondary-foreground: hsl(222.2, 47.4%, 11.2%);
+
+		--muted: hsl(210, 40%, 96.1%);
+		--muted-foreground: hsl(215.4, 16.3%, 46.9%);
+
+		--accent: hsl(210, 40%, 96.1%);
+		--accent-foreground: hsl(222.2, 47.4%, 11.2%);
+
+		--destructive: hsl(0, 84.2%, 60.2%);
+		--destructive-foreground: hsl(210, 40%, 98%);
+
+		--border: hsl(214.3, 31.8%, 91.4%);
+		--input: hsl(214.3, 31.8%, 91.4%);
+		--ring: hsl(222.2, 84%, 4.9%);
+
+		--radius: 0.5rem;
+	}
 }
-@font-face {
-    font-family: helvetica500;
-    src: url(https://www.konsek.de/wp-content/themes/twentytwentythree/assets/fonts/helvetica-neue-lt-std_normal_500.otf);
-}
-@font-face {
-    font-family: roboto300;
-    src: url(https://www.konsek.de/wp-content/themes/twentytwentythree/assets/fonts/roboto-slab-light_normal_300.ttf);
-}
-@font-face {
-    font-family: helvetica500;
-    src: url(https://www.konsek.de/wp-content/themes/twentytwentythree/assets/fonts/roboto-slab-medium_normal_500.ttf);
-} */
 
 .helvetica {
 	font-family: "helvetica200";
 }
+
 .roboto-light {
 	font-family: "roboto300";
 }
-.roboto-medium {
+
+.helvetica-medium {
 	font-family: "helvetica500";
 }
+
 .boldweight {
 	font-family: "helvetica500";
 }
@@ -53,6 +89,7 @@
 	/* box-sizing: initial; */
 	box-sizing: border-box;
 }
+
 html,
 body {
 	font-family: "helvetica500";
@@ -62,7 +99,8 @@ body {
 	width: 100%;
 	margin: 0;
 	padding: 0;
-	overflow: hidden; /* Verhindert Scrollen */
+	overflow: hidden;
+	/* Verhindert Scrollen */
 }
 
 h1 {
@@ -83,10 +121,7 @@ h2 {
 	margin-bottom: 2rem;
 }
 
-h3,
-h4,
-h5,
-h6 {
+h3 {
 	font-family: helvetica200, arial;
 	font-size: 3rem;
 	font-weight: 300;
@@ -96,49 +131,13 @@ h6 {
 }
 
 a {
-	color: inherit;
+	color: unset;
 	text-decoration: none;
-}
-
-button {
-	border: solid 2px #000000;
-	border-radius: 0.5rem;
-	background-color: transparent;
-	padding: 1rem 5rem;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-family: helvetica500, arial;
-	font-size: 1.2rem;
-	margin: 2rem 0;
-	cursor: pointer;
-	letter-spacing: 0.03rem;
 }
 
 img {
 	max-width: 100%;
 	height: 100%;
-}
-
-label {
-	font-size: 1.05rem;
-	line-height: 1.6rem;
-	border-radius: 0.5rem;
-	padding: 0.8rem 1rem;
-	margin-bottom: 1rem;
-	text-transform: uppercase;
-	font-family: helvetica500, arial;
-}
-
-input {
-	font-family: roboto200, arial;
-	font-size: 1.05rem;
-	line-height: 1.6rem;
-	border-radius: 0.5rem;
-	border: none;
-	background-color: #fff;
-	padding: 0.8rem 1rem 0.8rem 1rem;
-	margin-bottom: 1rem;
 }
 
 main {
@@ -149,13 +148,16 @@ main {
 	margin: 0;
 }
 
-/* TODO Layout.tsx*/
+/* DONE Layout.tsx
+Layout implementiert.
+*/
 .layout-body {
 	position: relative;
 	width: 100vw;
 	height: 100vh;
 	background-color: #ffffff00;
 }
+
 .background-container {
 	position: fixed;
 	width: 100vw;
@@ -164,7 +166,7 @@ main {
 	overflow: hidden;
 }
 
-.imagebackground {
+.background-container .imagebackground {
 	position: absolute;
 	width: 150%;
 	height: 150%;
@@ -173,18 +175,47 @@ main {
 }
 
 /*  Ende Layout.tsx */
+
+/* DONE
+
+Header file
+navbar
+logo
+link-container
+nav-link 
+login-container
+button
+ */
+.button {
+	border: solid 2px #000000;
+	border-radius: 0.5rem;
+	cursor: pointer;
+	letter-spacing: 0.03rem;
+	background-color: transparent;
+	padding: 0.8rem 4rem;
+	text-align: center;
+	align-items: center;
+	text-decoration: none;
+	font-family: helvetica500;
+	font-size: 1.2rem;
+	margin: 1rem;
+}
 .navbar {
 	display: flex;
+	font-family: helvetica500;
 	flex-wrap: wrap;
-	justify-content: space-between;
-	align-items: center;
+	font-size: 2;
+	justify-content: space-evenly;
+	align-items: center flex-start;
+	height: 6rem;
 	background-color: #fff;
+
 	padding: 1rem 2rem;
 }
 
 .navbar .logo {
 	display: flex;
-	margin-left: 20rem; /* Anpassung des linken Randes */
+	margin-left: 10rem;
 }
 
 .navbar .link-container {
@@ -197,9 +228,10 @@ main {
 }
 
 .nav-link {
-	font-size: 1.2rem;
+	font-size: 1.5rem;
 	color: #333;
-	margin-right: 2rem; /* Anpassung des rechten Randes */
+	margin-right: 2rem;
+	/* Anpassung des rechten Randes */
 	transition: color 0.3s;
 }
 
@@ -208,17 +240,6 @@ main {
 	color: #0070f3;
 }
 
-/* Container für die Login-Schaltfläche */
-.navbar .login-container {
-	display: flex;
-	background-color: #fff;
-	flex-direction: row;
-	align-items: center;
-	border-color: black;
-	min-width: 200px;
-	padding: 1rem;
-	margin-right: 6rem;
-}
 .login-container .button,
 .dropdown-button {
 	border-radius: 0.5rem;
@@ -235,55 +256,64 @@ main {
 /* Media Queries für Responsive Design */
 @media (max-width: 1024px) {
 	.navbar {
-		flex-direction: column; /* Ändert die Richtung der Navbar auf vertikal bei kleineren Bildschirmen */
-		align-items: flex-start; /* Links ausgerichtet */
+		flex-direction: column;
+		align-items: flex-start;
 	}
 
 	.navbar .logo {
-		margin-left: 0; /* Entfernt das linke Margin bei kleineren Bildschirmen */
+		margin-left: 0;
 	}
 
 	.navbar .link-container {
-		flex-direction: column; /* Ändert die Richtung der Links auf vertikal bei kleineren Bildschirmen */
-		align-items: flex-start; /* Links ausgerichtet */
-		margin-top: 1rem; /* Abstand nach oben hinzufügen */
+		flex-direction: column;
+		align-items: flex-start;
+		margin-top: 1rem;
 	}
 
 	.nav-link {
-		margin-right: 0; /* Entfernt das rechte Margin bei kleineren Bildschirmen */
-		margin-bottom: 1rem; /* Abstand nach unten hinzufügen */
+		margin-right: 0;
+		margin-bottom: 1rem;
 	}
 
 	.navbar .login-container {
-		margin-right: 0; /* Entfernt das rechte Margin bei kleineren Bildschirmen */
-		margin-top: 1rem; /* Abstand nach oben hinzufügen */
+		margin-right: 0;
+		margin-top: 1rem;
 	}
 
 	.login-container .button {
-		margin-right: 0; /* Entfernt das rechte Margin bei kleineren Bildschirmen */
+		margin-right: 0;
 	}
 }
 
 /* Dropdown-Menü-Stile */
 .dropdown-menu-content {
-	background-color: #ffffff; /* Hintergrundfarbe */
-	border: 2px solid #000000; /* Rahmenfarbe */
+	background-color: #ffffff;
+	border: 2px solid #000000;
 	border-radius: 0.5rem;
-	min-width: 200px; /* Mindestbreite */
-	padding: 1rem; /* Innenabstand */
-	z-index: 1000; /* Z-Index für das Dropdown-Menü */
+	min-width: 200px;
+	/* Mindestbreite */
+	padding: 1rem;
+	/* Innenabstand */
+	z-index: 1000;
+	/* Z-Index für das Dropdown-Menü */
 }
-
+.login-container {
+	align-items: center;
+}
 .dropdown-menu-item {
-	padding: 0.5rem 1rem; /* Innenabstand für die Menüelemente */
-	cursor: pointer; /* Zeiger ändern */
-	transition: background-color 0.3s; /* Übergangseffekt für die Hintergrundfarbe */
+	padding: 0.5rem 1rem;
+	/* Innenabstand für die Menüelemente */
+	cursor: pointer;
+	/* Zeiger ändern */
+	transition: background-color 0.3s;
+	/* Übergangseffekt für die Hintergrundfarbe */
 }
 
 .login-container .button:hover,
 .dropdown-button:hover,
 .dropdown-menu-item:hover {
-	background-color: #929292; /* Hintergrundfarbe beim Hover */
+	background-color: #929292;
+	/* Hintergrundfarbe beim Hover */
 }
 
 /* Styles für das Avatar-Bild */
@@ -302,81 +332,44 @@ main {
 	height: 100vh;
 	width: 100vw;
 }
+
+/* Container in: 
+1.Create Task Page 
+2. Page // Landingpage
+3.
+*/
 .container {
 	display: flex;
 	flex-direction: column;
-	align-items: flex-start; /* Links ausgerichtet */
+	align-items: flex-start;
+	/* Links ausgerichtet */
 	margin-top: -20rem;
 	margin-left: 20rem;
 	text-align: left;
 	z-index: 1;
 }
-/* .container {
-position: fixed;
-	top: 50%;
-	left: 36%; 
-	transform: translate(-50%, -50%);
-	display: inline-flex;
-	flex-direction: column;
-	align-items: flex-start;
-	justify-content: center;
-	text-align: left;
-	padding: 5rem;
-	z-index: 1;
-} */
+
 .title-box h1 {
 	margin-bottom: 1rem;
 }
+
 .title-light {
-	font-weight: 300;
+	font-family: helvetica200;
+	font-weight: 200;
 }
+
 .textbox {
 	margin-bottom: 1rem;
 	padding-top: 1rem;
 }
+
 .footer {
 	margin-top: 2rem;
 }
 
-.content-container {
-	display: inline-flex;
-	background-color: #0070f3;
-	flex-direction: row;
-	flex-wrap: wrap;
-	align-items: flex-start;
-	/* Corrected */
-	justify-content: center;
-	text-align: left;
-	padding: 2rem;
-	padding-top: 80px;
-}
-
-.content-container .noTask {
-	display: inline-flex;
-	flex-direction: row;
-}
-
-.container-browse .display {
-	display: inline-flex;
-	flex-direction: row;
-}
-
-.container-container .title-container {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 2rem;
-}
 .admin {
-	/* display: inline-flex;
-	background-color: yellow;
-	flex-direction: row;
-	border-color: black;
-	border-radius: 10;
-	gap: 4;
-	flex-wrap: wrap; */
 	display: inline-flex;
-	background-color: #0070f3;
+	/* background-color: #0070f3; */
 	flex-direction: row;
 	flex-wrap: wrap;
 	margin-top: 10;
@@ -387,13 +380,23 @@ position: fixed;
 	padding-top: 80px;
 }
 
+.admin .container {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	/* Links ausgerichtet */
+	margin-top: -20rem;
+	margin-left: 20rem;
+	text-align: left;
+	z-index: 1;
+}
+
+/*  Form style in create task */
 .form-styles {
 	display: flex;
 	flex-direction: column;
 	align-self: flex-start;
 	max-width: 100%;
-	background-color: red;
-	color: red;
 	gap: 1rem;
 }
 
@@ -402,7 +405,8 @@ position: fixed;
 	font-family: helvetica500, arial;
 	padding: 2rem;
 	text-align: left;
-	font-size: 1.2rem; /* Erhöht die Schriftgröße */
+	font-size: 1.2rem;
+	/* Erhöht die Schriftgröße */
 	margin: 3rem -1rem;
 }
 
@@ -410,45 +414,64 @@ position: fixed;
 	border-radius: 0.5rem;
 	text-align: left;
 	border: none;
-	background-color: #fff; /* Weißer Hintergrund */
-	padding: 1rem; /* Erhöht die Innenabstände */
-	font-size: 1.2rem; /* Erhöht die Schriftgröße */
+	background-color: #fff;
+	/* Weißer Hintergrund */
+	padding: 1rem;
+	/* Erhöht die Innenabstände */
+	font-size: 1.2rem;
+	/* Erhöht die Schriftgröße */
 	margin-bottom: 1rem;
-	width: 150%; /* Breite */
-	height: 3rem; /* Höhe */
+	width: 150%;
+	/* Breite */
+	height: 3rem;
+	/* Höhe */
 }
-/* Placeholder-Text-Stile */
+
 .form-style .custom-input::placeholder {
 	text-transform: lowercase;
-	font-size: 0.8rem; /* Erhöht die Schriftgröße */
-	color: rgba(0, 0, 0, 0.4); /* Weniger auffällige Farbe */
-	opacity: 1; /* Stellt sicher, dass die Deckkraft auch in Firefox funktioniert */
+	font-size: 0.8rem;
+	/* Erhöht die Schriftgröße */
+	color: rgba(0, 0, 0, 0.4);
+	/* Weniger auffällige Farbe */
+	opacity: 1;
+	/* Stellt sicher, dass die Deckkraft auch in Firefox funktioniert */
 }
+
 .form-style .custom-datei {
 	border-radius: 0.5rem;
 	text-align: left;
 	border: none;
-	background-color: #fff; /* Weißer Hintergrund */
-	padding: 1rem; /* Erhöht die Innenabstände */
-	font-size: 1.2rem; /* Erhöht die Schriftgröße */
+	background-color: #fff;
+	/* Weißer Hintergrund */
+	padding: 1rem;
+	/* Erhöht die Innenabstände */
+	font-size: 1.2rem;
+	/* Erhöht die Schriftgröße */
 	margin-bottom: 1rem;
-	width: 150%; /* Breite */
-	height: 3rem; /* Höhe */
+	width: 150%;
+	/* Breite */
+	height: 3rem;
+	/* Höhe */
 }
-/* Placeholder-Text-Stile */
+
 .form-style .custom-datei::placeholder {
 	text-transform: lowercase;
 	text-decoration: solid;
-	font-size: 0.8rem; /* Erhöht die Schriftgröße */
-	opacity: 1; /* Stellt sicher, dass die Deckkraft auch in Firefox funktioniert */
+	font-size: 0.8rem;
+	/* Erhöht die Schriftgröße */
+	opacity: 1;
+	/* Stellt sicher, dass die Deckkraft auch in Firefox funktioniert */
 }
+
 /* Hover-Effekt für Eingabefelder */
 .form-style .custom-datei:hover {
 	cursor: pointer;
 	text-decoration: wavy;
 	box-decoration-break: slice;
-	background-color: #e0ffe0; /* Heller Grünton beim Hover */
+	background-color: #e0ffe0;
+	/* Heller Grünton beim Hover */
 }
+
 .form-style .button {
 	border: solid 2px #000000;
 	border-radius: 0.5rem;
@@ -458,29 +481,19 @@ position: fixed;
 	text-decoration: none;
 	display: inline-flex;
 	font-family: helvetica500, arial;
-	font-size: 1.4rem; /* Erhöht die Schriftgröße */
+	font-size: 1.4rem;
+	/* Erhöht die Schriftgröße */
 	margin: 2rem 0;
 	cursor: pointer;
-	letter-spacing: 0.05rem; /* Erhöht den Buchstabenabstand */
-}
-.form-style .button:hover {
-	background-color: #f0f0f0; /* Hintergrundfarbe beim Hover */
-}
-/* wiederverwendbar für formfeder ende */
-.your-tasks-page .title-container {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 2rem;
+	letter-spacing: 0.05rem;
+	/* Erhöht den Buchstabenabstand */
 }
 
-.your-tasks-page .tasks-container {
-	display: flex;
-	background-color: violet;
-	flex-direction: column;
-	gap: 1rem;
+.form-style .button:hover {
+	background-color: #f0f0f0;
+	/* Hintergrundfarbe beim Hover */
 }
-/* TODO style für your-task-page */
+
 .your-style {
 	/* display: inline-flex; */
 	font-family: helvetica;
@@ -495,14 +508,17 @@ position: fixed;
 	padding-top: 80px;
 	margin-top: 50px;
 }
+
 .your-style .custom-label {
 	text-transform: uppercase;
 	font-family: helvetica500, arial;
 	background-color: aquamarine;
 }
+
 .your-style .custom-body {
 	background-color: #efefef;
 }
+
 .your-style .custom-input {
 	border-radius: 0.5rem;
 	border: none;
@@ -510,6 +526,7 @@ position: fixed;
 	padding: 0.8rem 1rem 0.8rem 1rem;
 	margin-bottom: 1rem;
 }
+
 .your-style .custom-fieldset {
 	width: 40%;
 	max-width: 600px;
@@ -531,261 +548,305 @@ position: fixed;
 	gap: 1rem;
 }
 
-.your-tasks-page .tasks-grid {
-	display: grid;
-	/* grid-template-columns: repeat(3, 1fr); */
-	gap: 1rem;
-}
-
-.your-tasks-page {
-	/* min-height: 100vh; */
-	margin-left: 5rem;
-	padding: 2rem;
-
-	/* display: grid; */
-	/* background-color: blue; */
-	/* grid-template-columns: 3fr 1fr; */
-}
-
-.your-tasks-page .header {
+.bb {
 	display: flex;
-	justify-content: space-between;
-	align-items: center;
+	flex-direction: column;
+	align-items: flex-start;
+	margin-top: 20rem;
+	margin-left: 20rem;
+	z-index: 1;
+	width: 50%;
+}
+
+.browse {
+	display: inline-flex;
+	align-content: space-between;
+	flex-direction: row;
+	align-items: flex-start;
+	/* Links ausgerichtet */
+	text-align: left;
+	z-index: 1;
+	width: 100%;
 	margin-bottom: 2rem;
 }
 
-.user-task-card {
-	display: inline-flex;
-	flex-direction: column;
-	flex-wrap: wrap;
-	background-color: #ffffff; /* Hintergrundfarbe */
-	border: 1px solid #e0e0e0; /* Rahmenfarbe */
-	border-radius: 8px; /* Abgerundete Ecken */
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Schatteneffekt */
-	/* margin: 1rem; Außenabstand */
-	padding: 0rem; /* Innenabstand */
-	margin-left: 4rem;
-	max-width: 30rem; /* Maximale Breite der Karte */
-	width: 80%; /* Volle Breite innerhalb des Containers */
-}
-
-.user-card-header {
-	padding: 1rem;
-	border-bottom: 1px solid #e0e0e0; /* Unterer Rahmen */
-	/* display: flex; */
-	flex-direction: column;
-	padding-bottom: 0rem;
-	align-items: center;
-}
-.user-card-header .progress {
-	width: 70%;
-	height: 1rem;
-	/* background-color: #0055ff; */
-	border-radius: 0.5rem;
-	color: #28a745;
-	-webkit-border-radius: 0.51rem;
-	-moz-border-radius: 0.51rem;
-	-ms-border-radius: 0.51rem;
-	-o-border-radius: 0.51rem;
-}
-
-.user-card-content {
-	padding: 1rem;
-	display: flex;
-	flex-direction: column;
-	flex-wrap: wrap;
-	gap: 2rem;
-}
-
-.user-card-content .card {
-	padding: 1rem;
-	margin: 1rem 0rem;
-	background-color: #f9f9f9; /* Hintergrundfarbe */
-	border-radius: 8px; /* Abgerundete Ecken */
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Schatteneffekt */
-}
-
-.user-card-content .status {
-	font-family: helvetica500;
-	font-size: 1.45rem; /* Schriftgröße */
-	font-weight: 500; /* Schriftgewicht */
-	margin-bottom: 0rem;
-	margin-top: 0rem;
-	/* padding: 0.5rem; */
-}
-
-.user-card-content .download-button {
-	padding: 0.75rem 1.5rem;
-	border-radius: 0.5rem;
-	font-weight: 600;
-	/*background-color: #28a745;
-	HintergrundfarbefürDownload-Button*/
-	color: #000000;
-	width: 55%;
-	-webkit-border-radius: 0.5rem;
-	-moz-border-radius: 0.5rem;
-	-ms-border-radius: 0.5rem;
-	-o-border-radius: 0.5rem;
-}
-.user-card-content .download-button:hover {
-	background-color: #00ffa2; /* Hover-Farbe */
-	cursor: pointer;
-}
-.user-card-content .download-button:disabled {
-	background-color: #6c757d; /* Hintergrundfarbe für deaktivierten Button */
-	cursor: not-allowed;
-}
-
-.user-card-footer {
-	display: inline-block;
-	margin-left: 1rem;
-	padding: 0rem;
-	margin-top: 0rem;
-	/* margin-bottom: -5rem; */
-	/* margin-right: 1rem; */
-	border-top: solid #e0e0e0; /* Oberer Rahmen */
-}
-
-.user-card-footer .link {
-	border: solid 2px #000;
-	border-radius: 0.5rem;
-	background-color: transparent;
-	padding: 12px 32px;
-	display: inline-block;
-	width: 25%;
-	font-family: helvetica500, arial;
-	font-size: 1.2rem;
-	/* margin: 2rem 0rem; */
-	margin-right: 2rem;
-	/* margin-bottom: 0rem; */
-	cursor: pointer;
-}
-.user-card-footer .link:hover {
-	color: #0070f3;
-	text-decoration: underline; /* Unterstreichung beim Hover */
-}
-.user-card-footer .button {
-	border: solid 2px #000;
-	/* padding: 1.2rem 1rem; */
-	margin: 2rem 0;
-	text-align: center;
-	justify-self: center;
-	margin-bottom: 0rem;
-	border-radius: 0.5rem;
-	cursor: pointer;
-}
-.user-card-footer .button:hover {
-	color: #0070f3;
-	margin-bottom: 0rem;
-	text-decoration: underline; /* Unterstreichung beim Hover */
-}
-/* DONE TASKVIEW BUTTON */
-.buttonDownload {
-	padding: 0.5rem 1rem;
-
-	border-radius: 0.375rem;
-	font-weight: 600;
-}
-
-.buttonDownload .completed {
-	background-color: #ec0e0e;
-	color: #28a745;
-}
-
-.buttonDownload .completed:hover {
-	background-color: #28a745;
-	color: #28a745;
-}
-
-.buttonDownload .pending {
-	background-color: #6c757d;
-	color: #6c757d;
-	cursor: not-allowed;
-}
-
-.bb {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-top: 2rem;
-    margin-left: 2rem;
-    text-align: left;
-    z-index: 1;
-    width: 100%;
-}
-
-.browse {
-	display: inline flex;
-	align-content: stretch;
-	flex-direction: row;
-	align-items: flex-start; /* Links ausgerichtet */
-	margin-top: -20rem;
-	margin-left: 20rem;
-	text-align: left;
-	z-index: 1;
-}
-/* Container für die Aufgaben */
-.browse {
-    width: 100%;
-    margin-bottom: 2rem;
-}
-
-.browse h1 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-}
-
-/* Grid für die Aufgaben-Karten */
 .grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    width: 100%;
+	display: grid;
+	/* grid-column: auto; */
+	grid-template-columns: repeat(3, 1fr);
+	gap: 1rem;
+	width: 80%;
 }
 
 .grid > div {
-    display: contents;
+	display: contents;
 }
-
-/* Styling für die Task-Karten */
+/* .bg-card, */
 .card {
-    background-color: #fff;
-    border: 1px solid #e0e0e0;
-    border-radius: 0.5rem;
-    padding: 1rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+	background-color: #ffffff5e;
+	border: 1px solid #000000;
+	border-radius: 0.5rem;
+	padding: 1rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
 }
 
 .card .CardHeader,
 .card .CardContent,
 .card .CardFooter {
-    padding: 0.5rem;
+	font-size: 1rem;
+	font-weight: bol;
+	text-align: left;
 }
 
-.card .CardHeader {
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-align: center;
+.status-label {
+	text-align: left;
+	font-weight: 600;
+	font-size: 1.5rem;
 }
 
-.card .CardFooter {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+.status-completed {
+	background-color: #d4edda;
+	color: #155724;
+	padding: 0.5rem;
+	border-radius: 0.25rem;
 }
 
-/* Media Queries für Responsive Design */
+.delete-button {
+	display: flex;
+	align-items: center;
+	border: solid 2px #000000;
+	border-radius: 0.5rem;
+	cursor: pointer;
+	letter-spacing: 0.03rem;
+	background-color: transparent;
+	transition: 3ms;
+}
+.delete-button:hover {
+	background-color: rgba(183, 27, 27, 0.832);
+}
+
 @media (max-width: 1024px) {
-    .grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+	.grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
 }
 
 @media (max-width: 768px) {
-    .grid {
-        grid-template-columns: 1fr;
-    }
+	.grid {
+		grid-template-columns: 1fr;
+	}
+}
+.your-tasks-page {
+	display: flex;
+	flex-direction: column;
+	align-items: left;
+	margin-left: 16rem;
+	padding: 4rem;
+}
+
+.page-title {
+	font-size: 4rem;
+	align-items: flex-start;
+	font-family: helvetica;
+	margin-bottom: 2rem;
+}
+
+.no-tasks-container {
+	display: flex;
+	justify-content: center;
+}
+
+.tasks-container {
+	display: flex;
+	flex-direction: column;
+	align-items: left;
+	width: 100%;
+}
+
+.task-header {
+	display: flex;
+	/* justify-content: flex-start; */
+	align-items: flex-start;
+	justify-content: space-between;
+	width: 100%;
+	margin-bottom: 1rem;
+	padding: 2rem;
+}
+
+.task-list {
+	display: grid;
+	grid-template-columns: 25rem 1.5fr 1.5fr 1.5fr;
+	width: 80%;
+	margin-left: -2rem; /* Adjust the margin to fit it more to the left */
+}
+
+.create-task-button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0.5rem 1rem;
+	background-color: #0070f3;
+	color: #fff;
+	border-radius: 0.5rem;
+	font-weight: bold;
+	cursor: pointer;
+}
+.create-task-button:hover {
+	background-color: gray;
+	text-decoration: underline;
+}
+.create-task-button img {
+	margin-right: 0.5rem;
+}
+.alink {
+	border-radius: 1.5rem;
+	margin: 0.5rem;
+	padding: 0.8rem 4rem;
+	
+	
+}
+.rounded-lg {
+	display: inline-block;
+	border: 2px solid #e0e0e0;
+	border-radius: 1.5rem;
+	padding: 10rem;
+
+	margin: 0.5rem;
+	width: calc(65% - 4rem); /* Adjust to fit three cards per row with spacing */
+	box-sizing: border-box;
+	height: 18rem;
+}
+
+.user-task-card {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	background-color: #ffffff;
+	border: 2px solid #e0e0e0;
+	border-radius: 1.5rem;
+	padding: 10rem;
+	padding-bottom: 22rem;
+	margin: 2rem;
+	width: calc(50% - 4rem); /* Adjust to fit three cards per row with spacing */
+	box-sizing: border-box;
+	height: 18rem; /* Set a fixed height for consistency */
+}
+
+.user-card-header {
+	padding: 1rem 0;
+	border-bottom: 1px solid #e0e0e0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	flex-shrink: 0;
+}
+
+.progress {
+	width: 100%; /* Adjusted to fit the card width */
+	height: 1rem;
+	background-color: #0055ff;
+	border-radius: 0.5rem;
+	margin-top: 0.5rem;
+}
+
+.user-card-content {
+	padding: 1rem 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1rem;
+	flex-grow: 1; /* Allow content to grow */
+	justify-content: center; /* Center content vertically */
+	text-align: center; /* Center text */
+}
+
+.user-card-content .status {
+	font-family: helvetica, arial, sans-serif;
+	font-size: 1.2rem; /* Adjusted font size */
+	font-weight: 500;
+	margin: 0;
+}
+
+.user-card-content .download-button {
+	padding: 0.5rem 1rem;
+	border-radius: 0.5rem;
+	font-weight: 600;
+	color: #ffffff;
+	background-color: #28a745;
+	cursor: pointer;
+	border: none;
+	width: 100%;
+	max-width: 200px; /* Set a max width for consistency */
+	height: 40px; /* Set a fixed height for consistency */
+}
+
+.user-card-content .download-button:hover {
+	background-color: #218838;
+}
+
+.user-card-content .download-button:disabled {
+	background-color: #6c757d;
+	cursor: not-allowed;
+}
+.rounded-lg,
+.user-card-footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-top: 1px solid #e0e0e0;
+	padding-top: 1rem;
+	margin-top: 1rem;
+	flex-shrink: 0;
+}
+.user-card-footer .link {
+	border: 2px solid #000;
+	border-radius: 0.5rem;
+	background-color: transparent;
+	padding: 0.5rem 1rem;
+	display: inline-block;
+	font-family: helvetica, arial, sans-serif;
+	font-size: 1rem;
+	cursor: pointer;
+	text-align: center;
+}
+
+.user-card-footer .link:hover {
+	color: #0070f3;
+	text-decoration: underline;
+}
+
+.user-card-footer .button {
+	border: 2px solid #000;
+	border-radius: 0.5rem;
+	padding: 0.5rem 1rem;
+	cursor: pointer;
+	background-color: transparent;
+	display: flex;
+	align-items: center;
+}
+
+.user-card-footer .button:hover {
+	color: #0070f3;
+	text-decoration: underline;
+}
+
+.progress {
+	width: 100%;
+	height: 1rem;
+	background-color: #0055ff;
+	border-radius: 0.5rem;
+	margin-top: 0.5rem;
+}
+
+.user-card-content {
+	padding: 1rem 0;
+	/* background-color: #218838;  */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1rem;
+	flex-grow: 1;
+	justify-content: center;
 }

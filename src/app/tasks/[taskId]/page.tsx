@@ -5,6 +5,7 @@ import { GithubIcon } from "lucide-react";
 import Link from "next/link";
 import { TaskView } from "./TaskView";
 import { unstable_noStore } from "next/cache";
+import "./taskId.styles.css";
 
 export default async function TaskPage(props: { params: { taskId: string } }) {
     unstable_noStore();
@@ -13,7 +14,6 @@ export default async function TaskPage(props: { params: { taskId: string } }) {
     if (!task) {
         return <div>No task of this ID found</div>;
     }
-
     return (
         // der block für das TaskView-Element komponente die TaskView-Komponente
         <div className="container">

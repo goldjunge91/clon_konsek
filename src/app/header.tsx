@@ -94,8 +94,7 @@ export function Header() {
 	return (
 		<header className="navbar">
 			<Link href="/">
-				<Image
-					className="logo"
+				<Image className=" logo" 
 					src="/logo_konsek.svg" // Direct path to the image
 					alt="KONSEK logo"
 					width={200}

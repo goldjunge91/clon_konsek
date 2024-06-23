@@ -16,13 +16,11 @@ export default function CreateUserPage() {
     }
     return (
         <div className="admin">
-        {/* <div className="content-container"> */}
+            <h1 className="h1">Admin Panel</h1>
 
-            <h1>Admin Panel</h1>
-            <div>
+            <div className="container">
                 <CreateUserForm />
             </div>
-
             <h1>Userlist</h1>
             <div>
                 <UserList />

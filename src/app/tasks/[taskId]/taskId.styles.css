@@ -1,0 +1,192 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	/* Links ausgerichtet */
+	margin-top: -20rem;
+	margin-left: 20rem;
+	text-align: left;
+	z-index: 1;
+}
+.taskview .container {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start; /* Links ausgerichtet */
+	margin-top: -20rem;
+	margin-left: 20rem;
+	text-align: left;
+	z-index: 1;
+}
+.taskview .content-container {
+	display: inline-flex;
+	background-color: #0070f3;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	justify-content: center;
+	text-align: left;
+	padding: 2rem;
+	padding-top: 80px;
+}
+
+.content-container .noTask {
+	display: inline-flex;
+	flex-direction: row;
+}
+
+.container-browse .display {
+	display: inline-flex;
+	flex-direction: row;
+}
+
+.container-container .title-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 2rem;
+}
+
+.user-task-card {
+	display: inline-flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	background-color: #ffffff;
+	border: 1px solid #e0e0e0;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	/* Schatteneffekt */
+	/* margin: 1rem; Außenabstand */
+	padding: 0rem;
+	/* Innenabstand */
+	margin-left: 4rem;
+	max-width: 30rem;
+	/* Maximale Breite der Karte */
+	width: 80%;
+	/* Volle Breite innerhalb des Containers */
+}
+
+.user-card-header {
+	padding: 1rem;
+	border-bottom: 1px solid #e0e0e0;
+	/* Unterer Rahmen */
+	/* display: flex; */
+	flex-direction: column;
+	padding-bottom: 0rem;
+	align-items: center;
+}
+
+.user-card-header .progress {
+	width: 70%;
+	height: 1rem;
+	/* background-color: #0055ff; */
+	border-radius: 0.5rem;
+	color: #28a745;
+	-webkit-border-radius: 0.51rem;
+	-moz-border-radius: 0.51rem;
+	-ms-border-radius: 0.51rem;
+	-o-border-radius: 0.51rem;
+}
+
+.user-card-content {
+	padding: 1rem;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	gap: 2rem;
+}
+
+.user-card-content .card {
+	padding: 1rem;
+	margin: 1rem 0rem;
+	background-color: #f9f9f9;
+	/* Hintergrundfarbe */
+	border-radius: 8px;
+	/* Abgerundete Ecken */
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+	/* Schatteneffekt */
+}
+
+.user-card-content .status {
+	font-family: helvetica500;
+	font-size: 1.45rem;
+	/* Schriftgröße */
+	font-weight: 500;
+	/* Schriftgewicht */
+	margin-bottom: 0rem;
+	margin-top: 0rem;
+	/* padding: 0.5rem; */
+}
+
+.user-card-content .download-button {
+	padding: 0.75rem 1.5rem;
+	border-radius: 0.5rem;
+	font-weight: 600;
+	/*background-color: #28a745;
+	HintergrundfarbefürDownload-Button*/
+	color: #000000;
+	width: 55%;
+	-webkit-border-radius: 0.5rem;
+	-moz-border-radius: 0.5rem;
+	-ms-border-radius: 0.5rem;
+	-o-border-radius: 0.5rem;
+}
+
+.user-card-content .download-button:hover {
+	background-color: #00ffa2;
+	/* Hover-Farbe */
+	cursor: pointer;
+}
+
+.user-card-content .download-button:disabled {
+	background-color: #6c757d;
+	/* Hintergrundfarbe für deaktivierten Button */
+	cursor: not-allowed;
+}
+
+.user-card-footer {
+	display: inline-block;
+	margin-left: 1rem;
+	padding: 0rem;
+	margin-top: 0rem;
+	/* margin-bottom: -5rem; */
+	/* margin-right: 1rem; */
+	border-top: solid #e0e0e0;
+	/* Oberer Rahmen */
+}
+
+.user-card-footer .link {
+	border: solid 2px #000;
+	border-radius: 0.5rem;
+	background-color: transparent;
+	padding: 12px 32px;
+	display: inline-block;
+	width: 25%;
+	font-family: helvetica500, arial;
+	font-size: 1.2rem;
+	margin-right: 2rem;
+	cursor: pointer;
+}
+
+.user-card-footer .link:hover {
+	color: #0070f3;
+	text-decoration: underline;
+	/* Unterstreichung beim Hover */
+}
+
+.user-card-footer .button {
+	border: solid 2px #000;
+	/* padding: 1.2rem 1rem; */
+	margin: 2rem 0;
+	text-align: center;
+	justify-self: center;
+	margin-bottom: 0rem;
+	border-radius: 0.5rem;
+	cursor: pointer;
+}
+
+.user-card-footer .button:hover {
+	color: #0070f3;
+	margin-bottom: 0rem;
+	text-decoration: underline;
+	/* Unterstreichung beim Hover */
+}

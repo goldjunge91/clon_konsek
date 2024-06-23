@@ -31,7 +31,7 @@ export default async function browse({ searchParams, }: {
         return (
             <main className="bb">
                 <div className="browse">
-                    <h1>Your Tasks</h1>
+                    <h1>USER TASK</h1>
                     {tasks.length === 0 && (
                         <Button asChild>
                             <Link href="/create-task">Create Task</Link>
@@ -55,9 +55,9 @@ export default async function browse({ searchParams, }: {
                                 height: "auto"
                             }} />
                         <h2>You have no tasks</h2>
-                        <Button asChild>
+                        {/* <Button asChild>
                             <Link href="/create-task">Create Task</Link>
-                        </Button>
+                        </Button> */}
                     </div>
                 )}
             </main>

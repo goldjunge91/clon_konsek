@@ -24,18 +24,18 @@ import { deleteAsAdminTask } from "./actions";
 
 export function TaskCard({ task }: { task: Task }) {
     return (
-        <Card>
+        <Card className="card">
             {/* Card header */}
             <CardHeader className="CardHeader">
                 <CardTitle>{task.name}</CardTitle>
             </CardHeader>
 
             {/* Card content */}
-            <CardContent className="flex flex-col gap-8">
-                <div>
+            <CardContent className="CardContent">
+                <div className="status-container">
                     {/* Display task status */}
                     {/* <div className="text-2xl flex-col px-3">Status: {task.status}</div> */}
-                    <div className="text-2xl flex-col px-3">Status:</div>
+                    <div className="status-label">Status:</div>
                     {/* Display green button if task is completed */}
                     {task.status === "completed" && (
                         <div className="text-2xl bg-green-100 text-green-800 px-4 py-2 flex items-center rounded">
@@ -55,7 +55,7 @@ export function TaskCard({ task }: { task: Task }) {
                 {/* Alert dialog for deleting the task */}
                 <AlertDialog>
                     <AlertDialogTrigger asChild>
-                        <Button variant={"destructive"}>
+                        <Button variant={"destructive"} className="delete-button">
                             <TrashIcon className="w-4 h-4 mr-2" /> Delete Task
                         </Button>
                     </AlertDialogTrigger>

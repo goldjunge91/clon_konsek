@@ -28,7 +28,6 @@ export default function LandingPage() {
                         </a>
                     </p>
                 </div>
-                {/* Button styling  */}
                 <div>
                     <button>
                         <Link href="/create-task">
