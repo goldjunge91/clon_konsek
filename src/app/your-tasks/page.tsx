@@ -12,33 +12,32 @@ export default async function YourTasksPage() {
   unstable_noStore();
   const tasks = await getUserTasks();
 
-// const isAUthenticated = getServerSideProps (
+  // const isAUthenticated = getServerSideProps (
   return (
-    <main className="min-h-screen p-16">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-4xl">Your Tasks</h1>
-        {tasks.length === 0 && (
-          <Button asChild>
-            <Link href="/create-task">Create Task</Link>
+    <main className="page-layout">
+      <div className="page-header">
+        <h1 className="page-title">Your Tasks</h1>
+        <div className="move_button">
+          <Button>
+            <Link className="button-primary" href="/create-task">Create Task</Link>
           </Button>
-        )}
-
         </div>
-        <div className="grid grid-cols-3 gap-4">
+      </div>
+      <div className="task-grid">
         {tasks.map((task) => {
           return <UserTaskCard key={task.id} task={task} />;
         })}
       </div>
       {tasks.length === 0 && (
-        <div className="flex flex-col gap-4 justify-center items-center mt-24">
+        <div className="no-tasks-message">
           <Image
             src="/no-data.svg"
             width="200"
             height="200"
             alt="no data image"
           />
-          <h2 className="text-2xl">You have no tasks</h2>
-          <Button asChild>
+          <h2 className="no-tasks-text">You have no tasks</h2>
+          <Button asChild className="btn" variant={"destructive"}>
             <Link href="/create-task">Create Task</Link>
           </Button>
         </div>

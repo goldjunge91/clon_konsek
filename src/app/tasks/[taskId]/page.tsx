@@ -15,13 +15,15 @@ export default async function TaskPage(props: { params: { taskId: string } }) {
   }
   return (
     // der block für das TaskView-Element komponente die TaskView-Komponente
-    <div className="grid grid-cols-4 min-h-screen">
+    <div className="layout-grid-lef">
+    {/* <div className="grid grid-cols-4 min-h-screen"> */}
       <div className="col-span-3 p-4 pr-2">
         <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-4 min-h-screen">
           <TaskView task={task} />
         </div>
       </div>
-      <div className="col-span-1 p-4 pl-2">
+      
+      {/* <div className="col-span-1 p-4 pl-2">
         <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-4 flex flex-col gap-4">
           <h1 className="text-base">{task?.name}</h1>
 
@@ -35,7 +37,7 @@ export default async function TaskPage(props: { params: { taskId: string } }) {
           )}
           <p className="text-base text-gray-600">{task?.status}</p>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
