@@ -97,31 +97,31 @@ export function UserTaskCard({ task }: { task: Task; }) {
       </CardHeader>
       <CardContent>
         <div className="card p-5 m-3">
-          <div className="card p-5 gap-6" > 
+          <div className="card p-5 gap-6" >
 
-          <div className="text-2xl flex-col px-3">Status: {task.status}</div>
+            <div className="text-2xl flex-col px-3">Status: {task.status}</div>
           </div>
 
           {/* Download-Button */}
           <div className="flex flex-col items-center gap-2">
-          <button
-            className={`py-3 px-5 mx-0 rounded font-semibold ${task.status === "completed"
-              ? "bg-primary text-primary-foreground hover:bg-primary-foreground hover:text-primary"
-              : "bg-muted text-muted-foreground cursor-not-allowed"
-              }`}
-            onClick={onSubmitDownload}
-            disabled={task.status !== "completed"}
-          >
-            {task.status === "completed" ? "Download" : "Pending"}
-          </button></div>
+            <button
+              className={`py-3 px-5 mx-0 rounded font-semibold ${task.status === "completed"
+                ? "bg-primary text-primary-foreground hover:bg-primary-foreground hover:text-primary"
+                : "bg-muted text-muted-foreground cursor-not-allowed"
+                }`}
+              onClick={onSubmitDownload}
+              disabled={task.status !== "completed"}
+            >
+              {task.status === "completed" ? "Download" : "Pending"}
+            </button></div>
 
           {/* Statusanzeige */}
           <div className="items-center relative top-4">
-          {task.status === "completed" && (
-            <div className="bg-green-100 text-green-800 px-4 py-2 Flex item-center rounded">
-              <p>Zip Datei bereit zum Download</p>
-            </div>
-          )}
+            {task.status === "completed" && (
+              <div className="bg-green-100 text-green-800 px-4 py-2 Flex item-center rounded">
+                <p>Zip Datei bereit zum Download&quot;</p>
+              </div>
+            )}
           </div>
           {/* {task.status === "complete" && (
             <Button asChild>
@@ -143,7 +143,7 @@ export function UserTaskCard({ task }: { task: Task; }) {
             rel="noopener noreferrer"
           >
             <GithubIcon />
-            URL zum Q.Wiki "https://name.qwiki.de/"
+            URL zum Q.Wiki https://name.qwiki.de/
           </Link>
         )}
       </CardContent>

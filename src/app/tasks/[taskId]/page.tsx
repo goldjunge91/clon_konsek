@@ -13,9 +13,7 @@ export default async function TaskPage(props: { params: { taskId: string } }) {
   if (!task) {
     return <div>No task of this ID found</div>;
   }
-
   return (
-
     // der block für das TaskView-Element komponente die TaskView-Komponente
     <div className="grid grid-cols-4 min-h-screen">
       <div className="col-span-3 p-4 pr-2">

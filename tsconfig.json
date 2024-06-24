@@ -5,13 +5,13 @@
       "dom.iterable",
       "esnext"
     ],
-    "allowJs": false, // vorher true
+    "allowJs": true, // vorher true
     "skipLibCheck": true,
     "noErrorTruncation": false /* Skip type checking all .d.ts files. */,
     "strict": true,
     "noEmit": true,
     "esModuleInterop": true,
-    "moduleDetection": "auto" /* Control what method is used to detect module-format JS files. */,
+    // "moduleDetection": "auto" /* Control what method is used to detect module-format JS files. */,
     "module": "esnext",
     // "module": "commonjs",
     "moduleResolution": "node",
@@ -35,7 +35,6 @@
     }
   },
   "include": [
-    "next-auth.d.ts",
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",

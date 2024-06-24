@@ -13,7 +13,7 @@ const config: Config = {
 	prefix: "",
 	theme: {
 		container: {
-			center: true,
+			// center: true,
 			padding: "2rem",
 			screens: {
 				"2xl": "1400px",
@@ -34,7 +34,6 @@ const config: Config = {
 					"helveticaneuelt-std-thin_normal_250",
 				],
 			},
-			display: ["roboto-slab-light", "ui-serif"],
 			colors: {
 				border: "hsl(var(--border))",
 				input: "hsl(var(--input))",

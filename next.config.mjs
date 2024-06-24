@@ -31,30 +31,30 @@ const nextConfig = {
         port: '',
         pathname: '/u/**',
       },
-      {
-        protocol: 'https',
-        hostname: 'konsek.de',
-        port: '',
-        pathname: '/wp-content/themes/twentytwentythree/assets/fonts/',
-      },
-      {
-        protocol: 'https',
-        hostname: 'konsek.de',
-        port: '',
-        pathname: '*/fonts/**',
-      },
+      // {
+      //   protocol: 'https',
+      //   hostname: 'konsek.de',
+      //   port: '',
+      //   pathname: '/wp-content/themes/twentytwentythree/assets/fonts/',
+      // },
+      // {
+      //   protocol: 'https',
+      //   hostname: 'konsek.de',
+      //   port: '',
+      //   pathname: '*/fonts/**',
+      // },
     ],
   },
-  // experimental: {
-  //   turbo: {
-  //     rules: {
-  //       "*.svg": {
-  //         loaders: ["@svgr/webpack"],
-  //         as: "*.js",
-  //       },
-  //     },
-  //   },
-  // },
+  experimental: {
+    turbo: {
+      rules: {
+        "*.svg": {
+          loaders: ["@svgr/webpack"],
+          as: "*.js",
+        },
+      },
+    },
+  },
   webpack: (config, { isServer }) => {
     config.module.rules.push({
       // https://www.npmjs.com/package/@svgr/webpack
