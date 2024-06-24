@@ -93,29 +93,41 @@
 }
 
 .layout-body {
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    background-color: #ffffff00;
+	position: fixed;
+	/* width: 100vw;
+	height: 100vh; */
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	overflow: hidden;
+	margin: 0;
+	background-color: #ffffff00;
 }
 .background-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -1;
-    overflow: hidden;
+	position: fixed;
+	/* top: 0; */
+	/* left: 0; */
+	width: 100vw;
+	height: 100vh;
+
+	z-index: -100;
+	overflow: hidden;
 }
 .imagebackground {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transform: scale(1.2);
-    object-position: 70% 12%;
-    background-repeat: no-repeat;
-    background-position: center center;
-    z-index: -1;
+	width: 150%;
+	height: 150%;
+	object-fit: cover;
+	object-position: 70% 12%;
+	background-repeat: no-repeat;
+	background-position: center center;
+	z-index: 1;
+	overflow: hidden;
+}
+@layer base {
+	html,
+	body {
+		@apply h-full;
+	}
 }
 @layer base {
 	* {
@@ -142,10 +154,10 @@
 	.layout-center-left {
 		@apply container mx-0 px-4 md:px-8 max-w-2xl;
 	}
-
+	/* 
 	.form-field {
-		@apply w-full max-w-form-field bg-white text-black border border-gray-300 rounded-md p-2;
-	}
+		@apply max-w-form-field bg-white text-black border border-gray-300 rounded-md p-2;
+	} */
 
 	.btn {
 		@apply px-4 py-2 rounded-md text-white bg-primary hover:bg-opacity-90;
@@ -164,7 +176,7 @@
 		@apply font-roboto300 text-base leading-relaxed text-text-secondary;
 	}
 	.header {
-		@apply bg-white py-4 z-10 relative;
+		@apply bg-white py-4 z-10;
 	}
 
 	.header-content {
@@ -179,5 +191,84 @@
 	}
 	.header-link-container {
 		@apply flex items-center gap-12;
+	}
+
+	.admin-page {
+		@apply container mx-auto py-8;
+	}
+
+	.admin-container {
+		@apply flex flex-col gap-12;
+	}
+
+	.create-user-section,
+	.user-list-section {
+		@apply p-6 text-black rounded-lg shadow-md;
+	}
+
+	.create-user-section h2,
+	.user-list-section h2 {
+		@apply text-2xl font-bold mb-4;
+	}
+	.page-container {
+		@apply flex items-center justify-start ml-40 -mt-10 min-h-screen;
+	}
+
+	.form-container {
+		@apply flex justify-center text-2xl font-bold mb-4;
+	}
+
+	.form-wrapper {
+		@apply flex  flex-col items-start;
+	}
+
+	/* Wiederverwendbare Formularfelder: */
+	.form-style {
+		margin: 0;
+	}
+
+	.form-style .custom-label {
+		text-transform: uppercase;
+		font-family: roboto500, arial;
+	}
+
+	.form-style .custom-body {
+		background-color: #efefef;
+	}
+
+	.form-style .custom-input {
+		border-radius: 0.5rem;
+		border: none;
+		background-color: #fff;
+		padding: 0.8rem 1rem;
+		margin-bottom: 1rem;
+		width: 40rem;
+	}
+	.card {
+		@apply p-5 m-3;
+	}
+
+	.card-inner {
+		@apply p-5 gap-6;
+	}
+
+	.status-text {
+		@apply text-2xl flex-col px-3;
+	}
+
+	.download-button {
+		@apply py-3 px-5 mx-0 rounded font-semibold;
+	}
+
+	.download-button-enabled {
+		@apply bg-primary text-primary-foreground hover:bg-primary-foreground hover:text-primary;
+	}
+
+	.download-button-disabled {
+		@apply bg-muted text-muted-foreground cursor-not-allowed;
+	}
+
+	.status-message {
+		@apply bg-green-100 text-green-800 px-4 py-2 flex items-center rounded;
 	}
 }

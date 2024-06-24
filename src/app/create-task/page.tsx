@@ -21,9 +21,10 @@ export default function CreateTaskPage() {
     <div className="page-container">
       <div className="content-wrapper-left">
 
-        <h1><span className="page-title">Create </span>a new print file</h1>
-
-        <CreateTaskForm />
+        <h1><span className="page-title"><span className="boldweight">Create </span> </span>a new print file</h1>
+        <div className="form-container">
+          <CreateTaskForm />
+        </div>
       </div>
     </div>
   );

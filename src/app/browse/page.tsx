@@ -1,15 +1,16 @@
-import {Button} from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import {getTasks} from "@/data-access/tasks";
-import {TaskCard} from "./task-card";
-import {options} from "../api/auth/[...nextauth]/options"
-import {unstable_noStore} from "next/cache";
+import { getTasks } from "@/data-access/tasks";
+import { TaskCard } from "./task-card";
+import { options } from "../api/auth/[...nextauth]/options";
+import { unstable_noStore } from "next/cache";
 import Image from "next/image";
-import {getServerSession} from "next-auth/next"
-import {redirect} from 'next/navigation'
+import { getServerSession } from "next-auth/next";
+import { redirect } from 'next/navigation';
 
 
-export default async function Home({ searchParams, }: {
+
+export default async function Browse({ searchParams, }: {
     searchParams: {
         search: string;
     };
@@ -21,10 +22,7 @@ export default async function Home({ searchParams, }: {
     if (!session) {
         redirect('/api/auth/signin?callbackUrl=/server')
     }
-    if (session?.user.role !== "admin"
-        && session?.user.role !== "user")
-        // && session?.user.isAdmin !== "true")
-    {
+    if (session?.user.role !== "admin") {
         return <h1 className="text-5xl">Access Denied</h1>
     }
     return (
@@ -40,7 +38,7 @@ export default async function Home({ searchParams, }: {
             </div>
             <div className="grid grid-cols-3 gap-4">
                 {tasks.map((task) => {
-                    return <TaskCard key={task.id} task={task}/>;
+                    return <TaskCard key={task.id} task={task} />;
                 })}
             </div>
             {tasks.length === 0 && (
@@ -90,7 +88,7 @@ export default async function Home({ searchParams, }: {
 //         redirect("/api/auth/signin?callbackUrl=/server");
 //     }
 //     // Check if the user has the admin role
-//     else if (session?.user.role === "admin" || session?.user.role === "user") {
+//     else if (session?.user.role === "adminpo{
 
 //         return (
 //             <main className="bb">

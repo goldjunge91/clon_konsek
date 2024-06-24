@@ -6,7 +6,7 @@ const nextConfig = {
   // devIndicators: {
   //   buildActivityPosition: 'bottom-right',
   // },
-  // swcMinify: true,
+  swcMinify: true,
 	images: {
 		unoptimized: false,
 		formats: ["image/avif", "image/webp"],
@@ -45,16 +45,16 @@ const nextConfig = {
 			},
     ],
   },
-  experimental: {
-		turbo: {
-			rules: {
-				"*.svg": {
-					loaders: ["@svgr/webpack"],
-					as: "*.js",
-				},
-			},
-		},
-	},
+  // experimental: {
+	// 	turbo: {
+	// 		rules: {
+	// 			"*.svg": {
+	// 				loaders: ["@svgr/webpack"],
+	// 				as: "*.js",
+	// 			},
+	// 		},
+	// 	},
+	// },
   webpack: (config, { isServer }) => {
     config.module.rules.push({
       // https://www.npmjs.com/package/@svgr/webpack

@@ -8,24 +8,22 @@ export default function CreateUserPage() {
     const { data: session } = useSession({
         required: true,
         onUnauthenticated() {
-            signIn("auth-provider", { callbackUrl: "/admin" });
+            signIn("auth-provider", { callbackUrl: "/admin1" });
         },
     });
-    if (session?.user.role !== "admin") {
-        return <h1>Access Denied</h1>;
-    }
+
     return (
-        <div className="admin">
-        {/* <div className="content-container"> */}
-
-            <h1>Admin Panel</h1>
-            <div>
-                <CreateUserForm />
-            </div>
-
-            <h1>Userlist</h1>
-            <div>
-                <UserList />
+        <div className="admin-page">
+            <div className="admin-container">
+                <h1>Admin Panel</h1>
+                <div className="create-user-section">
+                    <h2>Create New User</h2>
+                    <CreateUserForm />
+                </div>
+                <div className="user-list-section">
+                    <h2>Existing Users</h2>
+                    <UserList />
+                </div>
             </div>
         </div>
     );

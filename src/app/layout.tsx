@@ -1,5 +1,4 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+
 import AuthProvider from "@/lib/AuthProvider";
 import { Header } from "./header";
 import NextTopLoader from "nextjs-toploader";
@@ -7,14 +6,16 @@ import { Toaster } from "@/components/ui/toaster";
 import Image from "next/image";
 import background from "@/../public/background.jpg";
 // import BackgroundImage from "@/components/backgroundImage";
-import "@/app/globals.css"
 
-const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "PdF-Generator",
-  description: "An application to automatically generate and download PDFs.",
-};
+// Wrap the JSX elements in a parent element
+export const metadataElement = (
+  <>
+    <meta charSet="utf-8" />
+    <title>PDF stack processor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </>
+);
 
 export default function RootLayout({
   children,
@@ -22,23 +23,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className="layout-body" >
-        <div className="background-container">
-          <Image className="imagebackground"
-            alt="sky" src={background} quality={100}
-          />
-        </div>
-        <AuthProvider>
-          <Toaster />
-          <NextTopLoader />
-          {/* <BackgroundImage /> */}
-          <div className="container-overlay">
+    <>
+      <html lang="en" suppressHydrationWarning>{metadataElement}
+        <body className="layout-body" >
+          <div className="background-container">
+            <Image className="imagebackground"
+              alt="sky" src={background} quality={100}
+            />
+          </div>
+          <AuthProvider>
+            <Toaster />
+            <NextTopLoader />
             <Header />
             {children}
-          </div>
-        </AuthProvider>
-      </body>
-    </html>
+          </AuthProvider>
+        </body>
+      </html>
+    </>
   );
 }
