@@ -1,134 +1,147 @@
-/* eslint-disable */ // Disable ESLint for this file
-// /src/app/header.tsx // Path to the header.tsx file in the app directory
-"use client"; // Use the 'use client' directive for client-side code
-
+/* eslint-disable */
+// /src/app/header.tsx
+"use client";
 import {
-	AlertDialog,
-	AlertDialogAction,
-	AlertDialogCancel,
-	AlertDialogContent,
-	AlertDialogDescription,
-	AlertDialogFooter,
-	AlertDialogHeader,
-	AlertDialogTitle,
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
 import { DeleteIcon, LogInIcon, LogOutIcon } from "lucide-react";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { useTheme } from "next-themes";
 import Link from "next/link";
-import Image from "next/image";
 import { useState } from "react";
 import { deleteAccountAction } from "./actions";
-import { User } from 'lucide-react';
-import "./globals.css";
+import { User } from "lucide-react";
+import Image from "next/image";
+
+// import DarkIcon from "@/app/saturn_magenta.svg";
+// import LightIcon from "@/app/saturn_sw.svg";
 
 function AccountDropdown() {
-	const session = useSession(); // Get session data
-	const [open, setOpen] = useState(false);
-	return (
-		<>
-			<AlertDialog open={open} onOpenChange={setOpen}>
-				<AlertDialogContent>
-					<AlertDialogHeader>
-						<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-						<AlertDialogDescription>
-							This action cannot be undone. It will delete your account and all data
-							associated with it.
-						</AlertDialogDescription>
-					</AlertDialogHeader>
-					<AlertDialogFooter>
-						<AlertDialogCancel>Cancel</AlertDialogCancel>
-						<AlertDialogAction
-							onClick={async () => {
-								await deleteAccountAction();
-								signOut({ callbackUrl: "/" });
-							}}>
-							Yes, delete my account.
-						</AlertDialogAction>
-					</AlertDialogFooter>
-				</AlertDialogContent>
-			</AlertDialog>
-			<DropdownMenu>
-				<DropdownMenuTrigger asChild>
-					<Button className="dropdown-button" variant={"link"}>
-						<Avatar className="avatar">
-							<AvatarImage src={session.data?.user?.image ?? ""} />
-							<AvatarFallback><User /></AvatarFallback>
-						</Avatar>
-						{session.data?.user?.name ?? ""}
-					</Button>
-				</DropdownMenuTrigger>
-				<DropdownMenuContent className="dropdown-menu-content">
-					<DropdownMenuItem className="dropdown-menu-item"
-						onClick={() =>
-							signOut({
-								callbackUrl: "/",
-							})
-						}>
-						<LogOutIcon /> Logout
-					</DropdownMenuItem>
-					<DropdownMenuItem className="dropdown-menu-item"
-						onClick={() => {
-							setOpen(true);
-						}}>
-						<DeleteIcon /> Delete Account
-					</DropdownMenuItem>
-				</DropdownMenuContent>
-			</DropdownMenu>
-		</>
-	);
-}
+  const session = useSession();
+  const [open, setOpen] = useState(false);
 
+  return (
+    <>
+      <AlertDialog open={open} onOpenChange={setOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. It will delete your account and all
+              data associated with it.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={async () => {
+                await deleteAccountAction();
+                signOut({ callbackUrl: "/" });
+              }}
+            >
+              Yes, delete my account.
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant={"link"}>
+            <Avatar className="mr-2">
+              <AvatarImage src={session.data?.user?.image ?? ""} />
+              <AvatarFallback>
+                <User />
+              </AvatarFallback>
+            </Avatar>
+
+            {session.data?.user?.name ?? ""}
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuItem
+            onClick={() =>
+              signOut({
+                callbackUrl: "/",
+              })
+            }
+          >
+            <LogOutIcon className="mr-2" /> Logout
+          </DropdownMenuItem>
+
+          <DropdownMenuItem
+            onClick={() => {
+              setOpen(true);
+            }}
+          >
+            <DeleteIcon className="mr-2" /> Delete Account
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </>
+  );
+}
 export function Header() {
-	const session = useSession();
-	const isLoggedIn = !!session.data;
-	const isAdmin = session.data?.user?.role === "admin";
-	return (
-		<header className="navbar">
-			<Link href="/">
-				<Image className=" logo" 
-					src="/logo_konsek.svg" // Direct path to the image
-					alt="KONSEK logo"
-					width={200}
-					height={60}
-				/>
-			</Link>
-			<div className="link-container">
-				{isLoggedIn && (
-					<>
-						<Link href="/your-tasks" className="nav-link">
-							Your Tasks
-						</Link>
-						{isAdmin && (
-							<Link href="/admin" className="nav-link">
-								Adminpanel
-							</Link>
-						)}
-						{isAdmin && (
-							<Link href="/browse" className="nav-link">
-								Browse
-							</Link>
-						)}
-					</>
-				)}
-			</div>
-			<div className="login-container">
-				{isLoggedIn && <AccountDropdown />}
-				{!isLoggedIn && (
-					<Button className="button" onClick={() => signIn()} variant="link">
-						<LogInIcon />
-						Login
-					</Button>
-				)}
-			</div>
-		</header>
-	);
+  const session = useSession();
+  const isLoggedIn = !!session.data;
+  const isAdmin = session.data?.user?.role === "admin";
+  
+  return (
+    <header className="header">
+      <div className="header-content">
+        <Link href="/">
+          <Image
+            className="logo"
+            src="/logo_konsek.svg"
+            alt="KONSEK logo"
+            width={200}
+            height={60}
+          />
+        </Link>
+        <nav className="flex gap-8">
+          {isLoggedIn && (
+            <>
+              <Link className="nav-link" href="/your-tasks">
+                Your Tasks
+              </Link>
+              {isAdmin && (
+                <Link className="nav-link" href="/admin">
+                  Adminpanel
+                </Link>
+              )}
+              {isAdmin && (
+                <Link className="nav-link" href="/browse">
+                  Browse
+                </Link>
+              )}
+            </>
+          )}
+        </nav>
+        <div className="flex items-center gap-4">
+          {isLoggedIn && <AccountDropdown />}
+          {!isLoggedIn && (
+            <Button onClick={() => signIn()} variant="link" className="header-button">
+              <LogInIcon className="mr-2" />
+              Login
+            </Button>
+          )}
+        </div>
+      </div>
+    </header>
+  );
 }

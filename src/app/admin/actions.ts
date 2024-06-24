@@ -1,33 +1,28 @@
 // src/app/admin/actions.ts
-/* disable-eslint */
 "use server";
-import {
-  createUser,
-  updateUser,
-  findUserByUsername,
-  deleteUser,
-} from "@/data-access/users";
+import { createUser, updateUser, findUserByUsername, deleteUser } from "@/data-access/users";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { User } from "@/db/schema";
 import { getSession } from "@/app/api/auth/[...nextauth]/options";
-import bcrypt from "bcryptjs";
 
+// import bcryptjs from "bcryptjs";
+
+
+import bcrypt from 'bcryptjs';
 const saltRounds = 10;
 
 export async function createUserAction(userData: Omit<User, "id">) {
   const session = await getSession();
+
   if (!session || session.user.role !== "admin") {
     throw new Error("You must be an admin to create a user");
   }
   const { ...requiredUserData } = userData;
-  const hashedPassword = await bcrypt.hash(
-    requiredUserData.password ?? "",
-    saltRounds
-  );
+  const hashedPassword = await bcrypt.hash(requiredUserData.password ?? "", saltRounds);
 
   const userDataWithHashedPassword: Omit<User, "id"> = {
-    ...userData,
+   ...userData,
     password: hashedPassword,
   };
 
@@ -35,7 +30,6 @@ export async function createUserAction(userData: Omit<User, "id">) {
   revalidatePath("/admin");
   return user;
 }
-
 export async function editUserAction(userData: User) {
   const session = await getSession();
   if (!session || session.user.role !== "admin") {

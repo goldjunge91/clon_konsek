@@ -1,14 +1,15 @@
 /* eslint-disable */
 import Image from "next/image"
 import type { User } from "next-auth"
-
 type Props = {
     user: User,
     pagetype: string,
 }
 
 export default function Card({ user, pagetype }: Props) {
+
     //console.log(user)
+
     const greeting = user?.name ? (
         <div className="flex flex-col items-center p-6 bg-white rounded-lg font-bold text-5xl text-black">
             Hello {user?.name}!
@@ -22,11 +23,9 @@ export default function Card({ user, pagetype }: Props) {
             height={200}
             alt={user?.name ?? "Profile Pic"}
             priority={true}
-            style={{
-                maxWidth: "100%",
-                height: "auto"
-            }} />
+        />
     ) : null
+
     return (
         <section className="flex flex-col gap-4">
             {greeting}
@@ -34,6 +33,6 @@ export default function Card({ user, pagetype }: Props) {
             {userImage}
             <p className="text-2xl text-center">{pagetype} Page!</p>
             <p className="text-2xl text-center">Role: {user?.role}</p>
-        </section>
-    )
-}
+            </section>
+            )
+        }

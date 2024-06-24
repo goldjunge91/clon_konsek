@@ -2,7 +2,8 @@
 import {
   timestamp,
   pgTable,
-  text, // serial,
+  text,
+  // serial,
   boolean,
   primaryKey,
   integer,
@@ -11,16 +12,16 @@ import {
 import type { AdapterAccount } from "@auth/core/adapters";
 import { sql } from "drizzle-orm";
 
-export const users = pgTable("user", {
-  id: text("id")
-    .primaryKey()
-    .default(sql`gen_random_uuid()`),
-  name: text("name").default(""),
-  username: text("username").unique(), // email: text('email').notNull(),
-  password: text("password"), // emailVerified: timestamp('emailVerified', { mode: 'date' }),
-  image: text("image"),
-  isAdmin: boolean("isAdmin").default(false),
-  role: text("role").default("user"),
+export const users = pgTable('user', {
+  id: text('id').primaryKey().default(sql`gen_random_uuid()`),
+  name: text('name').default(""),
+  username: text('username').unique(),
+  // email: text('email').notNull(),
+  password: text('password'),
+  // emailVerified: timestamp('emailVerified', { mode: 'date' }),
+  image: text('image'),
+  isAdmin: boolean('isAdmin').default(false),
+  role: text('role').default('user'),
 });
 
 export const accounts = pgTable(
@@ -38,7 +39,8 @@ export const accounts = pgTable(
     token_type: text("token_type"),
     scope: text("scope"),
     id_token: text("id_token"),
-    sharedid: uuid("sharedId").default(sql`gen_random_uuid()`),
+    sharedid: uuid("sharedId")
+    .default(sql`gen_random_uuid()`),
     role: text("role"),
     isAdmin: boolean("isAdmin").default(false),
     session_state: text("session_state"),
@@ -47,7 +49,7 @@ export const accounts = pgTable(
     compoundKey: primaryKey({
       columns: [account.provider, account.providerAccountId],
     }),
-  }),
+  })
 );
 export const sessions = pgTable("session", {
   sessionToken: text("sessionToken").notNull().primaryKey(),
@@ -55,9 +57,10 @@ export const sessions = pgTable("session", {
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
   isAdmin: boolean("isAdmin").default(false),
-  expires: timestamp("expires", { mode: "date" }).notNull(),
-  role: text("role"),
+    expires: timestamp("expires", { mode: "date" }).notNull(),
+    role: text("role"),
 });
+
 
 export const task = pgTable("task", {
   id: uuid("id")
@@ -65,11 +68,10 @@ export const task = pgTable("task", {
     .notNull()
     .primaryKey(),
   dsm_url: text("url"),
-  name: text("name"), // username: text("username").references(() => users.username),
+  name: text("name"),
+  // username: text("username").references(() => users.username),
   secretId: text("secretId"),
-  userId: text("userId")
-    .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
+  userId: text("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
   dsm_mail: text("dsm_mail"),
   status: text("status").default("not started"),
 });

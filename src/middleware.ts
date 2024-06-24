@@ -28,6 +28,10 @@ export default withAuth(
             // Wenn der Benutzer kein Admin ist, leiten Sie ihn auf die Seite "/denied" um
             return NextResponse.rewrite(new URL("/denied", request.url));
         }
+        if (pathname.startsWith("/admin1") && role !== "admin") {
+            // Wenn der Benutzer kein Admin ist, leiten Sie ihn auf die Seite "/denied" um
+            return NextResponse.rewrite(new URL("/denied", request.url));
+        }
         // Wenn keine der Bedingungen erfüllt ist, fahren Sie mit dem ursprünglichen Request fort
         return NextResponse.next();
     },
@@ -78,7 +82,7 @@ export default withAuth(
 
 // Konfiguration für die Anwendung von next-auth nur auf passende Routen
 export const config = {
-	matcher: ["/your-tasks", "/admin", "/edit-task", "/task", "/browse", "/create-task"],
+	matcher: ["/your-tasks", "/admin", "/admin1", "/edit-task", "/task", "/browse", "/create-task"],
 };
 
 // Kurze Erklärung:

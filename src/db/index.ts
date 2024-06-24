@@ -1,5 +1,5 @@
 // src\db\index.ts
-import { drizzle, PostgresJsDatabase } from "drizzle-orm/postgres-js";
+import { drizzle, PostgresJsDatabase} from "drizzle-orm/postgres-js";
 import * as schema from "./schema";
 import postgres from "postgres";
 

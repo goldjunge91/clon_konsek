@@ -2,7 +2,5 @@
 	"editor.insertSpaces": true,
 	"javascript.updateImportsOnFileMove.enabled": "always",
 	"python.analysis.typeCheckingMode": "basic",
-	"editor.wordWrapColumn": 150,
-	"editor.wrappingIndent": "deepIndent",
 	"editor.accessibilityPageSize": 12
 }

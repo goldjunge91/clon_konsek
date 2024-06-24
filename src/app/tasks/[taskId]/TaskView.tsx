@@ -19,6 +19,7 @@ export function TaskView({ task }: { task: Task }) {
         },
     });
 
+
     const [pythonLog, setPythonLog] = useState<string[]>([]);
     useEffect(() => {
         // fetching des Logfiles in eine ansicht für den User
@@ -37,6 +38,7 @@ export function TaskView({ task }: { task: Task }) {
             clearInterval(timer); // Cleanup-Funktion, um den Timer zu löschen, wenn die Komponente entfernt wird
         };
     }, [task.id]);
+
     const { toast } = useToast();
     const onSubmitDownload = async () => {
         if (task.status === "completed") {
@@ -69,6 +71,8 @@ export function TaskView({ task }: { task: Task }) {
             });
         }
     };
+
+
     if (!session || (session.user.role !== "admin" && session.user.role !== "user")) {
         return <h1 className="text-5xl text-center mt-20">Access Denied</h1>;
     }
@@ -76,50 +80,57 @@ export function TaskView({ task }: { task: Task }) {
     if (!session || (session.user.role !== "admin" && session.user.id !== task.userId)) {
         return <h1 className="text-5xl text-center mt-20">Access Denied</h1>;
     }
+  return (
+    <div className="p-20 space-y-6">
+      <h1 className="text-2xl font-bold">Task Details</h1>
+      <p>placeholder </p>
+      <p>Task ID: {task?.id}, User ID: {session.user.id}</p>
 
-    return (
-        <div className="taskview">
-            <h1 className="taskview container">Task Details</h1>
-            <p>placeholder </p>
-            <p>Task ID: {task?.id}, User ID: {session.user.id}</p>
-            {/* CSV Links */}
-            <div className="space-y-2">
-                <p className="font-semibold">CSV Links:</p>
-                <p>Placeholder for the number of links in the CSV</p>
-            </div>
-            {/* Download-Button */}
-            <button
-                className={`buttonDownload ${task.status === "completed" ? "completed" : "pending"}`}
-                onClick={onSubmitDownload}
-                disabled={task.status !== "completed"}
-            >
-                {task.status === "completed" ? "Download" : "Pending"}
-            </button>
-            {task.status === "completed" && (
-                <div className="bg-green-100 text-green-800 px-4 py-2 rounded">
-                    <p>The task is completed. You can download the files now.</p>
-                </div>
-            )}
+      {/* CSV Links */}
+      <div className="space-y-2">
+        <p className="font-semibold">CSV Links:</p>
+        <p>Placeholder for the number of links in the CSV</p>
+      </div>
 
-            <div className="space-y-2">
-                <p className="font-semibold flex items-center space-x-2">
-                    <span className="w-3 h-3 rounded-full bg-green-500"></span>
-                    <span>Status: {task.status}</span>
-                </p>
-            </div>
-            {/* Python Log */}
-            <div className="space-y-2">
-                <p className="font-semibold">Python Log:</p>
-                <div className="bg-muted rounded p-4">
-                    {pythonLog.length === 0 ? (
-                        <p>No log file found.</p>
-                    ) : (
-                        pythonLog.map((line, index) => (
-                            <p key={index}>{decodeURIComponent(encodeURIComponent(line))}</p>
-                        ))
-                    )}
-                </div>
-            </div>
+
+      {/* Download-Button */}
+      <button
+        className={`py-2 px-4 rounded font-semibold ${task.status === "completed"
+          ? "bg-primary text-primary-foreground hover:bg-primary-foreground hover:text-primary"
+          : "bg-muted text-muted-foreground cursor-not-allowed"
+          }`}
+        onClick={onSubmitDownload}
+        disabled={task.status !== "completed"}
+      >
+        {task.status === "completed" ? "Download" : "Pending"}
+      </button>
+
+      {task.status === "completed" && (
+        <div className="bg-green-100 text-green-800 px-4 py-2 rounded">
+          <p>The task is completed. You can download the files now.</p>
         </div>
-    );
+      )}
+
+      <div className="space-y-2">
+        <p className="font-semibold flex items-center space-x-2">
+          <span className="w-3 h-3 rounded-full bg-green-500"></span>
+          <span>Status: {task.status}</span>
+        </p>
+        <p>Participants: Placeholder for task participants</p>
+      </div>
+      {/* Python Log */}
+      <div className="space-y-2">
+        <p className="font-semibold">Python Log:</p>
+        <div className="bg-muted rounded p-4">
+          {pythonLog.length === 0 ? (
+            <p>No log file found.</p>
+          ) : (
+            pythonLog.map((line, index) => (
+              <p key={index}>{decodeURIComponent(encodeURIComponent(line))}</p>
+            ))
+          )}
+        </div>
+      </div>
+    </div>
+  );
 }
