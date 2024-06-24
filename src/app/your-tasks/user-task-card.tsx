@@ -89,11 +89,6 @@ export function UserTaskCard({ task }: { task: Task; }) {
   return (
     <Card>
       <CardHeader className="relative">
-        {/* <Button className="absolute top-2 right-2" size="icon">
-          <Link href={`/edit-task/${task.id}`}>
-            <PencilIcon />
-          </Link>
-        </Button> */}
         <CardTitle>{task.name}</CardTitle>
 
         <Progress value={progressValue} className="w-[80%] top-2 " />
