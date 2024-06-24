@@ -1,11 +1,14 @@
 import type { Config } from "tailwindcss";
 
-const config = {
+const config: Config = {
 	content: [
-		"./pages/**/*.{ts,tsx}",
-		"./components/**/*.{ts,tsx}",
-		"./app/**/*.{ts,tsx}",
-		"./src/**/*.{ts,tsx}",
+		"./pages/**/*.{js,ts,jsx,tsx,mdx}",
+		"./components/**/*.{js,ts,jsx,tsx,mdx}",
+		"./app/**/*.{js,ts,jsx,tsx,mdx}",
+		"./src/**/*.{js,ts,jsx,tsx,mdx}",
+		"../../public", // Pfad zu öffentlichen Dateien zwei Ebenen höher
+		"../public", // Pfad zu öffentlichen Dateien eine Ebene höher
+		"./styles/**/*.css",
 	],
 	prefix: "",
 	theme: {
@@ -22,18 +25,20 @@ const config = {
 				helvetica500: ["helvetica500", "sans-serif"],
 				roboto300: ["roboto300", "sans-serif"],
 				roboto500: ["roboto500", "sans-serif"],
+				custom: [
+					"custom-roboto-slab-light",
+					"roboto-slab-light_normal_300",
+					"roboto-slab-medium",
+					"sans-roboto-slab-light_normal_300",
+					"YourCustomFont3",
+					"helveticaneuelt-std-thin_normal_250",
+				],
 			},
+			display: ["roboto-slab-light", "ui-serif"],
 			colors: {
-				"text-primary": "rgb(var(--text-primary) / <alpha-value>)",
-				"text-secondary": "rgb(var(--text-secondary) / <alpha-value>)",
-				"button-bg": "rgb(var(--button-bg) / <alpha-value>)",
-				"button-text": "rgb(var(--button-text) / <alpha-value>)",
-				"button-border": "rgb(var(--button-border) / <alpha-value>)",
-				"form-background": "hsl(var(--form-background))",
 				border: "hsl(var(--border))",
 				input: "hsl(var(--input))",
 				ring: "hsl(var(--ring))",
-
 				background: "#FFFFFF",
 				foreground: "#000000",
 				primary: {
@@ -64,11 +69,12 @@ const config = {
 					DEFAULT: "hsl(var(--card))",
 					foreground: "hsl(var(--card-foreground))",
 				},
-				// Fügen Sie hier die neuen Farbvariablen hinzu
-				// "text-primary": "hsl(var(--text-primary))",
-				// "text-secondary": "hsl(var(--text-secondary))",
-				// "button-bg": "hsl(var(--button-bg))",
-				// "button-text": "hsl(var(--button-text))",
+				"text-primary": "rgb(var(--text-primary) / <alpha-value>)",
+				"text-secondary": "rgb(var(--text-secondary) / <alpha-value>)",
+				"button-bg": "rgb(var(--button-bg) / <alpha-value>)",
+				"button-text": "rgb(var(--button-text) / <alpha-value>)",
+				"button-border": "rgb(var(--button-border) / <alpha-value>)",
+				"form-background": "hsl(var(--form-background))",
 			},
 			borderRadius: {
 				lg: "var(--radius)",
@@ -92,6 +98,6 @@ const config = {
 		},
 	},
 	plugins: [require("tailwindcss-animate")],
-} satisfies Config;
+};
 
 export default config;

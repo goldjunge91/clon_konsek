@@ -4,7 +4,7 @@ import { getTask } from "@/data-access/tasks";
 import Link from "next/link";
 import { TaskView } from "./TaskView";
 import { unstable_noStore } from "next/cache";
-import Image from "next/image";
+// import Image from "next/image";
 
 export default async function TaskPage(props: { params: { taskId: string } }) {
   unstable_noStore();
@@ -33,10 +33,7 @@ export default async function TaskPage(props: { params: { taskId: string } }) {
               className="flex items-center gap-2 text-center text-sm"
               target="_blank"
               rel="noopener noreferrer"
-            >
-              <Image src="/saturn_Sw.png" height={20} width={20} alt="logo saturn"/>
-              Q.Wiki URL
-            </Link>
+            >Q.Wiki URL</Link>
           )}
           <p className="text-base text-gray-600">{task?.status}</p>
         </div>

@@ -27,69 +27,66 @@ import { deleteAccountAction } from "./actions";
 import { User } from "lucide-react";
 import Image from "next/image";
 function AccountDropdown() {
-  const session = useSession();
-  const [open, setOpen] = useState(false);
+	const session = useSession();
+	const [open, setOpen] = useState(false);
 
-  return (
-    <>
-      <AlertDialog open={open} onOpenChange={setOpen}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This action cannot be undone. It will delete your account and all
-              data associated with it.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction
-              onClick={async () => {
-                await deleteAccountAction();
-                signOut({ callbackUrl: "/" });
-              }}
-            >
-              Yes, delete my account.
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+	return (
+		<>
+			<AlertDialog open={open} onOpenChange={setOpen}>
+				<AlertDialogContent>
+					<AlertDialogHeader>
+						<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+						<AlertDialogDescription>
+							This action cannot be undone. It will delete your account and all data
+							associated with it.
+						</AlertDialogDescription>
+					</AlertDialogHeader>
+					<AlertDialogFooter>
+						<AlertDialogCancel>Cancel</AlertDialogCancel>
+						<AlertDialogAction
+							onClick={async () => {
+								await deleteAccountAction();
+								signOut({ callbackUrl: "/" });
+							}}>
+							Yes, delete my account.
+						</AlertDialogAction>
+					</AlertDialogFooter>
+				</AlertDialogContent>
+			</AlertDialog>
 
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant={"link"}>
-            <Avatar className="mr-2">
-              <AvatarImage src={session.data?.user?.image ?? ""} />
-              <AvatarFallback>
-                <User />
-              </AvatarFallback>
-            </Avatar>
+			<DropdownMenu>
+				<DropdownMenuTrigger asChild>
+					<Button variant="link">
+						<Avatar className="mr-2">
+							<AvatarImage src={session.data?.user?.image ?? ""} />
+							<AvatarFallback>
+								<User />
+							</AvatarFallback>
+						</Avatar>
 
-            {session.data?.user?.name ?? ""}
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuItem
-            onClick={() =>
-              signOut({
-                callbackUrl: "/",
-              })
-            }
-          >
-            <LogOutIcon className="mr-2" /> Logout
-          </DropdownMenuItem>
+						{session.data?.user?.name ?? ""}
+					</Button>
+				</DropdownMenuTrigger>
+				<DropdownMenuContent>
+					<DropdownMenuItem
+						onClick={() =>
+							signOut({
+								callbackUrl: "/",
+							})
+						}>
+						<LogOutIcon className="mr-2" /> Logout
+					</DropdownMenuItem>
 
-          <DropdownMenuItem
-            onClick={() => {
-              setOpen(true);
-            }}
-          >
-            <DeleteIcon className="mr-2" /> Delete Account
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    </>
-  );
+					<DropdownMenuItem
+						onClick={() => {
+							setOpen(true);
+						}}>
+						<DeleteIcon className="mr-2" /> Delete Account
+					</DropdownMenuItem>
+				</DropdownMenuContent>
+			</DropdownMenu>
+		</>
+	);
 }
 export function Header() {
   const session = useSession();
@@ -130,7 +127,7 @@ export function Header() {
         <div className="header-link-container">
           {isLoggedIn && <AccountDropdown />}
           {!isLoggedIn && (
-            <Button onClick={() => signIn()} variant="link" className="header-button">
+            <Button onClick={() => signIn()} className="header-button">
               <LogInIcon className="mr-2" />
               Login
             </Button>

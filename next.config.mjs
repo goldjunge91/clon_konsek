@@ -7,9 +7,9 @@ const nextConfig = {
   //   buildActivityPosition: 'bottom-right',
   // },
   swcMinify: true,
-	images: {
-		unoptimized: false,
-		formats: ["image/avif", "image/webp"],
+  images: {
+    unoptimized: false,
+    formats: ["image/avif", "image/webp"],
     remotePatterns: [
       {
         protocol: 'https',
@@ -32,38 +32,35 @@ const nextConfig = {
         pathname: '/u/**',
       },
       {
-				protocol: 'https',
-				hostname: 'konsek.de',
-				port: '',
-				pathname: '/wp-content/themes/twentytwentythree/assets/fonts/',
-			},
-			{
-				protocol: 'https',
-				hostname: 'konsek.de',
-				port: '',
-				pathname: '*/fonts/**',
-			},
+        protocol: 'https',
+        hostname: 'konsek.de',
+        port: '',
+        pathname: '/wp-content/themes/twentytwentythree/assets/fonts/',
+      },
+      {
+        protocol: 'https',
+        hostname: 'konsek.de',
+        port: '',
+        pathname: '*/fonts/**',
+      },
     ],
   },
   // experimental: {
-	// 	turbo: {
-	// 		rules: {
-	// 			"*.svg": {
-	// 				loaders: ["@svgr/webpack"],
-	// 				as: "*.js",
-	// 			},
-	// 		},
-	// 	},
-	// },
+  //   turbo: {
+  //     rules: {
+  //       "*.svg": {
+  //         loaders: ["@svgr/webpack"],
+  //         as: "*.js",
+  //       },
+  //     },
+  //   },
+  // },
   webpack: (config, { isServer }) => {
     config.module.rules.push({
       // https://www.npmjs.com/package/@svgr/webpack
       test: /\.svg$/,
       use: ['@svgr/webpack'],
-      test: /\.svg$/i,
-				issuer: /\.[jt]sx?$/,
-				use: ["@svgr/webpack"],
-			// });
+      // });
     });
     if (!isServer) {
       config.resolve.fallback = {
@@ -79,18 +76,18 @@ const nextConfig = {
 
 export default nextConfig;
 // https://nextjs.org/docs/api-reference/next.config.js/react-strict-modewebpack: (config, { isServer }) => {
-		// config.module.rules.push(
-		// 	{
-		// 		// https://www.npmjs.com/package/@svgr/webpack
-			// 	test: /\.svg$/i,
-			// 	issuer: /\.[jt]sx?$/,
-			// 	use: ["@svgr/webpack"],
-			// });
-		// if (!isServer) {
-		// 	config.resolve.fallback = {
-		// 		...config.resolve.fallback,
-		// 		fs: false,
-		// 		path: false,
-		// 		os: false,
-		// 	};
-		// }
+// config.module.rules.push(
+// 	{
+// 		// https://www.npmjs.com/package/@svgr/webpack
+// 	test: /\.svg$/i,
+// 	issuer: /\.[jt]sx?$/,
+// 	use: ["@svgr/webpack"],
+// });
+// if (!isServer) {
+// 	config.resolve.fallback = {
+// 		...config.resolve.fallback,
+// 		fs: false,
+// 		path: false,
+// 		os: false,
+// 	};
+// }

@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* @font-face {
+@font-face {
 	font-family: "helvetica200";
 	src: url("../../public/fonts/helveticaneuelt-std-thin_normal_250.ttf") format("truetype");
 }
@@ -14,7 +14,7 @@
 @font-face {
 	font-family: "helvetica500";
 	src: url("../../public/fonts/helvetica-neue-lt-std_normal_500.otf") format("truetype");
-} */
+}
 .boldweight {
 	font-family: helvetica500;
 }
