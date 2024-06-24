@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Titel</title>
+  </head>
+<body>
+
+<style>
+@font-face {
+  font-family: helvetica200;
+  src: url(https://www.konsek.de/wp-content/themes/twentytwentythree/assets/fonts/helveticaneuelt-std-thin_normal_250.ttf);
+}
+
+@font-face {
+  font-family: helvetica500;
+  src: url(https://www.konsek.de/wp-content/themes/twentytwentythree/assets/fonts/helvetica-neue-lt-std_normal_500.otf);
+}
+
+@font-face {
+  font-family: roboto300;
+  src: url(https://www.konsek.de/wp-content/themes/twentytwentythree/assets/fonts/roboto-slab-light_normal_300.ttf);
+}
+@font-face {
+  font-family: roboto500;
+  src: url(https://www.konsek.de/wp-content/themes/twentytwentythree/assets/fonts/roboto-slab-medium_normal_500.ttf);
+}
+
+h1 {
+font-family: helvetica200, arial; 
+font-size:3rem; 
+font-weight:200; 
+line-height:2.6rem; 
+margin-bottom:2rem;
+}
+
+.boldweight {
+font-family: helvetica500;
+}
+
+p, label, input {
+font-family: roboto300, arial; 
+font-size: 1.05rem; 
+line-height:1.6rem;
+}
+a:link, a:visited {
+color:#000;
+}
+
+button {
+  border: solid 2px #000; 
+  border-radius: 0.5rem; 
+  background-color: transparent;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-family: roboto500, arial;
+  font-size: 1.2rem;
+  margin: 2rem 0;
+  cursor: pointer;
+  letter-spacing:0.03rem;
+}
+form {margin:0;}
+fieldset {width:40%; max-width:600px; min-width:400px; border:none; margin:0; padding:0;}
+input, label {width:100%;}
+
+label {text-transform: uppercase; font-family: roboto500, arial;}
+input {border-radius:0.5rem; border:none; background-color:#fff; padding:0.8rem 1rem 0.8rem 1rem; margin-bottom:1rem;}
+
+/* nur damit die formfields ohne hintergrundbild erkennbar sind */
+body {background-color:#efefef;}
+
+</style>
+
+<h1><span class="boldweight">Create </span>a new print file</h1>
+
+<fieldset>
+<label for="inputURL">Q.WIKI URL</label>
+<input name="inputURL" type="text" placeholder="URL to your Q.WIKI Login (yourcompany.qwikinow.de)">
+<label for="inputNext">next field</label>
+<input name="inputNext" type="text" placeholder="second formfield">
+</fieldset>
+
+
+<button>Create a new print file</button>
+
+</body>
+</html>
