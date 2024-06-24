@@ -4,17 +4,14 @@ import background from "../../public/background.jpg";
 
 const BackgroundImage = () => {
   return (
-    <div className="image-background-container">
+    <div className="background-container">
       <Image
-        className="image-background"
+        className="imagebackground"
         src={background}
         alt="Background"
         quality={100}
-        fill
-        sizes="150%"
-        style={{
-          objectFit: "cover"
-        }} />
+
+        />
     </div>
   );
 };

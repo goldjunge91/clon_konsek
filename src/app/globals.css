@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
+/* @font-face {
 	font-family: "helvetica200";
 	src: url("../../public/fonts/helveticaneuelt-std-thin_normal_250.ttf") format("truetype");
 }
@@ -14,18 +14,55 @@
 @font-face {
 	font-family: "helvetica500";
 	src: url("../../public/fonts/helvetica-neue-lt-std_normal_500.otf") format("truetype");
+} */
+.boldweight {
+	font-family: helvetica500;
 }
+
 @layer base {
+	@font-face {
+		font-family: "helvetica200";
+		src: url("../../public/fonts/helveticaneuelt-std-thin_normal_250.ttf") format("truetype");
+	}
+	@font-face {
+		font-family: "roboto300";
+		src: url("../../public/fonts/roboto-slab-light_normal_300.ttf") format("truetype");
+	}
+
+	@font-face {
+		font-family: "helvetica500";
+		src: url("../../public/fonts/helvetica-neue-lt-std_normal_500.otf") format("truetype");
+	}
+	h1 {
+		@apply font-helvetica200 text-5xl font-extralight leading-9 mb-8;
+	}
+
+	boldweight {
+		@apply font-helvetica500;
+	}
+
+	p {
+		@apply font-roboto300 text-base leading-6;
+	}
+
+	a:link,
+	a:visited {
+		@apply text-black text-lg my-8;
+	}
+
+	button {
+		@apply border-2 border-solid border-black rounded-lg bg-transparent px-8 py-4 text-center no-underline inline-block font-roboto500 text-lg my-8 cursor-pointer tracking-wider;
+	}
 	:root {
-		--text-primary: 0 0 0;
-		--text-secondary: 0 0 0;
-		--button-bg: 255 255 255;
-		--button-text: 0 0 0;
-		--button-border: 0 0 0;
+		--text-primary: rgba(0 0 0);
+		--text-secondary: rgba(0 0 0);
+		--button-bg: rgba(255 255 255);
+		--button-text: rgba(0 0 0);
+		--button-border: rgba(0 0 0);
 		--background: rgba(255, 255, 255, 1);
 		--foreground: rgba(255, 254, 255, 1);
 
-		--card: rgba(255, 255, 255, 1);
+		--card: rgb(255, 255, 255);
 		--card-foreground: rgba(25, 25, 25, 1);
 
 		--popover: rgba(255, 255, 255, 1);
@@ -51,237 +88,96 @@
 		--ring: rgba(25, 25, 25, 1);
 
 		--radius: 0.5rem;
-		--form-background: 255 255 255;
-		/* --text-primary: rgba(0, 0, 0, 1);
-		--text-secondary: rgba(109, 109, 109, 1);
-		--button-bg: rgba(79, 70, 229, 1);
-		--button-text: rgba(255, 255, 255, 1); */
+		--form-background: rgba(255 255 255);
 	}
 }
 
+.layout-body {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: #ffffff00;
+}
+.background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+}
+.imagebackground {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.2);
+    object-position: 70% 12%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    z-index: -1;
+}
 @layer base {
 	* {
 		@apply border-border;
 	}
 
 	body {
-		@apply bg-background text-foreground bg-white;
+		@apply bg-background text-foreground font-helvetica200 gap-2;
 	}
-}
-
-.image-background-container {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	z-index: -1;
-	overflow: hidden;
-}
-.image-background {
-	width: 150%;
-	height: 150%;
-	object-fit: cover;
-	object-position: 70% 12%;
-}
-
-.container-overlay {
-	position: relative;
-	z-index: 1;
-}
-.header {
-	@apply bg-white py-4 shadow-md z-10 relative;
-}
-
-.header-content {
-	@apply container mx-auto flex justify-between items-center;
-}
-
-.nav-link {
-	@apply text-black hover:underline;
-}
-
-.header-button {
-	@apply text-black hover:text-gray-700;
 }
 
 @layer components {
-	.form-input-white {
-		@apply bg-white border-gray-300 focus:border-black focus:ring-black;
+	.container-landingpage {
+		@apply flex items-center justify-start h-screen;
 	}
-	.page-container {
-		@apply min-h-screen p-8 md:p-16;
-	}
-
-	.content-wrapper {
-		@apply max-w-4xl mx-auto;
-	}
-	. {
-		@apply max-w-4xl ml-16; /* Linker Rand statt auto-zentriert */
-	}
-	.page-title {
-		@apply text-3xl md:text-4xl font-bold mb-6;
+	.layout-full-left {
+		@apply container mx-0 px-20 md:px-12 space-y-6;
 	}
 
-	.section-title {
-		@apply text-xl md:text-2xl font-semibold mb-4;
+	.layout-grid-left {
+		@apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-0 px-4;
 	}
 
-	.card-grid {
-		@apply grid gap-4 md:grid-cols-2 lg:grid-cols-3;
+	.layout-center-left {
+		@apply container mx-0 px-4 md:px-8 max-w-2xl;
 	}
 
-	.form-wrapper {
-		@apply space-y-6;
+	.form-field {
+		@apply w-full max-w-form-field bg-white text-black border border-gray-300 rounded-md p-2;
 	}
 
-	.button-group {
-		@apply flex flex-wrap gap-4 mt-6;
+	.btn {
+		@apply px-4 py-2 rounded-md text-white bg-primary hover:bg-opacity-90;
 	}
 
-	.container {
-		@apply px-4;
-	}
-
-	.heading-primary {
-		@apply text-4xl font-bold tracking-tight text-primary sm:text-6xl;
-	}
-	.text-body {
-		@apply text-lg leading-8 text-secondary;
-	}
 	.button-primary {
 		@apply rounded-md bg-primary px-3.5 py-2.5 text-sm font-semibold text-primary shadow-sm hover:bg-primary-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary;
 	}
-	.container {
-		@apply relative isolate px-6 pt-14 lg:px-8;
-	}
-
-	.main-content {
-		@apply mx-auto max-w-2xl pt-80;
-	}
-
-	.text-content {
-		@apply text-left;
-	}
-
-	.title {
-		@apply font-helvetica200 text-5xl font-light leading-tight mb-8 text-text-primary;
-	}
-	.boldweight {
-		@apply font-helvetica500;
-	}
-	.description {
-		@apply font-roboto300 text-lg leading-relaxed text-text-secondary;
-	}
-
-	.button-container {
-		@apply mt-10 flex items-center justify-center gap-x-6;
-	}
-
 	.primary-button {
 		@apply border-2 border-button-border rounded-lg bg-button-bg px-8 py-4 text-center font-roboto500 text-xl text-button-text cursor-pointer mt-8 mb-8 tracking-wide;
+	}
+	.btn-destructive {
+		@apply px-4 py-2 rounded-md text-white bg-destructive hover:bg-opacity-90;
 	}
 	.footer-text {
 		@apply font-roboto300 text-base leading-relaxed text-text-secondary;
 	}
-	/* Allgemeine Layout-Klassen */
-
-	.content-container {
-		@apply max-w-4xl mx-auto;
+	.header {
+		@apply bg-white py-4 z-10 relative;
 	}
 
-	/* Überschriften */
-	.page-title {
-		@apply text-4xl font-bold mb-8;
+	.header-content {
+		@apply container mx-auto flex justify-between items-center;
+	}
+	.nav-link {
+		@apply text-black hover:underline;
 	}
 
-	.section-title {
-		@apply text-2xl font-semibold mb-4;
+	.header-button {
+		@apply text-black hover:text-gray-700;
 	}
-
-	/* Formulare */
-	.form-container {
-		@apply space-y-8;
+	.header-link-container {
+		@apply flex items-center gap-12;
 	}
-
-	.form-field {
-		@apply flex flex-col space-y-2;
-	}
-
-	.form-label {
-		@apply text-sm font-medium;
-	}
-
-	.form-input {
-		@apply border rounded-md p-2;
-	}
-
-	/* Buttons */
-	.button-primary {
-		@apply bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors;
-	}
-
-	.button-secondary {
-		@apply bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300 transition-colors;
-	}
-
-	/* Karten */
-	.card {
-		@apply bg-white shadow-md rounded-lg p-6 mb-4;
-	}
-
-	.card-title {
-		@apply text-xl font-semibold mb-2;
-	}
-
-	.card-content {
-		@apply text-gray-600;
-	}
-
-	/* Listen */
-	.list-container {
-		@apply space-y-4;
-	}
-
-	/* Statusanzeigen */
-	.status-badge {
-		@apply px-2 py-1 rounded-full text-sm font-semibold;
-	}
-
-	.status-pending {
-		@apply bg-yellow-100 text-yellow-800;
-	}
-
-	.status-completed {
-		@apply bg-green-100 text-green-800;
-	}
-
-	/* Footer */
-	.footer {
-		@apply mt-12 text-center text-gray-500;
-	}
-}
-
-
-@layer utilities {
-  .bg-form-white {
-    @apply bg-white;
-  }
-}
-/* Globale Stile für Formular-Eingabefelder */
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="number"],
-input[type="url"],
-input[type="date"],
-input[type="datetime-local"],
-input[type="month"],
-input[type="week"],
-input[type="time"],
-input[type="search"],
-input[type="tel"],
-select,
-textarea {
-	@apply form-input-white;
 }

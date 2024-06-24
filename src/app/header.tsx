@@ -21,16 +21,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { DeleteIcon, LogInIcon, LogOutIcon } from "lucide-react";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { useTheme } from "next-themes";
 import Link from "next/link";
 import { useState } from "react";
 import { deleteAccountAction } from "./actions";
 import { User } from "lucide-react";
 import Image from "next/image";
-
-// import DarkIcon from "@/app/saturn_magenta.svg";
-// import LightIcon from "@/app/saturn_sw.svg";
-
 function AccountDropdown() {
   const session = useSession();
   const [open, setOpen] = useState(false);
@@ -100,7 +95,7 @@ export function Header() {
   const session = useSession();
   const isLoggedIn = !!session.data;
   const isAdmin = session.data?.user?.role === "admin";
-  
+
   return (
     <header className="header">
       <div className="header-content">
@@ -113,7 +108,7 @@ export function Header() {
             height={60}
           />
         </Link>
-        <nav className="flex gap-8">
+        <nav className="header-link-container">
           {isLoggedIn && (
             <>
               <Link className="nav-link" href="/your-tasks">
@@ -132,7 +127,7 @@ export function Header() {
             </>
           )}
         </nav>
-        <div className="flex items-center gap-4">
+        <div className="header-link-container">
           {isLoggedIn && <AccountDropdown />}
           {!isLoggedIn && (
             <Button onClick={() => signIn()} variant="link" className="header-button">
