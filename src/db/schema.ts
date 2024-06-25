@@ -27,7 +27,7 @@ export const users = pgTable('user', {
 export const accounts = pgTable(
   "account",
   {
-    userId: text("userId")
+    userID: text("userID")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
     type: text("type").$type<AdapterAccount["type"]>().notNull(),
@@ -53,7 +53,7 @@ export const accounts = pgTable(
 );
 export const sessions = pgTable("session", {
   sessionToken: text("sessionToken").notNull().primaryKey(),
-  userId: text("userId")
+  userID: text("userID")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
   isAdmin: boolean("isAdmin").default(false),
@@ -71,7 +71,7 @@ export const task = pgTable("task", {
   name: text("name"),
   // username: text("username").references(() => users.username),
   secretId: text("secretId"),
-  userId: text("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
+  userID: text("userID").notNull().references(() => users.id, { onDelete: "cascade" }),
   dsm_mail: text("dsm_mail"),
   status: text("status").default("not started"),
 });

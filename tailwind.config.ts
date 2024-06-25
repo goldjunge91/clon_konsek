@@ -96,5 +96,25 @@ const config: Config = {
 		},
 	},
 	plugins: [require("tailwindcss-animate")],
+	// function({ addComponents }: { addComponents: (components: Record<string, any>) => void }) {
+	// 	addBase: ({ addBase }: { addBase: (Base: Record<string, any>) => void }) => {
+	// 		addBase({
+	// 			button: {
+	// 				border: "solid 0.5rem #0000",
+	// 				borderRadius: "O.5rem",
+	// 			}
+	// 		});
+	// 			addComponents: ({
+	// 				addComponents,
+	// 			}: {
+	// 				addComponents: (components: Record<string, any>) => void;
+	// 			}) => {
+	// 				addComponents({
+	// 					".container-mx-auto": {
+	// 						"@apply mx-auto": {},
+	// 					},
+	// 				}
+	// 			};
+	// 		}
 };
 export default config;

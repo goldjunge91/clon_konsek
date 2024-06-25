@@ -36,7 +36,7 @@ import binascii
 LOG_FILE_EXT = ".log"
 now = datetime.datetime.now()
 base_path = "/home/marco/git/pdf-website/DATA/downloads/"
-
+MAXLAENGENAME = 100
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8")
 
@@ -103,7 +103,7 @@ def clean_filename(filename):
     # Entferne ungültige Zeichen aus dem Dateinamen
     cleaned_filename = re.sub(r'[\\/*?:"<>|]', "", filename)
     # Kürze den Dateinamen auf maximal 100 Zeichen
-    truncated_filename = cleaned_filename[:100]
+    truncated_filename = cleaned_filename[:MAXLAENGENAME]
     return truncated_filename
 
 

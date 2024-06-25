@@ -4,6 +4,7 @@
 			"path": "/home/marco/git/pdf-website"
 		}
 	],
+
 	"settings": {
 		"thunder-client.sidebar.treeIndentation": 5,
 		"editor.insertSpaces": true,
@@ -35,6 +36,12 @@
 		"editor.experimentalInlineEdit.backgroundColoring": true,
 		"editor.experimentalInlineEdit.showToolbar": "always",
 		"editor.foldingStrategy": "indentation",
-		"compile-hero.disable-compile-files-on-did-save-code": false
-	}
+		"compile-hero.disable-compile-files-on-did-save-code": false,
+		"python.pythonPath": "/home/marco/miniconda3/bin/python"
+	},
+	"interpreter": 
+	[
+		"pythonPath": "/home/marco/miniconda3/bin/python",
+	]
+
 }
