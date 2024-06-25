@@ -33,8 +33,6 @@ export function TaskCard({ task }: { task: Task }) {
       {/* Card content */}
       <CardContent className="flex flex-col gap-8">
         <div>
-          {/* Display task status */}
-          {/* <div className="text-2xl flex-col px-3">Status: {task.status}</div> */}
           <div className="text-2xl flex-col px-3">Status:</div>
           {/* Display green button if task is completed */}
           {task.status === "completed" && (
@@ -46,7 +44,7 @@ export function TaskCard({ task }: { task: Task }) {
 
         <div>
           {/* Placeholder for timer */}
-          <div className="text-lg">Elapsed Time: 00:00:00</div>
+          {/* <div className="text-lg">Elapsed Time: 00:00:00</div> */}
         </div>
       </CardContent>
 

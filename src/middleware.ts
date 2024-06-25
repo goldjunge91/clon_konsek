@@ -12,7 +12,7 @@ export default withAuth(
 		const { role } = request.nextauth.token || {};
 
 		// Überprüfen Sie, ob der Benutzer versucht, auf die Route "/browse" zuzugreifen
-		if (pathname.startsWith("/browse") && role !== "user") {
+		if (pathname.startsWith("/browse") && role !== "admin") {
 			// Wenn der Benutzer kein Admin ist, leiten Sie ihn auf die Seite "/error" um
 			// return NextResponse.rewrite(new URL("/error", request.url));
 			return NextResponse.redirect(new URL("/error?status=403", request.url));
@@ -29,10 +29,10 @@ export default withAuth(
 			// Wenn der Benutzer kein Admin ist, leiten Sie ihn auf die Seite "/error" um
 			return NextResponse.rewrite(new URL("/error", request.url));
 		}
-		if (pathname.startsWith("/create-task") && role !== "user") {
-			// Wenn der Benutzer kein Admin ist, leiten Sie ihn auf die Seite "/error" um
-			return NextResponse.rewrite(new URL("/error", request.url));
-		}
+		// if (pathname.startsWith("/create-task") && role !== "user") {
+		// 	// Wenn der Benutzer kein Admin ist, leiten Sie ihn auf die Seite "/error" um
+		// 	return NextResponse.rewrite(new URL("/error", request.url));
+		// }
 		// Wenn keine der Bedingungen erfüllt ist, fahren Sie mit dem ursprünglichen Request fort
 		return NextResponse.next();
 	},

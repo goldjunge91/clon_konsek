@@ -6,23 +6,16 @@ import { UserTaskCard } from "./user-task-card";
 import { unstable_noStore } from "next/cache";
 import Image from "next/image";
 
-
-
 export default async function YourTasksPage() {
   unstable_noStore();
   const tasks = await getUserTasks();
 
-  // const isAUthenticated = getServerSideProps (
   return (
     <main className="page-layout">
-      <div className="page-header">
-        <h1 className="page-title">Your Tasks</h1>
-        <div className="move_button">
-          <Button>
-            <Link className="button-primary" href="/create-task">Create Task</Link>
-          </Button>
-        </div>
-      </div>
+      <h1 className="page-title">Your Tasks</h1>
+      <Button className="btn">
+        <Link   href="/create-task">Create Task</Link>
+      </Button>
       <div className="task-grid">
         {tasks.map((task) => {
           return <UserTaskCard key={task.id} task={task} />;

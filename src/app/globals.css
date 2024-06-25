@@ -45,20 +45,8 @@
 		@apply font-roboto300 text-base leading-6;
 	}
 
-	a:link,
-	a:visited {
-		@apply text-black text-lg my-8;
-	}
-
-	button {
-		@apply border-2 border-solid border-black rounded-lg  px-8 py-4 text-center no-underline inline-block font-roboto500 text-lg my-8 cursor-pointer hover:button_hover;
-	}
-
-	.button_hover {
-		@apply group-hover:underline;
-	}
-	.button_new {
-		@apply border-2 border-solid border-black bg-blue-500 rounded-lg  px-8 py-4 text-center inline-block font-roboto500 text-lg my-10 cursor-pointer tracking-wider hover:button_hover;
+	card {
+		@apply bg-white box-border;
 	}
 
 	:root {
@@ -70,8 +58,8 @@
 		--background: rgb(255, 0, 0);
 		--foreground: rgba(255, 254, 255, 1);
 		--bg-primary: rgb(0, 238, 99);
-	
-		--card: rgb(255, 255, 255);
+
+		--card: rgb(255, 0, 0);
 		--card-foreground: rgba(25, 25, 25, 1);
 
 		--popover: rgba(255, 255, 255, 1);
@@ -108,6 +96,7 @@
 	width: 100%;
 	height: 100%;
 	padding: 0;
+
 	overflow: hidden;
 	margin: 0;
 	background-color: #ffffff00;
@@ -131,20 +120,20 @@
 	overflow: hidden;
 }
 @layer base {
-	html,
+	/* html,
 	body {
 		@apply h-full;
-	}
+	} */
 }
+
 @layer base {
 	* {
 		@apply border-border;
 	}
-
 	body {
 		@apply text-foreground font-helvetica200 gap-2;
 	}
-	
+
 	.form-container {
 		@apply flex justify-center text-2xl font-bold mb-4;
 	}
@@ -158,28 +147,40 @@
 		margin: 0;
 	} */
 
-	form-style .custom-label {
+	/* form-style .custom-label {
 		text-transform: uppercase;
+		line-height: 1.5rem;
 		font-family: roboto500, arial;
 	}
 
 	form-style .custom-body {
 		background-color: #efefef;
+		;
 	}
 
 	form-style .custom-input {
 		border-radius: 0.5rem;
 		border: none;
 		background-color: #fff;
-		padding: 0.8rem 1rem;
-		margin-bottom: 1rem;
+		padding: 0.8rem 1.5rem;
+		margin-bottom: 2rem;
+		height: 50rem;
 		width: 40rem;
-	}
+	} */
 }
 
 @layer components {
+	a {
+		@apply text-black leading-6 gap-x-5 gap-y-5;
+	}
+	a:link {
+		@apply text-black leading-6 gap-x-5 gap-y-5;
+	}
+	a:visited {
+		@apply text-black leading-6;
+	}
 	.container-landingpage {
-		@apply flex items-center justify-start h-screen;
+		@apply flex items-center  justify-start h-screen;
 	}
 	.layout-full-left {
 		@apply container mx-0 px-20 md:px-12 space-y-6;
@@ -197,29 +198,15 @@
 		@apply max-w-form-field bg-white text-black border border-gray-300 rounded-md p-2;
 	} */
 	.move_button {
-		@apply absolute inset-y-52 left-10 w-16;
+		@apply absolute inset-y-0 left-10;
 	}
-	.btn {
-		@apply px-4 py-2 rounded-md text-white bg-primary hover:bg-opacity-90;
-	}
+	/* @apply absolute inset-y-52 left-10 w-16; */
 
-	.button-primary {
-		@apply rounded-md px-3.5 py-2.5 font-semibold text-primary hover:bg-primary-600;
-	}
-	/* .primary-button {
-		@apply border-2 border-button-border rounded-lg bg-button-bg px-8 py-4 text-center font-roboto500 text-xl text-button-text cursor-pointer mt-8 mb-8 tracking-wide;
-	}className="button" variant={"destructive"}> */
-	.bg-primary-600 {
-		@apply text-black bg-gray-500;
-	}
-	.btn-destructive {
-		@apply px-4 py-2 rounded-md text-black bg-destructive hover:bg-opacity-90;
-	}
 	.footer-text {
 		@apply font-roboto300 text-base leading-relaxed text-text-secondary;
 	}
 	.header {
-		@apply bg-white py-4 z-10;
+		@apply bg-white py-2 z-10;
 	}
 
 	.header-content {
@@ -237,7 +224,7 @@
 	}
 
 	.admin-page {
-		@apply container mx-auto py-8;
+		@apply min-h-screen container mx-auto py-8;
 	}
 
 	.admin-container {
@@ -246,7 +233,7 @@
 
 	.create-user-section,
 	.user-list-section {
-		@apply p-6 text-black rounded-lg shadow-md;
+		@apply p-4 text-black rounded-lg shadow-md;
 	}
 
 	.create-user-section h2,
@@ -258,7 +245,7 @@
 	}
 
 	.form-container {
-		@apply flex justify-center text-2xl font-bold mb-4;
+		@apply flex justify-center text-5xl font-bold mb-4;
 	}
 
 	.form-wrapper {
@@ -288,34 +275,17 @@
 		width: 40rem;
 	}
 	.card {
-		@apply p-5 m-3;
+		@apply p-5 m-3 bg-white;
 	}
 
 	.card-inner {
-		@apply p-5 gap-6;
+		@apply p-1 gap-2;
 	}
-
-	.status-text {
-		@apply text-2xl flex-col px-3;
-	}
-
-	.download-button {
-		@apply py-3 px-5 mx-0 rounded font-semibold;
-	}
-
-	.download-button-enabled {
-		@apply bg-primary text-primary-foreground hover:bg-primary-foreground hover:text-primary;
-	}
-
-	.download-button-disabled {
-		@apply bg-muted text-muted-foreground cursor-not-allowed;
-	}
-
 	.status-message {
-		@apply bg-green-100 text-green-800 px-4 py-2 flex items-center rounded;
+		@apply bg-green-100 text-green-800 px-4 py-2 flex items-center rounded-lg;
 	}
 	.page-layout {
-		@apply min-h-screen p-16 mt-28 object-left-top;
+		@apply absolute top-44 left-28;
 	}
 
 	.page-header {
@@ -323,21 +293,92 @@
 	}
 
 	.page-title {
-		@apply text-6xl font-helvetica500 object-left-top ;
+		@apply text-6xl font-helvetica500 object-left-top;
 	}
 
 	.task-grid {
-		@apply grid grid-cols-3 gap-4;
+		@apply grid grid-cols-3 gap-2;
 	}
 
 	.no-tasks-message {
-		@apply flex flex-col gap-4 mb-8 justify-center items-center mt-24;
+		@apply flex flex-col gap-2 mb-8 justify-center items-center mt-24;
 	}
 
 	.no-tasks-text {
 		@apply text-2xl;
 	}
-	.button-random .button {
-		@apply border-2 border-solid border-black rounded-lg bg-transparent px-8 py-4 text-center no-underline inline-block font-roboto500 text-lg my-8 cursor-pointer tracking-wider;
+
+	.smaller-card {
+		max-width: 300px;
 	}
+	.status-text {
+		@apply text-2xl flex-col px-1;
+	}
+
+	.status-container {
+		@apply flex object-left;
+	}
+	/* DONE neue buttons */
+	button,
+	.btn,
+	.button-random .button {
+		@apply border-2 border-solid border-black rounded-lg px-8 py-4 text-center font-roboto500 text-lg my-8 cursor-pointer;
+	}
+	button:hover,
+	.button_hover :hover {
+		@apply underline bg-gray-400;
+	}
+
+	button:disabled,
+	.download-button-disabled {
+		@apply bg-muted text-muted-foreground cursor-not-allowed;
+	}
+
+	.button-enabled,
+	.download-button-enabled,
+	.primary-button,
+	.button-primary {
+		@apply py-2 px-2 text-primary-foreground;
+	}
+
+	.button-enabled:hover,
+	.download-button-enabled:hover,
+	.primary-button:hover,
+	.button-primary:hover {
+		@apply bg-primary-foreground text-primary;
+	}
+	primary-button .button-destructive,
+	.btn-destructive {
+		@apply bg-destructive text-destructive-foreground;
+	}
+
+	.button-destructive:hover,
+	.btn-destructive:hover {
+		@apply bg-opacity-90;
+	}
+
+	.button-ghost,
+	.button_new {
+		@apply bg-transparent text-foreground;
+	}
+
+	.button-ghost:hover,
+	.button_new:hover {
+		@apply bg-muted text-muted-foreground;
+	}
+
+	.button-container {
+		@apply flex -left-6;
+	}
+	.a {
+		@apply py-2 px-2 text-primary-foreground box-border text-black leading-6 gap-x-5 gap-y-5 gap-10;
+	}
+	.a:link {
+		@apply text-black leading-6 gap-x-5 gap-y-5;
+	}
+	.a:visited {
+		@apply text-black leading-6;
+	}
+
+	/*TODO Alte buttons  */
 }

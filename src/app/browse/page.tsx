@@ -1,8 +1,9 @@
-import { Button } from "@/components/ui/button";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+// import { Button } from "@/components/ui/button";
 import { getTasks } from "@/data-access/tasks";
 import { getServerSession } from "next-auth/next";
 import { unstable_noStore } from "next/cache";
-import Link from "next/link";
+// import Link from "next/link";
 import { redirect } from "next/navigation";
 import { options } from "../api/auth/[...nextauth]/options";
 import { TaskCard } from "./task-card";
@@ -24,11 +25,11 @@ export default async function Browse({ searchParams, }: { searchParams: { search
         <main className="page-layout">
             <div className="page-header">
                 <h1 className="page-title">Tasks-Placeholder</h1>
-                <Button asChild>
+                {/* <Button asChild>
                     <Link href={"/create-task"}>Create Task</Link>
-                </Button>
+                </Button> */}
             </div>
-            <div className="mb-8"></div>
+            <div className=""></div>
             <div className="task-grid">
                 {tasks.map((task) => {
                     return <TaskCard key={task.id} task={task} />;

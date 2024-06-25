@@ -34,6 +34,7 @@
 		"editor.bracketPairColorization.independentColorPoolPerBracketType": true,
 		"editor.experimentalInlineEdit.backgroundColoring": true,
 		"editor.experimentalInlineEdit.showToolbar": "always",
-		"editor.foldingStrategy": "indentation"
+		"editor.foldingStrategy": "indentation",
+		"compile-hero.disable-compile-files-on-did-save-code": false
 	}
 }
