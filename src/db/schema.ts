@@ -27,7 +27,7 @@ export const users = pgTable('user', {
 export const accounts = pgTable(
   "account",
   {
-    userID: text("userID")
+    userId: text("userId")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
     type: text("type").$type<AdapterAccount["type"]>().notNull(),
@@ -71,7 +71,7 @@ export const task = pgTable("task", {
   name: text("name"),
   // username: text("username").references(() => users.username),
   secretId: text("secretId"),
-  userID: text("userID").notNull().references(() => users.id, { onDelete: "cascade" }),
+  userId: text("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
   dsm_mail: text("dsm_mail"),
   status: text("status").default("not started"),
 });

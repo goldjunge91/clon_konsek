@@ -1,0 +1,61 @@
+{
+	"entryPoints": [
+		"src/app/admin/actions.ts",
+		"src/app/admin/create-user-form.tsx",
+		"src/app/admin/page.tsx"
+	],
+
+	"out": "documentation",
+	"includeVersion": true,
+	"tsconfig": "tsconfig.json",
+	"readme": "README.md",
+	"name": "My TypeScript Project",
+	"theme": "default",
+	"excludeExternals": true,
+	"externalPattern": ["node_modules"],
+	"excludeProtected": true,
+	"excludePrivate": true,
+	"hideGenerator": true,
+	"plugin": ["typedoc-plugin-markdown", "typedoc-plugin-mdn-links"],
+	"entryPointStrategy": "expand",
+	"markdown": {
+		"output": "docs-md",
+		"allReflectionsHaveOwnDocument": true,
+		"theme": "default"
+	},
+	"packageOptions": {
+		"includeVersion": false,
+		"excludePrivate": false,
+		"readme": "./OVERVIEW.md",
+		"sortEntryPoints": false,
+		"sort": "source-order",
+		"excludeExternals": true,
+		"gitRevision": "main"
+	},
+	"mergeReadme": true,
+	"outputFileStrategy": "members",
+	"membersWithOwnFile": ["Class", "Interface", "TypeAlias", "Enum"],
+	"hidePageHeader": true,
+	"hideGroupHeadings": true,
+	"textContentMappings": {
+		"breadcrumbs.home": "Home"
+	},
+	"expandObjects": false,
+	"useCodeBlocks": false,
+	"parametersFormat": "table",
+	"enumMembersFormat": "table",
+	"typeDeclarationFormat": "table",
+	"indexFormat": "table",
+	"tableColumnSettings": { "hideSources": true },
+	"sanitizeComments": true,
+	"remarkPlugins": [
+		[
+			"remark-toc",
+			{
+				"tight": true,
+				"maxDepth": 4,
+				"skip": "Default Value|Defined in|Example|Overrides|Parameters|Returns|See|Type declaration"
+			}
+		]
+	]
+}

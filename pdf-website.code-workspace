@@ -28,7 +28,10 @@
 			"**/.git": true,
 			"**/.svn": true,
 			"**/.hg": true,
-			"**/CVS": true
+			"**/CVS": true,
+			"**/.DS_Store": true,
+			".vscode/": true,
+			"node_modules/": true
 		},
 		"editor.renderWhitespace": "boundary",
 		"editor.wordWrap": "on",
@@ -37,11 +40,28 @@
 		"editor.experimentalInlineEdit.showToolbar": "always",
 		"editor.foldingStrategy": "indentation",
 		"compile-hero.disable-compile-files-on-did-save-code": false,
-		"python.pythonPath": "/home/marco/miniconda3/bin/python"
-	},
-	"interpreter": 
-	[
-		"pythonPath": "/home/marco/miniconda3/bin/python",
-	]
-
+		"python.pythonPath": "/home/marco/miniconda3/bin/python",
+		"hidefiles.configurationType": "local",
+		"hidefiles.globalConfig": {
+			"profiles": [
+				{
+					"name": "Default",
+					"detail": "",
+					"description": "Test",
+					"hidden": [
+						".vscode/",
+						"node_modules/"
+					]
+				},
+				{
+					"name": "Strict",
+					"detail": "Hide everything not immediately required",
+					"hidden": [
+						"$Default"
+					]
+				}
+			]
+		},
+		"hidefiles.selectedProfile": "Default"
+	}
 }

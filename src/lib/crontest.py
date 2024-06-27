@@ -29,6 +29,6 @@ folder_to_delete = "/home/marco/git/pdf-website/DATA/downloads/ae7aa1a8-17bd-407
 os.makedirs(folder_to_delete, exist_ok=True)
 
 # Schedule the cronjob to delete the folder
-schedule_delete_folder_cronjob(folder_to_delete)
+schedule_delete_folder_cronjob(folder_path=folder_to_delete)
 
 print("Cronjob scheduled. Please wait for 2 minutes to check if the folder is deleted.")

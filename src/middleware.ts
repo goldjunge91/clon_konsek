@@ -1,11 +1,6 @@
 import { withAuth, NextRequestWithAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
 
-// Beschreibung:
-// Dieser Code repräsentiert die Middleware-Konfiguration für die Anwendung.
-// Er verwendet die withAuth Middleware von next-auth, um die Anfrage mit dem Token des Benutzers zu erweitern.
-// Die Middleware überprüft die Rolle des Benutzers und beschränkt den Zugriff auf bestimmte Routen basierend auf der Rolle.
-// Wenn der Benutzer versucht, auf eine eingeschränkte Route zuzugreifen, wird er zur Seite "/error" umgeleitet.
 export default withAuth(
 	function middleware(request: NextRequestWithAuth) {
 		const { pathname } = request.nextUrl;

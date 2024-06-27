@@ -10,18 +10,18 @@ import logging.handlers
 LOG_FILE_EXT = ".log"
 
 # Laden der Umgebungsvariablen aus der .env-Datei
-load_dotenv(os.path.join(os.path.dirname(__file__), '../../.env'))
+load_dotenv(os.path.join(os.path.dirname(__file__), "../../.env"))
 
 base_path = "/home/marco/git/pdf-website/DATA/downloads/"
 
 # Datenbank-Verbindungsdetails aus den Umgebungsvariablen
-DB_HOST = os.environ.get('DB_HOST')
-DB_NAME = os.environ.get('DB_NAME')
-DB_USER = os.environ.get('DB_USER')
-DB_PASSWORD = os.environ.get('DB_PASSWORD')
+DB_HOST = os.environ.get("DB_HOST")
+DB_NAME = os.environ.get("DB_NAME")
+DB_USER = os.environ.get("DB_USER")
+DB_PASSWORD = os.environ.get("DB_PASSWORD")
+
 
 def setup_logging():
-
     current_date = datetime.now().strftime("%d-%m-%Y")
     logger = logging.getLogger()
     logger.setLevel(logging.INFO)
@@ -43,10 +43,7 @@ def setup_logging():
 def update_task_status_in_db(task_id: str, new_status: str) -> bool:
     try:
         conn = psycopg2.connect(
-            host=DB_HOST,
-            database=DB_NAME,
-            user=DB_USER,
-            password=DB_PASSWORD
+            host=DB_HOST, database=DB_NAME, user=DB_USER, password=DB_PASSWORD
         )
         cursor = conn.cursor(cursor_factory=RealDictCursor)
         update_query = "UPDATE task SET status = %s WHERE id = %s"
@@ -59,6 +56,7 @@ def update_task_status_in_db(task_id: str, new_status: str) -> bool:
     except (Exception, psycopg2.Error) as error:
         logging.error(f"Fehler beim Aktualisieren des Task-Status: {error}")
         return False
+
 
 def schedule_delete_folder_cronjob(folder_to_delete: str) -> None:
 
@@ -77,5 +75,3 @@ def schedule_delete_folder_cronjob(folder_to_delete: str) -> None:
         # logging.info(f"Cronjob scheduled to delete folder: {folder_to_delete} at {execution_time}")
     except Exception as error:
         print(f"Fehler beim Planen des Cronjobs: {error}")
-        
-    

@@ -403,6 +403,7 @@ def setup_loggers(logger, progress_logger, log_file, progress_log_file):
 
 
 if __name__ == "__main__":
+    # folder_to_delete = None
     setup_logging()
     if len(sys.argv) < 2:
         raise ValueError("Wrong Value contact admin.")
@@ -428,7 +429,7 @@ if __name__ == "__main__":
     logger = logging.getLogger("main_logger")
     progress_logger = logging.getLogger("progress_logger")
     setup_loggers(logger, progress_logger, log_file, progress_log_file)
-    folder_to_delete = None  # Define folder_to_delete before the try block
+    folder_to_delete = None
 
     if not all(
         [user_email, user_password, user_link, zip_password, zip_name, file_path]
