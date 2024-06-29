@@ -6,14 +6,14 @@ import Image from "next/image";
 import background from "./../../public/background.jpg";
 // import BackgroundImage from "@/components/backgroundImage";
 import "./globals.css";
-
+import React from "react"; // Import React library
 /**
  *RootLayout
- * @description Haupt-Layout-Komponente für die gesamte Anwendung.
+ * Haupt-Layout-Komponente für die gesamte Anwendung.
  * @remarks
  * Definiert die grundlegende Struktur und gemeinsame Elemente aller Seiten.
- * @param {LayoutProps} props - Die Eigenschaften des Layouts
- * @returns {JSX.Element} Das gerenderte Root-Layout
+ * @param props - Die Eigenschaften des Layouts
+ * @returns Das gerenderte Root-Layout
  */
 
 const metadataElement = (

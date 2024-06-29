@@ -12,8 +12,8 @@ from dotenv import load_dotenv
 env_path = "/home/marco/git/pdf-website/.env"
 # Lade die Umgebungsvariablen aus der .env-Datei
 load_dotenv(env_path)
-print(f"Pfad zur .env-Datei: {load_dotenv}")
-print(f"Pfad zur .env-Datei: {env_path}")
+# print(f"Pfad zur .env-Datei: {load_dotenv}")
+# print(f"Pfad zur .env-Datei: {env_path}")
 
 ENCRYPTION_KEY = bytes.fromhex(os.getenv("ENCRYPTION_SECRET_KEY"))
 ENCRYPTION_IV = os.getenv("ENCRYPTION_IV").encode()

@@ -3,7 +3,7 @@ import { User } from "@/db/schema";
 import { UserEditCard } from "./UserEditCard";
 import { useEffect, useState } from "react";
 import { deleteUserAction } from "@/app/admin/actions";
-
+import React from "react"; // Import React library
 export function UserList() {
   const [users, setUsers] = useState<User[]>([]);
 

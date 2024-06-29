@@ -35,33 +35,3 @@ export default function CreateTaskPage() {
 		</div>
 	);
 }
-
-// export default function CreateTaskPage() {
-// 	useEffect(() => {
-// 		// console.log("CreateTaskPage mounted");
-// 	}, []);
-// 	const { data: session } = useSession({
-// 		required: true,
-// 		onUnauthenticated() {
-// 			signIn("auth-provider", { callbackUrl: "/" });
-// 		},
-// 	});
-// 	if (!session) {
-// 		return <h1>Access Denied</h1>;
-// 	}
-// 	return (
-// 		<div className="page-container">
-// 			<div className="content-wrapper-left">
-// 				<h1>
-// 					<span className="page-title">
-// 						<span className="boldweight">Create </span>{" "}
-// 					</span>
-// 					a new print file
-// 				</h1>
-// 				<div className="form-container">
-// 					<CreateTaskForm />
-// 				</div>
-// 			</div>
-// 		</div>
-// 	);
-// }

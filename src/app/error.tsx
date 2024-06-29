@@ -1,15 +1,14 @@
 /* eslint-disable react/prop-types */
 "use client";
+import { useSearchParams } from "next/navigation";
+import React from "react"; // Import React library
 /**
- *ErrorPage
- * @description Fehlerseite für die Anwendung.
- * @remarks
+ * ErrorPage
  * Zeigt benutzerfreundliche Fehlermeldungen an.
- * @param {ErrorProps} props - Die Eigenschaften der Fehlerseite
- * @returns {JSX.Element} Die gerenderte Fehlerseite
+ * @param props - Die Eigenschaften der Fehlerseite
+ * @returns Die gerenderte Fehlerseite
  */
 
-import { useSearchParams } from "next/navigation";
 
 interface ErrorProps {
 	error?: Error;

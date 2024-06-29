@@ -1,12 +1,12 @@
 "use server";
 /**
- * @file actions.ts (Admin)
+ *  actions.ts (Admin)
  *AdminActions
- * @description Verwaltet serverseitige Aktionen für Benutzeradministration.
+ *  Verwaltet serverseitige Aktionen für Benutzeradministration.
  * @remarks
  * Dieses Modul enthält Funktionen zum Erstellen, Bearbeiten und Löschen von Benutzern.
  *
- * @link Verwandt mit {@link CreateUserForm}
+ *  Verwandt mit {@link CreateUserForm}
  */
 
 import { deleteUser } from "@/data-access/users";

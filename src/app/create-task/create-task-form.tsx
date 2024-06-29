@@ -19,6 +19,8 @@ import { Input } from "@/components/ui/input";
 import { saveDataTask2 } from "./actions";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
+import React from "react"; // Import React library
+
 
 const formSchema = z.object({
 	dsm_url: z.string().url({ message: "The URL is in the wrong format: https://" }),
@@ -45,15 +47,8 @@ const formSchema = z.object({
 			message: "Size maximum 5MB.",
 		}),
 });
-/**
- *CreateTaskForm
- * @description Formular zum Erstellen neuer Aufgaben.
- * @remarks
- * Rendert ein Formular zur Erfassung von Aufgabeninformationen.
- * @param {CreateTaskFormProps} props - Die Eigenschaften des Formulars
- * @returns {JSX.Element} Ein Formular zum Erstellen neuer Aufgaben
- */
 export function CreateTaskForm() {
+
 	const { toast } = useToast();
 	const router = useRouter();
 	const form = useForm<z.infer<typeof formSchema>>({
@@ -219,105 +214,3 @@ export function CreateTaskForm() {
 		</Form>
 	);
 }
-
-//   return (
-//     <Form {...form}>
-//       <form onSubmit={form.handleSubmit(onSubmit)} className="form-wrapper">
-//         <FormField
-//           control={form.control}
-//           name="dsm_url"
-//           render={({ field }) => (
-//             <FormItem>
-//               <FormLabel>Q.Wiki URL</FormLabel>
-//               <FormControl>
-//                 <Input {...field} placeholder="https://konsek.de" />
-//               </FormControl>
-//               {/* <FormDescription> */}
-//               {/* Bitte hinterlege die URL zum Q.wiki */}
-//               {/* </FormDescription> */}
-//               <FormMessage />
-//             </FormItem>
-//           )}
-//         />
-
-//         <FormField
-//           control={form.control}
-//           name="dsmpassword"
-//           render={({ field }) => (
-//             <FormItem>
-//               <FormLabel>dsmpassword</FormLabel>
-//               <FormControl>
-//                 <Input {...field} placeholder="typescript, nextjs, tailwind" />
-//               </FormControl>
-
-//               <FormDescription>dsmpassword</FormDescription>
-//               <FormMessage />
-//             </FormItem>
-//           )}
-//         />
-
-//         <FormField
-//           control={form.control}
-//           name="dsm_mail"
-//           render={({ field }) => (
-//             <FormItem>
-//               <FormLabel>Q.Wiki User Mail</FormLabel>
-//               <FormControl>
-//                 <Input {...field} placeholder="ihre@mail.de" />
-//               </FormControl>
-//               {/* <FormDescription>Ihre Q.Wiki User Mail</FormDescription> */}
-//               <FormMessage />
-//             </FormItem>
-//           )}
-//         />
-//         <FormField
-//           control={form.control}
-//           name="zippassword"
-//           render={({ field }) => (
-//             <FormItem>
-//               <FormLabel>zippassword</FormLabel>
-//               <FormControl>
-//                 <Input {...field} placeholder="zippassword" />
-//               </FormControl>
-//               {/* <FormDescription>
-//                 zippassword wenn sie es vergessen oder sich vertippen kann
-//                 keiner das
-//               </FormDescription> */}
-//               <FormMessage />
-//             </FormItem>
-//           )}
-//         />
-
-//         <FormField
-//           control={form.control}
-//           name="file"
-//           // eslint-disable-next-line @typescript-eslint/no-unused-vars
-//           render={({ field: { value, onChange, ...fieldProps } }) => (
-//             // @typescript-eslint/no-unused-vars
-//             <FormItem>
-//               <FormLabel>Only .CSV File</FormLabel>
-//               <FormControl>
-//                 <Input
-//                   {...fieldProps}
-//                   placeholder="file"
-//                   type="file"
-//                   accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-//                   onChange={(event) => {
-//                     const file = event.target.files?.[0];
-//                     if (event.target.files && event.target.files.length > 0) {
-//                       onChange(event.target.files[0]); // Here you store a File object, not a FileList
-//                     } else {
-//                       onChange(file ?? undefined);
-//                     }
-//                   }}
-//                 />
-//               </FormControl>
-//               <FormMessage />
-//             </FormItem>
-//           )}
-//         />
-//         <Button type="submit"> Create a new print file</Button>
-//       </form>
-//     </Form>
-//   );
-// }

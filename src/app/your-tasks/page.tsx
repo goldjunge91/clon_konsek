@@ -6,7 +6,7 @@ import { UserTaskCard } from "./user-task-card";
 import { unstable_noStore } from "next/cache";
 import Image from "next/image";
 /**
- *YourTasksPage
+ * YourTasksPage
  * @description Übersichtsseite für die Aufgaben eines Benutzers.
  * @remarks
  * Zeigt alle Aufgaben eines Benutzers an und ermöglicht deren Verwaltung.

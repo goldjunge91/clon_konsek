@@ -1,7 +1,6 @@
 "use client";
 import { Task } from "@/db/schema";
 import { useSession } from "next-auth/react";
-import { Session } from "next-auth";
 import { redirect, useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { useToast } from "@/components/ui/use-toast";
@@ -9,16 +8,20 @@ import { getDownloadFile2 } from "./actions";
 import { useState } from "react";
 import { readPythonLog } from '@/lib/readPythonLog';
 import useSWR from "swr";
+import React from "react"; // Import React library
 
 /**
- *TaskView 		revalidatePath(`/tasks/${initialTask.id}`);
- * @description Detailansicht einer einzelnen Aufgabe.
+ * TaskView Component
+ * 
+ * Detailansicht einer einzelnen Aufgabe.
+ * 
  * @remarks
  * Zeigt alle Informationen zu einer spezifischen Aufgabe an und ermöglicht Interaktionen.
- * @param {TaskViewProps} props - Die Eigenschaften der Aufgabenansicht
- * @returns {JSX.Element} Die gerenderte Aufgabendetailansicht
+ * Verwendet `revalidatePath('/tasks/${initialTask.id}')` zur Aktualisierung der Daten.
+ * 
+ * @param props - Die Eigenschaften der Aufgabenansicht
+ * @returns Die gerenderte Aufgabendetailansicht
  */
-
 
 const fetcher = (url: string | URL | Request) => fetch(url).then((res) => res.json());
 

@@ -3,7 +3,6 @@ import {
   timestamp,
   pgTable,
   text,
-  // serial,
   boolean,
   primaryKey,
   integer,

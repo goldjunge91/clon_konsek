@@ -1,14 +1,16 @@
-
-
+/* eslint-disable tsdoc/syntax */
 import nextra from "nextra";
+import dotenv from 'dotenv';
+
+if (process.env.NODE_ENV === 'production') {
+  dotenv.config({ path: '.env.production' });
+}
+
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // output: 'export',
   cacheMaxMemorySize: 0,
   reactStrictMode: true,
-  // devIndicators: {
-  //   buildActivityPosition: 'bottom-right',
-  // },
   swcMinify: true,
   images: {
     unoptimized: false,
@@ -65,7 +67,6 @@ const nextConfig = {
       // https://www.npmjs.com/package/@svgr/webpack
       test: /\.svg$/,
       use: ['@svgr/webpack'],
-      // });
     });
     if (!isServer) {
       config.resolve.fallback = {
@@ -75,20 +76,21 @@ const nextConfig = {
         os: false,
         net: false,
         tls: false,
-        fs: false,
         perf_hooks: false,
       };
-      // config.externals = [
-      //   ...(config.externals || []),
-      //   /^@docusaurus\/.+$/,
-      //   /^@generated\/.+$/,
-      // ];
     }
     return config;
   },
 };
 const withNextra = nextra({
   theme: 'nextra-theme-docs',
-  themeConfig: './theme.config.jsx'
+  themeConfig: './theme.config.jsx',
+  defaultShowCopyCode: true,
+  flexsearch: {
+    codeblocks: true
+  },
+  staticImage: true,
+  contentDirs: ['pages'],  // Hier geben wir an, wo sich die Dokumentation befindet
 });
+
 export default withNextra(nextConfig);
