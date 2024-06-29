@@ -1,3 +1,6 @@
+
+
+import nextra from "nextra";
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // output: 'export',
@@ -45,6 +48,8 @@ const nextConfig = {
       },
     ],
   },
+  distDir: '.next',
+
   // experimental: {
   //   turbo: {
   //     rules: {
@@ -68,26 +73,22 @@ const nextConfig = {
         fs: false,
         path: false,
         os: false,
+        net: false,
+        tls: false,
+        fs: false,
+        perf_hooks: false,
       };
+      // config.externals = [
+      //   ...(config.externals || []),
+      //   /^@docusaurus\/.+$/,
+      //   /^@generated\/.+$/,
+      // ];
     }
     return config;
   },
 };
-
-export default nextConfig;
-// https://nextjs.org/docs/api-reference/next.config.js/react-strict-modewebpack: (config, { isServer }) => {
-// config.module.rules.push(
-// 	{
-// 		// https://www.npmjs.com/package/@svgr/webpack
-// 	test: /\.svg$/i,
-// 	issuer: /\.[jt]sx?$/,
-// 	use: ["@svgr/webpack"],
-// });
-// if (!isServer) {
-// 	config.resolve.fallback = {
-// 		...config.resolve.fallback,
-// 		fs: false,
-// 		path: false,
-// 		os: false,
-// 	};
-// }
+const withNextra = nextra({
+  theme: 'nextra-theme-docs',
+  themeConfig: './theme.config.jsx'
+});
+export default withNextra(nextConfig);

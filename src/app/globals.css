@@ -1,7 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+/**
+ *GlobalStyles
+ * @description Globale CSS-Stile für die Anwendung.
+ * @remarks
+ * Definiert grundlegende Stile, die in der gesamten Anwendung verwendet werden.
+ */
 @font-face {
 	font-family: "helvetica200";
 	src: url("../../public/fonts/helveticaneuelt-std-thin_normal_250.ttf") format("truetype");

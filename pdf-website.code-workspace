@@ -1,8 +1,8 @@
 {
 	"folders": [
 		{
-			"path": "/home/marco/git/pdf-website"
-		}
+			"path": "/home/marco/git/pdf-website",
+		},
 	],
 
 	"settings": {
@@ -31,7 +31,7 @@
 			"**/CVS": true,
 			"**/.DS_Store": true,
 			".vscode/": true,
-			"node_modules/": true
+			"node_modules/": true,
 		},
 		"editor.renderWhitespace": "boundary",
 		"editor.wordWrap": "on",
@@ -48,20 +48,15 @@
 					"name": "Default",
 					"detail": "",
 					"description": "Test",
-					"hidden": [
-						".vscode/",
-						"node_modules/"
-					]
+					"hidden": [".vscode/", "node_modules/"],
 				},
 				{
 					"name": "Strict",
 					"detail": "Hide everything not immediately required",
-					"hidden": [
-						"$Default"
-					]
-				}
-			]
+					"hidden": ["$Default"],
+				},
+			],
 		},
-		"hidefiles.selectedProfile": "Default"
-	}
+		"hidefiles.selectedProfile": "Default",
+	},
 }

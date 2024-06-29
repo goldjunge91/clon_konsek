@@ -12,7 +12,14 @@ import { randomUUID } from "crypto";
 import { uniqueNamesGenerator, adjectives, colors, animals } from "unique-names-generator";
 import CryptoJS from "crypto-js";
 
-// Funktion, um einen zufälligen Namen zu generieren
+/**
+ *CreateTaskActions
+ * @description Serverseitige Aktionen zum Erstellen von Aufgaben.
+ * @remarks
+ * Enthält Funktionen zur Verarbeitung und Speicherung neuer Aufgaben.
+ * @link Verwandt mit {@link CreateTaskForm}
+ */
+
 function generateRandomName() {
 	const randomName = uniqueNamesGenerator({
 		dictionaries: [adjectives, colors, animals], // Hier können Sie verschiedene Wörterbücher kombinieren
@@ -28,6 +35,11 @@ function generateSecretId() {
 	return randomUUID();
 }
 
+/**
+ * Generiert eine JSON-Ausgabe aus dem gegebenen Datenobjekt.
+ * @param data - Das Datenobjekt, aus dem die JSON-Ausgabe generiert werden soll.
+ * @returns Die JSON-Ausgabe als Zeichenkette.
+ */
 function generateJsonOutput2(data: any): string {
 	const jsonEntries = Object.entries(data)
 		.map(([key, value]) => {
@@ -84,6 +96,14 @@ function generateJsonOutput2(data: any): string {
 //         .join(",\n");
 //     return `{\n${jsonEntries}\n}`;
 // }
+
+/**
+ * Saves the data task.
+ *
+ * @param formData - The form data containing task information.
+ * @returns An object indicating the success of the operation and the ID of the saved task.
+ * @throws An error if the user is unauthorized or if the task creation fails.
+ */
 
 export async function saveDataTask2(formData: FormData) {
 	const session = await getSession();

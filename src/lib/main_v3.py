@@ -59,7 +59,7 @@ def encrypt_sensitive_data_in_json(form_data_path):
     with open(form_data_path, "r+") as file:
         data = json.load(file)
         encrypted = False
-        # Only encrypt if not already encrypted; you can tweak this logic as needed
+        # Only encrypt if not already encrypted;
         if not data["dsmpassword"].startswith("ENC_"):
             data["dsmpassword"] = (
                 "ENC_"
@@ -77,6 +77,13 @@ def encrypt_sensitive_data_in_json(form_data_path):
             file.seek(0)
             json.dump(data, file, indent=4)
             file.truncate()
+
+
+def decrypt_in_memory(encrypted_str):
+    if encrypted_str.startswith("ENC_"):
+        encrypted_data = binascii.unhexlify(encrypted_str[4:].encode())
+        return decrypt_data(encrypted_data).decode("utf-8")
+    return encrypted_str  # Just for safety, in case it's not encrypted
 
 
 def setup_logging():
@@ -105,13 +112,6 @@ def clean_filename(filename):
     # Kürze den Dateinamen auf maximal 100 Zeichen
     truncated_filename = cleaned_filename[:MAXLAENGENAME]
     return truncated_filename
-
-
-def decrypt_in_memory(encrypted_str):
-    if encrypted_str.startswith("ENC_"):
-        encrypted_data = binascii.unhexlify(encrypted_str[4:].encode())
-        return decrypt_data(encrypted_data).decode("utf-8")
-    return encrypted_str  # Just for safety, in case it's not encrypted
 
 
 def get_user_input(base_path):

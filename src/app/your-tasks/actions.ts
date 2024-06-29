@@ -5,7 +5,13 @@ import { deleteTask, getTask } from "@/data-access/tasks";
 import { getSession } from "@/app/api/auth/[...nextauth]/options";
 import { revalidatePath } from "next/cache";
 import { NextAuthOptions } from "next-auth";
-
+/**
+ *YourTasksActions
+ * @description Aktionen für die Verwaltung der Aufgaben eines Benutzers.
+ * @remarks
+ * Enthält Funktionen zur Bearbeitung und Verwaltung benutzerspezifischer Aufgaben.
+ * @link Verwandt mit {@link YourTasksPage}
+ */
 export async function deleteTaskAction(taskId: string) {
 	const session = await getSession();
 	if (!session) {
