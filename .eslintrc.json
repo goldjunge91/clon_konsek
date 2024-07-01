@@ -1,3 +1,32 @@
+{
+  "plugins": ["@typescript-eslint", "eslint-plugin-tsdoc"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "next/core-web-vitals",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": ["./tsconfig.json"],
+    "ecmaVersion": 2021,
+    "sourceType": "module"
+  },
+  "rules": {
+    "tsdoc/syntax": "warn",
+    "react/no-unescaped-entities": "off",
+    "@next/next/no-page-custom-font": "off",
+    "@typescript-eslint/no-explicit-any": "off"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}
+
 // {
 // 	"parser": "@typescript-eslint/parser",
 // 	"parserOptions": {
@@ -36,13 +65,31 @@
 // 	}
 // }
 
-{
-	"parser": "@typescript-eslint/parser",
-	"plugins": ["@typescript-eslint"],
-	"extends": ["plugin:@typescript-eslint/recommended", "next/core-web-vitals", "next"],
-	"rules": {
-		"react/no-unescaped-entities": "off",
-		"@next/next/no-page-custom-font": "off",
-		"@typescript-eslint/no-explicit-any": "off"
-	}
-}
+// {
+// 	"plugins": ["@typescript-eslint", "@typescript-eslint/eslint-plugin", "eslint-plugin-tsdoc"],
+
+// 	"extends": [
+// 		"plugin:@typescript-eslint/recommended",
+// 		"next/core-web-vitals",
+// 		"next",
+// 		"eslint:recommended",
+// 		"plugin:@typescript-eslint/recommended",
+// 		"plugin:react/recommended",
+// 		"plugin:react-hooks/recommended",
+// 		"prettier"
+// 	],
+
+// 	"parser": "@typescript-eslint/parser",
+// 	"parserOptions": {
+// 		"project": ["./tsconfig.json", "./next.config.mjs"],
+// 		// "tsconfigRootDir": "__dirname",
+// 		"ecmaVersion": 2021,
+// 		"sourceType": "module"
+// 	},
+// 	"rules": {
+// 		"tsdoc/syntax": "warn",
+// 		"react/no-unescaped-entities": "off",
+// 		"@next/next/no-page-custom-font": "off",
+// 		"@typescript-eslint/no-explicit-any": "off"
+// 	}
+// }

@@ -8,7 +8,14 @@ import { Task } from "@/db/schema";
 import Link from "next/link";
 
 import { GithubIcon, TrashIcon } from "lucide-react";
-
+/**
+ *UserTaskCard
+ * @description Komponente zur Darstellung einer Benutzeraufgabe als Karte.
+ * @remarks
+ * Zeigt kompakte Informationen zu einer Benutzeraufgabe an.
+ * @param {UserTaskCardProps} props - Die Eigenschaften der Benutzeraufgabenkarte
+ * @returns {JSX.Element} Eine Karte mit Benutzeraufgabeninformationen
+ */
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -89,13 +96,13 @@ export function UserTaskCard({ task }: { task: Task }) {
 
 				<div className="button-container">
 					<button
-						className={`download-button ${task.status === "completed"
-							? "download-button-enabled"
-							: "download-button-disabled"
-							}`}
+						className={`download-button ${
+							task.status === "completed"
+								? "download-button-enabled"
+								: "download-button-disabled"
+						}`}
 						onClick={onSubmitDownload}
-						disabled={task.status !== "completed"}
-					>
+						disabled={task.status !== "completed"}>
 						{task.status === "completed" ? "Download" : "Pending"}
 					</button>
 				</div>
@@ -109,14 +116,15 @@ export function UserTaskCard({ task }: { task: Task }) {
 					)}
 				</div>
 			</CardContent>
-				<Button asChild>
-					<Link className="btn" href={`/tasks/${task.id}`}>Öffne Task</Link>
-				</Button>
-			<CardFooter >
-
+			<Button asChild>
+				<Link className="btn" href={`/tasks/${task.id}`}>
+					Öffne Task
+				</Link>
+			</Button>
+			<CardFooter>
 				<AlertDialog>
-					<AlertDialogTrigger asChild >
-						<Button  className="button" variant={"destructive"}>
+					<AlertDialogTrigger asChild>
+						<Button className="button" variant={"destructive"}>
 							<TrashIcon /> Delete Task
 						</Button>
 					</AlertDialogTrigger>
@@ -124,8 +132,8 @@ export function UserTaskCard({ task }: { task: Task }) {
 						<AlertDialogHeader>
 							<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
 							<AlertDialogDescription>
-								This action cannot be undone. This will permanently remove the
-								task and any data associated with it.
+								This action cannot be undone. This will permanently remove the task
+								and any data associated with it.
 							</AlertDialogDescription>
 						</AlertDialogHeader>
 						<AlertDialogFooter>

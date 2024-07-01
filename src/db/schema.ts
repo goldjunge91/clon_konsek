@@ -3,7 +3,6 @@ import {
   timestamp,
   pgTable,
   text,
-  // serial,
   boolean,
   primaryKey,
   integer,
@@ -53,7 +52,7 @@ export const accounts = pgTable(
 );
 export const sessions = pgTable("session", {
   sessionToken: text("sessionToken").notNull().primaryKey(),
-  userId: text("userId")
+  userID: text("userID")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
   isAdmin: boolean("isAdmin").default(false),

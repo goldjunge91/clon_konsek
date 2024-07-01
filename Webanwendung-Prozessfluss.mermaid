@@ -1,0 +1,22 @@
+graph TD
+    A[Client] -->|HTTPS Anfrage| B(Nginx)
+
+    B -->|Weiterleitung| C{Node.js Prozess}
+
+    C -->|Event Loop| D[Next.js Anwendung]
+
+
+    D -->|SSR| E[Server-Side Rendering]
+
+    D -->|API| F[API-Routen]
+
+    D -->|Statisch| G[Statische Dateien]
+
+    E -->|HTML| C
+    
+    F -->|JSON| C
+
+    G -->|Assets| C
+    
+    C -->|Antwort| B
+    B -->|HTTPS Antwort| A

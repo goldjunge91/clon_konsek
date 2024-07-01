@@ -6,6 +6,14 @@ import { getSession } from "@/app/api/auth/[...nextauth]/options";
 import { revalidatePath } from "next/cache";
 import { useSession } from "next-auth/react";
 
+/**
+ *BrowseActions
+ * @description Serverseitige Aktionen für Aufgabenverwaltung.
+ * @remarks
+ * Enthält Funktionen zum Auflisten, Filtern und Sortieren von Aufgaben.
+ * @link Verwandt mit {@link BrowsePage}
+ */
+
 export async function deleteAsAdminTask(taskId: string) {
 	const session = await getSession();
 	// const session = useSession();
@@ -23,7 +31,7 @@ export async function deleteAsAdminTask(taskId: string) {
 	console.log("User ID:", session.user.id);
 	console.log("Task User ID:", task?.userId);
 	console.log("Is Admin:", isAdmin);
-    
+
 	if (!session?.user.role === isAdmin) {
 		throw new Error("User not authorized");
 	}

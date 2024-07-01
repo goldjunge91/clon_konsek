@@ -36,7 +36,7 @@ import binascii
 LOG_FILE_EXT = ".log"
 now = datetime.datetime.now()
 base_path = "/home/marco/git/pdf-website/DATA/downloads/"
-
+MAXLAENGENAME = 100
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8")
 
@@ -59,7 +59,7 @@ def encrypt_sensitive_data_in_json(form_data_path):
     with open(form_data_path, "r+") as file:
         data = json.load(file)
         encrypted = False
-        # Only encrypt if not already encrypted; you can tweak this logic as needed
+        # Only encrypt if not already encrypted;
         if not data["dsmpassword"].startswith("ENC_"):
             data["dsmpassword"] = (
                 "ENC_"
@@ -77,6 +77,13 @@ def encrypt_sensitive_data_in_json(form_data_path):
             file.seek(0)
             json.dump(data, file, indent=4)
             file.truncate()
+
+
+def decrypt_in_memory(encrypted_str):
+    if encrypted_str.startswith("ENC_"):
+        encrypted_data = binascii.unhexlify(encrypted_str[4:].encode())
+        return decrypt_data(encrypted_data).decode("utf-8")
+    return encrypted_str  # Just for safety, in case it's not encrypted
 
 
 def setup_logging():
@@ -103,15 +110,8 @@ def clean_filename(filename):
     # Entferne ungültige Zeichen aus dem Dateinamen
     cleaned_filename = re.sub(r'[\\/*?:"<>|]', "", filename)
     # Kürze den Dateinamen auf maximal 100 Zeichen
-    truncated_filename = cleaned_filename[:100]
+    truncated_filename = cleaned_filename[:MAXLAENGENAME]
     return truncated_filename
-
-
-def decrypt_in_memory(encrypted_str):
-    if encrypted_str.startswith("ENC_"):
-        encrypted_data = binascii.unhexlify(encrypted_str[4:].encode())
-        return decrypt_data(encrypted_data).decode("utf-8")
-    return encrypted_str  # Just for safety, in case it's not encrypted
 
 
 def get_user_input(base_path):
@@ -403,6 +403,7 @@ def setup_loggers(logger, progress_logger, log_file, progress_log_file):
 
 
 if __name__ == "__main__":
+    # folder_to_delete = None
     setup_logging()
     if len(sys.argv) < 2:
         raise ValueError("Wrong Value contact admin.")
@@ -428,7 +429,7 @@ if __name__ == "__main__":
     logger = logging.getLogger("main_logger")
     progress_logger = logging.getLogger("progress_logger")
     setup_loggers(logger, progress_logger, log_file, progress_log_file)
-    folder_to_delete = None  # Define folder_to_delete before the try block
+    folder_to_delete = None
 
     if not all(
         [user_email, user_password, user_link, zip_password, zip_name, file_path]

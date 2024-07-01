@@ -9,8 +9,12 @@ if (process.env.NODE_ENV === 'production') {
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // output: 'export',
   cacheMaxMemorySize: 0,
   reactStrictMode: true,
+  // devIndicators: {
+  //   buildActivityPosition: 'bottom-right',
+  // },
   swcMinify: true,
   env: {
     DATABASE_URL: process.env.DATABASE_URL,
@@ -83,6 +87,7 @@ const nextConfig = {
       // https://www.npmjs.com/package/@svgr/webpack
       test: /\.svg$/,
       use: ['@svgr/webpack'],
+      // });
     });
     if (!isServer) {
       config.resolve.fallback = {
@@ -125,8 +130,8 @@ export default (nextConfig);
 // export default withNextra(nextConfig);
     // import nextra from "nextra";
     // import dotenv from 'dotenv';
-    
+
     // if (process.env.NODE_ENV === 'production') {
     //   dotenv.config({ path: '.env.production' });
     // }
-    
+
