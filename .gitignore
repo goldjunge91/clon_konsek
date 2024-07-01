@@ -50,8 +50,7 @@ src/app/serveractiontest/script/config.ini
 logs.log
 server_action.log
 *config.ini
-src/app/serveractiontest/script/config.ini
-server_action.log
+
 .env.production
 public/downloads
 downloads
@@ -65,7 +64,7 @@ src/lib/Python/__pycache__/aescbcrandomiv.cpython-312.pyc
 pm2.txt
 node_modules
 /.next
-.idea
+
 src/lib/__pycache__/crypto_utils.cpython-312.pyc
 src/app/globals.css.bak
 src/app/your-tasks/your-task.styles.css.bak
