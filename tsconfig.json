@@ -1,32 +1,83 @@
 {
-	"compilerOptions": {
-		"lib": ["dom", "dom.iterable", "esnext"],
-		"allowJs": true, // vorher true
-		"skipLibCheck": true,
-		"noErrorTruncation": false /* Skip type checking all .d.ts files. */,
-		"strict": true,
-		"noEmit": true,
-		"esModuleInterop": true,
-		// "moduleDetection": "auto" /* Control what method is used to detect module-format JS files.*/,
-		"module": "esnext",
-		"moduleResolution": "bundler",
-		// "moduleResolution": "node",
-		"resolveJsonModule": true,
-		"isolatedModules": true,
-		"jsx": "preserve",
-		"forceConsistentCasingInFileNames": true,
-		"noImplicitReturns": true,
-		"noFallthroughCasesInSwitch": true,
-		"incremental": true,
-		"plugins": [
-			{
-				"name": "next"
-			}
-		],
-		"paths": {
-			"@/*": ["./src/*"]
-		}
-	},
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-	"exclude": ["node_modules"]
+  "compilerOptions": {
+    "target": "ESNext", // ES6 oder ESNext
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true, // vorher true
+    "skipLibCheck": true,
+    "noErrorTruncation": true /* Skip type checking all .d.ts files. */,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "moduleDetection": "auto" /* Control what method is used to detect module-format JS files.*/,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "removeComments": true,
+    "sourceMap": true,
+    "importHelpers": true,
+    "inlineSources": true,
+    "noFallthroughCasesInSwitch": true,
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": [
+    "src",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.cjs",
+    "src/**/*.js",
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "./next.config.mjs",
+    "next-auth.d.ts",
+    "next-auth.d.ts",
+    "storybook/docs/**/*",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": ["**/node_modules"]
 }
+
+// {
+// 	"compilerOptions": {
+// 		"lib": ["dom", "dom.iterable", "esnext"],
+// 		"allowJs": true, // vorher true
+// 		"skipLibCheck": true,
+// 		"noErrorTruncation": false /* Skip type checking all .d.ts files. */,
+// 		"strict": true,
+// 		"noEmit": true,
+// 		"esModuleInterop": true,
+// 		// "moduleDetection": "auto" /* Control what method is used to detect module-format JS files.*/,
+// 		"module": "esnext",
+// 		"moduleResolution": "bundler",
+// 		// "moduleResolution": "node",
+// 		"resolveJsonModule": true,
+// 		"isolatedModules": true,
+// 		"jsx": "preserve",
+// 		"forceConsistentCasingInFileNames": true,
+// 		"noImplicitReturns": true,
+// 		"noFallthroughCasesInSwitch": true,
+// 		"incremental": true,
+// 		"plugins": [
+// 			{
+// 				"name": "next"
+// 			}
+// 		],
+// 		"paths": {
+// 			"@/*": ["./src/*"]
+// 		}
+// 	},
+// 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+// 	"exclude": ["node_modules"]
+// }

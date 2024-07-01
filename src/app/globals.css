@@ -1,153 +1,158 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+/**
+ *GlobalStyles
+ * @description Globale CSS-Stile für die Anwendung.
+ * @remarks
+ * Definiert grundlegende Stile, die in der gesamten Anwendung verwendet werden.
+ */
 @font-face {
-	font-family: "helvetica200";
-	src: url("../../public/fonts/helveticaneuelt-std-thin_normal_250.ttf") format("truetype");
+  font-family: "helvetica200";
+  src: url("../../public/fonts/helveticaneuelt-std-thin_normal_250.ttf") format("truetype");
 }
 @font-face {
-	font-family: "roboto300";
-	src: url("../../public/fonts/roboto-slab-light_normal_300.ttf") format("truetype");
+  font-family: "roboto300";
+  src: url("../../public/fonts/roboto-slab-light_normal_300.ttf") format("truetype");
 }
 
 @font-face {
-	font-family: "helvetica500";
-	src: url("../../public/fonts/helvetica-neue-lt-std_normal_500.otf") format("truetype");
+  font-family: "helvetica500";
+  src: url("../../public/fonts/helvetica-neue-lt-std_normal_500.otf") format("truetype");
 }
 .boldweight {
-	font-family: helvetica500;
+  font-family: helvetica500;
 }
 
 @layer base {
-	@font-face {
-		font-family: "helvetica200";
-		src: url("../../public/fonts/helveticaneuelt-std-thin_normal_250.ttf") format("truetype");
-	}
-	@font-face {
-		font-family: "roboto300";
-		src: url("../../public/fonts/roboto-slab-light_normal_300.ttf") format("truetype");
-	}
+  @font-face {
+    font-family: "helvetica200";
+    src: url("../../public/fonts/helveticaneuelt-std-thin_normal_250.ttf") format("truetype");
+  }
+  @font-face {
+    font-family: "roboto300";
+    src: url("../../public/fonts/roboto-slab-light_normal_300.ttf") format("truetype");
+  }
 
-	@font-face {
-		font-family: "helvetica500";
-		src: url("../../public/fonts/helvetica-neue-lt-std_normal_500.otf") format("truetype");
-	}
-	h1 {
-		@apply font-helvetica200 text-5xl font-extralight leading-9 mb-8;
-	}
+  @font-face {
+    font-family: "helvetica500";
+    src: url("../../public/fonts/helvetica-neue-lt-std_normal_500.otf") format("truetype");
+  }
+  h1 {
+    @apply font-helvetica200 text-5xl font-extralight leading-9 mb-8;
+  }
 
-	boldweight {
-		@apply font-helvetica500;
-	}
+  boldweight {
+    @apply font-helvetica500;
+  }
 
-	p {
-		@apply font-roboto300 text-base leading-6;
-	}
+  p {
+    @apply font-roboto300 text-base leading-6;
+  }
 
-	card {
-		@apply bg-white box-border;
-	}
+  card {
+    @apply bg-white box-border;
+  }
 
-	:root {
-		--text-primary: rgba(0 0 0);
-		--text-secondary: rgba(0 0 0);
-		--button-bg: rgb(0, 255, 89);
-		--button-text: rgba(0 0 0);
-		--button-border: rgba(0 0 0);
-		--background: rgb(255, 0, 0);
-		--foreground: rgba(255, 254, 255, 1);
-		--bg-primary: rgb(0, 238, 99);
+  :root {
+    --text-primary: rgba(0 0 0);
+    --text-secondary: rgba(0 0 0);
+    --button-bg: rgb(0, 255, 89);
+    --button-text: rgba(0 0 0);
+    --button-border: rgba(0 0 0);
+    --background: rgb(255, 0, 0);
+    --foreground: rgba(255, 254, 255, 1);
+    --bg-primary: rgb(0, 238, 99);
 
-		--card: rgb(255, 0, 0);
-		--card-foreground: rgba(25, 25, 25, 1);
+    --card: rgb(255, 0, 0);
+    --card-foreground: rgba(25, 25, 25, 1);
 
-		--popover: rgba(255, 255, 255, 1);
-		--popover-foreground: rgba(25, 25, 25, 1);
+    --popover: rgba(255, 255, 255, 1);
+    --popover-foreground: rgba(25, 25, 25, 1);
 
-		--primary: rgb(248, 2, 2);
-		--primary-foreground: rgba(255, 250, 250, 1);
+    --primary: rgb(248, 2, 2);
+    --primary-foreground: rgba(255, 250, 250, 1);
 
-		--secondary: rgb(60, 0, 255);
-		--secondary-foreground: rgb(0, 0, 0);
+    --secondary: rgb(60, 0, 255);
+    --secondary-foreground: rgb(0, 0, 0);
 
-		--muted: rgba(247, 247, 247, 1);
-		--muted-foreground: rgba(109, 109, 109, 1);
+    --muted: rgba(247, 247, 247, 1);
+    --muted-foreground: rgba(109, 109, 109, 1);
 
-		--accent: rgb(30, 0, 149);
-		--accent-foreground: rgb(5, 0, 148);
+    --accent: rgb(30, 0, 149);
+    --accent-foreground: rgb(5, 0, 148);
 
-		--destructive: rgba(255, 51, 51, 1);
-		--destructive-foreground: rgb(255, 0, 0);
+    --destructive: rgba(255, 51, 51, 1);
+    --destructive-foreground: rgb(255, 0, 0);
 
-		--border: rgb(0, 0, 0);
-		--input: rgb(255, 0, 0);
-		--ring: rgba(25, 25, 25, 1);
+    --border: rgb(0, 0, 0);
+    --input: rgb(255, 0, 0);
+    --ring: rgba(25, 25, 25, 1);
 
-		--radius: 0.5rem;
-		--form-background: rgb(255, 0, 0);
-	}
+    --radius: 0.5rem;
+    --form-background: rgb(255, 0, 0);
+  }
 }
 
 .layout-body {
-	position: relative;
-	/* width: 100vw;
+  position: relative;
+  /* width: 100vw;
 	height: 100vh; */
-	width: 100%;
-	height: 100%;
-	padding: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
 
-	/* overflow: hidden; */
-	margin: 0;
-	background-color: #ffffff00;
+  /* overflow: hidden; */
+  margin: 0;
+  background-color: #ffffff00;
 }
 .background-container {
-	position: fixed;
-	width: 100vw;
-	height: 100vh;
-	z-index: -10;
-	overflow: hidden;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: -10;
+  overflow: hidden;
 }
 
 .imagebackground {
-	width: 150%;
-	height: 150%;
-	object-fit: cover;
-	object-position: 70% 12%;
-	background-repeat: no-repeat;
-	background-position: center center;
-	z-index: -10;
-	overflow: hidden;
+  width: 150%;
+  height: 150%;
+  object-fit: cover;
+  object-position: 70% 12%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  z-index: -10;
+  overflow: hidden;
 }
 @layer base {
-	/* html,
+  /* html,
 	body {
 		@apply h-full;
 	} */
 }
 
 @layer base {
-	* {
-		@apply border-border;
-	}
-	body {
-		@apply text-foreground font-helvetica200 gap-2;
-	}
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply text-foreground font-helvetica200 gap-2;
+  }
 
-	.form-container {
-		@apply flex justify-center text-2xl font-bold mb-4;
-	}
+  .form-container {
+    @apply flex justify-center text-2xl font-bold mb-4;
+  }
 
-	form-wrapper {
-		@apply flex  flex-col items-start;
-	}
+  form-wrapper {
+    @apply flex  flex-col items-start;
+  }
 
-	/* Wiederverwendbare Formularfelder: */
-	/* .form-style {
+  /* Wiederverwendbare Formularfelder: */
+  /* .form-style {
 		margin: 0;
 	} */
 
-	/* form-style .custom-label {
+  /* form-style .custom-label {
 		text-transform: uppercase;
 		line-height: 1.5rem;
 		font-family: roboto500, arial;
@@ -170,215 +175,215 @@
 }
 
 @layer components {
-	a {
-		@apply text-black leading-6 gap-x-5 gap-y-5;
-	}
-	a:link {
-		@apply text-black leading-6 gap-x-5 gap-y-5;
-	}
-	a:visited {
-		@apply text-black leading-6;
-	}
-	.container-landingpage {
-		@apply flex items-center  justify-start h-screen;
-	}
-	.layout-full-left {
-		@apply container mx-0 px-20 md:px-12 space-y-6;
-	}
+  a {
+    @apply text-black leading-6 gap-x-5 gap-y-5;
+  }
+  a:link {
+    @apply text-black leading-6 gap-x-5 gap-y-5;
+  }
+  a:visited {
+    @apply text-black leading-6;
+  }
+  .container-landingpage {
+    @apply flex items-center  justify-start h-screen;
+  }
+  .layout-full-left {
+    @apply container mx-0 px-20 md:px-12 space-y-6;
+  }
 
-	.layout-grid-left {
-		@apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-0 px-4;
-	}
+  .layout-grid-left {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-0 px-4;
+  }
 
-	.layout-center-left {
-		@apply container mx-0 px-4 md:px-8 max-w-2xl;
-	}
-	/* 
+  .layout-center-left {
+    @apply container mx-0 px-4 md:px-8 max-w-2xl;
+  }
+  /* 
 	.form-field {
 		@apply max-w-form-field bg-white text-black border border-gray-300 rounded-md p-2;
 	} */
-	.move_button {
-		@apply absolute inset-y-0 left-10;
-	}
-	/* @apply absolute inset-y-52 left-10 w-16; */
+  .move_button {
+    @apply absolute inset-y-0 left-10;
+  }
+  /* @apply absolute inset-y-52 left-10 w-16; */
 
-	.footer-text {
-		@apply font-roboto300 text-base leading-relaxed text-text-secondary;
-	}
-	.header {
-		@apply bg-white py-2 z-10;
-	}
+  .footer-text {
+    @apply font-roboto300 text-base leading-relaxed text-text-secondary;
+  }
+  .header {
+    @apply bg-white py-2 z-10;
+  }
 
-	.header-content {
-		@apply container mx-auto flex justify-between items-center;
-	}
-	.nav-link {
-		@apply text-black hover:underline;
-	}
+  .header-content {
+    @apply container mx-auto flex justify-between items-center;
+  }
+  .nav-link {
+    @apply text-black hover:underline;
+  }
 
-	.header-button {
-		@apply text-black hover:text-gray-700;
-	}
-	.header-link-container {
-		@apply flex items-center gap-12;
-	}
+  .header-button {
+    @apply text-black hover:text-gray-700;
+  }
+  .header-link-container {
+    @apply flex items-center gap-12;
+  }
 
-	.admin-page {
-		@apply min-h-screen container mx-auto py-8;
-	}
+  .admin-page {
+    @apply min-h-screen container mx-auto py-8;
+  }
 
-	.admin-container {
-		@apply flex flex-col gap-12;
-	}
+  .admin-container {
+    @apply flex flex-col gap-12;
+  }
 
-	.create-user-section,
-	.user-list-section {
-		@apply p-4 text-black rounded-lg shadow-md;
-	}
+  .create-user-section,
+  .user-list-section {
+    @apply p-4 text-black rounded-lg shadow-md;
+  }
 
-	.create-user-section h2,
-	.user-list-section h2 {
-		@apply text-2xl font-bold mb-4;
-	}
-	.page-container {
-		@apply flex items-center justify-start ml-40 -mt-10 min-h-screen;
-	}
+  .create-user-section h2,
+  .user-list-section h2 {
+    @apply text-2xl font-bold mb-4;
+  }
+  .page-container {
+    @apply flex items-center justify-start ml-40 -mt-10 min-h-screen;
+  }
 
-	.form-container {
-		@apply flex justify-center text-5xl font-bold mb-4;
-	}
+  .form-container {
+    @apply flex justify-center text-5xl font-bold mb-4;
+  }
 
-	.form-wrapper {
-		@apply flex  flex-col items-start;
-	}
+  .form-wrapper {
+    @apply flex  flex-col items-start;
+  }
 
-	/* Wiederverwendbare Formularfelder: */
-	/* .form-style {
+  /* Wiederverwendbare Formularfelder: */
+  /* .form-style {
 		margin: 0;
 	} */
 
-	.form-style .custom-label {
-		text-transform: uppercase;
-		font-family: roboto500, arial;
-	}
+  .form-style .custom-label {
+    text-transform: uppercase;
+    font-family: roboto500, arial;
+  }
 
-	.form-style .custom-body {
-		background-color: #efefef;
-	}
+  .form-style .custom-body {
+    background-color: #efefef;
+  }
 
-	.form-style .custom-input {
-		border-radius: 0.5rem;
-		border: none;
-		background-color: #fff;
-		padding: 0.8rem 1rem;
-		margin-bottom: 1rem;
-		width: 40rem;
-	}
-	.card {
-		@apply p-5 m-3 bg-white;
-	}
+  .form-style .custom-input {
+    border-radius: 0.5rem;
+    border: none;
+    background-color: #fff;
+    padding: 0.8rem 1rem;
+    margin-bottom: 1rem;
+    width: 40rem;
+  }
+  .card {
+    @apply p-5 m-3 bg-white;
+  }
 
-	.card-inner {
-		@apply p-1 gap-2;
-	}
-	.status-message {
-		@apply bg-green-100 text-green-800 px-4 py-2 flex items-center rounded-lg;
-	}
-	.page-layout {
-		@apply absolute top-44 left-28;
-	}
+  .card-inner {
+    @apply p-1 gap-2;
+  }
+  .status-message {
+    @apply bg-green-100 text-green-800 px-4 py-2 flex items-center rounded-lg;
+  }
+  .page-layout {
+    @apply absolute top-44 left-28;
+  }
 
-	.page-header {
-		@apply flex justify-between items-center mb-8;
-	}
+  .page-header {
+    @apply flex justify-between items-center mb-8;
+  }
 
-	.page-title {
-		@apply text-6xl font-helvetica500 object-left-top;
-	}
+  .page-title {
+    @apply text-6xl font-helvetica500 object-left-top;
+  }
 
-	.task-grid {
-		@apply grid grid-cols-3 gap-2;
-	}
+  .task-grid {
+    @apply grid grid-cols-3 gap-2;
+  }
 
-	.no-tasks-message {
-		@apply flex flex-col gap-2 mb-8 justify-center items-center mt-24;
-	}
+  .no-tasks-message {
+    @apply flex flex-col gap-2 mb-8 justify-center items-center mt-24;
+  }
 
-	.no-tasks-text {
-		@apply text-2xl;
-	}
+  .no-tasks-text {
+    @apply text-2xl;
+  }
 
-	.smaller-card {
-		max-width: 300px;
-	}
-	.status-text {
-		@apply text-2xl flex-col px-1;
-	}
+  .smaller-card {
+    max-width: 300px;
+  }
+  .status-text {
+    @apply text-2xl flex-col px-1;
+  }
 
-	.status-container {
-		@apply flex object-left;
-	}
-	/* DONE neue buttons */
-	button,
-	.btn,
-	.button-random .button {
-		@apply border-2 border-solid border-black rounded-lg px-8 py-4 text-center font-roboto500 text-lg my-8 cursor-pointer;
-	}
-	button:hover,
-	.button_hover :hover {
-		@apply underline bg-gray-400;
-	}
+  .status-container {
+    @apply flex object-left;
+  }
+  /* DONE neue buttons */
+  button,
+  .btn,
+  .button-random .button {
+    @apply border-2 border-solid border-black rounded-lg px-8 py-4 text-center font-roboto500 text-lg my-8 cursor-pointer;
+  }
+  button:hover,
+  .button_hover :hover {
+    @apply underline bg-gray-400;
+  }
 
-	button:disabled,
-	.download-button-disabled {
-		@apply bg-muted text-muted-foreground cursor-not-allowed;
-	}
+  button:disabled,
+  .download-button-disabled {
+    @apply bg-muted text-muted-foreground cursor-not-allowed;
+  }
 
-	.button-enabled,
-	.download-button-enabled,
-	.primary-button,
-	.button-primary {
-		@apply py-2 px-2 text-primary-foreground;
-	}
+  .button-enabled,
+  .download-button-enabled,
+  .primary-button,
+  .button-primary {
+    @apply py-2 px-2 text-primary-foreground;
+  }
 
-	.button-enabled:hover,
-	.download-button-enabled:hover,
-	.primary-button:hover,
-	.button-primary:hover {
-		@apply bg-primary-foreground text-primary;
-	}
-	primary-button .button-destructive,
-	.btn-destructive {
-		@apply bg-destructive text-destructive-foreground;
-	}
+  .button-enabled:hover,
+  .download-button-enabled:hover,
+  .primary-button:hover,
+  .button-primary:hover {
+    @apply bg-primary-foreground text-primary;
+  }
+  primary-button .button-destructive,
+  .btn-destructive {
+    @apply bg-destructive text-destructive-foreground;
+  }
 
-	.button-destructive:hover,
-	.btn-destructive:hover {
-		@apply bg-opacity-90;
-	}
+  .button-destructive:hover,
+  .btn-destructive:hover {
+    @apply bg-opacity-90;
+  }
 
-	.button-ghost,
-	.button_new {
-		@apply bg-transparent text-foreground;
-	}
+  .button-ghost,
+  .button_new {
+    @apply bg-transparent text-foreground;
+  }
 
-	.button-ghost:hover,
-	.button_new:hover {
-		@apply bg-muted text-muted-foreground;
-	}
+  .button-ghost:hover,
+  .button_new:hover {
+    @apply bg-muted text-muted-foreground;
+  }
 
-	.button-container {
-		@apply flex -left-6;
-	}
-	.a {
-		@apply py-2 px-2 text-primary-foreground box-border text-black leading-6 gap-x-5 gap-y-5 gap-10;
-	}
-	.a:link {
-		@apply text-black leading-6 gap-x-5 gap-y-5;
-	}
-	.a:visited {
-		@apply text-black leading-6;
-	}
+  .button-container {
+    @apply flex -left-6;
+  }
+  .a {
+    @apply py-2 px-2 text-primary-foreground box-border text-black leading-6 gap-x-5 gap-y-5 gap-10;
+  }
+  .a:link {
+    @apply text-black leading-6 gap-x-5 gap-y-5;
+  }
+  .a:visited {
+    @apply text-black leading-6;
+  }
 
-	/*TODO Alte buttons  */
+  /*TODO Alte buttons  */
 }

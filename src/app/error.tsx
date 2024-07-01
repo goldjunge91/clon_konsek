@@ -1,16 +1,22 @@
 /* eslint-disable react/prop-types */
-"use client"
-
+"use client";
 import { useSearchParams } from "next/navigation";
+import React from "react"; // Import React library
+/**
+ * ErrorPage
+ * Zeigt benutzerfreundliche Fehlermeldungen an.
+ * @param props - Die Eigenschaften der Fehlerseite
+ * @returns Die gerenderte Fehlerseite
+ */
+
 
 interface ErrorProps {
-  error?: Error;
-  reset?: () => void;
+	error?: Error;
+	reset?: () => void;
 }
-
 export default function Error({ reset }: ErrorProps) {
 	const searchParams = useSearchParams();
-	const status = searchParams.get("status");
+	const status = searchParams?.get("status");
 
 	const isPermissionError = status === "403";
 
@@ -32,41 +38,3 @@ export default function Error({ reset }: ErrorProps) {
 		</div>
 	);
 }
-
-
-
-
-
-
-// interface ErrorProps {
-//   statusCode?: number;
-// }
-
-// const CustomError = ({ statusCode }: ErrorProps) => {
-//   const errorMessage = statusCode === 403 ? "Access Denied" : "An error occurred";
-//   const errorDescription = statusCode === 403 ? "Oops! The page you're trying to access is restricted." : "Sorry, something went wrong on our end.";
-
-//   return (
-//     <div className="min-h-screen flex flex-col items-center justify-center">
-//       <h1 className="text-6xl font-bold">{errorMessage}</h1>
-//       <p className="text-xl mt-3">{errorDescription}</p>
-//       {/* Use the Link component directly for navigation */}
-//       {statusCode === 403 ? (
-//         <Link href="/login" className="mt-6 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 transition-colors">
-//           Go to Login
-//         </Link>
-//       ) : (
-//         <Link href="/" className="mt-6 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 transition-colors">
-//           Go back home
-//         </Link>
-//       )}
-//     </div>
-//   );
-// };
-
-// CustomError.getInitialProps = ({ res, err }: NextPageContext): ErrorProps => {
-//   const statusCode = res?.statusCode || err?.statusCode || 404;
-//   return { statusCode };
-// };
-
-// export default CustomError;
