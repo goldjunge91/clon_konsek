@@ -7,7 +7,7 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_PASSWORD: Iphone5S
       PGDATA: /data/postgres
     volumes:
       - ~/dockerfiles/postgres:/data/postgres
