@@ -1,48 +1,56 @@
-/* eslint-disable @next/next/no-sync-scripts */
-import type { Metadata } from "next";
-// import { Inter } from "next/font/google";
-import "./globals.css";
 import AuthProvider from "@/lib/AuthProvider";
 import { Header } from "./header";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "@/components/ui/toaster";
+import Image from "next/image";
+import background from "./../../public/background.jpg";
+// import BackgroundImage from "@/components/backgroundImage";
+import "./globals.css";
+import React from "react"; // Import React library
+/**
+ *RootLayout
+ * Haupt-Layout-Komponente für die gesamte Anwendung.
+ * @remarks
+ * Definiert die grundlegende Struktur und gemeinsame Elemente aller Seiten.
+ * @param props - Die Eigenschaften des Layouts
+ * @returns Das gerenderte Root-Layout
+ */
 
-// const inter = Inter({ subsets: ["latin"] });
-
-
-export const metadata: Metadata = {
-  title: "PdF-Generator",
-  description: "An application to automatically generate and download PDFs.",
-};
+const metadataElement = (
+	<>
+		<meta charSet="utf-8" />
+		<title>PDF stack processor</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	</>
+);
 
 export default function RootLayout({
-  children,
+	children,
 }: Readonly<{
-  children: React.ReactNode;
+	children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en" suppressHydrationWarning>
-      {/* <body className={inter.className}> */}
-      <body className={"bg-fullscreen font-custom"}>
-        <AuthProvider>
-          <Toaster />
-          <NextTopLoader />
-          <Header />
-          <div className="container mx-auto">{children}</div>
-        </AuthProvider>
-      </body>
-    </html>
-  );
+	return (
+		<>
+			<html lang="en" suppressHydrationWarning>
+				{metadataElement}
+				<body className="layout-body">
+					<div className="background-container">
+						<Image
+							className="imagebackground"
+							// alt="sky" src="./../background.jpg" quality={100}
+							alt="sky"
+							src={background}
+							quality={100}
+						/>
+					</div>
+					<AuthProvider>
+						<Toaster />
+						<NextTopLoader />
+						<Header />
+						{children}
+					</AuthProvider>
+				</body>
+			</html>
+		</>
+	);
 }
-
-//            <body className={`bg-fullscreen ${inter.className}`}>
-// import backround from "../../public/backround.jpg";
-/* <Image
-//               alt="backround"
-//               src={backround}
-//               placeholder="blur"
-//               // layout="fill"
-//               objectFit="cover"
-//               quality={100}
-//               fill
-//             /> */

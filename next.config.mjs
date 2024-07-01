@@ -1,11 +1,16 @@
+/* eslint-disable tsdoc/syntax */
+import nextra from "nextra";
+import dotenv from 'dotenv';
+
+if (process.env.NODE_ENV === 'production') {
+  dotenv.config({ path: '.env.production' });
+}
+
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // output: 'export',
   cacheMaxMemorySize: 0,
-  reactStrictMode: true, // https://nextjs.org/docs/api-reference/next.config.js/react-strict-mode
-  devIndicators: {
-    buildActivityPosition: 'bottom-right',
-  },
+  reactStrictMode: true,
   swcMinify: true,
   images: {
     unoptimized: false,
@@ -31,8 +36,32 @@ const nextConfig = {
         port: '',
         pathname: '/u/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'konsek.de',
+        port: '',
+        pathname: '/wp-content/themes/twentytwentythree/assets/fonts/',
+      },
+      {
+        protocol: 'https',
+        hostname: 'konsek.de',
+        port: '',
+        pathname: '*/fonts/**',
+      },
     ],
   },
+  distDir: '.next',
+
+  // experimental: {
+  //   turbo: {
+  //     rules: {
+  //       "*.svg": {
+  //         loaders: ["@svgr/webpack"],
+  //         as: "*.js",
+  //       },
+  //     },
+  //   },
+  // },
   webpack: (config, { isServer }) => {
     config.module.rules.push({
       // https://www.npmjs.com/package/@svgr/webpack
@@ -45,9 +74,23 @@ const nextConfig = {
         fs: false,
         path: false,
         os: false,
+        net: false,
+        tls: false,
+        perf_hooks: false,
       };
     }
     return config;
   },
 };
-export default nextConfig;
+const withNextra = nextra({
+  theme: 'nextra-theme-docs',
+  themeConfig: './theme.config.jsx',
+  defaultShowCopyCode: true,
+  flexsearch: {
+    codeblocks: true
+  },
+  staticImage: true,
+  contentDirs: ['pages'],  // Hier geben wir an, wo sich die Dokumentation befindet
+});
+
+export default withNextra(nextConfig);

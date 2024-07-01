@@ -66,3 +66,15 @@ pm2.txt
 node_modules
 /.next
 .idea
+src/lib/__pycache__/crypto_utils.cpython-312.pyc
+src/app/globals.css.bak
+src/app/your-tasks/your-task.styles.css.bak
+src/app/your-tasks/your-task.styles.css
+usercard.backup
+TXT.txt
+taskview.backup
+.button.backup
+src/app/browse/dist
+
+*storybook.log
+.vscode/cody.json

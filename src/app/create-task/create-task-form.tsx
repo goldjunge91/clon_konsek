@@ -7,289 +7,210 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+	Form,
+	FormControl,
+	//   FormDescription,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { saveDataTask2 } from "./actions";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
-import "./create-task.module.css";
+import React from "react"; // Import React library
+
 
 const formSchema = z.object({
-  dsm_url: z
-    .string()
-    .url({ message: "The URL is in the wrong format: https://" }),
-  dsmpassword: z
-    .string()
-    .min(6)
-    .max(50)
-    .refine((value) => value !== "", {
-      message: "Please enter a password.",
-    }),
-  dsm_mail: z
-    .string()
-    .email({ message: "Enter a valid formatted email address" }),
-  secretId: z.string(),
-  zippassword: z.string().min(6).max(50),
-  file: z
-    .any()
-    .optional()
-    .refine((file) => file instanceof File, {
-      message: "Please select a file.",
-    })
-    .refine(
-      (file) =>
-        file?.type === "text/csv" ||
-        file?.type ===
-          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-      { message: "Please select a CSV file." }
-    )
-    .refine((file) => (file?.size || 0) <= 5000000, {
-      message: "Size maximum 5MB.",
-    }),
+	dsm_url: z.string().url({ message: "The URL is in the wrong format: https://" }),
+	dsmpassword: z
+		.string()
+		.min(6)
+		.max(50)
+		.refine((value) => value !== "", {
+			message: "Please enter a password.",
+		}),
+	dsm_mail: z.string().email({ message: "Enter a valid formatted email address" }),
+	secretId: z.string(),
+	zippassword: z.string().min(6).max(50),
+	file: z
+		.any()
+		.optional()
+		.refine((file) => file instanceof File, {
+			message: "Please select a file.",
+		})
+		.refine(
+			(file) => file?.type === "text/csv" || { message: "Please select a CSV file." } // file?.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+		)
+		.refine((file) => (file?.size || 0) <= 5000000, {
+			message: "Size maximum 5MB.",
+		}),
 });
-
 export function CreateTaskForm() {
-  const { toast } = useToast();
-  const router = useRouter();
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      // name: "",
-      dsm_url: "", // habe ich
-      dsmpassword: "", // habe ich
-      dsm_mail: "",
-      secretId: "",
-      zippassword: "",
-      file: undefined,
-    },
-  });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    const formData = new FormData();
-    formData.append("dsm_url", values.dsm_url);
-    formData.append("dsmpassword", values.dsmpassword);
-    formData.append("dsm_mail", values.dsm_mail);
-    formData.append("secretId", values.secretId);
-    formData.append("zippassword", values.zippassword);
-    formData.append("file", values.file);
-    if (values.file) {
-      formData.append("file", values.file);
-      const { taskId } = await saveDataTask2(formData); // Remove 'values' from the arguments
-      toast({
-        title: "Task Created",
-        description: "Your task was successfully created",
-      });
-      router.push(`/tasks/${taskId}`);
-    }
-  }
+	const { toast } = useToast();
+	const router = useRouter();
+	const form = useForm<z.infer<typeof formSchema>>({
+		resolver: zodResolver(formSchema),
+		defaultValues: {
+			// name: "",
+			dsm_url: "", // habe ich
+			dsmpassword: "", // habe ich
+			dsm_mail: "",
+			secretId: "",
+			zippassword: "",
+			file: undefined,
+		},
+	});
 
-  return (
-    <Form {...form}>
-      {/* <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 bg-green-950"> */}
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        {/* <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input {...field} placeholder="PDF-Placeholder" />
-              </FormControl>
-              <FormDescription>PDF-Placeholder-Desc</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        /> */}
-        {/* <div > */}
+	async function onSubmit(values: z.infer<typeof formSchema>) {
+		const formData = new FormData();
+		formData.append("dsm_url", values.dsm_url);
+		formData.append("dsmpassword", values.dsmpassword);
+		formData.append("dsm_mail", values.dsm_mail);
+		formData.append("secretId", values.secretId);
+		formData.append("zippassword", values.zippassword);
+		formData.append("file", values.file);
+		if (values.file) {
+			formData.append("file", values.file);
+			const { taskId } = await saveDataTask2(formData); // Remove 'values' from the arguments
+			toast({
+				title: "Task Created",
+				description: "Your task was successfully created",
+			});
+			router.push(`/tasks/${taskId}`);
+		}
+	}
 
-        <FormField
-          control={form.control}
-          name="dsm_url"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Q.Wiki URL</FormLabel>
-              {/* <FormControl className="{styles['form-container']}"> */}
-              <div
-                style={{
-                  width: "30%",
-                  backgroundColor: "white",
-                  borderRadius: "10px",
-                }}
-              >
-                <FormControl>
-                  <Input {...field} placeholder="https://konsek.de" />
-                </FormControl>
-              </div>
-              <FormDescription>
-                Please provide the URL to your Q.wiki Login Like
-                "https://konsek.qwikinow.de/"
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        {/* </div> */}
-
-        <FormField
-          control={form.control}
-          name="dsm_mail"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Q.Wiki User Mail-Adress</FormLabel>
-              <div
-                style={{
-                  width: "30%",
-                  backgroundColor: "white",
-                  borderRadius: "10px",
-                }}
-              >
-                <FormControl>
-                  <Input {...field} placeholder="ReadOnlyUSerLogin@mail.de" />
-                </FormControl>{" "}
-              </div>
-              <FormDescription>The Q.Wiki User Mail-Adresse</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="dsmpassword"
-          render={({ field }) => (
-            <FormItem>
-              <div>
-                <FormLabel>Q.Wiki User Mail Password</FormLabel>
-              </div>
-              <div
-                style={{
-                  width: "30%",
-                  backgroundColor: "white",
-                  borderRadius: "10px",
-                }}
-              >
-                <FormControl>
-                  <Input
-                    {...field}
-                    type="password"
-                    placeholder="Password to your Read-Only User"
-                  />
-                </FormControl>
-              </div>
-              <FormDescription>
-                Provide the password to the User Email Address that is
-                associated with your Q.Wiki account.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="zippassword"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>
-                Enter a password to compress and protect the files from
-                unauthorized access{" "}
-              </FormLabel>
-
-              <div
-                style={{
-                  width: "30%",
-                  backgroundColor: "white",
-                  borderRadius: "10px",
-                }}
-              >
-                <FormControl>
-                  <Input
-                    {...field}
-                    type="password"
-                    placeholder="Zip-Password"
-                  />
-                </FormControl>
-              </div>
-              <FormDescription>
-                Please make sure to remember or enter the correct password. If
-                you forget or make a typo, nobody will be able to access the
-                contents.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="file"
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          render={({ field: { value, onChange, ...fieldProps } }) => {
-            return (
-              // @typescript-eslint/no-unused-vars
-
-              <FormItem>
-                <FormLabel>Only .CSV File</FormLabel>
-                <div
-                  style={{
-                    width: "30%",
-                    backgroundColor: "white",
-                    borderRadius: "10px",
-                  }}
-                >
-                  <FormControl>
-                    <Input
-                      {...fieldProps}
-                      placeholder="CSV file with Q.Wiki URL"
-                      type="file"
-                      accept=".csv,"
-                      onChange={(event) => {
-                        const file = event.target.files?.[0];
-                        if (
-                          event.target.files &&
-                          event.target.files.length > 0
-                        ) {
-                          onChange(event.target.files[0]); // Here you store a File object, not a FileList
-                        } else {
-                          onChange(file ?? undefined);
-                        }
-                      }}
-                    />
-                  </FormControl>
-                </div>
-
-                <FormMessage />
-              </FormItem>
-            );
-          }}
-        />
-        <Button
-          style={{
-            backgroundColor: "transparent",
-            border: "1px solid black",
-            color: "black",
-            padding: "15px 32px",
-            textAlign: "center",
-            textDecoration: "center",
-            display: "inline-block",
-            fontSize: "16px",
-            margin: "4px 2px",
-            cursor: "pointer",
-            borderRadius: "12px",
-          }}
-          type="submit"
-        >
-          Submit
-        </Button>
-      </form>
-    </Form>
-  );
+	return (
+		<Form {...form}>
+			<form className="form-style" onSubmit={form.handleSubmit(onSubmit)}>
+				<FormField
+					control={form.control}
+					name="dsm_url"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel className="custom-label">Q.Wiki URL</FormLabel>
+							<div>
+								<FormControl className="{styles['form-container']}">
+									<Input
+										className="custom-input"
+										{...field}
+										placeholder="https://konsek.de"
+									/>
+								</FormControl>
+							</div>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+				{/* DONE */}
+				<FormField
+					control={form.control}
+					name="dsm_mail"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel className="custom-label">Q.Wiki User Mail-Adress</FormLabel>
+							<div>
+								<FormControl>
+									<Input
+										className="custom-input"
+										{...field}
+										placeholder="ReadOnlyUSerLogin@mail.de"
+									/>
+								</FormControl>{" "}
+							</div>
+							{/* <FormDescription>The Q.Wiki User Mail-Adresse</FormDescription> */}
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+				<FormField
+					control={form.control}
+					name="dsmpassword"
+					render={({ field }) => (
+						<FormItem>
+							<div>
+								<FormLabel className="custom-label">
+									Q.Wiki User Mail Password
+								</FormLabel>
+							</div>
+							<div>
+								<FormControl>
+									<Input
+										className="custom-input"
+										{...field}
+										type="password"
+										placeholder="Password to your Read-Only User"
+									/>
+								</FormControl>
+							</div>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+				<FormField
+					control={form.control}
+					name="zippassword"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel className="custom-label">
+								Enter a password to protect the files.
+							</FormLabel>
+							<div>
+								<FormControl>
+									<Input
+										className="custom-input"
+										{...field}
+										type="password"
+										placeholder="Zip-Password"
+									/>
+								</FormControl>
+							</div>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+				<FormField
+					control={form.control}
+					name="file" // eslint-disable-next-line @typescript-eslint/no-unused-vars
+					render={({ field: { value, onChange, ...fieldProps } }) => {
+						return (
+							// @typescript-eslint/no-unused-vars
+							<FormItem>
+								<FormLabel className="custom-label">Only .CSV File</FormLabel>
+								<div>
+									<FormControl>
+										<Input
+											className="custom-datei"
+											{...fieldProps}
+											placeholder="CSV file with Q.Wiki URL"
+											type="file"
+											accept=".csv,"
+											onChange={(event) => {
+												const file = event.target.files?.[0];
+												if (
+													event.target.files &&
+													event.target.files.length > 0
+												) {
+													onChange(event.target.files[0]); // Here you store a File object, not a FileList
+												} else {
+													onChange(file ?? undefined);
+												}
+											}}
+										/>
+									</FormControl>
+								</div>
+								<FormMessage />
+							</FormItem>
+						);
+					}}
+				/>
+				<Button className="button" type="submit">
+					Create a new print file
+				</Button>
+			</form>
+		</Form>
+	);
 }

@@ -1,43 +1,55 @@
 /* eslint-disable */
 
 "use server";
+import { deleteTask, getTask } from "@/data-access/tasks";
+import { getSession } from "@/app/api/auth/[...nextauth]/options";
+import { revalidatePath } from "next/cache";
+import { useSession } from "next-auth/react";
 
-import {deleteTask, getTask} from "@/data-access/tasks";
-
-import {getSession} from "@/app/api/auth/[...nextauth]/options";
-import {revalidatePath} from "next/cache";
-// import NextAuth from "next-auth/next";
-import {useSession} from "next-auth/react";
+/**
+ *BrowseActions
+ * @description Serverseitige Aktionen für Aufgabenverwaltung.
+ * @remarks
+ * Enthält Funktionen zum Auflisten, Filtern und Sortieren von Aufgaben.
+ * @link Verwandt mit {@link BrowsePage}
+ */
 
 export async function deleteAsAdminTask(taskId: string) {
-    const session = await getSession();
-    const session_admin = useSession();
+	const session = await getSession();
+	// const session = useSession();
 
-    if (!session) {
-        throw new Error("User not authenticated");
-    }
+	console.log("Session:", session);
+	console.log("User Role:", session?.user.role);
 
-    const isAdmin = session_admin.data?.user?.role === "admin";
-    const task = await getTask(taskId);
+	if (!session) {
+		throw new Error("User not authenticated");
+	}
+	// .data?.user?.role
+	const isAdmin = session.user.role === "admin";
+	const task = await getTask(taskId);
 
-    if (task?.userId !== session.user.id && !isAdmin) {
-        throw new Error("User not authorized");
-    }
+	console.log("User ID:", session.user.id);
+	console.log("Task User ID:", task?.userId);
+	console.log("Is Admin:", isAdmin);
 
-    await deleteTask(taskId);
-    revalidatePath("/browse");
+	if (!session?.user.role === isAdmin) {
+		throw new Error("User not authorized");
+	}
+
+	await deleteTask(taskId);
+	revalidatePath("/browse");
 }
 
 export async function getServerSideProps() {
-    const session = await getSession();
-    if (!session) {
-        return {
-            redirect: {
-                destination: "/api/auth/signin?callbackUrl=/protected-page",
-                permanent: false,
-            },
-        };
-    }
-    // Additional checks for roles or permissions can also be performed here
-    return {props: {session}};
+	const session = await getSession();
+	if (!session) {
+		return {
+			redirect: {
+				destination: "/api/auth/signin?callbackUrl=/protected-page",
+				permanent: false,
+			},
+		};
+	}
+	// Additional checks for roles or permissions can also be performed here
+	return { props: { session } };
 }

@@ -3,29 +3,47 @@
 import { useSession, signIn } from "next-auth/react";
 import { CreateUserForm } from "./create-user-form";
 import { UserList } from "@/components/User/UserList";
+import { unstable_noStore } from "next/cache";
 
-export default function CreateUserPage() {
-  const { data: session } = useSession({
-    required: true,
-    onUnauthenticated() {
-      signIn("auth-provider", { callbackUrl: "/admin" });
-    },
-  });
+/**
+ *AdminPage
+ * @description Admin-Dashboard zur Benutzerverwaltung.
+ * @remarks
+ * Diese Seite bietet eine Übersicht und Zugriff auf alle Benutzerverwaltungsfunktionen.
+ * @file Brief description of the file here
+ * @author FirstName LastName <optionalEmail@example.com>
+ * @copyright FirstName LastName Year
+ * @license LicenseHereIfApplicable
+ * @returns {CreateUserPage}
+ */
 
-  if (session?.user.role !== "admin") {
-    return <h1 className="text-5xl">Access Denied</h1>;
-  }
+export default async function CreateUserPage() {
+	unstable_noStore();
 
-  return (
-    <div>
-      <div className="container mx-auto flex flex-col gap-8 pt-12 pb-24">
-        <h1 className="text-4xl font-bold">Admin Panel</h1>
-        <CreateUserForm />
-      </div>
-      <div className="container mx-auto py-8">
-        <h1 className="text-3xl font-bold mb-4">Admin Panel</h1>
-        <UserList />
-      </div>
-    </div>
-  );
+	const { data: session } = useSession({
+		required: true,
+		onUnauthenticated() {
+			signIn("auth-provider", { callbackUrl: "/" });
+		},
+	});
+	if (!session || session.user.role !== "admin") {
+		return <h1>Access Denied</h1>;
+	}
+	return (
+		<div className="admin-page">
+			<div className="admin-container">
+				<div>
+					<h1>Admin Panel</h1>
+				</div>
+				<div className="create-user-section">
+					<h2>Create New User</h2>
+					<CreateUserForm />
+				</div>
+				<div className="user-list-section">
+					<h2>Existing Users</h2>
+					<UserList />
+				</div>
+			</div>
+		</div>
+	);
 }

@@ -1,28 +1,40 @@
+/* eslint-disable react/prop-types */
 "use client";
-import {NextPageContext} from 'next';
-import Link from 'next/link';
+import { useSearchParams } from "next/navigation";
+import React from "react"; // Import React library
+/**
+ * ErrorPage
+ * Zeigt benutzerfreundliche Fehlermeldungen an.
+ * @param props - Die Eigenschaften der Fehlerseite
+ * @returns Die gerenderte Fehlerseite
+ */
+
 
 interface ErrorProps {
-    statusCode?: number;
+	error?: Error;
+	reset?: () => void;
 }
+export default function Error({ reset }: ErrorProps) {
+	const searchParams = useSearchParams();
+	const status = searchParams?.get("status");
 
-const CustomError = ({statusCode}: ErrorProps) => {
-    return (
-        <div className="min-h-screen flex flex-col items-center justify-center">
-            <h1 className="text-6xl font-bold">{statusCode || "An error occurred"}</h1>
-            <p className="text-xl mt-3">Sorry, something went wrong on our end.</p>
-            {/* Use the Link component directly for navigation */}
-            <Link href="/"
-                  className="mt-6 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 transition-colors">
-                Go back home
-            </Link>
-        </div>
-    );
-};
+	const isPermissionError = status === "403";
 
-CustomError.getInitialProps = ({res, err}: NextPageContext): ErrorProps => {
-    const statusCode = res?.statusCode || err?.statusCode || 404;
-    return {statusCode};
-};
-
-export default CustomError;
+	return (
+		<div className="min-h-screen flex flex-col items-center justify-center">
+			<h1 className="text-4xl font-bold mb-4">
+				{isPermissionError ? "Permission Denied" : "Oops! Something went wrong."}
+			</h1>
+			<p className="text-xl mb-8">
+				{isPermissionError
+					? "You do not have permission to access this page."
+					: "An unexpected error occurred. Please try again later."}
+			</p>
+			<button
+				className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+				onClick={isPermissionError ? () => (window.location.href = "/") : () => reset?.()}>
+				{isPermissionError ? "Go to Home" : "Try Again"}
+			</button>
+		</div>
+	);
+}

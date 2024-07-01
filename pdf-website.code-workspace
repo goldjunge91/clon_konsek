@@ -1,0 +1,40 @@
+{
+	"folders": [
+		{
+			"path": "/home/marco/git/pdf-website",
+		},
+	],
+
+	"settings": {
+		"files.exclude": {
+			"**/.git": true,
+			"**/.svn": true,
+			"**/.hg": true,
+			"**/CVS": true,
+			"**/.DS_Store": true,
+			".vscode/": true,
+			"node_modules/": true,
+		},
+		"editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+		"editor.experimentalInlineEdit.backgroundColoring": true,
+		"editor.experimentalInlineEdit.showToolbar": "always",
+		"python.pythonPath": "/home/marco/miniconda3/bin/python",
+		"hidefiles.configurationType": "local",
+		"hidefiles.globalConfig": {
+			"profiles": [
+				{
+					"name": "Default",
+					"detail": "",
+					"description": "Test",
+					"hidden": [".vscode/", "node_modules/"],
+				},
+				{
+					"name": "Strict",
+					"detail": "Hide everything not immediately required",
+					"hidden": ["$Default"],
+				},
+			],
+		},
+		"hidefiles.selectedProfile": "Default",
+	},
+}
