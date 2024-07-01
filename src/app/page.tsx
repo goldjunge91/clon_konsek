@@ -1,5 +1,34 @@
 import Link from "next/link";
-import "./globals.css"
+import "./globals.css";
+import React from "react";
+/**
+ * LandingPage Komponente
+ * 
+ * Stellt die Startseite der PDF-processor Anwendung dar * 
+ * 
+ * Diese Komponente dient als Einstiegspunkt für Benutzer und bietet einen Überblick
+ * über die Hauptfunktionen des PDF stack processors.
+ * 
+ * @remarks
+ * Die LandingPage enthält:
+ * - Einen Haupttitel "PDF stack processor"
+ * - Eine Beschreibung des Services
+ * - Einen Link zum 17025starter Progra * - Einen Button zum Erstellen einer neuer Druckdatei
+ * - Footer-Informationen mit Links
+ * 
+ * @example
+ * ```tsx
+ * import { LandingPage } from './app/page';
+ * 
+ * function App() {
+ *   return <LandingPage />;
+ * }
+ * ```
+ * 
+ * @returns Ein React-Element, das die gerenderte Startseite darstellt.
+ * 
+ * @see {@link https://www.konsek.de/17025-starter/ | 17025starter Programm}
+ */
 
 export default function LandingPage() {
   return (
