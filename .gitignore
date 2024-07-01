@@ -77,3 +77,4 @@ taskview.backup
 src/app/browse/dist
 
 *storybook.log
+.vscode/cody.json
