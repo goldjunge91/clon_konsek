@@ -38,7 +38,7 @@ jobs:
       - run: npm ci
       - run: npm run build
       # - run: docker compose up -d
-      - run: pm2 restart ecosystem.config.js || pm2 start ecosystem.config.js
+      - run: pm2 restart ecosystem.config.cjs || pm2 start ecosystem.config.cjs
         #  echo "DB_USER=${DB_USER}" >> .env
         #  echo "DB_PASSWORD=${DB_PASSWORD}" >> .env
         #  echo "DB_HOST=${DB_HOST}" >> .env
