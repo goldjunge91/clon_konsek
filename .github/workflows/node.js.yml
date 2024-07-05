@@ -31,9 +31,7 @@ jobs:
             ${{ runner.OS }}-npm-cache- 
       - run: npm ci
       - name: create .env
-        run: echo "DB_PASSWORD=${DB_PASSWORD}" >> .env
-         export DB_PASSWORD=${DB_PASSWORD}
-         export DATABASE_URL=postgres://postgres:${DB_PASSWORD}@localhost:5432/postgres
+        run: echo "DB_PASSWORD=${DB_PASSWORD}" >> .env.production
          echo "DATABASE_URL=${DATABASE_URL}" >> .env.production
          echo "GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}" >> .env.production
          echo "GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}" >> .env.production
