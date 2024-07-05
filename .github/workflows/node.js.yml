@@ -8,9 +8,9 @@ jobs:
   build:
     runs-on: self-hosted
 
-    # strategy:
-    #   matrix:
-    #     node-version: [v20.15.0]
+    strategy:
+      matrix:
+        node-version: [v20.15.0]
 
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
@@ -27,12 +27,6 @@ jobs:
       DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
 
     steps:
-      # - uses: actions/checkout@v4
-      # - name: Use Node.js ${{ matrix.node-version }}
-      #   uses: actions/setup-node@v3
-      #   with:
-      #     node-version: v20.15.0
-      #     cache: "npm"
       - name: Cache npm dependencies
         uses: actions/cache@v3
         with:
