@@ -6,11 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: self-hosted
-
-    strategy:
-      matrix:
-        node-version: [v20.15.0]
+    runs-on: ubuntu-latest
 
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
@@ -34,10 +30,9 @@ jobs:
           key: ${{ runner.OS }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.OS }}-npm-cache-
-      - run: npm ci
-      - run: npm run build
       - name: create .env
-        run: echo "DB_PASSWORD=${DB_PASSWORD}" >> .env
+        run: |
+         echo "DB_PASSWORD=${DB_PASSWORD}" >> .env
          export DB_PASSWORD=${DB_PASSWORD}
          export DATABASE_URL=postgres://postgres:${DB_PASSWORD}@localhost:5432/postgres
          echo "DATABASE_URL=${DATABASE_URL}" >> .env.production
@@ -53,6 +48,6 @@ jobs:
          echo "DB_USER=${DB_USER}" >> .env.production
          echo "DB_PASSWORD=${DB_PASSWORD}" >> .env.production
       - name: Build production
-        run: npm run build --production
+        run: npm run build --omit=dev
       - name: Run Deployment
         run: pm2 start ecosystem.config.cjs
