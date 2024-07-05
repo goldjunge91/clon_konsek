@@ -6,8 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-
+    runs-on: self-hosted
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
       GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
@@ -29,10 +28,10 @@ jobs:
           path: ~/.npm
           key: ${{ runner.OS }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.OS }}-npm-cache-
+            ${{ runner.OS }}-npm-cache- 
+      - run: npm ci
       - name: create .env
-        run: |
-         echo "DB_PASSWORD=${DB_PASSWORD}" >> .env
+        run: echo "DB_PASSWORD=${DB_PASSWORD}" >> .env
          export DB_PASSWORD=${DB_PASSWORD}
          export DATABASE_URL=postgres://postgres:${DB_PASSWORD}@localhost:5432/postgres
          echo "DATABASE_URL=${DATABASE_URL}" >> .env.production
