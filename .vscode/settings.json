@@ -2,5 +2,6 @@
 	"editor.insertSpaces": true,
 	"javascript.updateImportsOnFileMove.enabled": "always",
 	"python.analysis.typeCheckingMode": "basic",
-	"editor.accessibilityPageSize": 12
+	"editor.accessibilityPageSize": 12,
+	"typescript.tsdk": "node_modules/typescript/lib"
 }

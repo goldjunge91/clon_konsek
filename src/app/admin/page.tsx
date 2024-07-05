@@ -6,12 +6,12 @@ import { CreateUserForm } from "./create-user-form";
 import { UserList } from "@/components/User/UserList";
 
 export default function CreateUserPage() {
-    const { data: session } = useSession({
-        required: true,
-        onUnauthenticated() {
-            signIn("auth-provider", { callbackUrl: "/admin1" });
-        },
-    });
+    // const { data: session } = useSession({
+    //     required: true,
+    //     onUnauthenticated() {
+    //         signIn("auth-provider", { callbackUrl: "/admin1" });
+    //     },
+    // });
 
     return (
         <div className="admin-page">

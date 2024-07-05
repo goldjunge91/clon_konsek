@@ -1,16 +1,67 @@
 version: "3.9"
 services:
-  MyWebsite:
-    image: postgres
+  postgres:
+    image: postgres:latest
     restart: always
-    container_name: MyWebsite
+    container_name: postgres
     ports:
       - 5432:5432
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       PGDATA: /data/postgres
     volumes:
-      - ~/dockerfiles/postgres:/data/postgres
+      - /home/runneruser/dockerfiles/postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    deploy:
+      # resources:
+      #   limits:
+      #     cpus: '1'
+      #     memory: 1G
+    networks:
+      - backend
+    labels:
+      - "com.example.description=Postgres database for PDF website"
+      - "com.example.department=Development"
 
 volumes:
-  postgres:
+  postgres_data:
+
+networks:
+  backend:
+# version: "3.9"
+# services:
+#   postgres:
+#     image: postgres
+#     restart: always
+#     container_name: postgres
+#     ports:
+#       - 5432:5432
+    # environment:
+    #   POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+#       PGDATA: /data/postgres
+#     volumes:
+#       # - ~/dockerfiles/postgres:/data/postgres
+#       - /home/runneruser/dockerfiles/postgres
+# volumes:
+#   postgres_data:
+  
+# version: "3.9"
+# services:
+#   postgres:
+#     image: postgres
+#     restart: always
+#     container_name: postgres
+#     ports:
+#       - 5432:5432
+#     environment:
+#       POSTGRES_PASSWORD: Iphone5S
+#       PGDATA: /data/postgres
+#     volumes:
+#       # - ~/dockerfiles/postgres:/data/postgres
+#       - /home/runneruser/dockerfiles/postgres
+# volumes:
+#   postgres_data:
