@@ -22,13 +22,6 @@ jobs:
       DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
 
     steps:
-      - uses: actions/checkout@v4
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20.5
-          cache: "npm"
-      - run: npm ci
       - name: create .env
         run: echo "DB_PASSWORD=${DB_PASSWORD}" >> .env.production
          echo "DATABASE_URL=${DATABASE_URL}" >> .env.production
