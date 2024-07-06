@@ -36,7 +36,5 @@ jobs:
       - run: echo "DB_NAME=${DB_NAME}" >> .env.production
       - run: echo "DB_USER=${DB_USER}" >> .env.production
       - run: echo "DB_PASSWORD=${DB_PASSWORD}" >> .env.production
-      - name: Build production
-        run: npm run build --omit=dev
       - name: Run Deployment
         run: pm2 start ecosystem.config.cjs
