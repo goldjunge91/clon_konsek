@@ -3,6 +3,10 @@
   "javascript.updateImportsOnFileMove.enabled": "always",
   "python.analysis.typeCheckingMode": "basic",
   "editor.accessibilityPageSize": 12,
-  "typescript.tsdk": "node_modules/typescript/lib"
-  // "typescr"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "python.testing.pytestArgs": [
+    "TEST"
+  ],
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestEnabled": true
 }
