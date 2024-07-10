@@ -8,7 +8,8 @@ export function CustomAdapter(db: any) {
   return {
     ...DrizzleAdapter(db),
     createUser: async (user: any) => {
-      const { emailVerified, ...userWithoutEmailVerified } = user;
+      const { ...userWithoutEmailVerified } = user;
+      // const { emailVerified, ...userWithoutEmailVerified } = user;
       return await db.insert(users).values(userWithoutEmailVerified).returning().then((res: any) => res[0]);
     },
     getUser: async (id: string) => {

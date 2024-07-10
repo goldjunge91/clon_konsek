@@ -45,16 +45,24 @@ export function CreateUserForm() {
     },
   });
   
+  // async function onSubmit(values: z.infer<typeof formSchema>) {
+  //   await createUserAction(values);
+  //   toast({
+  //     title: "Neuen Benutzer erstellt!",
+  //     description: "Benutzer wurde erfolgreich erstellt!",
+  //   });
+  //   router.refresh(); // Aktualisiere die Seite, um die aktualisierte Benutzerliste anzuzeigen
+  //   // router.push("/admin");
+  // }
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    await createUserAction(values);
+    const { name, username, password, image, isAdmin, role } = values;
+    await createUserAction({ name, username, password, image, isAdmin, role, email: null, emailVerified: null });
     toast({
       title: "Neuen Benutzer erstellt!",
       description: "Benutzer wurde erfolgreich erstellt!",
     });
-    router.refresh(); // Aktualisiere die Seite, um die aktualisierte Benutzerliste anzuzeigen
-    // router.push("/admin");
+    router.refresh(); 
   }
-
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">

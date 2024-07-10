@@ -50,7 +50,6 @@ export function TaskView({ task: initialTask }: { task: Task }) {
 	});
 
 	const [pythonLog, setPythonLog] = useState<string[]>([]);
-
 	useEffect(() => {
 		if (task && !isCompleted) {
 			const fetchLog = async () => {
@@ -61,18 +60,12 @@ export function TaskView({ task: initialTask }: { task: Task }) {
 			const interval = setInterval(fetchLog, 2000);
 			return () => clearInterval(interval);
 		}
+		return () => {}; // Add this line
 	}, [task, isCompleted]);
 
 	if (isLoading) return <div>Loading...</div>;
 	if (error) return <div>Error loading task: {error.message}</div>;
 	if (!task) return <div>No task found</div>;
-
-	// const pythonLogUrl = isCompleted ? null : `/api/tasks/${task?.id}/log`;
-	// const pythonLogFetcher = () => readPythonLog(task?.id, isCompleted ? 50 : 10);
-
-	// const { data: pythonLog } = useSWR(pythonLogUrl, pythonLogFetcher, {
-	//   refreshInterval: isCompleted ? 0 : 2000,
-	// });
 	const onSubmitDownload = async () => {
 		if (task.status === 'completed') {
 			try {
@@ -107,7 +100,6 @@ export function TaskView({ task: initialTask }: { task: Task }) {
 			});
 		}
 	};
-
 	// Vereinfachte Berechtigungsprüfung
 	if (
 		!session ||
@@ -126,7 +118,6 @@ export function TaskView({ task: initialTask }: { task: Task }) {
 			<p>
 				Task ID: {task?.id}, User ID: {session.user.id}
 			</p>
-
 			<button
 				className={`buttonDownload ${task.status === 'completed' ? 'completed' : 'pending'}`}
 				onClick={onSubmitDownload}

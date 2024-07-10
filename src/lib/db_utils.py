@@ -11,8 +11,11 @@ LOG_FILE_EXT = ".log"
 
 # Laden der Umgebungsvariablen aus der .env-Datei
 load_dotenv(os.path.join(os.path.dirname(__file__), '../../.env'))
-
+#  TODO change me
 base_path = "/home/marco/git/pdf-website/DATA/downloads/"
+# base_path = r'C:\\Users\\tozzi\\Git\\pdf-website\\DATA\\downloads\\'
+# env_path = r"C:\GIT\pdf-website\.env"
+
 
 # Datenbank-Verbindungsdetails aus den Umgebungsvariablen
 DB_HOST = os.environ.get('DB_HOST')
@@ -21,7 +24,6 @@ DB_USER = os.environ.get('DB_USER')
 DB_PASSWORD = os.environ.get('DB_PASSWORD')
 
 def setup_logging():
-
     current_date = datetime.now().strftime("%d-%m-%Y")
     logger = logging.getLogger()
     logger.setLevel(logging.INFO)

@@ -9,13 +9,25 @@ import binascii
 
 # load_dotenv(os.path.join(os.path.dirname(__file__), '../../.env'))
 # # Pfad zur .env-Datei ausgeben
+# TODO change my path
 env_path = "/home/marco/git/pdf-website/.env"
+# env_path = r"C:\\GIT\\pdf-website\\.env"
+
+# Windows Debugging
+# env_path = r"C:\GIT\pdf-website\.env"
+# import json
+
+# with open('src/config.json', 'r') as f:
+#     config = json.load(f)
+
+# base_path = config['GLOBAL_PATHS']['DATA_PATH']
+# env_path = config['GLOBAL_PATHS']['ENV_PATH']
 # Lade die Umgebungsvariablen aus der .env-Datei
 load_dotenv(env_path)
 print(f"Pfad zur .env-Datei: {load_dotenv}")
 
 
-ENCRYPTION_KEY = bytes.fromhex(os.getenv("ENCRYPTION_SECRET_KEY"))
+ENCRYPTION_KEY = bytes.fromhex(os.getenv("ENCRYPTION_KEY")) # type: ignore
 ENCRYPTION_IV = os.getenv("ENCRYPTION_IV").encode()
 
 def decrypt_in_memory(encrypted_str):

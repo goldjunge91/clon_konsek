@@ -23,7 +23,6 @@ from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.core.os_manager import ChromeType
 import json
 import pyzipper
-from typing import Any
 from db_utils import update_task_status_in_db, schedule_delete_folder_cronjob
 import sys
 import io
@@ -36,6 +35,21 @@ import binascii
 LOG_FILE_EXT = ".log"
 now = datetime.datetime.now()
 base_path = "/home/marco/git/pdf-website/DATA/downloads/"
+# base_path = r'C:\\Users\\tozzi\\Git\\pdf-website\\DATA\\downloads\\'
+
+# windows pfad setzen für debugging.
+# base_path = r'C:\GIT\pdf-website\DATA\downloads'
+
+# # Get the directory of the current script
+# current_dir = os.path.dirname(os.path.abspath(__file__))
+# # Construct the path to the config file
+# config_path = os.path.join(current_dir, 'python_config.json')
+# # Read the configuration
+# with open(config_path, 'r') as f:
+#     config = json.load(f)
+
+# base_path = config['GLOBAL_PATHS']['DATA_PATH']
+# env_path = config['GLOBAL_PATHS']['ENV_PATH']
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8")
@@ -118,6 +132,7 @@ def get_user_input(base_path):
     try:
         path = os.path.join(base_path, sys.argv[1])  # This comes from your main block
         form_data_path = os.path.join(path, "form-data.json")
+        # print(f"Attempting to access file at: {form_data_path}")
 
         with open(form_data_path, "r") as file:
             form_data = json.load(file)
@@ -404,6 +419,7 @@ def setup_loggers(logger, progress_logger, log_file, progress_log_file):
 
 if __name__ == "__main__":
     setup_logging()
+    folder_to_delete = None  # Define folder_to_delete before the try block
     if len(sys.argv) < 2:
         raise ValueError("Wrong Value contact admin.")
     path = os.path.join(base_path, sys.argv[1])
