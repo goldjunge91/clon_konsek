@@ -1,34 +1,34 @@
-# version: "3.9"
-# services:
-#   postgres:
-#     image: postgres:latest
-#     restart: always
-#     container_name: postgres
-#     ports:
-#       - 5432:5432
-#     environment:
-#       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-#       PGDATA: /data/postgres
-#     volumes:
-#       - /home/runneruser/dockerfiles/postgres
-#     healthcheck:
-#       test: ["CMD-SHELL", "pg_isready -U postgres"]
-#       interval: 10s
-#       timeout: 5s
-#       retries: 5
-#     deploy:
-#       # resources:
-#       #   limits:
-#       #     cpus: '1'
-#       #     memory: 1G
-#     networks:
-#       - backend
-#     labels:
-#       - "com.example.description=Postgres database for PDF website"
-#       - "com.example.department=Development"
+version: "3.9"
+services:
+  postgres:
+    image: postgres:latest
+    restart: always
+    container_name: postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      PGDATA: /data/postgres
+    volumes:
+      - /home/runneruser/dockerfiles/postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    deploy:
+      # resources:
+      #   limits:
+      #     cpus: '1'
+      #     memory: 1G
+    networks:
+      - backend
+    labels:
+      - "com.example.description=Postgres database for PDF website"
+      - "com.example.department=Development"
 
-# volumes:
-#   postgres_data:
+volumes:
+  postgres_data:
 
 # networks:
 #   backend:
@@ -49,18 +49,18 @@
 # volumes:
 #   postgres_data:
   
-services:
-  MyWebsite:
-    image: postgres
-    restart: always
-    container_name: MyWebsite
-    ports:
-      - 5432:5432
-    environment:
-      POSTGRES_PASSWORD: Iphone5S
-      PGDATA: /data/postgres
-    volumes:
-      # - ~/dockerfiles/postgres:/data/postgres
-      - c:/Users/tozzi/Git/devfinder/dockervolume/postgres:/data/postgres
-volumes:
-  postgres:
+# services:
+#   MyWebsite:
+#     image: postgres
+#     restart: always
+#     container_name: MyWebsite
+#     ports:
+#       - 5432:5432
+#     environment:
+#       POSTGRES_PASSWORD: Iphone5S
+#       PGDATA: /data/postgres
+#     volumes:
+#       # - ~/dockerfiles/postgres:/data/postgres
+#       - c:/Users/tozzi/Git/devfinder/dockervolume/postgres:/data/postgres
+# volumes:
+#   postgres:

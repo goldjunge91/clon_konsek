@@ -1,0 +1,53 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: ["production"]
+
+jobs:
+  build:
+    runs-on: self-hosted
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+      GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+      ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
+      ENCRYPTION_IV: ${{ secrets.ENCRYPTION_IV }}
+      NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
+      NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+      NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+      DB_HOST: ${{ secrets.DB_HOST }}
+      DB_NAME: ${{ secrets.DB_NAME }}
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      ENABLE_GOOGLE_AUTH: ${{ secrets.ENABLE_GOOGLE_AUTH }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Create .env.production file
+        run: |
+          cat << EOF > .env.production
+          DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:5432/${DB_NAME}
+          GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+          GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+          ENCRYPTION_KEY=${ENCRYPTION_KEY}
+          ENCRYPTION_IV=${ENCRYPTION_IV}
+          NEXTAUTH_URL=${NEXTAUTH_URL}
+          NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+          NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+          DB_HOST=${DB_HOST}
+          DB_NAME=${DB_NAME}
+          DB_USER=${DB_USER}
+          DB_PASSWORD=${DB_PASSWORD}
+          ENABLE_GOOGLE_AUTH=${secrets.ENABLE_GOOGLE_AUTH}
+          EOF
+      - name: Verify .env.production file
+        run: |
+          if [ ! -s .env.production ]; then
+            echo "Error: .env.production file is empty or not created"
+            exit 1
+          fi
+      - name: Run Deployment
+        run: pm2 start ecosystem.config.cjs
