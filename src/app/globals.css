@@ -53,7 +53,7 @@
   card {
     @apply bg-white box-border;
   }
-
+  
   :root {
     --text-primary: rgba(0 0 0);
     --text-secondary: rgba(0 0 0);
@@ -175,6 +175,9 @@
 }
 
 @layer components {
+  .pl-logo-padding {
+    padding-left: 8rem;
+  }
   a {
     @apply text-black leading-6 gap-x-5 gap-y-5;
   }
@@ -184,11 +187,14 @@
   a:visited {
     @apply text-black leading-6;
   }
+  /* Landingpage */
   .container-landingpage {
     @apply flex items-center  justify-start h-screen;
   }
   .layout-full-left {
-    @apply container mx-0 px-20 md:px-12 space-y-6;
+    /* @apply container mx-0 px-20 md:px-12 space-y-6; */
+    @apply container pl-logo-padding space-y-12;
+
   }
 
   .layout-grid-left {
@@ -211,12 +217,30 @@
     @apply font-roboto300 text-base leading-relaxed text-text-secondary;
   }
   .header {
-    @apply bg-white py-2 z-10;
+    @apply bg-white py-2 z-10 w-full;
   }
+  .logo {
+    @apply h-12 w-48 mr-auto;
+  }
+  /* .header-content {
+    /* @apply container mx-auto flex justify-between items-center; */
+  /* @apply container pl-24 flex justify-between items-center; */
+  /* }  */
+  /* .header-content { */
+    /* @apply container pl-24 flex flex-col md:flex-row justify-between items-start md:items-center; */
+    /* @apply container pl-24 flex justify-between items-center max-w-screen-xl mx-auto; */
+    /* @apply container pl-24 flex flex-col md:flex-row justify-start items-start md:items-center w-full mx-auto; */
+  /* } */
 
   .header-content {
-    @apply container mx-auto flex justify-between items-center;
+    @apply container flex flex-col md:flex-row justify-between items-start md:items-center w-full pl-logo-padding;
   }
+  @screen lg {
+    .header-content {
+      @apply max-w-none;
+    }
+  }
+
   .nav-link {
     @apply text-black hover:underline;
   }
@@ -227,7 +251,9 @@
   .header-link-container {
     @apply flex items-center gap-12;
   }
-
+  .header-link-container:last-child {
+    @apply ml-auto mr-20;
+  }
   .admin-page {
     @apply min-h-screen container mx-auto py-8;
   }
