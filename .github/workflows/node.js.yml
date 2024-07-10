@@ -1,40 +1,40 @@
-name: Node.js CI
+# name: Node.js CI
 
-on:
-  push:
-    branches: ["production"]
+# on:
+#   push:
+#     branches: ["production"]
 
-jobs:
-  build:
-    runs-on: self-hosted
-    env:
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
-      GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
-      GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
-      ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
-      ENCRYPTION_IV: ${{ secrets.ENCRYPTION_IV }}
-      NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
-      NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
-      NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
-      DB_HOST: ${{ secrets.DB_HOST }}
-      DB_NAME: ${{ secrets.DB_NAME }}
-      DB_USER: ${{ secrets.DB_USER }}
-      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+# jobs:
+#   build:
+#     runs-on: self-hosted
+#     env:
+#       DATABASE_URL: ${{ secrets.DATABASE_URL }}
+#       GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+#       GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+#       ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
+#       ENCRYPTION_IV: ${{ secrets.ENCRYPTION_IV }}
+#       NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
+#       NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+#       NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+#       DB_HOST: ${{ secrets.DB_HOST }}
+#       DB_NAME: ${{ secrets.DB_NAME }}
+#       DB_USER: ${{ secrets.DB_USER }}
+#       DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
 
-    steps:
-      - name: create .env
-        run: echo "DB_PASSWORD=${DB_PASSWORD}" >> .env.production
-      - run: echo "DATABASE_URL=${DATABASE_URL}" >> .env.production
-      - run: echo "GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}" >> .env.production
-      - run: echo "GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}" >> .env.production
-      - run: echo "ENCRYPTION_KEY=${ENCRYPTION_KEY}" >> .env.production
-      - run: echo "ENCRYPTION_IV=${ENCRYPTION_IV}" >> .env.production
-      - run: echo "NEXTAUTH_URL=${NEXTAUTH_URL}" >> .env.production
-      - run: echo "NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}" >> .env.production
-      - run: echo "NEXTAUTH_SECRET=${NEXTAUTH_SECRET}" >> .env.production
-      - run: echo "DB_HOST=${DB_HOST}" >> .env.production
-      - run: echo "DB_NAME=${DB_NAME}" >> .env.production
-      - run: echo "DB_USER=${DB_USER}" >> .env.production
-      - run: echo "DB_PASSWORD=${DB_PASSWORD}" >> .env.production
-      - name: Run Deployment
-        run: pm2 start ecosystem.config.cjs
+#     steps:
+#       - name: create .env
+#         run: echo "DB_PASSWORD=${DB_PASSWORD}" >> .env.production
+#       - run: echo "DATABASE_URL=${DATABASE_URL}" >> .env.production
+#       - run: echo "GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}" >> .env.production
+#       - run: echo "GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}" >> .env.production
+#       - run: echo "ENCRYPTION_KEY=${ENCRYPTION_KEY}" >> .env.production
+#       - run: echo "ENCRYPTION_IV=${ENCRYPTION_IV}" >> .env.production
+#       - run: echo "NEXTAUTH_URL=${NEXTAUTH_URL}" >> .env.production
+#       - run: echo "NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}" >> .env.production
+#       - run: echo "NEXTAUTH_SECRET=${NEXTAUTH_SECRET}" >> .env.production
+#       - run: echo "DB_HOST=${DB_HOST}" >> .env.production
+#       - run: echo "DB_NAME=${DB_NAME}" >> .env.production
+#       - run: echo "DB_USER=${DB_USER}" >> .env.production
+#       - run: echo "DB_PASSWORD=${DB_PASSWORD}" >> .env.production
+#       - name: Run Deployment
+#         run: pm2 start ecosystem.config.cjs
