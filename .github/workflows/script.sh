@@ -2,7 +2,7 @@
 set -e
 pwd
 # Navigate to the directory containing package.json
-cd /home/runneruser/actions-runner/_work/pdf-website/pdf-website
+# cd /home/runneruser/actions-runner/_work/pdf-website/pdf-website
 
 # Clear npm cache
 npm cache clean --force
