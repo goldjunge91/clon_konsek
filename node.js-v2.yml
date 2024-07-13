@@ -22,6 +22,45 @@ jobs:
       ENABLE_GOOGLE_AUTH: ${{ secrets.ENABLE_GOOGLE_AUTH }}
 
     steps:
+      - name: Set up Node.js
+        run: |
+          . ~/.nvm/nvm.sh
+          nvm use --lts
+          nvm install --lts
+          nvm alias default lts/*
+          echo 'nvm use --lts' >> ~/.bashrc
+          node --version
+          npm --version
+
+      - name: Clear npm cache
+        run: npm cache clean --force
+      
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Cache dependencies and build outputs
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.npm
+            ${{ github.workspace }}/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
+          restore-keys: |
+             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+      
+      - name: cache node modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+               ${{ runner.os }}-node-modules-
+      
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Build application
+        run: npm run build
+
       - name: Create .env.production file
         run: |
           cat << EOF > .env.production
@@ -46,13 +85,6 @@ jobs:
             echo "Error: .env.production file is empty or not created"
             exit 1
           fi
-      - name: Set up Node.js
-        run: |
-          . ~/.nvm/nvm.sh
-          nvm use --lts
-          node --version
-          npm --version
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Run build script
-        run: ./script.sh
+
+      - name: Run Deployment
+        run: pm2 start ecosystem.config.cjs
