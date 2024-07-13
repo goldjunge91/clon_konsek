@@ -26,8 +26,15 @@ jobs:
         run: |
           . ~/.nvm/nvm.sh
           nvm use --lts
+          nvm install --lts
+          nvm alias default lts/*
+          echo 'nvm use --lts' >> ~/.bashrc
           node --version
           npm --version
+
+      - name: Clear npm cache
+        run: npm cache clean --force
+      
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Cache dependencies and build outputs
