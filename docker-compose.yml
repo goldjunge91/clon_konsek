@@ -21,8 +21,8 @@ services:
       #   limits:
       #     cpus: '1'
       #     memory: 1G
-    networks:
-      - backend
+    # networks:
+    #   - backend
     labels:
       - "com.example.description=Postgres database for PDF website"
       - "com.example.department=Development"

@@ -1,6 +1,6 @@
 {
 	"parser": "@typescript-eslint/parser",
-	"plugins": ["@typescript-eslint"],
+	"plugins": ["@typescript-eslint",  "css-modules"],
 	"extends": [
 		"eslint:recommended",
 		"plugin:@typescript-eslint/recommended",
@@ -10,7 +10,11 @@
 		"next"
 	],
 	"rules": {
+		"css-modules/no-undef-class": "off",
+		"css-modules/no-unused-class": "off",
 		"react/no-unescaped-entities": "off",
+		"@typescript-eslint/explicit-function-return-type": "off",
+		"@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
 		// "@next/next/no-page-custom-font": "off",
 		"@typescript-eslint/no-explicit-any": "off",
 		"@typescript-eslint/explicit-module-boundary-types": "off",
@@ -37,10 +41,10 @@
 // 	],
 // 	"rules": {
 // 		// TypeScript rules
-// 		"@typescript-eslint/explicit-function-return-type": "off",
-// 		"@typescript-eslint/explicit-module-boundary-types": "off",
-// 		"@typescript-eslint/no-explicit-any": "off",
-// 		"@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+		// "@typescript-eslint/explicit-function-return-type": "off",
+		// "@typescript-eslint/explicit-module-boundary-types": "off",
+		// "@typescript-eslint/no-explicit-any": "off",
+		// "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
 // 		// React rules
 		// "react/jsx-uses-react": "off",
 		// "react/react-in-jsx-scope": "off",
