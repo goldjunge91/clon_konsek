@@ -22,6 +22,12 @@ jobs:
       ENABLE_GOOGLE_AUTH: ${{ secrets.ENABLE_GOOGLE_AUTH }}
 
     steps:
+      - name: Set up Node.js
+        run: |
+          . ~/.nvm/nvm.sh
+          nvm use --lts
+          node --version
+          npm --version
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Cache dependencies and build outputs
