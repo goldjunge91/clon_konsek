@@ -1,4 +1,4 @@
-name: Node.js CI
+name: Node.js 
 
 on:
   push:
@@ -24,6 +24,7 @@ jobs:
     steps:
       - name: Create .env.production file
         run: |
+          pwd
           cat << EOF > .env.production
           DATABASE_URL=postgresql://${{ secrets.DB_USER }}:${{ secrets.DB_PASSWORD }}@${{ secrets.DB_HOST }}:5432/${{ secrets.DB_NAME }}
           GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}
