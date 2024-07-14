@@ -60,7 +60,7 @@ export function TaskView({ task: initialTask }: { task: Task }) {
 			const interval = setInterval(fetchLog, 2000);
 			return () => clearInterval(interval);
 		}
-		return () => {}; // Add this line
+		return () => { }; // Add this line
 	}, [task, isCompleted]);
 
 	if (isLoading) return <div>Loading...</div>;

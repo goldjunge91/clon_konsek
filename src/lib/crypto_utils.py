@@ -10,7 +10,7 @@ import binascii
 # load_dotenv(os.path.join(os.path.dirname(__file__), '../../.env'))
 # # Pfad zur .env-Datei ausgeben
 # TODO change my path
-env_path ="/home/runneruser/actions-runner/_work/pdf-website/pdf-website/.env"
+env_path = "/home/runneruser/actions-runner/_work/pdf-website/pdf-website/.env"
 # env_path = r"C:\\GIT\\pdf-website\\.env"
 
 # Windows Debugging
@@ -27,35 +27,45 @@ load_dotenv(env_path)
 print(f"Pfad zur .env-Datei: {load_dotenv}")
 
 
+ENCRYPTION_KEY = bytes.fromhex(os.getenv("ENCRYPTION_KEY"))  # type: ignore
+# ENCRYPTION_IV = os.getenv("ENCRYPTION_IV").encode()
+ENCRYPTION_IV = os.getenv("ENCRYPTION_IV").encode()  # type: ignore
 
-ENCRYPTION_KEY = bytes.fromhex(os.getenv("ENCRYPTION_KEY")) # type: ignore
-ENCRYPTION_IV = os.getenv("ENCRYPTION_IV").encode()
 
 def decrypt_in_memory(encrypted_str):
     if encrypted_str.startswith("ENC_"):
         encrypted_bytes = binascii.unhexlify(encrypted_str[4:].encode())
-        return decrypt_data(encrypted_bytes).decode('utf-8')
+        return decrypt_data(encrypted_bytes).decode("utf-8")
     return encrypted_str
+
+
 def pad(data):
     padder = padding.PKCS7(128).padder()
     padded_data = padder.update(data) + padder.finalize()
     return padded_data
+
 
 def unpad(data):
     unpadder = padding.PKCS7(128).unpadder()
     unpadded_data = unpadder.update(data) + unpadder.finalize()
     return unpadded_data
 
+
 def encrypt_data(data):
     backend = default_backend()
-    cipher = Cipher(algorithms.AES(ENCRYPTION_KEY), modes.CBC(ENCRYPTION_IV), backend=backend)
+    cipher = Cipher(
+        algorithms.AES(ENCRYPTION_KEY), modes.CBC(ENCRYPTION_IV), backend=backend
+    )
     encryptor = cipher.encryptor()
     ct = encryptor.update(pad(data)) + encryptor.finalize()
     return ct
 
+
 def decrypt_data(data):
     backend = default_backend()
-    cipher = Cipher(algorithms.AES(ENCRYPTION_KEY), modes.CBC(ENCRYPTION_IV), backend=backend)
+    cipher = Cipher(
+        algorithms.AES(ENCRYPTION_KEY), modes.CBC(ENCRYPTION_IV), backend=backend
+    )
     decryptor = cipher.decryptor()
     decrypted_data = decryptor.update(data) + decryptor.finalize()
     return unpad(decrypted_data)

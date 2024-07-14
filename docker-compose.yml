@@ -1,58 +1,39 @@
-version: "3.9"
+version: '3.9'
 services:
-  postgres:
-    env_file:
-      - .env
-    image: postgres:latest
-    restart: always
-    container_name: postgres
-    ports:
-      - 5432:5432
-    environment:
-        POSTGRES_USER: ${DB_USER}
-        POSTGRES_PASSWORD: ${DB_PASSWORD}
-        POSTGRES_DB: ${DB_NAME}
-        PGDATA: /data/postgres
-    volumes:
-      - /home/runneruser/dockerfiles/postgres
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    deploy:
-      # resources:
-      #   limits:
-      #     cpus: '1'
-      #     memory: 1G
-    # networks:
-    #   - backend
-    labels:
-      - "com.example.description=Postgres database for PDF website"
-      - "com.example.department=Development"
+    postgres:
+        env_file:
+            - .env
+        image: postgres:latest
+        restart: always
+        container_name: postgres
+        ports:
+            - 5432:5432
+        environment:
+            POSTGRES_USER: ${DB_USER}
+            POSTGRES_PASSWORD: ${DB_PASSWORD}
+            POSTGRES_DB: ${DB_NAME}
+            PGDATA: /data/postgres
+        volumes:
+            - /home/runneruser/dockerfiles/postgres
+        healthcheck:
+            test: ['CMD-SHELL', 'pg_isready -U postgres']
+            interval: 10s
+            timeout: 5s
+            retries: 5
+        deploy:
+            # resources:
+            #   limits:
+            #     cpus: '1'
+            #     memory: 1G
+        # networks:
+        #   - backend
+        labels:
+            - 'com.example.description=Postgres database for PDF website'
+            - 'com.example.department=Development'
 
 volumes:
-  postgres_data:
-
-# networks:
-#   backend:
-# version: "3.9"
-# services:
-#   postgres:
-#     image: postgres
-#     restart: always
-#     container_name: postgres
-#     ports:
-#       - 5432:5432
-    # environment:
-    #   POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-#       PGDATA: /data/postgres
-#     volumes:
-#       # - ~/dockerfiles/postgres:/data/postgres
-#       - /home/runneruser/dockerfiles/postgres
-# volumes:
-#   postgres_data:
-  
+    postgres_data:
+######### zum debugging
 # services:
 #   MyWebsite:
 #     image: postgres

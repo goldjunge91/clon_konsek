@@ -6,7 +6,7 @@ dotenv.config();
 const nextConfig = {
   // cacheMaxMemorySize: 0,
   reactStrictMode: true,
-  // swcMinify: true,
+  swcMinify: true,
   images: {
     unoptimized: false,
     formats: ["image/avif", "image/webp"],
@@ -46,17 +46,16 @@ const nextConfig = {
     ],
   },
   // distDir: '.next',
-
-  // experimental: {
-  //   turbo: {
-  //     rules: {
-  //       "*.svg": {
-  //         loaders: ["@svgr/webpack"],
-  //         as: "*.js",
-  //       },
-  //     },
-  //   },
-  // },
+  experimental: {
+    turbo: {
+      rules: {
+        "*.svg": {
+          loaders: ["@svgr/webpack"],
+          as: "*.js",
+        },
+      },
+    },
+  },
   webpack: (config, { isServer }) => {
     config.module.rules.push({
       // https://www.npmjs.com/package/@svgr/webpack
@@ -77,26 +76,5 @@ const nextConfig = {
     return config;
   },
 };
-// const withNextra = nextra({
-//   theme: 'nextra-theme-docs',
-//   themeConfig: './theme.config.jsx',
-//   defaultShowCopyCode: true,
-//   flexsearch: {
-//     codeblocks: true
-//   },
-//   staticImage: true,
-// contentDirs: ['pages'],  // Hier geben wir an, wo sich die Dokumentation befindet
-// });
-// export default withNextra(nextConfig);
 export default (nextConfig);
 
-// const withNextra = nextra({
-  //   theme: 'nextra-theme-docs',
-  //   themeConfig: './theme.config.jsx',
-  //   defaultShowCopyCode: true,
-  //   flexsearch: {
-    //     codeblocks: true
-    //   },
-    //   staticImage: true,
-    //   contentDirs: ['pages'],  // Hier geben wir an, wo sich die Dokumentation befindet
-// });

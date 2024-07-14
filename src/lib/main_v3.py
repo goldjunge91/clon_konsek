@@ -23,7 +23,6 @@ from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.core.os_manager import ChromeType
 import json
 import pyzipper
-from typing import Any
 from db_utils import update_task_status_in_db, schedule_delete_folder_cronjob
 import sys
 import io
@@ -35,22 +34,10 @@ import binascii
 # + Variablen für den gesamten Code...
 LOG_FILE_EXT = ".log"
 now = datetime.datetime.now()
-base_path = "/home/runneruser/actions-runner/_work/pdf-website/pdf-website/DATA/downloads/"
-# base_path = r'C:\\Users\\tozzi\\Git\\pdf-website\\DATA\\downloads\\'
+base_path = (
+    r"/home/runneruser/actions-runner/_work/pdf-website/pdf-website/DATA/downloads/"
+)
 
-# windows pfad setzen für debugging.
-# base_path = r'C:\GIT\pdf-website\DATA\downloads'
-
-# # Get the directory of the current script
-# current_dir = os.path.dirname(os.path.abspath(__file__))
-# # Construct the path to the config file
-# config_path = os.path.join(current_dir, 'python_config.json')
-# # Read the configuration
-# with open(config_path, 'r') as f:
-#     config = json.load(f)
-
-# base_path = config['GLOBAL_PATHS']['DATA_PATH']
-# env_path = config['GLOBAL_PATHS']['ENV_PATH']
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8")
@@ -61,8 +48,7 @@ options.add_argument("--headless")
 options.add_argument("--no-sandbox")
 options.add_argument("--disable-dev-shm-usage")
 options.add_argument("user-agent=[user-agent string]")
-options.add_argument("--disable-blink-features=AutomationControlled")
-
+# options.add_argument("--disable-blink-features=AutomationControlled")
 driver = webdriver.Chrome(
     service=ChromiumService(
         executable_path=ChromeDriverManager(chrome_type=ChromeType.GOOGLE).install()
@@ -70,11 +56,11 @@ driver = webdriver.Chrome(
     options=options,
 )
 
+
 def encrypt_sensitive_data_in_json(form_data_path):
     with open(form_data_path, "r+") as file:
         data = json.load(file)
         encrypted = False
-        # Only encrypt if not already encrypted; you can tweak this logic as needed
         if not data["dsmpassword"].startswith("ENC_"):
             data["dsmpassword"] = (
                 "ENC_"
@@ -87,7 +73,6 @@ def encrypt_sensitive_data_in_json(form_data_path):
                 + binascii.hexlify(encrypt_data(data["zippassword"].encode())).decode()
             )
             encrypted = True
-
         if encrypted:
             file.seek(0)
             json.dump(data, file, indent=4)
@@ -244,7 +229,6 @@ def detect_encoding(file_path):
     return result["encoding"]
 
 
-
 def process_csv(file_path):
     try:
         encoding = detect_encoding(file_path)
@@ -260,28 +244,6 @@ def process_csv(file_path):
     except Exception as error:
         logging.error("Fehler bei der Verarbeitung der CSV-Datei: ", {error})
         raise
-
-
-
-# def process_csv(file_path):
-#     try:
-#         encoding = detect_encoding(file_path)
-#         # df = pd.read_csv(file_path, delimiter=";", encoding=encoding)
-
-#         df.to_csv(file_path, index=False, sep=";", encoding="utf-8")
-#         encoding = detect_encoding(file_path)
-
-
-#         df[["Title", "URL"]] = df["Titel"].str.extract(
-#             r"^(.*?)\s*(\(https?://[^\s()]+\))?$", expand=True
-#         )
-#         df["URL"] = df["URL"].str.strip("()")
-#         df["URL"] = df["URL"].fillna(df["Title"])
-#         df.to_csv(file_path, index=False, sep=";", encoding=encoding)
-#         return df
-#     except Exception as error:
-#         logging.error("Fehler bei der Verarbeitung der CSV-Datei: ", {error})
-#         raise
 
 
 def process_excel(file_path):
@@ -356,7 +318,6 @@ def process_urls_to_pdf(user_email, user_password, user_link, file_path):
     try:
         logging.info("Start der Funktion:, process_urls_to_pdf")
         logging.info(f"Start der Funktion: {process_urls_to_pdf}\n")
-        driver.get("google.de")
         driver.get(user_link)  # Navigieren zur Benutzer-URL
         driver.find_element(By.NAME, "username").send_keys(
             user_email
@@ -539,7 +500,6 @@ if __name__ == "__main__":
         logging.info(total_time)
         progress_logger.info(f"Program finished. Total runtime: {total_time} seconds.")
         update_task_status_in_db(task_id, "completed")
-        schedule_delete_folder_cronjob(folder_to_delete) # type: ignore
+        schedule_delete_folder_cronjob(folder_to_delete)
         logging.info("Program finished.")
         progress_logger.info("Program finished.")
-
