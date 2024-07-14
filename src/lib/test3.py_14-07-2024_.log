@@ -1,0 +1,52 @@
+2024-07-14 08:04:53,783 - INFO - Logging-System erfolgreich konfiguriert.
+2024-07-14 08:05:25,314 - INFO - Logging-System erfolgreich konfiguriert.
+2024-07-14 08:05:25,316 - INFO - Start der Funktion:
+
+2024-07-14 08:05:25,445 - INFO - 0.13017964363098145
+2024-07-14 08:05:25,445 - INFO - Programm beendet. Gesamtlaufzeit: {total_time} Sekunden.
+2024-07-14 08:05:25,462 - INFO - Programm beendet.
+2024-07-14 08:05:25,464 - INFO - Programm beendet.
+2024-07-14 08:16:42,862 - INFO - Logging-System erfolgreich konfiguriert.
+2024-07-14 08:17:18,104 - INFO - Logging-System erfolgreich konfiguriert.
+2024-07-14 08:17:18,338 - ERROR - Error in main script: 
+Traceback (most recent call last):
+  File "/home/runneruser/actions-runner/_work/pdf-website/pdf-website/src/lib/test3.py", line 472, in <module>
+    driver.get(user_link)
+  File "/home/runneruser/.local/lib/python3.10/site-packages/selenium/webdriver/remote/webdriver.py", line 363, in get
+    self.execute(Command.GET, {"url": url})
+  File "/home/runneruser/.local/lib/python3.10/site-packages/selenium/webdriver/remote/webdriver.py", line 354, in execute
+    self.error_handler.check_response(response)
+  File "/home/runneruser/.local/lib/python3.10/site-packages/selenium/webdriver/remote/errorhandler.py", line 229, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.WebDriverException: Message: unknown error: net::ERR_NAME_NOT_RESOLVED
+  (Session info: chrome-headless-shell=126.0.6478.126)
+Stacktrace:
+#0 0x55721d2bec7a <unknown>
+#1 0x55721cfa1e2c <unknown>
+#2 0x55721cf999c0 <unknown>
+#3 0x55721cf894c2 <unknown>
+#4 0x55721cf8ab42 <unknown>
+#5 0x55721cf8977d <unknown>
+#6 0x55721cf88e93 <unknown>
+#7 0x55721cf88d85 <unknown>
+#8 0x55721cf86cc6 <unknown>
+#9 0x55721cf871ca <unknown>
+#10 0x55721cfa4877 <unknown>
+#11 0x55721d030f25 <unknown>
+#12 0x55721d0115c2 <unknown>
+#13 0x55721d030303 <unknown>
+#14 0x55721d011363 <unknown>
+#15 0x55721cfe1247 <unknown>
+#16 0x55721cfe1b9e <unknown>
+#17 0x55721d28524b <unknown>
+#18 0x55721d2892f1 <unknown>
+#19 0x55721d270afe <unknown>
+#20 0x55721d289e52 <unknown>
+#21 0x55721d25579f <unknown>
+#22 0x55721d2ae638 <unknown>
+#23 0x55721d2ae810 <unknown>
+#24 0x55721d2bddac <unknown>
+#25 0x7f81fceb4ac3 <unknown>
+
+2024-07-14 08:17:18,343 - INFO - 0.1458752155303955
+2024-07-14 08:17:18,343 - INFO - Program finished. Total runtime: 0.1458752155303955 seconds.

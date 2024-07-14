@@ -17,16 +17,16 @@ done < .env.production
 
 echo "Environment variables from .env.production have been exported."
 # # Navigate to the directory containing package.json
-# cd /home/runneruser/actions-runner/_work/pdf-website/pdf-website
+cd /home/runneruser/actions-runner/_work/pdf-website/pdf-website
 
-# # Clear npm cache
-# npm cache clean --force
+# Clear npm cache
+npm cache clean --force
 
-# # Install dependencies
-# npm ci
+# Install dependencies
+npm ci
 
-# # Build the application
-# npm run build
+# Build the application
+npm run build
 
-# # Run deployment
-# pm2 start ecosystem.config.cjs
+# Run deployment
+pm2 start ecosystem.config.cjs

@@ -10,7 +10,7 @@ import binascii
 # load_dotenv(os.path.join(os.path.dirname(__file__), '../../.env'))
 # # Pfad zur .env-Datei ausgeben
 # TODO change my path
-env_path = "/home/marco/git/pdf-website/.env"
+env_path ="/home/runneruser/actions-runner/_work/pdf-website/pdf-website/.env"
 # env_path = r"C:\\GIT\\pdf-website\\.env"
 
 # Windows Debugging
@@ -25,6 +25,7 @@ env_path = "/home/marco/git/pdf-website/.env"
 # Lade die Umgebungsvariablen aus der .env-Datei
 load_dotenv(env_path)
 print(f"Pfad zur .env-Datei: {load_dotenv}")
+
 
 
 ENCRYPTION_KEY = bytes.fromhex(os.getenv("ENCRYPTION_KEY")) # type: ignore

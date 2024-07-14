@@ -27,53 +27,15 @@ from typing import Any
 from db_utils import update_task_status_in_db, schedule_delete_folder_cronjob
 import sys
 import io
-import chardet
 from crypto_utils import encrypt_data, decrypt_data
 import binascii
 
-
-# + Variablen für den gesamten Code...
-LOG_FILE_EXT = ".log"
-now = datetime.datetime.now()
-base_path = "/home/runneruser/actions-runner/_work/pdf-website/pdf-website/DATA/downloads/"
-# base_path = r'C:\\Users\\tozzi\\Git\\pdf-website\\DATA\\downloads\\'
-
-# windows pfad setzen für debugging.
-# base_path = r'C:\GIT\pdf-website\DATA\downloads'
-
-# # Get the directory of the current script
-# current_dir = os.path.dirname(os.path.abspath(__file__))
-# # Construct the path to the config file
-# config_path = os.path.join(current_dir, 'python_config.json')
-# # Read the configuration
-# with open(config_path, 'r') as f:
-#     config = json.load(f)
-
-# base_path = config['GLOBAL_PATHS']['DATA_PATH']
-# env_path = config['GLOBAL_PATHS']['ENV_PATH']
-
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
-sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8")
-
-options = webdriver.ChromeOptions()  # Initialize the options object
-options.add_argument("--disable-gpu")
-options.add_argument("--headless")
-options.add_argument("--no-sandbox")
-options.add_argument("--disable-dev-shm-usage")
-options.add_argument("user-agent=[user-agent string]")
-options.add_argument("--disable-blink-features=AutomationControlled")
-
-driver = webdriver.Chrome(
-    service=ChromiumService(
-        executable_path=ChromeDriverManager(chrome_type=ChromeType.GOOGLE).install()
-    ),
-    options=options,
-)
 
 def encrypt_sensitive_data_in_json(form_data_path):
     with open(form_data_path, "r+") as file:
         data = json.load(file)
         encrypted = False
+
         # Only encrypt if not already encrypted; you can tweak this logic as needed
         if not data["dsmpassword"].startswith("ENC_"):
             data["dsmpassword"] = (
@@ -81,6 +43,7 @@ def encrypt_sensitive_data_in_json(form_data_path):
                 + binascii.hexlify(encrypt_data(data["dsmpassword"].encode())).decode()
             )
             encrypted = True
+
         if not data["zippassword"].startswith("ENC_"):
             data["zippassword"] = (
                 "ENC_"
@@ -92,6 +55,29 @@ def encrypt_sensitive_data_in_json(form_data_path):
             file.seek(0)
             json.dump(data, file, indent=4)
             file.truncate()
+
+
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
+sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8")
+# + Variablen für den gesamten Code...
+LOG_FILE_EXT = ".log"
+now = datetime.datetime.now()
+base_path = "/home/runneruser/actions-runner/_work/pdf-website/pdf-website/DATA/downloads/"
+
+
+options = webdriver.ChromeOptions()  # Initialize the options object
+options.add_argument("--disable-gpu")
+options.add_argument("--headless")
+options.add_argument("--no-sandbox")
+options.add_argument("--disable-dev-shm-usage")
+options.add_argument("user-agent=[user-agent string]")
+options.add_argument("--disable-blink-features=AutomationControlled")
+driver = webdriver.Chrome(
+    service=ChromiumService(
+        executable_path=ChromeDriverManager(chrome_type=ChromeType.GOOGLE).install()
+    ),
+    options=options,
+)
 
 
 def setup_logging():
@@ -133,7 +119,6 @@ def get_user_input(base_path):
     try:
         path = os.path.join(base_path, sys.argv[1])  # This comes from your main block
         form_data_path = os.path.join(path, "form-data.json")
-        # print(f"Attempting to access file at: {form_data_path}")
 
         with open(form_data_path, "r") as file:
             form_data = json.load(file)
@@ -171,6 +156,35 @@ def get_user_input(base_path):
     except Exception as error:
         logging.error(f"Error in get_user_input: {error}")
         raise
+
+
+# def get_user_input(base_path):
+#     try:
+#         if len(sys.argv) < 2:         # Überprüfen, ob der Pfad als Argument übergeben wurde
+#             raise ValueError("Bitte übergeben Sie den Pfad als Argument.") # Den übergebenen Pfad an den Basispfad anhängen
+#         path = os.path.join(base_path, sys.argv[1])
+#         form_data_path = os.path.join(path, "form-data.json") # Überprüfen, ob die form-data.json-Datei existiert
+#         if not os.path.exists(form_data_path):
+#             raise FileNotFoundError(f"Die Datei {form_data_path} wurde nicht gefunden.")
+#         with open(form_data_path, "r") as file:
+#             form_data = json.load(file)
+#             user_email = form_data["dsm_mail"]
+#             user_password = form_data["dsmpassword"]
+#             user_link = form_data["dsm_url"]
+#             zip_password = form_data["zippassword"]
+#             zip_name = form_data["id"]
+#             taskid = form_data["id"]
+#         if not user_email or not user_password or not user_link:
+#             raise ValueError("Unvollständige Daten in form-data.json.")
+#         file_path = os.path.join(path, "liste.csv")
+#         if not os.path.exists(file_path):
+#             file_path = os.path.join(path, "liste.xlsx")
+#             if not os.path.exists(file_path):
+#                 raise FileNotFoundError("Weder liste.csv noch liste.xlsx wurden gefunden.")
+#         return user_email, user_password, user_link, zip_password, zip_name, file_path, taskid
+#     except Exception as error:
+#         logging.info('Error in main script: ', error)
+#         raise
 
 
 # ! Funktion für neuen Tab öffnen
@@ -238,50 +252,20 @@ def check_datei_endung(file_path):
         raise
 
 
-def detect_encoding(file_path):
-    with open(file_path, "rb") as f:
-        result = chardet.detect(f.read())
-    return result["encoding"]
-
-
-
 def process_csv(file_path):
     try:
-        encoding = detect_encoding(file_path)
-        df = pd.read_csv(file_path, delimiter=";", encoding=encoding)
+        df = pd.read_csv(file_path, delimiter=";", encoding="utf-8")
 
         df[["Title", "URL"]] = df["Titel"].str.extract(
             r"^(.*?)\s*(\(https?://[^\s()]+\))?$", expand=True
         )
         df["URL"] = df["URL"].str.strip("()")
         df["URL"] = df["URL"].fillna(df["Title"])
-        df.to_csv(file_path, index=False, sep=";", encoding=encoding)
+        df.to_csv(file_path, index=False, sep=";", encoding="utf-8")
         return df
     except Exception as error:
-        logging.error("Fehler bei der Verarbeitung der CSV-Datei: ", {error})
+        logging.error("Fehler bei der Verarbeitung der CSV-Datei: ", error)
         raise
-
-
-
-# def process_csv(file_path):
-#     try:
-#         encoding = detect_encoding(file_path)
-#         # df = pd.read_csv(file_path, delimiter=";", encoding=encoding)
-
-#         df.to_csv(file_path, index=False, sep=";", encoding="utf-8")
-#         encoding = detect_encoding(file_path)
-
-
-#         df[["Title", "URL"]] = df["Titel"].str.extract(
-#             r"^(.*?)\s*(\(https?://[^\s()]+\))?$", expand=True
-#         )
-#         df["URL"] = df["URL"].str.strip("()")
-#         df["URL"] = df["URL"].fillna(df["Title"])
-#         df.to_csv(file_path, index=False, sep=";", encoding=encoding)
-#         return df
-#     except Exception as error:
-#         logging.error("Fehler bei der Verarbeitung der CSV-Datei: ", {error})
-#         raise
 
 
 def process_excel(file_path):
@@ -356,7 +340,6 @@ def process_urls_to_pdf(user_email, user_password, user_link, file_path):
     try:
         logging.info("Start der Funktion:, process_urls_to_pdf")
         logging.info(f"Start der Funktion: {process_urls_to_pdf}\n")
-        driver.get("google.de")
         driver.get(user_link)  # Navigieren zur Benutzer-URL
         driver.find_element(By.NAME, "username").send_keys(
             user_email
@@ -433,6 +416,7 @@ def setup_loggers(logger, progress_logger, log_file, progress_log_file):
     formatter = logging.Formatter(
         "%(asctime)s - %(levelname)s - %(message)s", datefmt="%d.%m.%Y %H:%M"
     )
+    # progress_formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
     progress_formatter = logging.Formatter(
         "%(asctime)s - %(message)s", datefmt="%d.%m.%Y %H:%M"
     )
@@ -444,7 +428,6 @@ def setup_loggers(logger, progress_logger, log_file, progress_log_file):
 
 if __name__ == "__main__":
     setup_logging()
-    folder_to_delete = None  # Define folder_to_delete before the try block
     if len(sys.argv) < 2:
         raise ValueError("Wrong Value contact admin.")
     path = os.path.join(base_path, sys.argv[1])
@@ -469,7 +452,6 @@ if __name__ == "__main__":
     logger = logging.getLogger("main_logger")
     progress_logger = logging.getLogger("progress_logger")
     setup_loggers(logger, progress_logger, log_file, progress_log_file)
-    folder_to_delete = None  # Define folder_to_delete before the try block
 
     if not all(
         [user_email, user_password, user_link, zip_password, zip_name, file_path]
@@ -539,7 +521,115 @@ if __name__ == "__main__":
         logging.info(total_time)
         progress_logger.info(f"Program finished. Total runtime: {total_time} seconds.")
         update_task_status_in_db(task_id, "completed")
-        schedule_delete_folder_cronjob(folder_to_delete) # type: ignore
+        schedule_delete_folder_cronjob(folder_to_delete)
         logging.info("Program finished.")
         progress_logger.info("Program finished.")
 
+
+# if __name__ == "__main__":
+#     setup_logging()
+#     if len(sys.argv) < 2:
+#         raise ValueError("Wrong Value contact admin.")
+#     path = os.path.join(base_path, sys.argv[1])
+#     form_data_path = os.path.join(path, "form-data.json")
+#     if not os.path.exists(form_data_path):
+#         raise FileNotFoundError(f"File {form_data_path} was not found.")
+#     # Encrypt sensitive data if the file exists
+#     encrypt_sensitive_data_in_json(form_data_path)  # Ensure this function is defined as discussed previously
+#     # Now proceeding with getting user input, which will decrypt the necessary data in-memory
+#     user_email, user_password, user_link, zip_password, zip_name, file_path, task_id = get_user_input(base_path)
+#     start = {datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}
+#     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+#     sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
+#     start_time = time.time()
+#     user_email, user_password, user_link, zip_password, zip_name, file_path, task_id = get_user_input(base_path)
+#     log_folder = os.path.dirname(file_path)
+#     log_file = os.path.join(log_folder, f"pdf_export_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.log")
+#     progress_log_file = os.path.join(log_folder, f"{zip_name}.log")
+#     sys.stderr = codecs.getwriter('utf-8')(sys.stderr.detach())
+#     logger = logging.getLogger()
+#     progress_logger = logging.getLogger('progress_logger')
+#     logger.setLevel(logging.INFO)
+#     progress_logger.setLevel(logging.INFO)
+#     file_handler = logging.FileHandler(log_file, encoding='utf-8')
+#     progress_file_handler = logging.FileHandler(progress_log_file, encoding='utf-8')
+#     formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+#     progress_formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+#     file_handler.setFormatter(formatter)
+#     progress_file_handler.setFormatter(progress_formatter)
+#     logger.addHandler(file_handler)
+#     progress_logger.addHandler(progress_file_handler)
+#     if not all([user_email, user_password, user_link, zip_password, zip_name, file_path]):
+#         for _ in range(4):
+#             time.sleep(0.5)
+#         data = process_file(file_path)
+#         total_rows = len(data)
+#         total_urls = len(data[data['URL'].notnull()])
+#         progress_logger.info(f"Gesamtanzahl der Zeilen: {total_rows}")
+#         progress_logger.info(f"Anzahl der gefundenen URLs: {total_urls}")
+
+#         urls_data_frame, base_url, dataToSave = links(data)
+#         save_csv(file_path, dataToSave)
+#         raise ValueError("All fields must be filled out.")
+
+#     try:
+#         # logging.info('Start der Funktion:\n')
+#         driver.get(user_link)
+#         driver.find_element(By.NAME, 'username').send_keys(user_email)
+#         driver.find_element(By.NAME, 'password').send_keys(user_password, Keys.RETURN)
+#         WebDriverWait(driver, 10)
+#         csv_file_path = file_path
+#         urls_data_frame, base_url, dataToSave = links(csv_file_path)
+#         folder_path = os.path.dirname(file_path)
+#         pdf_folder = os.path.join(folder_path, "pdf/")
+#         progress_logger.info(f"logging.info(f'Aktuelles Datum und Uhrzeit:'), \"{pdf_folder}\" Erste Zeile")
+#         if not os.path.exists(pdf_folder):
+#             os.makedirs(pdf_folder)
+#         total_links = len(urls_data_frame)
+#         progress_logger.info(f"##################### Gesamtanzahl der Links  #####################")
+#         progress_logger.info(f"Insgesamt {total_links} Links gefunden. Beginne mit der PDF-Erstellung.")
+#         progress_logger.info(f"##################### Gesamtanzahl der Links  #####################")
+#         progress_logger.info(f"quick timer to read total number of links 10 seconds")
+#         time.sleep(10)
+#         progress_bar_width = 50
+#         if 'URL' in urls_data_frame.columns and 'Title' in urls_data_frame.columns:
+#             for index, row in enumerate(urls_data_frame.itertuples(), start=1):
+#                 url = row.URL
+#                 pdf_name = row.Title
+#                 pdf_path = os.path.join(pdf_folder, clean_filename(f"{pdf_name}.pdf"))
+#                 if not os.path.exists(pdf_path):
+#                     create_pdf_from_url(driver, url, pdf_path)
+#                     logging.info(f"{index} von {total_links} erstellt: {url}")
+#                     progress_logger.info(f"{index} von {total_links} erstellt: {url}")
+#                 else:
+#                     logging.info(f"File {pdf_path} already exists")
+#                     progress_logger.info(f"File {pdf_path} already exists")
+#                 progress = index / total_links
+#                 filled_width = int(progress * progress_bar_width)
+#                 progress_bar = '█' * filled_width + '░' * (progress_bar_width - filled_width)
+#                 progress_logger.info(f"Fortschritt: [{progress_bar}] {index}/{total_links}")
+#         else:
+#             logging.error("Die Spalten 'URL' und 'Title' sind nicht in der Datei vorhanden.")
+
+#         logging.info("Alle Dateien erfolgreich erstellt!")
+#         progress_logger.info("Alle Dateien erfolgreich erstellt!")
+#         zip_path = os.path.join(os.path.dirname(file_path), f"{zip_name}.zip")
+#         zip_pdf_folder(pdf_folder, zip_password, zip_name, zip_path)
+#         folder_to_delete = os.path.join(base_path, task_id)
+#         time.time()
+#     except Exception as error:
+#         logging.info('Error in main script: ', error)
+#     finally:
+#         end_time = time.time()
+#         total_time = end_time - start_time
+#         logging.info(total_time)
+#         progress_logger.info(f"Programm beendet. Gesamtlaufzeit: {total_time} Sekunden.")
+#         update_task_status_in_db(task_id, "completed")
+#         # updated = update_task_status_in_db(task_id, "completed")
+#         # if updated:
+#         schedule_delete_folder_cronjob(folder_to_delete)
+#         # else:
+#                 # logging.error(f"Task mit ID {task_id} konnte nicht aktualisiert werden.")
+#         logging.info("Programm beendet.")
+#         progress_logger.info("Programm beendet.")
+#         sys.stdout.close()
