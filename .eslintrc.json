@@ -1,60 +1,43 @@
 {
 	"parser": "@typescript-eslint/parser",
-	"plugins": ["@typescript-eslint",  "css-modules"],
+	"parserOptions": {
+	  "ecmaVersion": 2020, // Use a recent ECMAScript version
+	  "sourceType": "module",
+	  "ecmaFeatures": {
+		"jsx": true
+	  }
+	},
+	"plugins": ["@typescript-eslint", "react", "css-modules"],
 	"extends": [
-		"eslint:recommended",
-		"plugin:@typescript-eslint/recommended",
-		"plugin:react/recommended",
-		"plugin:css-modules/recommended",
-		"next/core-web-vitals",
-		"next"
+	  "eslint:recommended",
+	  "plugin:@typescript-eslint/recommended",
+	  "plugin:react/recommended",
+	  "plugin:css-modules/recommended",
+	  "plugin:@next/next/recommended" // Add Next.js specific rules
 	],
 	"rules": {
-		"css-modules/no-undef-class": "off",
-		"css-modules/no-unused-class": "off",
-		"react/no-unescaped-entities": "off",
-		"@typescript-eslint/explicit-function-return-type": "off",
-		"@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
-		// "@next/next/no-page-custom-font": "off",
-		"@typescript-eslint/no-explicit-any": "off",
-		"@typescript-eslint/explicit-module-boundary-types": "off",
-		"react/jsx-uses-react": "off",
-		"react/react-in-jsx-scope": "off"
+	  // TypeScript rules
+	  "@typescript-eslint/explicit-function-return-type": "off",
+	  "@typescript-eslint/explicit-module-boundary-types": "off",
+	  "@typescript-eslint/no-explicit-any": "off",
+	  "@typescript-eslint/no-unused-vars": [
+		"error",
+		{ "argsIgnorePattern": "^_" }
+	  ],
+	  // React rules
+	  "react/jsx-uses-react": "off",
+	  "react/react-in-jsx-scope": "off",
+	  // CSS rules
+	  "css-modules/no-unused-class": "error",
+	  "css-modules/no-undef-class": "error",
+	  // Next.js rules
+	  "@next/next/no-page-custom-font": "off",
+	  // Additional rules
+	  "react/no-unescaped-entities": "off"
+	},
+	"settings": {
+	  "react": {
+		"version": "detect"
+	  }
 	}
-}
-
-// {
-// 	"parser": "@typescript-eslint/parser",
-// 	"parserOptions": {
-// 		"ecmaVersion": 6,
-// 		"sourceType": "module",
-// 		"ecmaFeatures": {
-// 			"jsx": true
-// 		}
-// 	},
-// 	"plugins": ["typescript-eslint", "react", "css-modules"],
-// 	"extends": [
-// "eslint:recommended",
-// "plugin:@typescript-eslint/recommended",
-// "plugin:react/recommended",
-// "plugin:css-modules/recommended"
-// 	],
-// 	"rules": {
-// 		// TypeScript rules
-		// "@typescript-eslint/explicit-function-return-type": "off",
-		// "@typescript-eslint/explicit-module-boundary-types": "off",
-		// "@typescript-eslint/no-explicit-any": "off",
-		// "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
-// 		// React rules
-		// "react/jsx-uses-react": "off",
-		// "react/react-in-jsx-scope": "off",
-// 		// CSS rules
-// 		"css-modules/no-unused-class": "error",
-// 		"css-modules/no-undef-class": "error"
-// 	},
-// 	"settings": {
-// 		"react": {
-// 			"version": "detect"
-// 		}
-// 	}
-// }
+  }

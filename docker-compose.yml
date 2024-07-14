@@ -1,14 +1,18 @@
 version: "3.9"
 services:
   postgres:
+    env_file:
+      - .env
     image: postgres:latest
     restart: always
     container_name: postgres
     ports:
       - 5432:5432
     environment:
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      PGDATA: /data/postgres
+        POSTGRES_USER: ${DB_USER}
+        POSTGRES_PASSWORD: ${DB_PASSWORD}
+        POSTGRES_DB: ${DB_NAME}
+        PGDATA: /data/postgres
     volumes:
       - /home/runneruser/dockerfiles/postgres
     healthcheck:

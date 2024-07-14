@@ -1,17 +1,32 @@
 #!/bin/bash
 set -e
 pwd
-# Navigate to the directory containing package.json
-cd /home/runneruser/actions-runner/_work/pdf-website/pdf-website
+# Ensure the file exists
+if [ ! -f .env.production ]; then
+  echo ".env.production file not found!"
+  exit 1
+fi
 
-# Clear npm cache
-npm cache clean --force
+# Read and export each line in the .env.production file
+while IFS= read -r line || [[ -n "$line" ]]; do
+  # Skip lines that are comments or empty
+  if [[ ! "$line" =~ ^# && -n "$line" ]]; then
+    export "$line"
+  fi
+done < .env.production
 
-# Install dependencies
-npm ci
+echo "Environment variables from .env.production have been exported."
+# # Navigate to the directory containing package.json
+# cd /home/runneruser/actions-runner/_work/pdf-website/pdf-website
 
-# Build the application
-npm run build
+# # Clear npm cache
+# npm cache clean --force
 
-# Run deployment
-pm2 start ecosystem.config.cjs
+# # Install dependencies
+# npm ci
+
+# # Build the application
+# npm run build
+
+# # Run deployment
+# pm2 start ecosystem.config.cjs

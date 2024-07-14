@@ -1,33 +1,12 @@
-/* eslint-disable tsdoc/syntax */
 // import nextra from "nextra";
-// import dotenv from 'dotenv';
 import dotenv from 'dotenv';
-if (process.env.NODE_ENV === 'production') {
-  dotenv.config({ path: '.env.production' });
-}
-
+dotenv.config();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  cacheMaxMemorySize: 0,
+  // cacheMaxMemorySize: 0,
   reactStrictMode: true,
-  swcMinify: true,
-  env: {
-    DATABASE_URL: process.env.DATABASE_URL,
-    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
-    GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
-    SECRET_KEY: process.env.SECRET_KEY,
-    ENCRYPTION_SECRET_KEY: process.env.ENCRYPTION_SECRET_KEY,
-    ENCRYPTION_KEY: process.env.ENCRYPTION_KEY,
-    ENCRYPTION_IV: process.env.ENCRYPTION_IV,
-    NEXTAUTH_URL: process.env.NEXTAUTH_URL,
-    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
-    NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
-    DB_HOST: process.env.DB_HOST,
-    DB_NAME: process.env.DB_NAME,
-    DB_USER: process.env.DB_USER,
-    DB_PASSWORD: process.env.DB_PASSWORD,
-  },
+  // swcMinify: true,
   images: {
     unoptimized: false,
     formats: ["image/avif", "image/webp"],
@@ -121,12 +100,3 @@ export default (nextConfig);
     //   staticImage: true,
     //   contentDirs: ['pages'],  // Hier geben wir an, wo sich die Dokumentation befindet
 // });
-
-// export default withNextra(nextConfig);
-    // import nextra from "nextra";
-    // import dotenv from 'dotenv';
-    
-    // if (process.env.NODE_ENV === 'production') {
-    //   dotenv.config({ path: '.env.production' });
-    // }
-    

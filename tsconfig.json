@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ESNext", // ES6 oder ESNext
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true, // vorher true
     "skipLibCheck": true,
     "noErrorTruncation": true /* Skip type checking all .d.ts files. */,
@@ -28,7 +32,12 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": [
+        "./src/*"
+      ],
+      "out/*": [
+        "./public/*"
+      ]
     }
   },
   "include": [
@@ -46,9 +55,10 @@
     "storybook/docs/**/*",
     ".next/types/**/*.ts"
   ],
-  "exclude": ["**/node_modules"]
+  "exclude": [
+    "**/node_modules"
+  ]
 }
-
 // {
 // 	"compilerOptions": {
 // 		"lib": ["dom", "dom.iterable", "esnext"],
