@@ -1,12 +1,27 @@
 {
-  "editor.insertSpaces": true,
-  "javascript.updateImportsOnFileMove.enabled": "always",
-  "python.analysis.typeCheckingMode": "basic",
-  "editor.accessibilityPageSize": 12,
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "python.testing.pytestArgs": [
-    "TEST"
-  ],
-  "python.testing.unittestEnabled": false,
-  "python.testing.pytestEnabled": true
+	"[python]": {
+		"editor.codeActionsOnSave": {},
+		"editor.formatOnSave": true
+	},
+	"editor.accessibilityPageSize": 12,
+	"editor.formatOnSave": true,
+	"editor.insertSpaces": true,
+	"editor.rulers": [88],
+	"editor.tabSize": 4,
+	"files.insertFinalNewline": true,
+	"files.trimTrailingWhitespace": true,
+	"javascript.updateImportsOnFileMove.enabled": "always",
+	"python.analysis.typeCheckingMode": "basic",
+	"python.defaultInterpreterPath": "/usr/bin/python3.12",
+	"python.formatting.provider": "black",
+	"python.languageServer": "Pylance",
+	"python.linting.enabled": true,
+	"python.linting.pylintEnabled": true,
+	"python.testing.pytestArgs": ["tests"],
+	"python.testing.pytestEnabled": true,
+	"python.testing.unittestEnabled": false,
+	"terminal.integrated.env.linux": {
+		"PYTHONPATH": "${workspaceFolder}"
+	},
+	"typescript.tsdk": "node_modules/typescript/lib"
 }

@@ -75,3 +75,4 @@ TXT.txt
 taskview.backup
 .button.backup
 src/app/browse/dist
+.pytest_cache

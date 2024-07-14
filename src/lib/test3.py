@@ -22,7 +22,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.core.os_manager import ChromeType
 import json
-import pyzipper
+import pyzipper # type: ignore
 from typing import Any
 from db_utils import update_task_status_in_db, schedule_delete_folder_cronjob
 import sys
@@ -67,7 +67,7 @@ base_path = "/home/runneruser/actions-runner/_work/pdf-website/pdf-website/DATA/
 
 options = webdriver.ChromeOptions()  # Initialize the options object
 options.add_argument("--disable-gpu")
-options.add_argument("--headless")
+# options.add_argument("--headless")
 options.add_argument("--no-sandbox")
 options.add_argument("--disable-dev-shm-usage")
 options.add_argument("user-agent=[user-agent string]")

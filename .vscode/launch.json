@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Selenium Script",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/lib/main_v3.py",
+            "args": ["6089b43f-df34-41b0-8539-af0f2ffc8ce5"],
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "env": {
+                "PYTHONUNBUFFERED": "1"
+            },
+            "cwd": "${workspaceFolder}",
+            "stopOnEntry": true
+        }
+    ]
+}
