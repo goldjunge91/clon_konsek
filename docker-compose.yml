@@ -1,8 +1,7 @@
 version: '3.9'
+
 services:
     postgres:
-        env_file:
-            - .env
         image: postgres:latest
         restart: always
         container_name: postgres
@@ -14,22 +13,28 @@ services:
             POSTGRES_DB: ${DB_NAME}
             PGDATA: /data/postgres
         volumes:
-            - /home/runneruser/dockerfiles/postgres
+            - postgres_data:/data/postgres
         healthcheck:
-            test: ['CMD-SHELL', 'pg_isready -U postgres']
+            test: ['CMD-SHELL', 'pg_isready -U ${DB_USER}']
             interval: 10s
             timeout: 5s
             retries: 5
-        deploy:
-            # resources:
-            #   limits:
-            #     cpus: '1'
-            #     memory: 1G
-        # networks:
-        #   - backend
         labels:
             - 'com.example.description=Postgres database for PDF website'
-            - 'com.example.department=Development'
+            - 'com.example.department=Production'
+
+    crontab-ui:
+        image: alseambusher/crontab-ui
+        ports:
+            - 8000:8000
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - /tmp:/tmp
+        environment:
+            - CRON_PATH=/tmp/crontab
+        labels:
+            - 'com.example.description=Crontab UI for managing cron jobs'
+            - 'com.example.department=Production'
 
 volumes:
     postgres_data:

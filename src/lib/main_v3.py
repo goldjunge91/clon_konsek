@@ -23,7 +23,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.core.os_manager import ChromeType
 import json
 import pyzipper
-from db_utils import update_task_status_in_db, schedule_delete_folder_cronjob
+from db_utils import schedule_delete_db_update_db
 import sys
 import io
 import chardet
@@ -462,8 +462,8 @@ if __name__ == "__main__":
             f"Found {total_links} links in total. Starting PDF creation."
         )
         progress_logger.info(f"################ Total number of links ################")
-        progress_logger.info(f"Quick timer to read total number of links: 10 seconds")
-        time.sleep(10)
+        progress_logger.info(f"Quick timer to read total number of links: 5 seconds")
+        time.sleep(5)
         progress_bar_width = 50
         if "URL" in urls_data_frame.columns and "Title" in urls_data_frame.columns:
             for index, row in enumerate(urls_data_frame.itertuples(), start=1):
@@ -499,7 +499,7 @@ if __name__ == "__main__":
         total_time = end_time - start_time
         logging.info(total_time)
         progress_logger.info(f"Program finished. Total runtime: {total_time} seconds.")
-        update_task_status_in_db(task_id, "completed")
-        schedule_delete_folder_cronjob(folder_to_delete)
+        schedule_delete_db_update_db(new_status="completed", task_id=task_id)
+        # schedule_delete_db_update_db("completed", task_id)  # type: ignore
         logging.info("Program finished.")
         progress_logger.info("Program finished.")
