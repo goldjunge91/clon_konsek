@@ -104,13 +104,18 @@ jobs:
             - name: Install dependencies
               if: steps.cache-nodemodules.outputs.cache-hit != 'true'
               run: |
+                  . ~/.nvm/nvm.sh
                   export NVM_DIR="$HOME/.nvm"
                   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
                   npm ci
               continue-on-error: true
 
             - name: Build application
-              run: npm run build
+              run: |
+                  . ~/.nvm/nvm.sh
+                  export NVM_DIR="$HOME/.nvm"
+                  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+                  npm run build
               continue-on-error: true
 
             - name: Run error handling script
@@ -122,23 +127,22 @@ jobs:
 
             - name: Check PM2 installation
               run: |
+                  . ~/.nvm/nvm.sh
                   export NVM_DIR="$HOME/.nvm"
                   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-                  nvm use 18
                   if ! command -v pm2 &> /dev/null; then
-                    echo "PM2 is not installed. Installing globally..."
+                    echo "PM2 is not installed."
                     npm install -g pm2
                   else
-                    echo "PM2 is already installed."
+                    echo "PM2 is installed."
                   fi
                   pm2 --version
 
             - name: Run Deployment
               run: |
+                  . ~/.nvm/nvm.sh
                   export NVM_DIR="$HOME/.nvm"
-                  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-                  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-                  nvm use 18  # Oder die Version, die Sie verwenden
+                  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
                   pm2 --version
                   NODE_PATH=$(which node)
                   PM2_EXEC_PATH=$(which pm2)
