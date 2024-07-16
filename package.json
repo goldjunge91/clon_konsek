@@ -11,8 +11,7 @@
 		"lint": "next lint",
 		"db:push": "drizzle-kit push:pg --config=drizzle.config.ts",
 		"db:studio": "drizzle-kit studio",
-		"container:postgres": "docker-compose up postgres",
-		"container:crontab": "docker-compose up crontab-ui"
+		"container:postgres": "docker-compose up postgres"
 	},
 	"dependencies": {
 		"@auth/core": "^0.28.2",
