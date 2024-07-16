@@ -80,7 +80,7 @@ export function UserTaskCard({ task }: { task: Task }) {
 	return (
 		<Card className="card">
 			<CardHeader>
-				<CardTitle>{task.name}</CardTitle>
+				<CardTitle> Task </CardTitle>
 
 				{/* <Progress value={progressValue} className="w-[80%] top-2 bg" /> */}
 			</CardHeader>
@@ -94,8 +94,7 @@ export function UserTaskCard({ task }: { task: Task }) {
 							: "download-button-disabled"
 							}`}
 						onClick={onSubmitDownload}
-						disabled={task.status !== "completed"}
-					>
+						disabled={task.status !== "completed"}>
 						{task.status === "completed" ? "Download" : "Pending"}
 					</button>
 				</div>
@@ -109,14 +108,15 @@ export function UserTaskCard({ task }: { task: Task }) {
 					)}
 				</div>
 			</CardContent>
-				<Button asChild>
-					<Link className="btn" href={`/tasks/${task.id}`}>Öffne Task</Link>
-				</Button>
+			<Button asChild>
+				<Link className="button-task" href={`/tasks/${task.id}`}>Öffne Task</Link>
+				{/* <Link className="btn" href={`/tasks/${task.id}`}>Öffne Task</Link> */}
+			</Button>
 			<CardFooter >
 
 				<AlertDialog>
 					<AlertDialogTrigger asChild >
-						<Button  className="button" variant={"destructive"}>
+						<Button className="button-task" variant={"destructive"}>
 							<TrashIcon /> Delete Task
 						</Button>
 					</AlertDialogTrigger>

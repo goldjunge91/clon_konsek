@@ -1,19 +1,56 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "Python: Selenium Script",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "${workspaceFolder}/src/lib/main_v3.py",
-            "args": ["6089b43f-df34-41b0-8539-af0f2ffc8ce5"],
-            "console": "integratedTerminal",
-            "justMyCode": false,
-            "env": {
-                "PYTHONUNBUFFERED": "1"
-            },
-            "cwd": "${workspaceFolder}",
-            "stopOnEntry": true
-        }
-    ]
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Python: Selenium Script",
+			"type": "debugpy",
+			"request": "launch",
+			"program": "${workspaceFolder}/src/lib/main_v3.py",
+			"args": ["${input:taskId}"],
+			"console": "integratedTerminal",
+			"justMyCode": false,
+			"env": {
+				"PYTHONUNBUFFERED": "1",
+				"PYTHONPATH": "${workspaceFolder}/src/lib:${workspaceFolder}"
+			},
+			"cwd": "${workspaceFolder}",
+			"stopOnEntry": true,
+			"preLaunchTask": "pytest",
+			"postDebugTask": "cleanup",
+			"envFile": "${workspaceFolder}/.env",
+			"python": "${command:python.interpreterPath}"
+		},
+		{
+			"name": "Python: Current File",
+			"type": "debugpy",
+			"request": "launch",
+			"program": "${file}",
+			"console": "integratedTerminal",
+			"justMyCode": false,
+			"env": {
+				"PYTHONUNBUFFERED": "1",
+				"PYTHONPATH": "${workspaceFolder}/src/lib:${workspaceFolder}"
+			}
+		},
+		{
+			"name": "Python: Debug Tests",
+			"type": "debugpy",
+			"request": "launch",
+			"module": "pytest",
+			"args": ["-v", "-s", "--tb=short", "${workspaceFolder}/tests"],
+			"cwd": "${workspaceFolder}",
+			"env": {
+				"PYTHONPATH": "${workspaceFolder}/src/lib:${workspaceFolder}"
+			},
+			"console": "integratedTerminal"
+		}
+	],
+	"inputs": [
+		{
+			"id": "taskId",
+			"type": "promptString",
+			"description": "Enter the task ID",
+			"default": "6089b43f-df34-41b0-8539-af0f2ffc8ce5"
+		}
+	]
 }

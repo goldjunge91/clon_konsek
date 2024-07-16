@@ -10,7 +10,6 @@ from datetime import datetime, timedelta
 import logging
 import logging.handlers
 import shutil
-import subprocess
 from pathlib import Path
 
 
@@ -88,29 +87,31 @@ def schedule_delete_db_update_db(new_status: str, task_id: str) -> bool:
             logging.warning(f"Keine Aufgabe mit ID {task_id} gefunden.")
             return False
         logging.info(f"Datenbankstatus für Task {task_id} auf 'completed' gesetzt.")
+
+        # with CronTab(user="True") as cron:
+        #     job = cron.new(command="python3 {os.path.abspath(__file__)}")
+
         cron = CronTab(user=True)  # Planen des Cronjobs
         # Erstellen eines neuen Cronjobs
         job = cron.new(command=f"python3 {os.path.abspath(__file__)} delete {task_id}")
-        # execution_time = (datetime.now() + timedelta(minutes=1)).strftime(
-        #     "%M %H %d %m *"
-        # )
         execution_time = datetime.now() + timedelta(minutes=10)
-        # Setzen des Zeitplans für den Cronjob (120 Minuten in der Zukunft)
-        job.setall(execution_time)
+        job.setall(
+            execution_time.strftime("%M %H %d %m *")
+        )  # Setzen des Zeitplans für den Cronjob (120 Minuten in der Zukunft)
+        job.set_comment(f"Delete_task_{task_id}")
         # Speichern des Cronjobs
+        job.enable()
         cron.write()
+        logging.info(
+            f"Cronjob für das Löschen von Task {task_id} wurde geplant für {execution_time}."
+        )
         # Loggen der erfolgreichen Aktualisierung und Planung
         return True
     except Exception as error:
-        # Loggen eines Fehlers bei der Cronjob-Planung
         logging.error(
             f"Fehler beim Aktualisieren des Task-Status und Planen der Löschung: {error}"
         )
         return False
-    finally:
-        logging.info(
-            f"Task {task_id} Status aktualisiert und Löschung in 120 Minuten geplant."
-        )
 
 
 # Funktion zum Löschen der Task-Daten
@@ -139,20 +140,14 @@ def delete_task_data(task_id: str) -> bool:
         logging.info(
             f"Task {task_id} und zugehörige Daten erfolgreich gelöscht."
         )  # Loggen der erfolgreichen Löschung
-        cron = CronTab(user=True)  # Löschen des Cronjobs
-        cron.remove_all(
-            comment=task_id
-        )  # Entfernen aller Cronjobs mit dem entsprechenden Kommentar
-        cron.write()  # Speichern der Änderungen
-        logging.info(
-            f"Cronjob für Task {task_id} wurde entfernt."
-        )  # Loggen der erfolgreichen Entfernung des Cronjobs
-    except Exception as error:
-        logging.error(
-            f"Fehler beim Löschen der Task-Daten: {error}"
-        )  # Loggen eines Fehlers beim Löschen der Task-Daten
-    finally:
+        cron = CronTab(user=True)
+        cron.remove_all(comment=f"Delete_task_{task_id}")
+        cron.write()
+        logging.info(f"Cronjob für Task {task_id} wurde entfernt.")
         return True
+    except Exception as error:
+        logging.error(f"Fehler beim Löschen der Task-Daten: {error}")
+        return False
 
 
 # Hauptfunktion
@@ -176,14 +171,11 @@ def main():
 
     # Parsen der Argumente
     args = parser.parse_args()
-
     # Einrichten des Loggings
     setup_logging()
-
     # Loggen der Aktion und Task-ID
     logging.info(f"Aktion: {args.action}")
     logging.info(f"Task ID: {args.task_id}")
-
     # Ausführen der entsprechenden Aktion
     if args.action == "delete":
         logging.info(f"Starte Löschvorgang für Aufgabe {args.task_id}...")
