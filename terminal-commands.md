@@ -6,6 +6,13 @@ cd /home/runneruser/actions-runner/_work/pdf-website/pdf-website/
 pm2 start cosystem.config.cjs
 pm2 stop cosystem.config.cjs
 
+
+# Export the DATABASE_URL
+export DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost:5432/${POSTGRES_DB}
+
+# Echo the exported DATABASE_URL (for verification)
+echo "Exported DATABASE_URL=${DATABASE_URL}"
+
 # PDF Website Development Commands
 
 ## Development
