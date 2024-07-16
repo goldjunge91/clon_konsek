@@ -76,3 +76,5 @@ taskview.backup
 .button.backup
 src/app/browse/dist
 .pytest_cache
+src/lib/__pycache__/db_tests.cpython-312.pyc
+src/lib/db_utils.py_16-07-2024_.log
