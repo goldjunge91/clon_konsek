@@ -1,4 +1,3 @@
-// import nextra from "nextra";
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -75,6 +74,12 @@ const nextConfig = {
     }
     return config;
   },
+  // Add this section to explicitly define which env variables to expose
+  env: {
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+    // Add other NEXT_PUBLIC_ variables here
+  },
 };
+
 export default (nextConfig);
 

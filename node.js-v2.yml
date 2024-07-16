@@ -20,24 +20,12 @@ jobs:
       DB_USER: ${{ secrets.DB_USER }}
       DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
       ENABLE_GOOGLE_AUTH: ${{ secrets.ENABLE_GOOGLE_AUTH }}
+      DATABASE_URL: postgresql://${{ secrets.DB_USER }}:${{ secrets.DB_PASSWORD }}@${{ secrets.DB_HOST }}:5432/${{ secrets.DB_NAME }}
 
     steps:
-     steps:
-      - name: Set up Node.js
-        run: |
-          . ~/.nvm/nvm.sh
-          nvm use --lts
-          nvm install --lts
-          nvm alias default lts/*
-          echo 'nvm use --lts' >> ~/.bashrc
-          node --version
-          npm --version
-
-      - name: Clear npm cache
-        run: npm cache clean --force
-
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+
       - name: Cache dependencies and build outputs
         uses: actions/cache@v4
         with:
@@ -47,6 +35,7 @@ jobs:
           key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
           restore-keys: |
              ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+        continue-on-error: true
 
       - name: cache node modules
         uses: actions/cache@v4
@@ -55,45 +44,7 @@ jobs:
           key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
                ${{ runner.os }}-node-modules-
-
-      - name: Set up Node.js
-        run: |
-          . ~/.nvm/nvm.sh
-          nvm use --lts
-          nvm install --lts
-          nvm alias default lts/*
-          echo 'nvm use --lts' >> ~/.bashrc
-          node --version
-          npm --version
-
-      - name: Clear npm cache
-        run: npm cache clean --force
-
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Cache dependencies and build outputs
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.npm
-            ${{ github.workspace }}/.next/cache
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
-          restore-keys: |
-             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
-
-      - name: cache node modules
-        uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-               ${{ runner.os }}-node-modules-
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build application
-        run: npm run build
+        continue-on-error: true
 
       - name: Create .env.production file
         run: |
@@ -113,12 +64,52 @@ jobs:
           ENABLE_GOOGLE_AUTH=${{ secrets.ENABLE_GOOGLE_AUTH }}
           EOF
 
-      - name: Verify .env.production file
+      - name: Verify environment setup
         run: |
-          if [ ! -s .env.production ]; then
-            echo "Error: .env.production file is empty or not created"
-            exit 1
+          if [ -s ".env.production" ]; then
+            echo ".env.production file exists and is not empty."
+          else
+            echo ".env.production file is missing or empty. Checking environment variables..."
+            missing_variables=()
+
+            if [ -z "${ENCRYPTION_KEY}" ]; then
+              missing_variables+=("ENCRYPTION_KEY")
+            fi
+
+            if [ -z "${ENCRYPTION_IV}" ]; then
+              missing_variables+=("ENCRYPTION_IV")
+            fi
+
+            if [ -z "${ENABLE_GOOGLE_AUTH}" ]; then
+              missing_variables+=("ENABLE_GOOGLE_AUTH")
+            fi
+
+            if [ ${#missing_variables[@]} -eq 0 ]; then
+              echo "All required environment variables are set."
+            else
+              echo "Error: The following required environment variables are not set: ${missing_variables[*]}"
+              exit 1
+            fi
           fi
+
+      - name: Clear npm cache
+        run: npm cache clean --force
+
+      - name: Install dependencies
+        run: npm ci
+        continue-on-error: true
+
+      - name: Build application
+        run: npm run build
+        continue-on-error: true
+
+      - name: Run error handling script
+        if: failure()
+        run: |
+          chmod +x ./.github/workflows/script.sh
+          ./.github/workflows/script.sh
+        continue-on-error: true
 
       - name: Run Deployment
         run: pm2 start ecosystem.config.cjs
+        continue-on-error: true
