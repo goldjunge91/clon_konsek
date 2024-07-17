@@ -137,7 +137,7 @@ jobs:
                   . ~/.nvm/nvm.sh
                   export NVM_DIR="$HOME/.nvm"
                   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-                  npx run build
+                  npm run build
               continue-on-error: true
 
             - name: Run error handling script
