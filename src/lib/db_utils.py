@@ -17,7 +17,6 @@ from pathlib import Path
 LOG_FILE_EXT = ".log"
 
 # Laden der Umgebungsvariablen aus der .env-Datei
-load_dotenv(os.path.join(os.path.dirname(__file__), "../../.env"))
 
 # Definition des Basispfads für Downloads
 base_path = Path(
@@ -25,11 +24,22 @@ base_path = Path(
 ).joinpath("")
 
 # Abrufen der Datenbankverbindungsdetails aus den Umgebungsvariablen
+dotenv_path = os.path.join(os.path.dirname(__file__), "../../.env")
+if os.path.exists(dotenv_path):
+    load_dotenv(dotenv_path)
+    print(f"Pfad zur .env-Datei: {dotenv_path}")
+else:
+    print("Keine .env-Datei gefunden. Verwende Umgebungsvariablen.")
 DB_HOST = os.environ.get("DB_HOST")
 DB_NAME = os.environ.get("DB_NAME")
 DB_USER = os.environ.get("DB_USER")
 DB_PASSWORD = os.environ.get("DB_PASSWORD")
 
+
+# Laden der Datenbank-URL aus den Umgebungsvariablen
+database_url = os.getenv("DATABASE_URL")
+if not database_url:
+    raise ValueError("DATABASE_URL muss gesetzt sein.")
 
 # Funktion zum Einrichten des Loggings
 def setup_logging():
@@ -68,9 +78,10 @@ def schedule_delete_db_update_db(new_status: str, task_id: str) -> bool:
     try:
         folder_to_delete = os.path.join(str(base_path), str(task_id))
         # Verbindung zur Datenbank herstellen
-        conn = psycopg2.connect(
-            host=DB_HOST, database=DB_NAME, user=DB_USER, password=DB_PASSWORD
-        )
+        conn = psycopg2.connect(database_url)
+        # conn = psycopg2.connect(
+        #     host=DB_HOST, database=DB_NAME, user=DB_USER, password=DB_PASSWORD
+        # )
         # Cursor erstellen
         cursor = conn.cursor(cursor_factory=RealDictCursor)
         # SQL-Query zum Aktualisieren des Task-Status
@@ -94,7 +105,7 @@ def schedule_delete_db_update_db(new_status: str, task_id: str) -> bool:
         cron = CronTab(user=True)  # Planen des Cronjobs
         # Erstellen eines neuen Cronjobs
         job = cron.new(command=f"python3 {os.path.abspath(__file__)} delete {task_id}")
-        execution_time = datetime.now() + timedelta(minutes=10)
+        execution_time = datetime.now() + timedelta(minutes=120)
         job.setall(
             execution_time.strftime("%M %H %d %m *")
         )  # Setzen des Zeitplans für den Cronjob (120 Minuten in der Zukunft)
@@ -125,10 +136,7 @@ def delete_task_data(task_id: str) -> bool:
         else:
             logging.warning(f"Ordner {folder_to_delete} existiert nicht.")
 
-        # Verbindung zur Datenbank herstellen
-        conn = psycopg2.connect(
-            host=DB_HOST, database=DB_NAME, user=DB_USER, password=DB_PASSWORD
-        )
+        conn = psycopg2.connect(database_url)
         # Cursor erstellen
         cursor = conn.cursor(cursor_factory=RealDictCursor)
         # SQL-Query zum Löschen des Task-Eintrags

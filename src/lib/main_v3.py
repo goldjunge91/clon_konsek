@@ -29,6 +29,9 @@ import io
 import chardet
 from crypto_utils import encrypt_data, decrypt_data
 import binascii
+import pyminizip
+
+
 
 
 # + Variablen für den gesamten Code...
@@ -368,15 +371,70 @@ def process_urls_to_pdf(user_email, user_password, user_link, file_path):
     logging.info("Ende von process_urls_to_pdf")
 
 
+# # Funktion zum Verschlüsseln der Daten
+# def encrypt(data, password):
+#     backend = default_backend()
+#     salt = os.urandom(16)
+#     kdf = PBKDF2HMAC(
+#         algorithm=hashes.SHA256(),
+#         length=32,
+#         salt=salt,
+#         iterations=100000,
+#         backend=backend
+#     )
+#     key = base64.urlsafe_b64encode(kdf.derive(password.encode()))
+#     iv = os.urandom(16)
+#     cipher = Cipher(algorithms.AES(key), modes.CFB(iv), backend=backend)
+#     encryptor = cipher.encryptor()
+#     encrypted = encryptor.update(data) + encryptor.finalize()
+#     return salt + iv + encrypted
+
+# # Funktion zum Zippen des PDF-Ordners mit Passwortschutz
+# def zip_pdf_folder1(pdf_folder, zip_password, zip_name, zip_path):
+#     try:
+#         with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_LZMA) as zf:
+#             for root, dirs, files in os.walk(pdf_folder):
+#                 for file in files:
+#                     file_path = os.path.join(root, file)
+#                     with open(file_path, 'rb') as f:
+#                         file_data = f.read()
+#                         encrypted_data = encrypt(file_data, zip_password)
+#                         zf.writestr(os.path.relpath(file_path, pdf_folder), encrypted_data)
+#         logging.info(f"PDF-Ordner erfolgreich als ZIP-Datei gespeichert: {zip_path}")
+#         shutil.rmtree(pdf_folder)
+#         logging.info(f"PDF-Ordner gelöscht: {pdf_folder}")
+#     except Exception as error:
+#         logging.error(f"Fehler beim Komprimieren des PDF-Ordners: {error}")
+#         raise
+
+
+
+# def zip_pdf_folder(pdf_folder, zip_password, zip_name, zip_path):
+#     try:
+#         with pyzipper.AESZipFile(zip_path, "w", compression=pyzipper.ZIP_LZMA) as zf:
+#             zf.setpassword(zip_password.encode())
+#             zf.setencryption(pyzipper.WZ_AES, nbits=256)
+#             for root, dirs, files in os.walk(pdf_folder):
+#                 for file in files:
+#                     file_path = os.path.join(root, file)
+#                     zf.write(file_path, os.path.relpath(file_path, pdf_folder))
+#         logging.info(f"PDF-Ordner erfolgreich als ZIP-Datei gespeichert: {zip_path}")
+#         shutil.rmtree(pdf_folder)
+#         logging.info(f"PDF-Ordner gelöscht: {pdf_folder}")
+#     except Exception as error:
+#         logging.error(f"Fehler beim Komprimieren des PDF-Ordners: {error}")
+#         raise
+# Funktion zum Zippen des PDF-Ordners mit Passwortschutz
+
 def zip_pdf_folder(pdf_folder, zip_password, zip_name, zip_path):
     try:
-        with pyzipper.AESZipFile(zip_path, "w", compression=pyzipper.ZIP_LZMA) as zf:
-            zf.setpassword(zip_password.encode())
-            zf.setencryption(pyzipper.WZ_AES, nbits=256)
-            for root, dirs, files in os.walk(pdf_folder):
-                for file in files:
-                    file_path = os.path.join(root, file)
-                    zf.write(file_path, os.path.relpath(file_path, pdf_folder))
+        # Erstellen des ZIP-Archivs mit Passwortschutz
+        for root, dirs, files in os.walk(pdf_folder):
+            for file in files:
+                file_path = os.path.join(root, file)
+                dest_path = os.path.relpath(file_path, pdf_folder)
+                pyminizip.compress(file_path, None, zip_path, zip_password, 5)
+
         logging.info(f"PDF-Ordner erfolgreich als ZIP-Datei gespeichert: {zip_path}")
         shutil.rmtree(pdf_folder)
         logging.info(f"PDF-Ordner gelöscht: {pdf_folder}")
