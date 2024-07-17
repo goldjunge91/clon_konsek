@@ -9,18 +9,23 @@ jobs:
         runs-on: self-hosted
         env:
             NODE_ENV: production
+
+            ENABLE_GOOGLE_AUTH: ${{ secrets.ENABLE_GOOGLE_AUTH }}
             GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
             GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+
             ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
             ENCRYPTION_IV: ${{ secrets.ENCRYPTION_IV }}
+
             NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
             NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
             NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+
             DB_HOST: ${{ secrets.DB_HOST }}
             DB_NAME: ${{ secrets.DB_NAME }}
             DB_USER: ${{ secrets.DB_USER }}
             DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-            ENABLE_GOOGLE_AUTH: ${{ secrets.ENABLE_GOOGLE_AUTH }}
+
             DATABASE_URL: postgres://${{ secrets.DB_USER }}:${{ secrets.DB_PASSWORD }}@${{ secrets.DB_HOST }}:5432/${{ secrets.DB_NAME }}
 
         steps:
@@ -44,30 +49,41 @@ jobs:
               run: |
                   echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}" >> .env.production
                   echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> .env.production
+                  echo "ENABLE_GOOGLE_AUTH=${{ secrets.ENABLE_GOOGLE_AUTH }}" >> .env.production
+
                   echo "ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}" >> .env.production
                   echo "ENCRYPTION_IV=${{ secrets.ENCRYPTION_IV }}" >> .env.production
+
                   echo "NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}" >> .env.production
                   echo "NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}" >> .env.production
                   echo "NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}" >> .env.production
+
                   echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env.production
                   echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env.production
                   echo "DB_USER=${{ secrets.DB_USER }}" >> .env.production
                   echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env.production
-                  echo "ENABLE_GOOGLE_AUTH=${{ secrets.ENABLE_GOOGLE_AUTH }}" >> .env.production
-                  echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}" >> .env.production
+                  echo "DATABASE_URL=postgres://${{ secrets.DB_USER }}:${{ secrets.DB_PASSWORD }}@${{ secrets.DB_HOST }}:5432/${{ secrets.DB_NAME }}" >> .env.production
+
+
                   working-directory: ${{ github.workspace }}
 
+                  expert "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}"
                   export "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}"
+                  export "ENABLE_GOOGLE_AUTH=${{ secrets.ENABLE_GOOGLE_AUTH }}"
+
                   export "ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}"
                   export "ENCRYPTION_IV=${{ secrets.ENCRYPTION_IV }}"
+
                   export "NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}"
                   export "NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}"
                   export "NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}"
+
                   export "DB_HOST=${{ secrets.DB_HOST }}"
                   export "DB_NAME=${{ secrets.DB_NAME }}"
                   export "DB_USER=${{ secrets.DB_USER }}"
                   export "DB_PASSWORD=${{ secrets.DB_PASSWORD }}"
-                  export "ENABLE_GOOGLE_AUTH=${{ secrets.ENABLE_GOOGLE_AUTH }}"
+                  export "DATABASE_URL=postgres://${{ secrets.DB_USER }}:${{ secrets.DB_PASSWORD }}@${{ secrets.DB_HOST }}:5432/${{ secrets.DB_NAME }}"
+
               shell: bash
 
             - name: Check Node.js version
@@ -75,11 +91,6 @@ jobs:
                   . ~/.nvm/nvm.sh
                   echo "Node.js version: $(node -v)"
                   echo "npm version: $(npm -v)"
-
-            # - name: Set up Node.js
-            #   uses: actions/setup-node@v3
-            #   with:
-            #       node-version: '20'
 
             - name: Cache node modules
               uses: actions/cache@v4
@@ -107,13 +118,18 @@ jobs:
               run: |
                   cd $GITHUB_WORKSPACE
                   cat << EOF > .env
+
                   ENABLE_GOOGLE_AUTH=${{ secrets.ENABLE_GOOGLE_AUTH }}
                   GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}
                   GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}
+
                   ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}
                   ENCRYPTION_IV=${{ secrets.ENCRYPTION_IV }}
-                  NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
+
                   NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}
+                  NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
+                  NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}"
+
                   DB_HOST=${{ secrets.DB_HOST }}
                   DB_NAME=${{ secrets.DB_NAME }}
                   DB_USER=${{ secrets.DB_USER }}
