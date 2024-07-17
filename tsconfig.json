@@ -1,14 +1,14 @@
 {
 	"compilerOptions": {
-		"target": "ESNext", // ES6 oder ESNext
+		"target": "ESNext",
 		"lib": ["dom", "dom.iterable", "esnext"],
-		"allowJs": true, // vorher true
+		"allowJs": true,
 		"skipLibCheck": true,
-		"noErrorTruncation": true /* Skip type checking all .d.ts files. */,
+		"noErrorTruncation": true,
 		"strict": true,
 		"noEmit": true,
 		"esModuleInterop": true,
-		"moduleDetection": "auto" /* Control what method is used to detect module-format JS files.*/,
+		"moduleDetection": "auto",
 		"module": "esnext",
 		"moduleResolution": "node",
 		"resolveJsonModule": true,
@@ -22,15 +22,16 @@
 		"inlineSources": true,
 		"noFallthroughCasesInSwitch": true,
 		"incremental": false,
+		"types": ["node"],
+		"paths": {
+			"@/*": ["./src/*"],
+			"out/*": ["./public/*"]
+		},
 		"plugins": [
 			{
 				"name": "next"
 			}
-		],
-		"paths": {
-			"@/*": ["./src/*"],
-			"out/*": ["./public/*"]
-		}
+		]
 	},
 	"include": [
 		"src",
@@ -42,7 +43,6 @@
 		"**/*.ts",
 		"**/*.tsx",
 		"./next.config.mjs",
-		"next-auth.d.ts",
 		"next-auth.d.ts",
 		"storybook/docs/**/*",
 		".next/types/**/*.ts"
