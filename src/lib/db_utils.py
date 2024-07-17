@@ -99,9 +99,6 @@ def schedule_delete_db_update_db(new_status: str, task_id: str) -> bool:
             return False
         logging.info(f"Datenbankstatus für Task {task_id} auf 'completed' gesetzt.")
 
-        # with CronTab(user="True") as cron:
-        #     job = cron.new(command="python3 {os.path.abspath(__file__)}")
-
         cron = CronTab(user=True)  # Planen des Cronjobs
         # Erstellen eines neuen Cronjobs
         job = cron.new(command=f"python3 {os.path.abspath(__file__)} delete {task_id}")
@@ -148,8 +145,13 @@ def delete_task_data(task_id: str) -> bool:
         logging.info(
             f"Task {task_id} und zugehörige Daten erfolgreich gelöscht."
         )  # Loggen der erfolgreichen Löschung
+
+         # Cron-Job entfernen
         cron = CronTab(user=True)
-        cron.remove_all(comment=f"Delete_task_{task_id}")
+        jobs_to_remove = cron.find_comment(f"Delete_task_{task_id}")
+        for job in jobs_to_remove:
+            cron.remove(job)
+            logging.info(f"Cronjob für Task {task_id} wurde entfernt.")
         cron.write()
         logging.info(f"Cronjob für Task {task_id} wurde entfernt.")
         return True

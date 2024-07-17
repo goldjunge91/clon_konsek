@@ -14,11 +14,13 @@ docker exec -it postgres /bin/bash
 
 # Export the DATABASE_URL
 
-export DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost:5432/${POSTGRES_DB}
-
+export DATABASE_URL=postgres://postgres:Iphone5S@localhost:5432/postgres
+export DATABASE_URL=postgres://${{POSTGRES_USER}}:${{POSTGRES_PASSWORD}}@localhost:5432/${{POSTGRES_DB}}
 # Echo the exported DATABASE_URL (for verification)
 
 echo "Exported DATABASE_URL=${DATABASE_URL}"
+
+# Umgebungsvariablen ausgeben.
 
 # PDF Website Development Commands
 

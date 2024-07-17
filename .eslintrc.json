@@ -1,43 +1,70 @@
 {
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
-	  "ecmaVersion": 2020, // Use a recent ECMAScript version
-	  "sourceType": "module",
-	  "ecmaFeatures": {
-		"jsx": true
-	  }
+		"project": "./tsconfig.json",
+		"ecmaVersion": "latest",
+		"sourceType": "module",
+		"ecmaFeatures": {
+			"jsx": true
+		}
 	},
-	"plugins": ["@typescript-eslint", "react", "css-modules"],
+	"plugins": ["@typescript-eslint", "react", "css-modules", "import"],
 	"extends": [
-	  "eslint:recommended",
-	  "plugin:@typescript-eslint/recommended",
-	  "plugin:react/recommended",
-	  "plugin:css-modules/recommended",
-	  "plugin:@next/next/recommended" // Add Next.js specific rules
+		"eslint:recommended",
+		"plugin:@typescript-eslint/recommended",
+		"next/core-web-vitals",
+		"plugin:react/recommended",
+		"plugin:css-modules/recommended",
+		"plugin:import/errors",
+		"plugin:import/warnings",
+		"plugin:import/typescript",
+		"plugin:@next/next/recommended",
+		"prettier",
+		"plugin:prettier/recommended"
 	],
 	"rules": {
-	  // TypeScript rules
-	  "@typescript-eslint/explicit-function-return-type": "off",
-	  "@typescript-eslint/explicit-module-boundary-types": "off",
-	  "@typescript-eslint/no-explicit-any": "off",
-	  "@typescript-eslint/no-unused-vars": [
-		"error",
-		{ "argsIgnorePattern": "^_" }
-	  ],
-	  // React rules
-	  "react/jsx-uses-react": "off",
-	  "react/react-in-jsx-scope": "off",
-	  // CSS rules
-	  "css-modules/no-unused-class": "error",
-	  "css-modules/no-undef-class": "error",
-	  // Next.js rules
-	  "@next/next/no-page-custom-font": "off",
-	  // Additional rules
-	  "react/no-unescaped-entities": "off"
+		"@typescript-eslint/explicit-function-return-type": "off",
+		"@typescript-eslint/explicit-module-boundary-types": "off",
+		"@typescript-eslint/strict-boolean-expressions": "warn",
+		"@typescript-eslint/no-unnecessary-condition": "warn",
+		"@typescript-eslint/no-explicit-any": "off",
+		"no-console": ["warn", { "allow": ["warn", "off"] }],
+		"prefer-const": "error",
+		"@typescript-eslint/no-unused-vars": [
+			"error",
+			{ "argsIgnorePattern": "^_" }
+		],
+		"import/order": [
+			"error",
+			{
+				"groups": [
+					"builtin",
+					"external",
+					"internal",
+					"parent",
+					"sibling",
+					"index"
+				],
+				"newlines-between": "always",
+				"alphabetize": { "order": "asc", "caseInsensitive": true }
+			}
+		],
+		"react/jsx-uses-react": "off",
+		"react/react-in-jsx-scope": "off",
+		"css-modules/no-unused-class": "error",
+		"css-modules/no-undef-class": "error",
+		"@next/next/no-page-custom-font": "off",
+		"react/no-unescaped-entities": "off"
 	},
 	"settings": {
-	  "react": {
-		"version": "detect"
-	  }
-	}
-  }
+		"react": {
+			"version": "detect"
+		}
+	},
+	"overrides": [
+		{
+			"files": ["**/*.ts", "**/*.tsx"],
+			"extends": ["./.eslintrc.typescript.json"]
+		}
+	]
+}

@@ -24,8 +24,8 @@ jobs:
             DATABASE_URL: postgres://${{ secrets.DB_USER }}:${{ secrets.DB_PASSWORD }}@${{ secrets.DB_HOST }}:5432/${{ secrets.DB_NAME }}
 
         steps:
-            - name: Checkout code
-              uses: actions/checkout@v4
+            # - name: Checkout code
+            #   uses: actions/checkout@v4
 
             - name: pm2 anhalten
               run: |
@@ -40,21 +40,23 @@ jobs:
                   $PM2_EXEC_PATH stop ecosystem.config.cjs
               continue-on-error: true
 
-            - name: Verify secrets
+            - name: Verify secrets & Create env file
               run: |
-                  echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}"
-                  echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}"
-                  echo "ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}"
-                  echo "ENCRYPTION_IV=${{ secrets.ENCRYPTION_IV }}"
-                  echo "NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}"
-                  echo "NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}"
-                  echo "NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}"
-                  echo "DB_HOST=${{ secrets.DB_HOST }}"
-                  echo "DB_NAME=${{ secrets.DB_NAME }}"
-                  echo "DB_USER=${{ secrets.DB_USER }}"
-                  echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}"
-                  echo "ENABLE_GOOGLE_AUTH=${{ secrets.ENABLE_GOOGLE_AUTH }}"
-                  echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}"
+                  echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}" >> .env.production
+                  echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> .env.production
+                  echo "ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}" >> .env.production
+                  echo "ENCRYPTION_IV=${{ secrets.ENCRYPTION_IV }}" >> .env.production
+                  echo "NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}" >> .env.production
+                  echo "NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}" >> .env.production
+                  echo "NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}" >> .env.production
+                  echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env.production
+                  echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env.production
+                  echo "DB_USER=${{ secrets.DB_USER }}" >> .env.production
+                  echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env.production
+                  echo "ENABLE_GOOGLE_AUTH=${{ secrets.ENABLE_GOOGLE_AUTH }}" >> .env.production
+                  echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}" >> .env.production
+                  working-directory: ${{ github.workspace }}
+
                   export "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}"
                   export "ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}"
                   export "ENCRYPTION_IV=${{ secrets.ENCRYPTION_IV }}"
@@ -74,10 +76,10 @@ jobs:
                   echo "Node.js version: $(node -v)"
                   echo "npm version: $(npm -v)"
 
-            - name: Set up Node.js
-              uses: actions/setup-node@v3
-              with:
-                  node-version: '20'
+            # - name: Set up Node.js
+            #   uses: actions/setup-node@v3
+            #   with:
+            #       node-version: '20'
 
             - name: Cache node modules
               uses: actions/cache@v4
@@ -103,20 +105,20 @@ jobs:
 
             - name: Create .env.production file
               run: |
-                  pwd
+                  cd $GITHUB_WORKSPACE
                   cat << EOF > .env
-                    GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}
-                    GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}
-                    ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}
-                    ENCRYPTION_IV=${{ secrets.ENCRYPTION_IV }}
-                    NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
-                    NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}
-                    DB_HOST=${{ secrets.DB_HOST }}
-                    DB_NAME=${{ secrets.DB_NAME }}
-                    DB_USER=${{ secrets.DB_USER }}
-                    DB_PASSWORD=${{ secrets.DB_PASSWORD }}
-                    ENABLE_GOOGLE_AUTH=${{ secrets.ENABLE_GOOGLE_AUTH }}
-                    DATABASE_URL=postgres://${{ secrets.DB_USER }}:${{ secrets.DB_PASSWORD }}@${{ secrets.DB_HOST }}:5432/${{ secrets.DB_NAME }}
+                  ENABLE_GOOGLE_AUTH=${{ secrets.ENABLE_GOOGLE_AUTH }}
+                  GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}
+                  GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}
+                  ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}
+                  ENCRYPTION_IV=${{ secrets.ENCRYPTION_IV }}
+                  NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
+                  NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}
+                  DB_HOST=${{ secrets.DB_HOST }}
+                  DB_NAME=${{ secrets.DB_NAME }}
+                  DB_USER=${{ secrets.DB_USER }}
+                  DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+                  DATABASE_URL=postgres://${{ secrets.DB_USER }}:${{ secrets.DB_PASSWORD }}@${{ secrets.DB_HOST }}:5432/${{ secrets.DB_NAME }}
                   EOF
               continue-on-error: true
 
@@ -158,35 +160,37 @@ jobs:
                   npm ci
               continue-on-error: true
 
-            - name: Install dependencies again
-              run: |
-                  . ~/.nvm/nvm.sh
-                  export NVM_DIR="$HOME/.nvm"
-                  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-                  npm install --save
-              continue-on-error: true
+            # - name: Install dependencies again
+            #   run: |
+            #       . ~/.nvm/nvm.sh
+            #       export NVM_DIR="$HOME/.nvm"
+            #       [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            #       npm install --save
+            #   continue-on-error: true
 
             - name: Run error handling script
               if: failure()
               run: |
-                  chmod +x ./.github/workflows/script.sh
-                  ./.github/workflows/script.sh
+                  cd $GITHUB_WORKSPACE
+                  chmod +x ./deploy-script.sh
+                  source ./deploy-script.sh
               continue-on-error: true
 
             - name: Check PM2 installation
               run: |
                   chmod +x ./.github/workflows/script.sh
-                  ./.github/workflows/script.sh
                   . ~/.nvm/nvm.sh
                   export NVM_DIR="$HOME/.nvm"
                   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
                   if ! command -v pm2 &> /dev/null; then
-                    echo "PM2 is not installed."
-                    npm install -g pm2
+                  echo "PM2 is not installed."
+                  npm install -g pm2
                   else
-                    echo "PM2 is installed."
+                  echo "PM2 is installed."
                   fi
                   pm2 --version
+                  cd $GITHUB_WORKSPACE
+                  /.github/workflows/script.sh
 
             - name: Run Deployment
               run: |

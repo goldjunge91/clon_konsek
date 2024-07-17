@@ -64,23 +64,32 @@ export function CreateTaskForm() {
 	});
 
 	async function onSubmit(values: z.infer<typeof formSchema>) {
-		const formData = new FormData();
-		formData.append("dsm_url", values.dsm_url);
-		formData.append("dsmpassword", values.dsmpassword);
-		formData.append("dsm_mail", values.dsm_mail);
-		formData.append("secretId", values.secretId);
-		formData.append("zippassword", values.zippassword);
-		formData.append("file", values.file);
-		if (values.file) {
-			formData.append("file", values.file);
+		try {
+			const formData = new FormData();
+			formData.append("dsm_url", values.dsm_url);
+			formData.append("dsmpassword", values.dsmpassword);
+			formData.append("dsm_mail", values.dsm_mail);
+			formData.append("secretId", values.secretId);
+			formData.append("zippassword", values.zippassword);
+			// formData.append("file", values.file);
+			if (values.file) {
+				formData.append("file", values.file);
+			}
 			const { taskId } = await saveDataTask2(formData); // Remove 'values' from the arguments
 			toast({
 				title: "Task Created",
 				description: "Your task was successfully created",
 			});
 			router.push(`/tasks/${taskId}`);
+		} catch (error) {
+			console.error("Error creating task:", error);
+			toast({
+				title: "Error",
+				description: "There was an error creating the task",
+			});
 		}
 	}
+
 
 	return (
 		<Form {...form}>
@@ -195,6 +204,7 @@ export function CreateTaskForm() {
 		</Form>
 	);
 }
+
 
 //   return (
 //     <Form {...form}>
