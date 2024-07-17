@@ -74,6 +74,11 @@ jobs:
                   echo "Node.js version: $(node -v)"
                   echo "npm version: $(npm -v)"
 
+            - name: Set up Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: '20'
+
             - name: Cache node modules
               uses: actions/cache@v4
               id: cache-nodemodules
@@ -145,7 +150,7 @@ jobs:
               continue-on-error: true
 
             - name: Install dependencies
-              if: steps.cache-nodemodules.outputs.cache-hit != 'true'
+              # if: steps.cache-nodemodules.outputs.cache-hit != 'true'
               run: |
                   . ~/.nvm/nvm.sh
                   export NVM_DIR="$HOME/.nvm"
@@ -153,8 +158,7 @@ jobs:
                   npm ci
               continue-on-error: true
 
-            - name: Install dependencies
-              if: steps.cache-nodemodules.outputs.cache-hit != 'true'
+            - name: Install dependencies again
               run: |
                   . ~/.nvm/nvm.sh
                   export NVM_DIR="$HOME/.nvm"
