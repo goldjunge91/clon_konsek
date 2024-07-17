@@ -64,6 +64,7 @@ jobs:
                   ENCRYPTION_IV=${{ secrets.ENCRYPTION_IV }}
                   NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}
                   NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
+                  NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}
                   DB_HOST=${{ secrets.DB_HOST }}
                   DB_NAME=${{ secrets.DB_NAME }}
                   DB_USER=${{ secrets.DB_USER }}
