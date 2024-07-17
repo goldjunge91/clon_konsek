@@ -1,6 +1,6 @@
 /* eslint-disable */
 // /src/app/header.tsx
-"use client";
+'use client';
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -10,28 +10,28 @@ import {
 	AlertDialogFooter,
 	AlertDialogHeader,
 	AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+} from '@/components/ui/alert-dialog';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { DeleteIcon, LogInIcon, LogOutIcon } from "lucide-react";
-import { signIn, signOut, useSession } from "next-auth/react";
-import Link from "next/link";
-import { useState } from "react";
-import { deleteAccountAction } from "@/lib/deleteuser";
-import { User } from "lucide-react";
+} from '@/components/ui/dropdown-menu';
+import { DeleteIcon, LogInIcon, LogOutIcon } from 'lucide-react';
+import { signIn, signOut, useSession } from 'next-auth/react';
+import Link from 'next/link';
+import { useState } from 'react';
+import { deleteAccountAction } from '@/lib/deleteuser';
+import { User } from 'lucide-react';
 /**
  *Header
  * @description Header-Komponente der Anwendung.
  * @remarks
  * Enthält Navigation und Benutzermenü.
  * @returns {JSX.Element} Der gerenderte Header
- */ import Image from "next/image";
+ */ import Image from 'next/image';
 
 function AccountDropdown() {
 	const session = useSession();
@@ -42,10 +42,12 @@ function AccountDropdown() {
 			<AlertDialog open={open} onOpenChange={setOpen}>
 				<AlertDialogContent>
 					<AlertDialogHeader>
-						<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+						<AlertDialogTitle>
+							Are you absolutely sure?
+						</AlertDialogTitle>
 						<AlertDialogDescription>
-							This action cannot be undone. It will delete your account and all data
-							associated with it.
+							This action cannot be undone. It will delete your
+							account and all data associated with it.
 						</AlertDialogDescription>
 					</AlertDialogHeader>
 					<AlertDialogFooter>
@@ -53,8 +55,9 @@ function AccountDropdown() {
 						<AlertDialogAction
 							onClick={async () => {
 								await deleteAccountAction();
-								signOut({ callbackUrl: "/" });
-							}}>
+								signOut({ callbackUrl: '/' });
+							}}
+						>
 							Yes, delete my account.
 						</AlertDialogAction>
 					</AlertDialogFooter>
@@ -65,29 +68,33 @@ function AccountDropdown() {
 				<DropdownMenuTrigger asChild>
 					<Button variant="link">
 						<Avatar className="mr-2">
-							<AvatarImage src={session.data?.user?.image ?? ""} />
+							<AvatarImage
+								src={session.data?.user?.image ?? ''}
+							/>
 							<AvatarFallback>
 								<User />
 							</AvatarFallback>
 						</Avatar>
 
-						{session.data?.user?.name ?? ""}
+						{session.data?.user?.name ?? ''}
 					</Button>
 				</DropdownMenuTrigger>
 				<DropdownMenuContent>
 					<DropdownMenuItem
 						onClick={() =>
 							signOut({
-								callbackUrl: "/",
+								callbackUrl: '/',
 							})
-						}>
+						}
+					>
 						<LogOutIcon className="mr-2" /> Logout
 					</DropdownMenuItem>
 
 					<DropdownMenuItem
 						onClick={() => {
 							setOpen(true);
-						}}>
+						}}
+					>
 						<DeleteIcon className="mr-2" /> Delete Account
 					</DropdownMenuItem>
 				</DropdownMenuContent>
@@ -107,7 +114,7 @@ function AccountDropdown() {
 export function Header() {
 	const session = useSession();
 	const isLoggedIn = !!session.data;
-	const isAdmin = session.data?.user?.role === "admin";
+	const isAdmin = session.data?.user?.role === 'admin';
 
 	return (
 		<header className="header">
@@ -145,7 +152,10 @@ export function Header() {
 				<div className="header-link-container">
 					{isLoggedIn && <AccountDropdown />}
 					{!isLoggedIn && (
-						<Button onClick={() => signIn()} className="login-button">
+						<Button
+							onClick={() => signIn()}
+							className="login-button"
+						>
 							<LogInIcon className="mr-2" />
 							Login
 						</Button>

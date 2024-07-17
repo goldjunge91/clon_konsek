@@ -24,7 +24,8 @@
 		"db:studio": "drizzle-kit studio",
 		"container:postgres": "docker-compose up postgres",
 		"build-storybook": "storybook build",
-		"format": "prettier --write ."
+		"format": "prettier --write .",
+		"lint:fix": "next lint --fix"
 	},
 	"dependencies": {
 		"@auth/core": "^0.34.1",

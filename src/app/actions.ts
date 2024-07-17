@@ -1,19 +1,18 @@
-"use server";
+'use server';
 /**
 //TODO Move to /data-access/users.ts
  */
 
-import { deleteUser } from "@/data-access/users";
-import {getSession} from "@/app/api/auth/[...nextauth]/options";
+import { deleteUser } from '@/data-access/users';
+import { getSession } from '@/app/api/auth/[...nextauth]/options';
 // import {getSession} from "@/lib/auth";
 
 export async function deleteAccountAction() {
-  const session = await getSession();
+	const session = await getSession();
 
-  if (!session) {
-    throw new Error("you must be logged in to delete your account");
-  }
+	if (!session) {
+		throw new Error('you must be logged in to delete your account');
+	}
 
-  await deleteUser(session.user.id);
+	await deleteUser(session.user.id);
 }
-

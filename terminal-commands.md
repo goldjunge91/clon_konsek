@@ -16,6 +16,7 @@ docker exec -it postgres /bin/bash
 
 export DATABASE_URL=postgres://postgres:Iphone5S@localhost:5432/postgres
 export DATABASE_URL=postgres://${{POSTGRES_USER}}:${{POSTGRES_PASSWORD}}@localhost:5432/${{POSTGRES_DB}}
+
 # Echo the exported DATABASE_URL (for verification)
 
 echo "Exported DATABASE_URL=${DATABASE_URL}"

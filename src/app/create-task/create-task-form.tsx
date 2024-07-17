@@ -215,7 +215,7 @@ export function CreateTaskForm() {
 												if (
 													event.target.files &&
 													event.target.files.length >
-													0
+														0
 												) {
 													onChange(
 														event.target.files[0]
