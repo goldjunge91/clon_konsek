@@ -23,6 +23,7 @@
 		"noFallthroughCasesInSwitch": true,
 		"incremental": false,
 		"types": ["node"],
+		"typeRoots": ["./node_modules/@types", "./types"],
 		"paths": {
 			"@/*": ["./src/*"],
 			"out/*": ["./public/*"]
@@ -43,6 +44,7 @@
 		"**/*.ts",
 		"**/*.tsx",
 		"./next.config.mjs",
+		".next/types/**/*.ts",
 		"next-auth.d.ts",
 		"storybook/docs/**/*",
 		".next/types/**/*.ts"

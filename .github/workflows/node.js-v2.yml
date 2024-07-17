@@ -27,6 +27,22 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v4
 
+            - name: Verify secrets
+              run: |
+                  echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}"
+                  echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}"
+                  echo "ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}"
+                  echo "ENCRYPTION_IV=${{ secrets.ENCRYPTION_IV }}"
+                  echo "NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}"
+                  echo "NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}"
+                  echo "NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}"
+                  echo "DB_HOST=${{ secrets.DB_HOST }}"
+                  echo "DB_NAME=${{ secrets.DB_NAME }}"
+                  echo "DB_USER=${{ secrets.DB_USER }}"
+                  echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}"
+                  echo "ENABLE_GOOGLE_AUTH=${{ secrets.ENABLE_GOOGLE_AUTH }}"
+              shell: bash
+
             - name: Check Node.js version
               run: |
                   . ~/.nvm/nvm.sh
@@ -59,17 +75,22 @@ jobs:
               run: |
                   pwd
                   cat << EOF > .env
-                  DATABASE_URL=postgres://${{ secrets.DB_USER }}:${{ secrets.DB_PASSWORD }}@${{ secrets.DB_HOST }}:5432/${{ secrets.DB_NAME }}
-                  ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}
-                  ENCRYPTION_IV=${{ secrets.ENCRYPTION_IV }}
-                  NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}
-                  NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
-                  NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}
-                  DB_HOST=${{ secrets.DB_HOST }}
-                  DB_NAME=${{ secrets.DB_NAME }}
-                  DB_USER=${{ secrets.DB_USER }}
-                  DB_PASSWORD=${{ secrets.DB_PASSWORD }}
-                  ENABLE_GOOGLE_AUTH=${{ secrets.ENABLE_GOOGLE_AUTH }}
+                    GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}
+                    GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}
+                    ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}
+                    ENCRYPTION_IV=${{ secrets.ENCRYPTION_IV }}
+                    NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
+                    NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}
+                    ENCRYPTION_IV=${{ secrets.ENCRYPTION_IV }}
+                    NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}
+                    NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
+                    NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}
+                    DB_HOST=${{ secrets.DB_HOST }}
+                    DB_NAME=${{ secrets.DB_NAME }}
+                    DB_USER=${{ secrets.DB_USER }}
+                    DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+                    ENABLE_GOOGLE_AUTH=${{ secrets.ENABLE_GOOGLE_AUTH }}
+                    DATABASE_URL=postgres://${{ secrets.DB_USER }}:${{ secrets.DB_PASSWORD }}@${{ secrets.DB_HOST }}:5432/${{ secrets.DB_NAME }}
                   EOF
               continue-on-error: true
 
@@ -116,7 +137,7 @@ jobs:
                   . ~/.nvm/nvm.sh
                   export NVM_DIR="$HOME/.nvm"
                   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-                  npm run build
+                  npx run build
               continue-on-error: true
 
             - name: Run error handling script
@@ -149,5 +170,5 @@ jobs:
                   PM2_EXEC_PATH=$(which pm2)
                   echo "Node path: $NODE_PATH"
                   echo "PM2 path: $PM2_EXEC_PATH"
-                  $PM2_EXEC_PATH start ecosystem.config.cjs
+                  $PM2_EXEC_PATH restart ecosystem.config.cjs
               continue-on-error: true
