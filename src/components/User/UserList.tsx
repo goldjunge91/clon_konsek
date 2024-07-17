@@ -1,8 +1,10 @@
 // src/components/UserList.tsx
-import { User } from '@/db/schema';
-import { UserEditCard } from './UserEditCard';
 import { useEffect, useState } from 'react';
+
 import { deleteUserAction } from '@/app/admin/actions';
+import { User } from '@/db/schema';
+
+import { UserEditCard } from './UserEditCard';
 
 export function UserList() {
 	const [users, setUsers] = useState<User[]>([]);

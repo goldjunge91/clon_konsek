@@ -1,11 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // import { Button } from "@/components/ui/button";
-import { getTasks } from '@/data-access/tasks';
-import { getServerSession } from 'next-auth/next';
 import { unstable_noStore } from 'next/cache';
 // import Link from "next/link";
 import { redirect } from 'next/navigation';
+import { getServerSession } from 'next-auth/next';
+
+import { getTasks } from '@/data-access/tasks';
+
 import { options } from '../api/auth/[...nextauth]/options';
+
 import { TaskCard } from './task-card';
 
 export default async function Browse({
@@ -20,7 +23,7 @@ export default async function Browse({
 	}
 	// console.log("Session:", session);
 	// console.log("Admin Session:", session?.user.role);
-	if (session?.user.role !== 'admin') {
+	if (session.user.role !== 'admin') {
 		redirect('/error?status=403');
 	}
 	const tasks = await getTasks(searchParams.search);

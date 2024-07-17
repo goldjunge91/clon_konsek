@@ -1,14 +1,6 @@
 'use client';
-import { Button } from '@/components/ui/button';
-import {
-	Card,
-	CardContent,
-	CardFooter,
-	CardHeader,
-	CardTitle,
-} from '@/components/ui/card';
-import { Task } from '@/db/schema';
 import { TrashIcon } from 'lucide-react';
+
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -20,6 +12,16 @@ import {
 	AlertDialogTitle,
 	AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import { Button } from '@/components/ui/button';
+import {
+	Card,
+	CardContent,
+	CardFooter,
+	CardHeader,
+	CardTitle,
+} from '@/components/ui/card';
+import { Task } from '@/db/schema';
+
 import { deleteAsAdminTask } from './actions';
 
 export function TaskCard({ task }: { task: Task }) {

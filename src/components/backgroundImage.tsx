@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
+
 import background from '../../public/background.jpg';
 
 const BackgroundImage = () => {

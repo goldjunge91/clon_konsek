@@ -1,5 +1,5 @@
-import { withAuth, NextRequestWithAuth } from 'next-auth/middleware';
 import { NextResponse } from 'next/server';
+import { withAuth, NextRequestWithAuth } from 'next-auth/middleware';
 
 function checkAccess(pathname: string, role?: string) {
 	if (pathname.startsWith('/browse') && role !== 'admin') return false;

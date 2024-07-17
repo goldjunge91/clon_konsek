@@ -1,7 +1,7 @@
 'use server';
 
-import { deleteUser } from '@/data-access/users';
 import { getSession } from '@/app/api/auth/[...nextauth]/options';
+import { deleteUser } from '@/data-access/users';
 // import {getSession} from "@/lib/auth";
 
 export async function deleteAccountAction() {

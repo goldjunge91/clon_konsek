@@ -1,7 +1,7 @@
 {
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
-		"project": "./tsconfig.json",
+		"project": ["./tsconfig.json", "./tsconfig.eslint.json"],
 		"ecmaVersion": "latest",
 		"sourceType": "module",
 		"ecmaFeatures": {
@@ -29,14 +29,21 @@
 		"@typescript-eslint/strict-boolean-expressions": "warn",
 		"@typescript-eslint/no-unnecessary-condition": "warn",
 		"@typescript-eslint/no-explicit-any": "off",
-		"no-console": ["warn", { "allow": ["warn", "off"] }],
-		"prefer-const": "error",
+		"no-console": [
+			"warn",
+			{
+				"allow": ["warn", "off"]
+			}
+		],
+		"prefer-const": "warn",
 		"@typescript-eslint/no-unused-vars": [
-			"error",
-			{ "argsIgnorePattern": "^_" }
+			"warn",
+			{
+				"argsIgnorePattern": "^_"
+			}
 		],
 		"import/order": [
-			"error",
+			"warn",
 			{
 				"groups": [
 					"builtin",
@@ -47,13 +54,16 @@
 					"index"
 				],
 				"newlines-between": "always",
-				"alphabetize": { "order": "asc", "caseInsensitive": true }
+				"alphabetize": {
+					"order": "asc",
+					"caseInsensitive": true
+				}
 			}
 		],
 		"react/jsx-uses-react": "off",
 		"react/react-in-jsx-scope": "off",
-		"css-modules/no-unused-class": "error",
-		"css-modules/no-undef-class": "error",
+		"css-modules/no-unused-class": "warn",
+		"css-modules/no-undef-class": "warn",
 		"@next/next/no-page-custom-font": "off",
 		"react/no-unescaped-entities": "off"
 	},

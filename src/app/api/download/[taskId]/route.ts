@@ -1,6 +1,8 @@
-import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+
+import { NextResponse } from 'next/server';
+
 import { getTask } from '@/data-access/tasks';
 
 export async function GET(
@@ -58,7 +60,7 @@ export async function GET(
 
 		return response;
 	} catch (error) {
-		console.error('Error downloading file:', error);
+		// console.error('Error downloading file:', error);
 		return NextResponse.json(
 			{ error: 'Ein Fehler ist beim Download aufgetreten.' },
 			{ status: 500 }

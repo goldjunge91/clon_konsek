@@ -1,10 +1,11 @@
 // src/data-access/users.ts
-import { User, users } from '@/db/schema';
+import bcrypt from 'bcryptjs';
 import { eq } from 'drizzle-orm';
+
 import { db } from '@/db';
+import { User, users } from '@/db/schema';
 // import bcryptjs from "bcryptjs";
 
-import bcrypt from 'bcryptjs';
 const saltRounds = 10;
 
 export async function EditUser(

@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+
 import { getTask } from '@/data-access/tasks';
 
 export async function GET(

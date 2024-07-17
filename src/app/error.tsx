@@ -15,7 +15,7 @@ interface ErrorProps {
 }
 export default function Error({ reset }: ErrorProps) {
 	const searchParams = useSearchParams();
-	const status = searchParams?.get('status');
+	const status = searchParams.get('status');
 
 	const isPermissionError = status === '403';
 

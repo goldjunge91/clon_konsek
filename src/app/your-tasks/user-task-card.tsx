@@ -1,20 +1,11 @@
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
-import { Button } from '@/components/ui/button';
-import {
-	Card,
-	CardContent,
-	CardFooter,
-	CardHeader,
-	CardTitle,
-} from '@/components/ui/card';
-// import { Progress } from "@/components/ui/progress";
-import { Task } from '@/db/schema';
-import Link from 'next/link';
-
 import { GithubIcon, TrashIcon } from 'lucide-react';
+import Link from 'next/link';
+import * as React from 'react';
 
+import { getDownloadFile2 } from '@/app/tasks/[taskId]/actions';
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -26,10 +17,19 @@ import {
 	AlertDialogTitle,
 	AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-import * as React from 'react';
-import { deleteTaskAction } from './actions';
-import { getDownloadFile2 } from '@/app/tasks/[taskId]/actions';
+import { Button } from '@/components/ui/button';
+import {
+	Card,
+	CardContent,
+	CardFooter,
+	CardHeader,
+	CardTitle,
+} from '@/components/ui/card';
+// import { Progress } from "@/components/ui/progress";
 import { useToast } from '@/components/ui/use-toast';
+import { Task } from '@/db/schema';
+
+import { deleteTaskAction } from './actions';
 
 export function UserTaskCard({ task }: { task: Task }) {
 	const statusToProgress = (status: string) => {

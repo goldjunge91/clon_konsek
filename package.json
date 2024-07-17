@@ -19,13 +19,13 @@
 		"generate-docs": "node generate-docs.js",
 		"storybook": "storybook dev -p 6006",
 		"pod": "next start",
-		"lint": "next lint",
 		"db:push": "drizzle-kit push --config=drizzle.config.ts",
 		"db:studio": "drizzle-kit studio",
 		"container:postgres": "docker-compose up postgres",
 		"build-storybook": "storybook build",
-		"format": "prettier --write .",
-		"lint:fix": "next lint --fix"
+		"format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+		"lint": "next lint --dir src",
+		"lint:fix": "next lint --fix --dir src"
 	},
 	"dependencies": {
 		"@auth/core": "^0.34.1",

@@ -1,9 +1,12 @@
-import AuthProvider from '@/lib/AuthProvider';
-import { Header } from './header';
-import NextTopLoader from 'nextjs-toploader';
-import { Toaster } from '@/components/ui/toaster';
 import Image from 'next/image';
+import NextTopLoader from 'nextjs-toploader';
+
+import { Toaster } from '@/components/ui/toaster';
+import AuthProvider from '@/lib/AuthProvider';
+
 import background from './../../public/background.jpg';
+import { Header } from './header';
+
 // import BackgroundImage from "@/components/backgroundImage";
 import './globals.css';
 import React from 'react'; // Import React library

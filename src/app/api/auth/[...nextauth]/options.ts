@@ -1,16 +1,18 @@
 // import {JWT} from '@auth/core';
 // src/app/auth/[...nextauth]/options.ts
 // import { DrizzleAdapter } from '@auth/drizzle-adapter'
-import { Adapter } from 'next-auth/adapters';
 import { getServerSession, NextAuthOptions } from 'next-auth';
+import { Adapter } from 'next-auth/adapters';
 // import {GoogleProfile} from "next-auth/providers/google";
-import { db } from '@/db';
 // import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { findUserByUsername, verifyPassword } from '@/data-access/users';
-import { GoogleAuth } from './googleAuthConfig';
+
 import { AUTH_CONFIG } from '@/config';
+import { findUserByUsername, verifyPassword } from '@/data-access/users';
+import { db } from '@/db';
+
 import { CustomAdapter } from './customAdapter';
+import { GoogleAuth } from './googleAuthConfig';
 
 export const options: NextAuthOptions = {
 	adapter: CustomAdapter(db) as Adapter,
@@ -34,7 +36,7 @@ export const options: NextAuthOptions = {
 				},
 			},
 			async authorize(credentials) {
-				if (!credentials?.username || !credentials?.password) {
+				if (!credentials?.username || !credentials.password) {
 					return null;
 				}
 				const user = await findUserByUsername(credentials.username);

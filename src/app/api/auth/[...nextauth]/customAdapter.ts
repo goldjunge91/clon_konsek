@@ -1,8 +1,8 @@
 // src/app/api/auth/[...nextauth]/customAdapter.ts
 import { DrizzleAdapter } from '@auth/drizzle-adapter';
+import { eq } from 'drizzle-orm';
 
 import { users } from '@/db/schema';
-import { eq } from 'drizzle-orm';
 
 export function CustomAdapter(db: any) {
 	return {
