@@ -16,13 +16,14 @@
 		"jsx": "preserve",
 		"forceConsistentCasingInFileNames": true,
 		"noImplicitReturns": true,
+		"allowSyntheticDefaultImports": true,
 		"removeComments": true,
 		"sourceMap": true,
 		"importHelpers": true,
 		"inlineSources": true,
 		"noFallthroughCasesInSwitch": true,
 		"incremental": true,
-		"types": ["node", "tailwindcss"],
+		"types": ["node"],
 		"typeRoots": ["./node_modules/@types", "./types"],
 		"paths": {
 			"@/*": ["./src/*"],
@@ -40,8 +41,6 @@
 		"src/**/*.tsx",
 		"src/**/*.cjs",
 		"src/**/*.js",
-		"src/**/*.ts",
-		"src/**/*.tsx",
 		"test/**/*.ts",
 		"test/**/*.tsx",
 		"next-env.d.ts",
@@ -50,8 +49,7 @@
 		"./next.config.mjs",
 		".next/types/**/*.ts",
 		"next-auth.d.ts",
-		"storybook/docs/**/*",
-		".next/types/**/*.ts"
+		"storybook/docs/**/*"
 	],
 	"exclude": ["**/node_modules"]
 }
