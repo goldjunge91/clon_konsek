@@ -1,14 +1,15 @@
 'use client';
-import { Task } from '@/db/schema';
-import { useSession } from 'next-auth/react';
+
 import { redirect, useRouter } from 'next/navigation';
-import { signIn } from 'next-auth/react';
-import { useToast } from '@/components/ui/use-toast';
-import { getDownloadFile2 } from './actions';
-import { useState, useEffect } from 'react';
-import { readPythonLog } from '@/lib/readPythonLog';
+import { useSession, signIn } from 'next-auth/react';
+import React, { useState, useEffect } from 'react';
 import useSWR from 'swr';
-import React from 'react';
+
+import { useToast } from '@/components/ui/use-toast';
+import { Task } from '@/db/schema';
+import { readPythonLog } from '@/lib/readPythonLog';
+
+import { getDownloadFile2 } from './actions';
 
 const fetcher = (url: string | URL | Request) =>
 	fetch(url).then((res) => res.json());
@@ -103,7 +104,7 @@ export function TaskView({ task: initialTask }: { task: Task }) {
 	// Vereinfachte Berechtigungsprüfung
 	if (
 		!session ||
-		(session.user?.role !== 'admin' && session.user?.role !== 'user')
+		(session.user.role !== 'admin' && session.user.role !== 'user')
 	) {
 		return <h1 className="text-5xl text-center mt-20">Access Denied</h1>;
 	}

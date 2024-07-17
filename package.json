@@ -23,7 +23,8 @@
 		"db:push": "drizzle-kit push --config=drizzle.config.ts",
 		"db:studio": "drizzle-kit studio",
 		"container:postgres": "docker-compose up postgres",
-		"build-storybook": "storybook build"
+		"build-storybook": "storybook build",
+		"format": "prettier --write ."
 	},
 	"dependencies": {
 		"@auth/core": "^0.34.1",
@@ -37,6 +38,7 @@
 		"@radix-ui/react-progress": "^1.1.0",
 		"@radix-ui/react-slot": "^1.1.0",
 		"@radix-ui/react-toast": "^1.2.1",
+		"async-mutex": "^0.5.0",
 		"axios": "^1.7.2",
 		"bcrypt": "^5.1.1",
 		"bcryptjs": "^2.4.3",
