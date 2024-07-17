@@ -29,7 +29,16 @@ jobs:
 
             - name: pm2 anhalten
               run: |
-                  pm2 stop 0
+                  . ~/.nvm/nvm.sh
+                  export NVM_DIR="$HOME/.nvm"
+                  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+                  pm2 --version
+                  NODE_PATH=$(which node)
+                  PM2_EXEC_PATH=$(which pm2)
+                  echo "Node path: $NODE_PATH"
+                  echo "PM2 path: $PM2_EXEC_PATH"
+                  $PM2_EXEC_PATH stop ecosystem.config.cjs
+              continue-on-error: true
 
             - name: Verify secrets
               run: |
