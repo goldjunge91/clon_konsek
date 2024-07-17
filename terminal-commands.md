@@ -1,22 +1,30 @@
 ## cronjobs ausgeführt wurden.
+
 sudo grep CRON /var/log/syslog
 
-
-cd /home/runneruser/actions-runner/_work/pdf-website/pdf-website/
+cd /home/runneruser/actions-runner/\_work/pdf-website/pdf-website/
 pm2 start cosystem.config.cjs
 pm2 stop cosystem.config.cjs
 
+#Datenbank
+docker logs -f postgres
+docker container stop postgres
+docker container start postgres
+docker exec -it postgres /bin/bash
 
 # Export the DATABASE_URL
+
 export DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost:5432/${POSTGRES_DB}
 
 # Echo the exported DATABASE_URL (for verification)
+
 echo "Exported DATABASE_URL=${DATABASE_URL}"
 
 # PDF Website Development Commands
 
 ## Development
-```bash
+
+````bash
 npm run dev
 Build
 
@@ -55,3 +63,4 @@ npm run container:postgres
 
 # Start Crontab UI container
 npm run container:crontab
+````

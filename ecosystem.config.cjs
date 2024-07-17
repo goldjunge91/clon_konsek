@@ -12,6 +12,21 @@ module.exports = {
       // ignore_watch: ["node_modules", "logfiles"],
       merge_logs: true,
       autorestart: true,
+      env: {
+        GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+        GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+        ENCRYPTION_KEY: process.env.ENCRYPTION_KEY,
+        ENCRYPTION_IV: process.env.ENCRYPTION_IV,
+        NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+        NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
+        NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+        DB_HOST: process.env.DB_HOST,
+        DB_NAME: process.env.DB_NAME,
+        DB_USER: process.env.DB_USER,
+        DB_PASSWORD: process.env.DB_PASSWORD,
+        ENABLE_GOOGLE_AUTH: process.env.ENABLE_GOOGLE_AUTH,
+        DATABASE_URL: `postgres://${process.env.DB_USER}:${process.env.DB_PASSWORD}@localhost:5432/${process.env.DB_USER}`,
+      }
     },
   ],
 };

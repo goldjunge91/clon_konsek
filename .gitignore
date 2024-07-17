@@ -27,7 +27,7 @@ yarn-error.log*
 
 # local env files
 .env*.local
-
+*bak.env*
 # vercel
 .vercel
 
@@ -78,3 +78,6 @@ src/app/browse/dist
 .pytest_cache
 src/lib/__pycache__/db_tests.cpython-312.pyc
 src/lib/db_utils.py_16-07-2024_.log
+noob copy
+noob
+src/lib/db_utils.py_******
