@@ -27,6 +27,10 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v4
 
+            - name: pm2 anhalten
+              run: |
+                  pm2 stop 0
+
             - name: Verify secrets
               run: |
                   echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}"
@@ -41,6 +45,18 @@ jobs:
                   echo "DB_USER=${{ secrets.DB_USER }}"
                   echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}"
                   echo "ENABLE_GOOGLE_AUTH=${{ secrets.ENABLE_GOOGLE_AUTH }}"
+                  echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}"
+                  export "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}"
+                  export "ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}"
+                  export "ENCRYPTION_IV=${{ secrets.ENCRYPTION_IV }}"
+                  export "NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}"
+                  export "NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}"
+                  export "NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}"
+                  export "DB_HOST=${{ secrets.DB_HOST }}"
+                  export "DB_NAME=${{ secrets.DB_NAME }}"
+                  export "DB_USER=${{ secrets.DB_USER }}"
+                  export "DB_PASSWORD=${{ secrets.DB_PASSWORD }}"
+                  export "ENABLE_GOOGLE_AUTH=${{ secrets.ENABLE_GOOGLE_AUTH }}"
               shell: bash
 
             - name: Check Node.js version
@@ -80,11 +96,7 @@ jobs:
                     ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}
                     ENCRYPTION_IV=${{ secrets.ENCRYPTION_IV }}
                     NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
-                    NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}
-                    ENCRYPTION_IV=${{ secrets.ENCRYPTION_IV }}
                     NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}
-                    NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
-                    NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}
                     DB_HOST=${{ secrets.DB_HOST }}
                     DB_NAME=${{ secrets.DB_NAME }}
                     DB_USER=${{ secrets.DB_USER }}
@@ -130,6 +142,15 @@ jobs:
                   export NVM_DIR="$HOME/.nvm"
                   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
                   npm ci
+              continue-on-error: true
+
+            - name: Install dependencies
+              if: steps.cache-nodemodules.outputs.cache-hit != 'true'
+              run: |
+                  . ~/.nvm/nvm.sh
+                  export NVM_DIR="$HOME/.nvm"
+                  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+                  npm install --save
               continue-on-error: true
 
             - name: Build application
