@@ -26,65 +26,44 @@ jobs:
             DB_USER: ${{ secrets.DB_USER }}
             DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
             DATABASE_URL: postgresql://${{ secrets.DB_USER }}:${{ secrets.DB_PASSWORD }}@${{ secrets.DB_HOST }}:5432/${{ secrets.DB_NAME }}
+          steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
 
-        steps:
-            - uses: actions/checkout@v4
+        - name: Setup Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: '20'
 
-            - name: Use Node.js
-              uses: actions/setup-node@v4
-              with:
-                  node-version: 20.15.1
+        - name: Create .env file
+          run: |
+            cat << EOF > .env.${{ github.event.inputs.environment }}
+            ENVIRONMENT=${{ github.event.inputs.environment }}
+            # Fügen Sie hier weitere Umgebungsvariablen hinzu
+            EOF
 
-            - name: Download env file
-              uses: actions/download-artifact@v3
-              with:
-                  name: env-file
+        - name: Install dependencies
+          run: npm ci
 
-            - name: Install dependencies
-              if: failure()
-              run: npm ci
+        - name: Build
+          run: npm run build
 
-              continue-on-error: true
+        - name: Deploy
+          env:
+            DEPLOY_MESSAGE: ${{ github.event.inputs.deploy_message }}
+          run: |
+            echo "Deploying to ${{ github.event.inputs.environment }} environment"
+            echo "Deploy message: $DEPLOY_MESSAGE"
 
-            - name: Build
-              run: npm run build
-              continue-on-error: true
+            # Hier fügen Sie Ihre spezifischen Deployment-Befehle ein
+            # Zum Beispiel:
+            # cp -R .next /path/to/your/app/
+            # cp .env.${{ github.event.inputs.environment }} /path/to/your/app/.env
 
-            - name: Upload artifact
-              uses: actions/upload-artifact@v3
-              with:
-                  name: next-build
-                  path: .next
-                  retention-days: 1
-              continue-on-error: true
+            # Neustart der Anwendung mit PM2
+            pm2 restart ecosystem.config.cjs
 
-            - name: Install dependencies
-              # if: steps.cache-nodemodules.outputs.cache-hit != 'true'
-              run: |
-                  . ~/.nvm/nvm.sh
-                  export NVM_DIR="$HOME/.nvm"
-                  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+        - name: Cleanup
+          if: always()
+          run: |
 
-                  printf "Erster versuch\n"
-                  for i in {0 < 4};
-                    do
-                    npm ci && break
-                    echo "npm ci failed. Retrying..."
-
-                  done
-
-              continue-on-error: true
-
-            - name: Run Deployment
-              run: |
-                  . ~/.nvm/nvm.sh
-                  export NVM_DIR="$HOME/.nvm"
-                  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-                  pm2 --version
-                  NODE_PATH=$(which node)
-                  PM2_EXEC_PATH=$(which pm2)
-                  echo "Node path: $NODE_PATH"
-                  echo "PM2 path: $PM2_EXEC_PATH"
-                  $PM2_EXEC_PATH
-                  pm2 restart ecosystem.config.cjs
-              continue-on-error: true
