@@ -1,3 +1,8 @@
+import * as postgres from 'postgres';
+import { config } from 'dotenv';
+import { defineConfig } from 'drizzle-kit';
+// import { drizzle } from 'drizzle-orm/postgres-js';
+// import { migrate } from 'drizzle-orm/postgres-js/migrator';
 // export default defineConfig({
 //   schema: "./src/db/schema.ts",
 //   out: "/.drizzle/migrations",
@@ -8,19 +13,12 @@
 //   verbose: true,
 //   strict: true,
 // });
-import { drizzle } from "drizzle-orm/postgres-js";
-import { migrate } from "drizzle-orm/postgres-js/migrator";
-import postgres from "postgres";
-const sql = postgres("...", { max: 1 })
-const db = drizzle(sql);
-await migrate(db, { migrationsFolder: "drizzle" });
-await sql.end();
+// const sql = postgres('...', { max: 1 });
+// const db = drizzle(sql);
+// await migrate(db, { migrationsFolder: 'drizzle' });
+// await sql.end();
 
-
-import * as dotenv from 'dotenv';
-
-dotenv.config();
-import { defineConfig } from 'drizzle-kit';
+config();
 
 export default defineConfig({
 	dialect: 'postgresql',

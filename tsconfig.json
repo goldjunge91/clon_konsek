@@ -25,6 +25,8 @@
 		"noFallthroughCasesInSwitch": true,
 		"incremental": true,
 		"types": ["node"],
+		"typeRoots": ["./node_modules/@types", "./types"],
+
 		"paths": {
 			"@/*": ["./src/*"],
 			"out/*": ["./public/*"]
