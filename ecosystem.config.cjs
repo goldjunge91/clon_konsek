@@ -11,15 +11,15 @@ module.exports = {
 			error_file: '/home/runneruser/logfiles/error.log',
 			out_file: '/home/runneruser/logfiles/out.log',
 			log_date_format: 'YYYY-MM-DD HH:mm.SSS',
+			autorestart: true,
 			watch: false,
 			ignore_watch: ['node_modules', 'logs', 'temp', 'uploads'],
+			merge_logs: true,
 			watch_options: {
 				followSymlinks: false,
 				usePolling: true,
 			},
-			merge_logs: true,
-			autorestart: true,
-			env: {
+			env_production: {
 				NODE_ENV: 'production',
 				GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
 				GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
@@ -28,13 +28,12 @@ module.exports = {
 				NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
 				NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
 				NEXTAUTH_URL: process.env.NEXTAUTH_URL,
-				POSTGRES_DB: process.env.POSTGRES_DB,
-				POSTGRES_HOST: process.env.POSTGRES_HOST,
 				POSTGRES_USER: process.env.POSTGRES_USER,
-				POSTGRES_PASSWORD: process.env.POSTGRES_PASSWORD,
+				POSTGRES_DB: process.env.POSTGRES_DB,
+				POSTGRES_PW: process.env.POSTGRES_PW,
 				ENABLE_GOOGLE_AUTH: process.env.ENABLE_GOOGLE_AUTH,
-				DATABASE_URL: `postgres://${process.env.DB_USER}:${process.env.DB_PASSWORD}@localhost:5432/${process.env.DB_NAME}`,
+				DATABASE_URL: `postgres://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PW}@localhost:5432/${process.env.POSTGRES_DB}`,
 			},
 		},
 	],
-}; // This file is used to configure the pm2 process manager
+};

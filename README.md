@@ -12,6 +12,16 @@
   - [NVM, Node.js und PM2 Installation](#nvm-nodejs-und-pm2-installation)
   - [GitHub Actions Runner Installation](#github-actions-runner-installation)
   - [Einrichtung von Let's Encrypt](#einrichtung-von-lets-encrypt)
+- [Entwicklungs- und Verwaltungsbefehle](#entwicklungs--und-verwaltungsbefehle)
+  - [Überprüfen der ausgeführten Cronjobs](#überprüfen-der-ausgeführten-cronjobs)
+  - [Wechseln in das Projektverzeichnis](#wechseln-in-das-projektverzeichnis)
+  - [PM2 Prozessverwaltung](#pm2-prozessverwaltung)
+  - [Datenbank-Verwaltung mit Docker](#datenbank-verwaltung-mit-docker)
+  - [Umgebungsvariablen setzen (Platzhalter verwenden)](#umgebungsvariablen-setzen-platzhalter-verwenden)
+  - [Überprüfen der gesetzten Umgebungsvariable](#überprüfen-der-gesetzten-umgebungsvariable)
+  - [Entwicklungsbefehle](#entwicklungsbefehle)
+  - [Datenbankoperationen](#datenbankoperationen)
+  - [Docker Container Verwaltung](#docker-container-verwaltung)
 - [Systemeinstellungen](#systemeinstellungen)
   - [NextJS Konfigurationsvariablen](#nextjs-konfigurationsvariablen)
   - [Verschlüsselungs- und Docker-Variablen](#verschlüsselungs--und-docker-variablen)
@@ -34,12 +44,15 @@ PDF-procesor ist eine Webanwendung, die es Benutzern ermöglicht, druckbare PDF-
 
 ### Verwendete Technologien und Frameworks
 
-- Next.js: React-Framework für serverseitiges Rendering und Routing
-- TypeScript: Typisierter Übersatz von JavaScript
-- Tailwind CSS: Utility-First CSS-Framework
-- NextAuth.js: Authentifizierungslösung für Next.js
-- Drizzle ORM: TypeScript ORM für SQL-Datenbanken
-- Docker: Containerverwaltung für PostgresSQL Datenbank
+
+
+- [Next.js](https://nextjs.org/): React-Framework für serverseitiges Rendering und Routing
+- [TypeScript](https://www.typescriptlang.org/): Typisierter Übersatz von JavaScript
+- [Tailwind CSS](https://tailwindcss.com/): Utility-First CSS-Framework
+- [NextAuth.js](https://next-auth.js.org/): Authentifizierungslösung für Next.js
+- [Drizzle ORM](https://orm.drizzle.team/): TypeScript ORM für SQL-Datenbanken
+- [Docker](https://www.docker.com/): Containerverwaltung für PostgresSQL Datenbank
+
 
 ## Systemaktualisierung und Softwareinstallation
 
@@ -101,6 +114,64 @@ Folgen Sie der Anleitung zur Installation des GitHub Actions Runners:
 
 Folgen Sie der Anleitung zur Einrichtung von Let's Encrypt: [Let's Encrypt](https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-20-04)
 
+
+
+
+
+## Entwicklungs- und Verwaltungsbefehle
+
+Hier ist eine Zusammenfassung der wichtigsten Befehle für die Entwicklung und Verwaltung des PDF-processor Projekts:
+
+### Überprüfen der ausgeführten Cronjobs
+```bash
+sudo grep CRON /var/log/syslog
+```
+### Wechseln in das Projektverzeichnis
+```bash
+cd /pfad/zum/projekt/verzeichnis/
+```
+### PM2 Prozessverwaltung
+```bash
+pm2 start config.cjs
+pm2 stop config.cjs
+```
+### Datenbank-Verwaltung mit Docker
+```bash
+docker logs -f postgres
+docker container stop postgres
+docker container start postgres
+docker exec -it postgres /bin/bash
+```
+### Umgebungsvariablen setzen (Platzhalter verwenden)
+```bash
+export DATABASE_URL=postgres://${USER}:${PASSWORD}@${HOST}:${PORT}/${DB_NAME}
+```
+
+### Überprüfen der gesetzten Umgebungsvariable
+```bash
+echo "Exported DATABASE_URL=${DATABASE_URL}"
+```
+
+### Entwicklungsbefehle
+```bash
+npm run dev          # Entwicklungsserver starten
+npm run build        # Projekt bauen
+npm run start        # Produktionsserver starten
+npm run pod          # Server auf spezifischem Port starten
+npm run lint         # Linting durchführen
+```
+### Datenbankoperationen
+```bash
+npm run db:push      # Schema-Änderungen in die Datenbank übertragen
+npm run db:studio    # Drizzle Studio starten
+```
+
+### Docker Container Verwaltung
+```Bash
+npm run container:postgres  # PostgreSQL Container starten
+npm run container:crontab   # Crontab UI Container starten
+```
+
 ## Systemeinstellungen
 
 ### NextJS Konfigurationsvariablen
@@ -115,8 +186,8 @@ Folgen Sie der Anleitung zur Einrichtung von Let's Encrypt: [Let's Encrypt](http
 
 ### Verschlüsselungs- und Docker-Variablen
 
-- `ENCRYPTION_KEY` = Schlüssel für das Verschlüsseln.
-- `ENCRYPTION_IV` = Schlüssel für das Verschlüsseln.
+- `ENCRYPTION_KEY` = 64_Zeichen_langer_Hex-String.
+- `ENCRYPTION_IV` = 16_Zeichen_langer_IV.
 -
 - `DATABASE_URL` = URL Ihrer Datenbank.
 -

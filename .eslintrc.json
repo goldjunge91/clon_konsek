@@ -41,8 +41,8 @@
 		"import/order": "off", // Disable this rule
 		"react/jsx-uses-react": "off",
 		"react/react-in-jsx-scope": "off",
-		"css-modules/no-unused-class": "warn",
-		"css-modules/no-undef-class": "warn",
+		"css-modules/no-unused-class": "off",
+		"css-modules/no-undef-class": "off",
 		"@next/next/no-page-custom-font": "off",
 		"react/no-unescaped-entities": "off"
 	},
