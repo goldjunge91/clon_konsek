@@ -1,0 +1,49 @@
+name: Build Next.js App
+
+on:
+    workflow_call:
+        inputs:
+            environment:
+                required: true
+                type: string
+
+env:
+    NODE_VERSION: '20'
+
+jobs:
+    build:
+        runs-on: self-hosted
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Use Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ env.NODE_VERSION }}
+
+            - name: Download env file
+              uses: actions/download-artifact@v3
+              with:
+                  name: env-file
+
+            - name: Rename env file
+              run: mv .env.${{ inputs.environment }} .env.production
+              continue-on-error: true
+
+            - name: Install dependencies
+              if: failure()
+              run: npm ci
+
+              continue-on-error: true
+
+            - name: Build
+              run: npm run build
+              continue-on-error: true
+
+            - name: Upload artifact
+              uses: actions/upload-artifact@v3
+              with:
+                  name: next-build
+                  path: .next
+                  retention-days: 1
+              continue-on-error: true

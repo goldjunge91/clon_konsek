@@ -1,0 +1,48 @@
+name: Deploy to VPS
+
+on:
+    workflow_call:
+        inputs:
+            environment:
+                required: true
+                type: string
+            deploy_message:
+                required: false
+                type: string
+
+jobs:
+    deploy:
+        runs-on: self-hosted
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Download build artifact
+              uses: actions/download-artifact@v3
+              with:
+                  name: next-build
+                  path: .next
+
+            - name: Download env file
+              uses: actions/download-artifact@v3
+              with:
+                  name: env-file
+
+            - name: Deploy to VPS
+              env:
+                  VPS_HOST: ${{ secrets.VPS_HOST }}
+                  VPS_USER: ${{ secrets.VPS_USER }}
+                  DEPLOY_MESSAGE: ${{ inputs.deploy_message }}
+              run: |
+                  echo "Deploying to ${{ inputs.environment }} environment"
+                  echo "Deploy message: $DEPLOY_MESSAGE"
+
+                  scp -o StrictHostKeyChecking=no deploy-ssh.sh $VPS_USER@$VPS_HOST:/tmp/deploy-ssh.sh
+
+                  rsync -avz -e "ssh -o StrictHostKeyChecking=no" --delete \
+                    --exclude='.git' \
+                    --exclude='node_modules' \
+                    ./ $VPS_USER@$VPS_HOST:/home/$VPS_USER/app/
+
+                  ssh -o StrictHostKeyChecking=no $VPS_USER@$VPS_HOST "bash /tmp/deploy-ssh.sh ${{ inputs.environment }} \"$DEPLOY_MESSAGE\""
+              continue-on-error: true

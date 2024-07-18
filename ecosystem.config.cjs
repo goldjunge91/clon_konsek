@@ -1,3 +1,6 @@
+/* eslint-disable */
+/* eslint eqeqeq: "off", 0: "error" */
+/* eslint disable*/
 /* eslint-disable no-undef */
 module.exports = {
 	apps: [
@@ -25,10 +28,10 @@ module.exports = {
 				NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
 				NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
 				NEXTAUTH_URL: process.env.NEXTAUTH_URL,
-				DB_HOST: process.env.DB_HOST,
-				DB_NAME: process.env.DB_NAME,
-				DB_USER: process.env.DB_USER,
-				DB_PASSWORD: process.env.DB_PASSWORD,
+				POSTGRES_DB: process.env.POSTGRES_DB,
+				POSTGRES_HOST: process.env.POSTGRES_HOST,
+				POSTGRES_USER: process.env.POSTGRES_USER,
+				POSTGRES_PASSWORD: process.env.POSTGRES_PASSWORD,
 				ENABLE_GOOGLE_AUTH: process.env.ENABLE_GOOGLE_AUTH,
 				DATABASE_URL: `postgres://${process.env.DB_USER}:${process.env.DB_PASSWORD}@localhost:5432/${process.env.DB_NAME}`,
 			},

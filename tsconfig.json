@@ -1,3 +1,5 @@
+/*typescript-disable */
+
 {
 	"compilerOptions": {
 		"target": "ESNext",
@@ -10,7 +12,7 @@
 		"esModuleInterop": true,
 		"moduleDetection": "auto",
 		"module": "ESNext",
-		"moduleResolution": "Bundler",
+		"moduleResolution": "bundler",
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"jsx": "preserve",
@@ -24,7 +26,6 @@
 		"noFallthroughCasesInSwitch": true,
 		"incremental": true,
 		"types": ["node"],
-		"typeRoots": ["./node_modules/@types", "./types"],
 		"paths": {
 			"@/*": ["./src/*"],
 			"out/*": ["./public/*"]

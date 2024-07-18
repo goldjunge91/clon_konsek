@@ -30,8 +30,11 @@
 	"dependencies": {
 		"@auth/core": "^0.34.1",
 		"@auth/drizzle-adapter": "^1.4.1",
+		"@cloudflare/workers-types": "^4.20240712.0",
+		"@electric-sql/pglite": "^0.1.5",
 		"@hookform/resolvers": "^3.9.0",
 		"@microsoft/tsdoc": "^0.15.0",
+		"@neondatabase/serverless": "^0.9.4",
 		"@radix-ui/react-alert-dialog": "^1.1.1",
 		"@radix-ui/react-avatar": "^1.1.0",
 		"@radix-ui/react-dropdown-menu": "^2.1.1",
@@ -77,8 +80,6 @@
 		"tailwindcss": "^3.4.6",
 		"tailwindcss-animate": "^1.0.7",
 		"tailwindcss-animatecss": "^3.0.5",
-		"typedoc-plugin-coverage": "^3.3.0",
-		"typedoc-plugin-missing-exports": "^3.0.0",
 		"unique-names-generator": "^4.7.1",
 		"validator": "^13.12.0",
 		"winston": "^3.13.1",
@@ -94,6 +95,7 @@
 		"@types/bcryptjs": "^2.4.6",
 		"@types/crypto-js": "^4.2.2",
 		"@types/node": "^20.14.11",
+		"@types/pg": "^8.11.6",
 		"@types/react": "^18.3.3",
 		"@types/react-dom": "^18.3.0",
 		"@types/tailwindcss": "^3.1.0",
@@ -123,9 +125,7 @@
 		"remark-toc": "^9.0.0",
 		"ts-morph": "^23.0.0",
 		"ts-node": "^10.9.2",
-		"tslib": "^2.6.3",
 		"typedoc": "^0.26.4",
-		"typedoc-github-wiki-theme": "^2.0.0",
 		"typedoc-plugin-extras": "^3.1.0",
 		"typedoc-plugin-frontmatter": "^1.0.0",
 		"typedoc-plugin-markdown": "^4.2.1",
@@ -134,6 +134,7 @@
 		"typedoc-plugin-zod": "^1.2.0",
 		"typescript": "^5.5.3",
 		"typescript-plugin-css-modules": "^5.1.0",
-		"unified-prettier": "^2.0.1"
+		"unified-prettier": "^2.0.1",
+		"wrangler": "^3.65.0"
 	}
 }

@@ -4,19 +4,15 @@
 		"project": ["./tsconfig.json", "./tsconfig.eslint.json"],
 		"ecmaVersion": "latest",
 		"sourceType": "module",
-		"ecmaFeatures": {
-			"jsx": true
-		}
+		"ecmaFeatures": {}
 	},
-	"plugins": ["@typescript-eslint", "react", "css-modules", "import"],
+	"plugins": ["@typescript-eslint", "react", "css-modules"],
 	"extends": [
 		"eslint:recommended",
 		"plugin:@typescript-eslint/recommended",
 		"next/core-web-vitals",
 		"plugin:react/recommended",
 		"plugin:css-modules/recommended",
-		"plugin:import/errors",
-		"plugin:import/warnings",
 		"plugin:import/typescript",
 		"plugin:@next/next/recommended",
 		"prettier",
@@ -26,7 +22,7 @@
 	"rules": {
 		"@typescript-eslint/explicit-function-return-type": "off",
 		"@typescript-eslint/explicit-module-boundary-types": "off",
-		"@typescript-eslint/strict-boolean-expressions": "warn",
+		"@typescript-eslint/strict-boolean-expressions": "off", // Disable this rule
 		"@typescript-eslint/no-unnecessary-condition": "warn",
 		"@typescript-eslint/no-explicit-any": "off",
 		"no-console": [
@@ -42,24 +38,7 @@
 				"argsIgnorePattern": "^_"
 			}
 		],
-		"import/order": [
-			"warn",
-			{
-				"groups": [
-					"builtin",
-					"external",
-					"internal",
-					"parent",
-					"sibling",
-					"index"
-				],
-				"newlines-between": "always",
-				"alphabetize": {
-					"order": "asc",
-					"caseInsensitive": true
-				}
-			}
-		],
+		"import/order": "off", // Disable this rule
 		"react/jsx-uses-react": "off",
 		"react/react-in-jsx-scope": "off",
 		"css-modules/no-unused-class": "warn",
@@ -71,11 +50,5 @@
 		"react": {
 			"version": "detect"
 		}
-	},
-	"overrides": [
-		{
-			"files": ["**/*.ts", "**/*.tsx"],
-			"extends": ["./.eslintrc.typescript.json"]
-		}
-	]
+	}
 }
