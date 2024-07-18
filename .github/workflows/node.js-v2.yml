@@ -26,44 +26,58 @@ jobs:
             DB_USER: ${{ secrets.DB_USER }}
             DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
             DATABASE_URL: postgresql://${{ secrets.DB_USER }}:${{ secrets.DB_PASSWORD }}@${{ secrets.DB_HOST }}:5432/${{ secrets.DB_NAME }}
-          steps:
-        - name: Checkout code
-          uses: actions/checkout@v4
 
-        - name: Setup Node.js
-          uses: actions/setup-node@v4
-          with:
-            node-version: '20'
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
 
-        - name: Create .env file
-          run: |
-            cat << EOF > .env.${{ github.event.inputs.environment }}
-            ENVIRONMENT=${{ github.event.inputs.environment }}
-            # Fügen Sie hier weitere Umgebungsvariablen hinzu
-            EOF
+            - name: Check Node.js version
+              run: |
+                  . ~/.nvm/nvm.sh
+                  echo "Node.js version: $(node -v)"
+                  echo "npm version: $(npm -v)"
 
-        - name: Install dependencies
-          run: npm ci
+            - name: Cache für schnelles Deployment node-modules
+              uses: actions/cache@v4
+              id: cache-nodemodules
+              with:
+                  path: |
+                      **/node_modules
+                      ~/.npm
+                  key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-node-modules-
 
-        - name: Build
-          run: npm run build
+              continue-on-error: true
+            - name: Cache für  Next.js build
+              uses: actions/cache@v4
+              with:
+                  path: ${{ github.workspace }}/.next/cache
+                  key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.{js,jsx,ts,tsx,cjs,mjs}')}}
+                  restore-keys: |
+                      ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+                      ${{ runner.os }}-nextjs-
+              continue-on-error: true
 
-        - name: Deploy
-          env:
-            DEPLOY_MESSAGE: ${{ github.event.inputs.deploy_message }}
-          run: |
-            echo "Deploying to ${{ github.event.inputs.environment }} environment"
-            echo "Deploy message: $DEPLOY_MESSAGE"
-
-            # Hier fügen Sie Ihre spezifischen Deployment-Befehle ein
-            # Zum Beispiel:
-            # cp -R .next /path/to/your/app/
-            # cp .env.${{ github.event.inputs.environment }} /path/to/your/app/.env
-
-            # Neustart der Anwendung mit PM2
-            pm2 restart ecosystem.config.cjs
-
-        - name: Cleanup
-          if: always()
-          run: |
-
+            - name: Install dependencies
+              run: |
+                  . ~/.nvm/nvm.sh
+                  export NVM_DIR="$HOME/.nvm"
+                  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            - name: Install dependencies
+              run: npm ci
+            - name: Build
+              run: npm run build
+            - name: Run Deployment
+              run: |
+                  . ~/.nvm/nvm.sh
+                  export NVM_DIR="$HOME/.nvm"
+                  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+                  pm2 --version
+                  NODE_PATH=$(which node)
+                  PM2_EXEC_PATH=$(which pm2)
+                  echo "Node path: $NODE_PATH"
+                  echo "PM2 path: $PM2_EXEC_PATH"
+                  $PM2_EXEC_PATH
+                  pm2 restart ecosystem.config.cjs
+              continue-on-error: true
