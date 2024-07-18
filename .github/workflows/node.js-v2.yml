@@ -65,7 +65,10 @@ jobs:
                   export NVM_DIR="$HOME/.nvm"
 
             - name: Build
-              run: npm run build
+              run: |
+                  . ~/.nvm/nvm.sh
+                  export NVM_DIR="$HOME/.nvm"
+                  npm run build
 
             - name: Run Deployment
               run: |
