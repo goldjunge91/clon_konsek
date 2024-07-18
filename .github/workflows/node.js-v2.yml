@@ -63,11 +63,10 @@ jobs:
               run: |
                   . ~/.nvm/nvm.sh
                   export NVM_DIR="$HOME/.nvm"
-                  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-            - name: Install dependencies
-              run: npm ci
+
             - name: Build
               run: npm run build
+
             - name: Run Deployment
               run: |
                   . ~/.nvm/nvm.sh
