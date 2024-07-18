@@ -79,3 +79,4 @@ noob copy
 noob
 src/lib/db_utils.py_******
 .github/workflows/.next/trace
+.drizzle/migrations/meta/_journal.json

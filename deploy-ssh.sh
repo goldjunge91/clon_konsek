@@ -5,8 +5,8 @@ DEPLOY_MESSAGE=$2
 
 echo "Deploying to $ENVIRONMENT environment"
 echo "Deploy message: $DEPLOY_MESSAGE"
-export NODE_ENV=production # Korrektur: Zuweisung mit Gleichheitszeichen und korrekter Syntax
-echo "NODE_ENV set to $NODE_ENV" # Verbesserte Ausgabe
+# export NODE_ENV=production # Korrektur: Zuweisung mit Gleichheitszeichen und korrekter Syntax
+# echo "NODE_ENV set to $NODE_ENV" # Verbesserte Ausgabe
 
 set -a # Alle folgenden Variablen werden automatisch exportiert
 source .env # Lädt Umgebungsvariablen aus der .env-Datei

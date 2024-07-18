@@ -20,7 +20,7 @@ module.exports = {
 				usePolling: true,
 			},
 			env_production: {
-				NODE_ENV: 'production',
+				// NODE_ENV: 'production',
 				GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
 				GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
 				ENCRYPTION_KEY: process.env.ENCRYPTION_KEY,

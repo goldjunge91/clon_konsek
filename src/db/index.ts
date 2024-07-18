@@ -25,8 +25,5 @@ declare global {
 	// eslint-disable-next-line no-var -- only var works here
 }
 let db: PostgresJsDatabase<typeof schema>;
-if (process.env.NODE_ENV === 'production') {
-	db = drizzle(postgres(process.env.DATABASE_URL!), { schema });
-}
-
+db = drizzle(postgres(process.env.DATABASE_URL!), { schema });
 export { db };
