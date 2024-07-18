@@ -28,64 +28,35 @@ jobs:
             DATABASE_URL: postgresql://${{ secrets.DB_USER }}:${{ secrets.DB_PASSWORD }}@${{ secrets.DB_HOST }}:5432/${{ secrets.DB_NAME }}
 
         steps:
-            - name: Checkout code
-              uses: actions/checkout@v4
+            - uses: actions/checkout@v4
 
-            - name: Website anhalten
-              run: |
-                  . ~/.nvm/nvm.sh
-                  export NVM_DIR="$HOME/.nvm"
-                  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-                  pm2 --version
-                  echo "Now we're in the workspace directory"
-                  NODE_PATH=$(which node)
-                  PM2_EXEC_PATH=$(which pm2)
-                  echo "Node path: $NODE_PATH"
-                  echo "PM2 path: $PM2_EXEC_PATH"
-                  $PM2_EXEC_PATH
-                  pm2 stop ecosystem.config.cjs
-              continue-on-error: true
-            - name: Debug on fail
+            - name: Use Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20.15.1
+
+            - name: Download env file
+              uses: actions/download-artifact@v3
+              with:
+                  name: env-file
+
+            - name: Install dependencies
               if: failure()
-              run: |
-                  echo "Workflow failed. Debugging information:"
-                  env | grep -E "GITHUB_|RUNNER_"
-                  # Vorsicht mit sensiblen Daten!
-                  # env | grep -vE "SECRET|TOKEN|PASSWORD"
-            - name: Use GitHub context
-              run: |
-                  echo "Repository: ${{ github.repository }}"
-                  echo "Ref: ${{ github.ref }}"
-                  echo "SHA: ${{ github.sha }}"
-            - name: Check Node.js version
-              run: |
-                  . ~/.nvm/nvm.sh
-                  echo "Node.js version: $(node -v)"
-                  echo "npm version: $(npm -v)"
+              run: npm ci
 
-            - name: Cache für schnelles Deployment node-modules
-              uses: actions/cache@v4
-              id: cache-nodemodules
-              with:
-                  path: |
-                      **/node_modules
-                      ~/.npm
-                  key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
-                  restore-keys: |
-                      ${{ runner.os }}-node-modules-
-              continue-on-error: true
-            - name: Cache für  Next.js build
-              uses: actions/cache@v4
-              with:
-                  path: ${{ github.workspace }}/.next/cache
-                  key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.{js,jsx,ts,tsx,cjs,mjs}')}}
-                  restore-keys: |
-                      ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
-                      ${{ runner.os }}-nextjs-
               continue-on-error: true
 
-            - name: Check critical environment variables
-              run: |
+            - name: Build
+              run: npm run build
+              continue-on-error: true
+
+            - name: Upload artifact
+              uses: actions/upload-artifact@v3
+              with:
+                  name: next-build
+                  path: .next
+                  retention-days: 1
+              continue-on-error: true
 
             - name: Install dependencies
               # if: steps.cache-nodemodules.outputs.cache-hit != 'true'
@@ -103,30 +74,6 @@ jobs:
                   done
 
               continue-on-error: true
-
-            - name: Run error handling script
-              if: failure()
-              run: |
-                  cd $GITHUB_WORKSPACE
-                  chmod +x ./deploy-script.sh
-                  source ./deploy-script.sh
-              continue-on-error: true
-
-            - name: Check PM2 installation
-              run: |
-                  chmod +x ./.github/workflows/script.sh
-                  . ~/.nvm/nvm.sh
-                  export NVM_DIR="$HOME/.nvm"
-                  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-                  if ! command -v pm2 &> /dev/null; then
-                  echo "PM2 is not installed."
-                  npm install -g pm2
-                  else
-                  echo "PM2 is installed."
-                  fi
-                  pm2 --version
-                  cd $GITHUB_WORKSPACE
-                  /.github/workflows/script.sh
 
             - name: Run Deployment
               run: |
