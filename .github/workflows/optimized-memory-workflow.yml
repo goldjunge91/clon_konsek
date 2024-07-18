@@ -20,7 +20,7 @@ on:
 
 jobs:
     install-dependencies:
-        
+
         runs-on: self-hosted
         steps:
 
