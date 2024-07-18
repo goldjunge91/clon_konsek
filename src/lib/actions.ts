@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 'use server';
 
 import { exec, spawn } from 'child_process';
