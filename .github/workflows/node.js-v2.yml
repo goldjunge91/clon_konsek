@@ -83,85 +83,9 @@ jobs:
                       ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
                       ${{ runner.os }}-nextjs-
               continue-on-error: true
-            # - name: Erstellen einer .env für Secrets
-            #   run: |
-            # cd $GITHUB_WORKSPACE
-            # cat << EOF > .env
 
-            # ENABLE_GOOGLE_AUTH=${{ secrets.ENABLE_GOOGLE_AUTH }}
-            # GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}
-            # GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}
-
-            # ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}
-            # ENCRYPTION_IV=${{ secrets.ENCRYPTION_IV }}
-
-            # NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}
-            # NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
-            # NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}"
-
-            # DB_HOST=${{ secrets.DB_HOST }}
-            # DB_NAME=${{ secrets.DB_NAME }}
-            # DB_USER=${{ secrets.DB_USER }}
-            # DB_PASSWORD=${{ secrets.DB_PASSWORD }}
-            # DATABASE_URL=postgres://${{ secrets.DB_USER }}:${{ secrets.DB_PASSWORD }}@${{ secrets.DB_HOST }}:5432/${{ secrets.DB_NAME }}
-            # EOF
-            #   continue-on-error: true
             - name: Check critical environment variables
               run: |
-                  source .env.production
-                  critical_vars=(
-                    "ENABLE_GOOGLE_AUTH"
-                    "GOOGLE_CLIENT_ID"
-                    "GOOGLE_CLIENT_SECRET"
-                    "ENCRYPTION_KEY"
-                    "ENCRYPTION_IV"
-                    "NEXTAUTH_URL"
-                    "NEXT_PUBLIC_API_URL"
-                    "NEXTAUTH_SECRET"
-                    "DB_HOST"
-                    "DB_NAME"
-                    "DB_USER"
-                    "DB_PASSWORD"
-                    "DATABASE_URL"
-                  )
-                  for var in "${critical_vars[@]}"; do
-                    if [ -z "${!var}" ]; then
-                      echo "Error: $var is not set or empty"
-                      exit 1
-                    else
-                      echo "$var is set"
-                    fi
-                  done
-                  echo "All critical environment variables are set."
-
-            - name: Prüfen der Umgebungsvariablen.
-              run: |
-                  if [ -s ".env.production" ]; then
-                    echo ".env.production file exists and is not empty."
-                  else
-                    echo ".env.production file is missing or empty. Checking environment variables..."
-                    missing_variables=()
-
-                    if [ -z "${ENCRYPTION_KEY}" ]; then
-                      missing_variables+=("ENCRYPTION_KEY")
-                    fi
-
-                    if [ -z "${ENCRYPTION_IV}" ]; then
-                      missing_variables+=("ENCRYPTION_IV")
-                    fi
-
-                    if [ -z "${ENABLE_GOOGLE_AUTH}" ]; then
-                      missing_variables+=("ENABLE_GOOGLE_AUTH")
-                    fi
-
-                    if [ ${#missing_variables[@]} -eq 0 ]; then
-                      echo "All required environment variables are set."
-                    else
-                      echo "Error: The following required environment variables are not set: ${missing_variables[*]}"
-                      exit 1
-                    fi
-                  fi
-              continue-on-error: true
 
             - name: Install dependencies
               # if: steps.cache-nodemodules.outputs.cache-hit != 'true'
@@ -214,5 +138,6 @@ jobs:
                   PM2_EXEC_PATH=$(which pm2)
                   echo "Node path: $NODE_PATH"
                   echo "PM2 path: $PM2_EXEC_PATH"
-                  $PM2_EXEC_PATH restart ecosystem.config.cjs
+                  $PM2_EXEC_PATH
+                  pm2 restart ecosystem.config.cjs
               continue-on-error: true
