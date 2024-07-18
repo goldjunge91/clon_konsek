@@ -187,8 +187,7 @@ jobs:
                   chmod +x ./deploy-script.sh
                   source ./deploy-script.sh
               continue-on-error: true
-            - name: build
-              uses: build-workflow
+
             - name: Check PM2 installation
               run: |
                   chmod +x ./.github/workflows/script.sh
