@@ -1,6 +1,7 @@
----
-name: Manual PM2 Start
+name: Manual PM2 Start and Control
 
+# yamllint disable-line rule:key-duplicates
+name: Manual PM2 Start
 on:
   workflow_dispatch:
     inputs:
