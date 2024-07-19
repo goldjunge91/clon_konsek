@@ -1,0 +1,54 @@
+name: Manual PM2 Start
+
+on:
+  workflow_dispatch:
+    inputs:
+      app_name:
+        description: "Name of the PM2 app to start"
+        required: true
+        default: "pdf_konsek"
+
+jobs:
+  start-pm2:
+    runs-on: self-hosted
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        run: |
+          . ~/.nvm/nvm.sh
+          nvm use node || nvm install node
+          node -v
+          npm -v
+
+      - name: Start PM2 process
+        run: |
+          . ~/.nvm/nvm.sh
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+          # Überprüfen, ob die Anwendung bereits läuft
+          if pm2 describe ${{ github.event.inputs.app_name }} > /dev/null 2>&1; then
+            echo "Die Anwendung ${{ github.event.inputs.app_name }} läuft bereits. Neustart wird durchgeführt."
+            pm2 restart ${{ github.event.inputs.app_name }}
+          else
+            echo "Starte die Anwendung ${{ github.event.inputs.app_name }}."
+            pm2 start ecosystem.config.cjs --only ${{ github.event.inputs.app_name }}
+          fi
+
+          # Zeige den Status der PM2-Prozesse an
+          pm2 list
+
+      - name: Verify PM2 process
+        run: |
+          . ~/.nvm/nvm.sh
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+          if pm2 describe ${{ github.event.inputs.app_name }} > /dev/null 2>&1; then
+            echo "Die Anwendung ${{ github.event.inputs.app_name }} läuft erfolgreich."
+          else
+            echo "Fehler: Die Anwendung ${{ github.event.inputs.app_name }} konnte nicht gestartet werden."
+            exit 1
+          fi
