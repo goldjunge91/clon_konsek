@@ -17,9 +17,9 @@ jobs:
       NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
       POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
       POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-      POSTGRES_PW: ${{ secrets.POSTGRES_PW }}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
       ENABLE_GOOGLE_AUTH: ${{ secrets.ENABLE_GOOGLE_AUTH }}
-      DATABASE_URL: postgresql://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PW }}@localhost:5432/${{ secrets.POSTGRES_DB }}
+      DATABASE_URL: postgresql://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@localhost:5432/${{ secrets.POSTGRES_DB }}
 
     steps:
       - name: Checkout code
@@ -44,9 +44,9 @@ jobs:
           DB_HOST=${{ secrets.DB_HOST }}
           POSTGRES_DB=${{ secrets.POSTGRES_DB }}
           POSTGRES_USER=${{ secrets.POSTGRES_USER }}
-          POSTGRES_PW=${{ secrets.POSTGRES_PW }}
+          POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
           ENABLE_GOOGLE_AUTH=${{ secrets.ENABLE_GOOGLE_AUTH }}
-          DATABASE_URL=postgresql://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PW }}@localhost:5432/${{ secrets.POSTGRES_DB }}
+          DATABASE_URL=postgresql://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@localhost:5432/${{ secrets.POSTGRES_DB }}
           EOF
 
       - name: Install dependencies
@@ -70,7 +70,7 @@ jobs:
           [ -z "$NEXTAUTH_SECRET" ] && echo "NEXTAUTH_SECRET is missing" || echo "NEXTAUTH_SECRET is set"
           [ -z "$POSTGRES_DB" ] && echo "POSTGRES_DB is missing" || echo "POSTGRES_DB is set"
           [ -z "$POSTGRES_USER" ] && echo "POSTGRES_USER is missing" || echo "POSTGRES_USER is set"
-          [ -z "$POSTGRES_PW" ] && echo "POSTGRES_PASSWORD is missing" || echo "POSTGRES_PASSWORD is set"
+          [ -z "$POSTGRES_PASSWORD" ] && echo "POSTGRES_PASSWORD is missing" || echo "POSTGRES_PASSWORD is set"
           [ -z "$ENABLE_GOOGLE_AUTH" ] && echo "ENABLE_GOOGLE_AUTH is missing" || echo "ENABLE_GOOGLE_AUTH is set"
         shell: bash
         continue-on-error: true
