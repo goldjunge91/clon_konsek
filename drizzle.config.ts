@@ -1,13 +1,12 @@
-
-import { defineConfig } from "drizzle-kit";
+import { defineConfig } from 'drizzle-kit';
 export default defineConfig({
-  schema: "./src/db/schema.ts",
-  driver: "pg",
-  dbCredentials: {
-    connectionString: process.env.DATABASE_URL!,
-  },
-  verbose: true,
-  strict: true,
+	schema: './src/db/schema.ts',
+	driver: 'pg',
+	dbCredentials: {
+		connectionString: process.env.DATABASE_URL!,
+	},
+	verbose: true,
+	strict: true,
 });
 // const { config } = require('dotenv');
 // const { defineConfig } = require('drizzle-kit');

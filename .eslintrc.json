@@ -1,12 +1,19 @@
 {
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
-		"project": ["./tsconfig.json", "./tsconfig.eslint.json"],
+		"project": [
+			"./tsconfig.json",
+			"./tsconfig.eslint.json"
+		],
 		"ecmaVersion": "latest",
 		"sourceType": "module",
 		"ecmaFeatures": {}
 	},
-	"plugins": ["@typescript-eslint", "react", "css-modules"],
+	"plugins": [
+		"@typescript-eslint",
+		"react",
+		"css-modules"
+	],
 	"extends": [
 		"eslint:recommended",
 		"plugin:@typescript-eslint/recommended",
@@ -18,18 +25,20 @@
 		"prettier",
 		"plugin:prettier/recommended",
 		"next"
-
 	],
 	"rules": {
 		"@typescript-eslint/explicit-function-return-type": "off",
 		"@typescript-eslint/explicit-module-boundary-types": "off",
-		"@typescript-eslint/strict-boolean-expressions": "off", // Disable this rule
+		"@typescript-eslint/strict-boolean-expressions": "off",
 		"@typescript-eslint/no-unnecessary-condition": "warn",
 		"@typescript-eslint/no-explicit-any": "off",
 		"no-console": [
 			"warn",
 			{
-				"allow": ["warn", "off"]
+				"allow": [
+					"warn",
+					"off"
+				]
 			}
 		],
 		"prefer-const": "warn",
@@ -39,7 +48,7 @@
 				"argsIgnorePattern": "^_"
 			}
 		],
-		"import/order": "off", // Disable this rule
+		"import/order": "off",
 		"react/jsx-uses-react": "off",
 		"react/react-in-jsx-scope": "off",
 		"css-modules/no-unused-class": "off",
@@ -53,4 +62,3 @@
 		}
 	}
 }
-  DATABASE_URL="postgressql://postgres:Iphone5S@localhost:5432/postgres"

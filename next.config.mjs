@@ -2,7 +2,6 @@
 const nextConfig = {
 	// cacheMaxMemorySize: 0,
 	reactStrictMode: true,
-	swcMinify: true,
 	images: {
 		unoptimized: false,
 		formats: ['image/avif', 'image/webp'],
