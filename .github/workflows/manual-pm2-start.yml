@@ -1,3 +1,4 @@
+---
 name: Manual PM2 Start
 
 on:
@@ -7,6 +8,7 @@ on:
         description: "Name of the PM2 app to start"
         required: true
         default: "pdf_konsek"
+        type: string
 
 jobs:
   start-pm2:
