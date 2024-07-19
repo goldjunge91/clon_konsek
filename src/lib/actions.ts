@@ -85,86 +85,13 @@ export async function runpythonscriptAction11(
 //   },
 // }
 
-// const semaphore = new Semaphore(2);
-
-// export async function runpythonscriptAction2(
-// 	taskId: string
-// ): Promise<{ error?: string; message?: string }> {
-// 	const [, release] = await semaphore.acquire();
-// 	try {
-// 		const pythonScriptPath = path.join(
-// 			process.cwd(),
-// 			'src',
-// 			'lib',
-// 			'main_v3.py'
-// 		);
-// 		console.log(
-// 			`Executing Python script at path: ${pythonScriptPath} ${taskId}`
-// 		);
-// 		const pythonInterpreter = process.env.PYTHON_PATH || 'python3';
-
-// 		return new Promise((resolve, reject) => {
-// 			// Übergeben Sie die taskId als separates Argument
-// 			const pythonProcess = spawn(pythonInterpreter, [
-// 				pythonScriptPath,
-// 				taskId,
-// 			]);
-
-// 			let stdout = '';
-// 			let stderr = '';
-
-// 			pythonProcess.stdout.on('data', (data) => {
-// 				stdout += data.toString();
-// 			});
-
-// 			pythonProcess.stderr.on('data', (data) => {
-// 				stderr += data.toString();
-// 			});
-
-// 			pythonProcess.on('close', (code) => {
-// 				if (code !== 0) {
-// 					console.error(`Script error output: ${stderr}`);
-// 					resolve({ error: stderr });
-// 				} else {
-// 					console.log(`Python script output: ${stdout}`);
-// 					resolve({ message: stdout });
-// 				}
-// 			});
-
-// 			pythonProcess.on('error', (error) => {
-// 				console.error(`Error executing Python script: ${error}`);
-// 				reject({ error: error.message });
-// 			});
-
-// 			const timeout = setTimeout(() => {
-// 				pythonProcess.kill();
-// 				reject({ error: 'Script execution timed out' });
-// 			}, 8000000);
-
-// 			pythonProcess.on('close', () => clearTimeout(timeout));
-// 		});
-// 	} catch (error) {
-// 		console.error(`Unexpected error: ${error}`);
-// 		return {
-// 			error: error instanceof Error ? error.message : String(error),
-// 		};
-// 	} finally {
-// 		release();
-// 	}
-// }
-
 const semaphore = new Semaphore(2);
 
-export async function runpythonscriptAction2(taskId: string): Promise<{
-	error?: string;
-	message?: string;
-	exitCode: number;
-	executionTime: number;
-}> {
-	const startTime = Date.now();
-	let release: (() => void) | undefined;
+export async function runpythonscriptAction2(
+	taskId: string
+): Promise<{ error?: string; message?: string }> {
+	const [, release] = await semaphore.acquire();
 	try {
-		[, release] = await semaphore.acquire();
 		const pythonScriptPath = path.join(
 			process.cwd(),
 			'src',
@@ -176,7 +103,8 @@ export async function runpythonscriptAction2(taskId: string): Promise<{
 		);
 		const pythonInterpreter = process.env.PYTHON_PATH || 'python3';
 
-		return new Promise((resolve) => {
+		return new Promise((resolve, reject) => {
+			// Übergeben Sie die taskId als separates Argument
 			const pythonProcess = spawn(pythonInterpreter, [
 				pythonScriptPath,
 				taskId,
@@ -187,67 +115,40 @@ export async function runpythonscriptAction2(taskId: string): Promise<{
 
 			pythonProcess.stdout.on('data', (data) => {
 				stdout += data.toString();
-				console.log(`Python script output: ${data}`);
 			});
 
 			pythonProcess.stderr.on('data', (data) => {
 				stderr += data.toString();
-				console.error(`Python script error: ${data}`);
 			});
 
-			const timeout = setTimeout(() => {
-				pythonProcess.kill();
-				resolve({
-					error: 'Script execution timed out',
-					exitCode: 124,
-					executionTime: Date.now() - startTime,
-				});
-			}, 8000000);
-
-			pythonProcess.on('close', (code: number | null) => {
-				clearTimeout(timeout);
-				const executionTime = Date.now() - startTime;
+			pythonProcess.on('close', (code) => {
 				if (code !== 0) {
-					console.error(
-						`Script exited with code ${code}. Error output: ${stderr}`
-					);
-					resolve({
-						error: stderr,
-						exitCode: code ?? 1,
-						executionTime,
-					});
+					console.error(`Script error output: ${stderr}`);
+					resolve({ error: stderr });
 				} else {
-					console.log(
-						`Python script completed successfully. Output: ${stdout}`
-					);
-					resolve({
-						message: stdout,
-						exitCode: 0,
-						executionTime,
-					});
+					console.log(`Python script output: ${stdout}`);
+					resolve({ message: stdout });
 				}
 			});
 
 			pythonProcess.on('error', (error) => {
-				clearTimeout(timeout);
 				console.error(`Error executing Python script: ${error}`);
-				resolve({
-					error: error.message,
-					exitCode: 1,
-					executionTime: Date.now() - startTime,
-				});
+				reject({ error: error.message });
 			});
+
+			const timeout = setTimeout(() => {
+				pythonProcess.kill();
+				reject({ error: 'Script execution timed out' });
+			}, 8000000);
+
+			pythonProcess.on('close', () => clearTimeout(timeout));
 		});
 	} catch (error) {
 		console.error(`Unexpected error: ${error}`);
 		return {
 			error: error instanceof Error ? error.message : String(error),
-			exitCode: 1,
-			executionTime: Date.now() - startTime,
 		};
 	} finally {
-		if (release) {
-			release();
-		}
+		release();
 	}
 }
