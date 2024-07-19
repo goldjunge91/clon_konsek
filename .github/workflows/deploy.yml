@@ -88,6 +88,9 @@ jobs:
             echo "PM2 is installed."
           fi
           pm2 --version
+      - name: Docker restart
+        run: |
+          docker restart postgres
 
       - name: Run startup script and restart PM2 Ecosystem
         run: |
@@ -95,18 +98,17 @@ jobs:
           export NVM_DIR="$HOME/.nvm"
           [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-          # Run your startup script here
-          # Replace 'your-startup-script.js' with the actual name of your script
-          node your-startup-script.js
+           cd /home/runneruser/actions-runner/_work/pdf-website/pdf-website
+           chmod +x ./pm2-set-env.sh
+           ./pm2-set-env.sh
 
-          # Restart PM2 Ecosystem
-          pm2 restart ecosystem.config.cjs
-      - name: Run startup script and restart PM2 Ecosystem
-        run: |
-          docker restart postgres
+           # Restart PM2 Ecosystem
+           pm2 restart ecosystem.config.cjs
+
       - name: Run error handling script
         if: failure()
         run: |
-          chmod +x ./.github/workflows/script.sh
-          ./.github/workflows/script.sh
+          cd /home/runneruser/actions-runner/_work/pdf-website/pdf-website
+          chmod +x ./pm2-set-env.sh
+          ./pm2-set-env.sh
         continue-on-error: true

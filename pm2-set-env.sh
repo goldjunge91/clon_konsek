@@ -17,7 +17,6 @@ export $(grep -v '^#' .env | xargs) # Ignoriert Kommentare in der .env-Datei
 # Überprüfung, ob die Verzeichnisse .next oder node_modules existieren
 if [ ! -d ".next" ] || [ ! -d "node_modules" ]; then
     npm install
-    npm run build
 fi
 
 # npm install
