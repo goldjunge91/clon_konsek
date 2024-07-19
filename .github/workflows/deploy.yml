@@ -100,7 +100,7 @@ jobs:
 
            cd /home/runneruser/actions-runner/_work/pdf-website/pdf-website
            chmod +x ./pm2-set-env.sh
-           ./pm2-set-env.sh
+          #  ./pm2-set-env.sh
 
            # Restart PM2 Ecosystem
            pm2 restart ecosystem.config.cjs
