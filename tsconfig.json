@@ -1,6 +1,6 @@
 {
 	"compilerOptions": {
-		"target": "ESNext",
+		"target": "ES6",
 		"lib": ["dom", "dom.iterable", "esnext", "webworker"],
 		"allowJs": true,
 
@@ -24,8 +24,8 @@
 		"inlineSources": true,
 		"noFallthroughCasesInSwitch": true,
 		"incremental": true,
-		"types": ["node"],
-		"typeRoots": ["./node_modules/@types", "./types"],
+		// "types": ["node"],
+		// "typeRoots": ["./node_modules/@types", "./types"],
 
 		"paths": {
 			"@/*": ["./src/*"],
@@ -50,8 +50,7 @@
 		"**/*.tsx",
 		"./next.config.mjs",
 		".next/types/**/*.ts",
-		"next-auth.d.ts",
-		"storybook/docs/**/*"
+		"next-auth.d.ts"
 	],
 	"exclude": ["**/node_modules"]
 }

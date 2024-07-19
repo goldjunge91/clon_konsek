@@ -1,9 +1,3 @@
-import process from 'process';
-import dotenv from 'dotenv';
-dotenv.config();
-
-/** @type {im, { config, env }port('next').NextCimport { use } from 'react';
-onfig} */
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	// cacheMaxMemorySize: 0,
@@ -76,9 +70,6 @@ const nextConfig = {
 			};
 		}
 		return config;
-	},
-	env: {
-		NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
 	},
 };
 
