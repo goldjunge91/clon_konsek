@@ -24,15 +24,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Install dependencies
-        run: |
-          . ~/.nvm/nvm.sh
-          export NVM_DIR="$HOME/.nvm"
-          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-           echo "npm run installation"
-          npm ci
-
       - name: Stop PM2 Ecosystem
         run: |
           . ~/.nvm/nvm.sh
@@ -40,7 +31,6 @@ jobs:
           [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
           pm2 stop ecosystem.config.cjs || true
         continue-on-error: true
-
       - name: Create .env file
         run: |
           cat << EOF > .env
@@ -59,6 +49,15 @@ jobs:
           DATABASE_URL=postgresql://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PW }}@localhost:5432/${{ secrets.POSTGRES_DB }}
           EOF
 
+      - name: Install dependencies
+        run: |
+          . ~/.nvm/nvm.sh
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+           echo "npm run installation"
+          npm install --force
+        continue-on-error: true
+
       - name: Verify secrets
         run: |
           echo "Verifying secrets..."
@@ -75,6 +74,7 @@ jobs:
           [ -z "$ENABLE_GOOGLE_AUTH" ] && echo "ENABLE_GOOGLE_AUTH is missing" || echo "ENABLE_GOOGLE_AUTH is set"
         shell: bash
         continue-on-error: true
+
       - name: Check Node.js version
         run: |
           . ~/.nvm/nvm.sh
@@ -161,10 +161,10 @@ jobs:
           pm2 stop all || true
           pm2 list
 
-      # - name: Run error handling script
-      #   if: failure()
-      #   run: |
-      #     cd /home/runneruser/actions-runner/_work/pdf-website/pdf-website
-      #     chmod +x ./pm2-set-env.sh
-      #     ./pm2-set-env.sh
-      #   continue-on-error: true
+      - name: Run error handling script
+        if: failure()
+        run: |
+          cd /home/runneruser/actions-runner/_work/pdf-website/pdf-website
+          chmod +x ./pm2-set-env.sh
+          ./pm2-set-env.sh
+        continue-on-error: true
