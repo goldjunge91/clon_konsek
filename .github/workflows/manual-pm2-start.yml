@@ -8,9 +8,18 @@ on:
         required: true
         default: "pdf_konsek"
         type: string
+      action:
+        description: "Action to perform (start, restart, stop)"
+        required: true
+        default: "restart"
+        type: choice
+        options:
+          - start
+          - restart
+          - stop
 
 jobs:
-  start-pm2:
+  manage-pm2:
     runs-on: self-hosted
     steps:
       - name: Check out repository
