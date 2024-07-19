@@ -66,6 +66,7 @@ jobs:
           [ -z "$POSTGRES_PASSWORD" ] && echo "POSTGRES_PASSWORD is missing" || echo "POSTGRES_PASSWORD is set"
           [ -z "$ENABLE_GOOGLE_AUTH" ] && echo "ENABLE_GOOGLE_AUTH is missing" || echo "ENABLE_GOOGLE_AUTH is set"
         shell: bash
+        continue-on-error: true
 
       - name: Verify environment setup
         run: |
@@ -91,6 +92,7 @@ jobs:
       - name: Docker restart
         run: |
           docker restart postgres
+        continue-on-error: true
 
       - name: Run startup script and restart PM2 Ecosystem
         run: |
@@ -100,7 +102,6 @@ jobs:
 
            cd /home/runneruser/actions-runner/_work/pdf-website/pdf-website
            chmod +x ./pm2-set-env.sh
-          #  ./pm2-set-env.sh
 
            # Restart PM2 Ecosystem
            pm2 restart ecosystem.config.cjs
