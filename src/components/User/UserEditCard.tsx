@@ -44,7 +44,7 @@ export function UserEditCard({ user, onEdit, onDelete }: UserCardProps) {
 	const router = useRouter();
 
 	async function onSubmit(data: z.infer<typeof editUserSchema>) {
-		console.log('Form data:', data);
+		// console.log('Form data:', data);
 		const saltRounds = 10;
 		const hashedPassword = data.password
 			? await bcrypt.hash(data.password, saltRounds)
@@ -54,7 +54,7 @@ export function UserEditCard({ user, onEdit, onDelete }: UserCardProps) {
 			username: data.username,
 			password: hashedPassword,
 		};
-		console.log('Updated user:', updatedUser);
+		// console.log('Updated user:', updatedUser);
 		onEdit(updatedUser);
 		setIsEditing(false);
 	}

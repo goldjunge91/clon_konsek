@@ -8,6 +8,6 @@ export async function GET(
 ) {
 	const taskId = params.taskId;
 	const task = await getTask(taskId);
-	console.log('Task in API route:', task); // Fügen Sie diesen Log hinzu
+	// console.log('Task in API route:', task); // Fügen Sie diesen Log hinzu
 	return NextResponse.json(task);
 }

@@ -10,8 +10,8 @@ export async function deleteAsAdminTask(taskId: string) {
 	const session = await getSession();
 	// const session = useSession();
 
-	console.log('Session:', session);
-	console.log('User Role:', session?.user.role);
+	// console.log('Session:', session);
+	// console.log('User Role:', session?.user.role);
 
 	if (!session) {
 		throw new Error('User not authenticated');
@@ -20,9 +20,9 @@ export async function deleteAsAdminTask(taskId: string) {
 	const isAdmin = session.user.role === 'admin';
 	const task = await getTask(taskId);
 
-	console.log('User ID:', session.user.id);
-	console.log('Task User ID:', task?.userId);
-	console.log('Is Admin:', isAdmin);
+	// console.log('User ID:', session.user.id);
+	// console.log('Task User ID:', task?.userId);
+	// console.log('Is Admin:', isAdmin);
 
 	if (!session?.user.role === isAdmin) {
 		throw new Error('User not authorized');

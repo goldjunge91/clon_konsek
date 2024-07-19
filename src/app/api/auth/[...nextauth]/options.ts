@@ -83,8 +83,7 @@ export const options: NextAuthOptions = {
 					if (dbUser) {
 						token.role = dbUser.role ?? 'user';
 					} else {
-						// eslint-disable-next-line no-console
-						console.log('No user with username found');
+						// console.log('No user with username found');
 					}
 				} catch (error) {
 					console.error('Error in JWT callback:', error);
