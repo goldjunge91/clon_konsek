@@ -2,9 +2,7 @@ const dotenv = require('dotenv');
 const { drizzle } = require('drizzle-orm/postgres-js');
 const postgres = require('postgres');
 const schema = require('./src/db/schema');
-
 dotenv.config();
-
 async function checkDatabase() {
   console.log('Überprüfe Datenbankverbindung...');
 

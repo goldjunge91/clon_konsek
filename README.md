@@ -299,3 +299,58 @@ npm run container:crontab   # Crontab UI Container starten
 
 - [user-task-card.tsx](./src/app/your-tasks/user-task-card.tsx) - Komponente für Benutzeraufgabenkarten
   Rendert PDF-Aufgaben des Benutzers in Kartenform mit Statusanzeige
+
+
+| Befehl | Beschreibung | Best Practices / Nützliche Optionen |
+|--------|--------------|-------------------------------------|
+| `pm2 start` | Startet eine Anwendung | `--name`: Benennt den Prozess<br>`--watch`: Überwacht Änderungen<br>`-i max`: Clustermodus mit maximaler Anzahl an CPUs |
+| `pm2 stop` | Stoppt eine Anwendung | `all`: Stoppt alle Anwendungen |
+| `pm2 restart` | Startet eine Anwendung neu | `--update-env`: Aktualisiert die Umgebungsvariablen |
+| `pm2 delete` | Entfernt eine Anwendung aus PM2 | `all`: Löscht alle Anwendungen |
+| `pm2 list` | Zeigt alle laufenden Prozesse | `--sort name:desc`: Sortiert nach Namen absteigend |
+| `pm2 monit` | Überwacht CPU/Speichernutzung | - |
+| `pm2 logs` | Zeigt Logs an | `--lines 200`: Zeigt die letzten 200 Zeilen |
+| `pm2 flush` | Leert alle Logs | - |
+| `pm2 startup` | Generiert Startup-Script | - |
+| `pm2 save` | Speichert die aktuelle Prozessliste | - |
+| `pm2 ecosystem` | Generiert eine Ecosystem-Datei | - |
+| `pm2 reload` | Neustart ohne Ausfallzeit | `all`: Lädt alle Anwendungen neu |
+
+| Befehl | Beschreibung | Best Practices / Nützliche Optionen |
+|--------|--------------|-------------------------------------|
+| `docker ps` | Listet laufende Container auf | `-a`: Zeigt alle Container (einschließlich gestoppter)<br>`--format`: Benutzerdefiniertes Ausgabeformat<br>`-q`: Zeigt nur Container-IDs |
+| `docker exec` | Führt einen Befehl in einem laufenden Container aus | `-it`: Interaktiver Modus mit Pseudo-TTY<br>`--user`: Gibt den Benutzer an, als der ausgeführt werden soll<br>`--workdir`: Arbeitsverzeichnis im Container |
+| `docker logs` | Ruft die Logs eines Containers ab | `--follow` oder `-f`: Folgt der Log-Ausgabe<br>`--tail`: Anzahl der Zeilen, die vom Ende angezeigt werden sollen<br>`--since`: Zeigt Logs seit einem bestimmten Zeitstempel |
+| `docker build` | Erstellt ein Image aus einem Dockerfile | `-t`: Taggt das Image<br>`--no-cache`: Verwendet keinen Cache beim Bauen<br>`--pull`: Zieht immer neuere Versionen des Basis-Images |
+| `docker run` | Startet einen Container aus einem Image | `-d`: Läuft im Hintergrund-Modus<br>`-p`: Veröffentlicht Ports<br>`-v`: Bindet ein Volume ein<br>`--name`: Weist dem Container einen Namen zu |
+| `docker stop` | Stoppt einen oder mehrere laufende Container | `-t`: Sekunden, die auf das Stoppen gewartet wird, bevor der Container beendet wird |
+| `docker rm` | Entfernt einen oder mehrere Container | `-f`: Erzwingt das Entfernen eines laufenden Containers<br>`-v`: Entfernt zugehörige Volumes |
+| `docker rmi` | Entfernt ein oder mehrere Images | `-f`: Erzwingt das Entfernen des Images |
+| `docker volume` | Verwaltet Volumes | `create`: Erstellt ein Volume<br>`ls`: Listet Volumes auf<br>`rm`: Entfernt Volumes |
+| `docker network` | Verwaltet Netzwerke | `create`: Erstellt ein Netzwerk<br>`ls`: Listet Netzwerke auf<br>`rm`: Entfernt ein Netzwerk |
+| `docker-compose up` | Erstellt und startet Container | `-d`: Läuft im Hintergrund-Modus<br>`--build`: Baut Images vor dem Starten der Container |
+| `docker-compose down` | Stoppt und entfernt Container, Netzwerke | `-v`: Entfernt benannte Volumes<br>`--rmi all`: Entfernt alle Images |
+| `docker system prune` | Entfernt ungenutzte Daten | `-a`: Entfernt alle ungenutzten Images, nicht nur hängende<br>`--volumes`: Bereinigt Volumes |
+| `docker inspect` | Gibt detaillierte Informationen zu Docker-Objekten zurück | `--format`: Formatiert die Ausgabe mit einem Go-Template |
+| `docker stats` | Zeigt einen Live-Stream der Ressourcennutzungsstatistiken von Container(n) | `--no-stream`: Deaktiviert Streaming-Statistiken und zieht nur das erste Ergebnis |
+
+
+| Befehl | Beschreibung | Best Practices / Nützliche Optionen |
+|--------|--------------|-------------------------------------|
+| **Next.js Befehle** | | |
+| `npx create-next-app` | Erstellt ein neues Next.js Projekt | `--typescript`: Verwendet TypeScript<br>`--use-npm`: Nutzt NPM statt Yarn |
+| `npm run dev` | Startet den Entwicklungsserver | - |
+| `npm run build` | Erstellt eine produktionsreife Version | - |
+| `npm start` | Startet den Produktionsserver | - |
+| `npm run lint` | Führt ESLint aus | - |
+| **NPM Befehle** | | |
+| `npm init` | Initialisiert ein neues Projekt | `-y`: Akzeptiert Standardeinstellungen |
+| `npm install` | Installiert Abhängigkeiten | `--save-dev` oder `-D`: Als Entwicklungsabhängigkeit<br>`--global` oder `-g`: Global installieren |
+| `npm uninstall` | Entfernt Pakete | `--save` oder `-S`: Aktualisiert package.json |
+| `npm update` | Aktualisiert Pakete | `--global`: Aktualisiert globale Pakete |
+| `npm run` | Führt Skripte aus | - |
+| `npm audit` | Führt eine Sicherheitsüberprüfung durch | `fix`: Versucht, Probleme automatisch zu beheben |
+| `npm cache clean` | Leert den NPM-Cache | `--force`: Erzwingt die Leerung |
+| `npm outdated` | Zeigt veraltete Pakete an | - |
+
+

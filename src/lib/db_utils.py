@@ -253,6 +253,42 @@ def delete_task_data(task_id: str) -> dict:
 
     return result
 
+# Funktion zum Löschen der Task-Daten
+def delete_task_data(task_id: str) -> bool:
+    try:
+        # Ordner löschen
+        folder_to_delete = base_path / task_id
+        if folder_to_delete.exists():
+            shutil.rmtree(folder_to_delete)
+            logging.info(f"Ordner {folder_to_delete} wurde erfolgreich gelöscht.")
+        else:
+            logging.warning(f"Ordner {folder_to_delete} existiert nicht.")
+
+        conn = psycopg2.connect(processed_database_url)
+        # Cursor erstellen
+        cursor = conn.cursor(cursor_factory=RealDictCursor)
+        # SQL-Query zum Löschen des Task-Eintrags
+        delete_query = "DELETE FROM task WHERE id = %s"
+        cursor.execute(delete_query, (task_id,))  # Ausführen der Query
+        conn.commit()  # Änderungen bestätigen
+        cursor.close()  # Cursor und Verbindung schließen
+        conn.close()
+        logging.info(
+            f"Task {task_id} und zugehörige Daten erfolgreich gelöscht."
+        )  # Loggen der erfolgreichen Löschung
+
+         # Cron-Job entfernen
+        cron = CronTab(user=True)
+        jobs_to_remove = cron.find_comment(f"Delete_task_{task_id}")
+        for job in jobs_to_remove:
+            cron.remove(job)
+            logging.info(f"Cronjob für Task {task_id} wurde entfernt.")
+        cron.write()
+        logging.info(f"Cronjob für Task {task_id} wurde entfernt.")
+        return True
+    except Exception as error:
+        logging.error(f"Fehler beim Löschen der Task-Daten: {error}")
+        return False
 
 
 # Hauptfunktion
