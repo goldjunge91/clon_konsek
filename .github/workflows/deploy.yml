@@ -1,200 +1,112 @@
-name: Website
+name: Node.js Deployment
 
 on:
-    push:
-        branches: ['production']
+  push:
+    branches: ["production"]
 
 jobs:
-    build:
-        runs-on: self-hosted
-        env:
-            # NODE_ENV: production
-            GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
-            GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
-            ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
-            ENCRYPTION_IV: ${{ secrets.ENCRYPTION_IV }}
-            NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
-            NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
-            NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
-            DB_HOST: ${{ secrets.DB_HOST }}
-            POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
-            POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-            POSTGRES_PW: ${{ secrets.POSTGRES_PW }}
-            ENABLE_GOOGLE_AUTH: ${{ secrets.ENABLE_GOOGLE_AUTH }}
-            DATABASE_URL: postgres://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PW }}@${{ secrets.DB_HOST }}:5432/${{ secrets.POSTGRES_DB }}
+  build:
+    runs-on: self-hosted
+    env:
+      NODE_ENV: production
+      GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+      GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+      ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
+      ENCRYPTION_IV: ${{ secrets.ENCRYPTION_IV }}
+      NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
+      NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+      NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+      POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+      POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PW }}
+      ENABLE_GOOGLE_AUTH: ${{ secrets.ENABLE_GOOGLE_AUTH }}
+      DATABASE_URL: postgresql://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PW }}@localhost:5432/${{ secrets.POSTGRES_DB }}
 
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-            - name: pm2 anhalten
-              run: |
-                  . ~/.nvm/nvm.sh
-                  export NVM_DIR="$HOME/.nvm"
-                  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-                  pm2 --version
-                  NODE_PATH=$(which node)
-                  PM2_EXEC_PATH=$(which pm2)
-                  echo "Node path: $NODE_PATH"
-                  echo "PM2 path: $PM2_EXEC_PATH"
-                  $PM2_EXEC_PATH stop ecosystem.config.cjs
-              continue-on-error: true
+      - name: Stop PM2 Ecosystem
+        run: |
+          . ~/.nvm/nvm.sh
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+          pm2 stop ecosystem.config.cjs || true
+        continue-on-error: true
 
-            - name: Verify secrets
-              run: |
-                  echo "DATABASE_URL=postgres://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PW }}@localhost:5432/${{ secrets.POSTGRES_DB }}"
-                  echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}"
-                  echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}"
-                  echo "ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}"
-                  echo "ENCRYPTION_IV=${{ secrets.ENCRYPTION_IV }}"
-                  echo "NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}"
-                  echo "NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}"
-                  echo "NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}"
-                  echo "DB_HOST=${{ secrets.DB_HOST }}"
-                  echo "POSTGRES_DB=${{ secrets.POSTGRES_DB }}"
-                  echo "POSTGRES_USER=${{ secrets.POSTGRES_USER }}"
-                  echo "POSTGRES_PW=${{ secrets.POSTGRES_PW }}"
-                  echo "ENABLE_GOOGLE_AUTH=${{ secrets.ENABLE_GOOGLE_AUTH }}"
-                  echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}"
-                  export "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}"
-                  export "ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}"
-                  export "ENCRYPTION_IV=${{ secrets.ENCRYPTION_IV }}"
-                  export "NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}"
-                  export "NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}"
-                  export "NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}"
-                  export "DB_HOST=${{ secrets.DB_HOST }}"
-                  export "POSTGRES_DB=${{ secrets.POSTGRES_DB }}"
-                  export "POSTGRES_USER=${{ secrets.POSTGRES_USER }}"
-                  export "POSTGRES_PW=${{ secrets.POSTGRES_PW }}"
-                  export "ENABLE_GOOGLE_AUTH=${{ secrets.ENABLE_GOOGLE_AUTH }}"
-                  export "DATABASE_URL=postgres://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PW }}@localhost:5432/${{ secrets.POSTGRES_DB }}"
-              shell: bash
+      - name: Create .env file
+        run: |
+          cat << EOF > .env
+          GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}
+          ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}
+          ENCRYPTION_IV=${{ secrets.ENCRYPTION_IV }}
+          NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
+          NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}
+          DB_HOST=${{ secrets.DB_HOST }}
+          POSTGRES_DB=${{ secrets.POSTGRES_DB }}
+          POSTGRES_USER=${{ secrets.POSTGRES_USER }}
+          POSTGRES_PW=${{ secrets.POSTGRES_PW }}
+          ENABLE_GOOGLE_AUTH=${{ secrets.ENABLE_GOOGLE_AUTH }}
+          DATABASE_URL=postgresql://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PW }}@localhost:5432/${{ secrets.POSTGRES_DB }}
+          EOF
 
-            - name: Check Node.js version
-              run: |
-                  . ~/.nvm/nvm.sh
-                  echo "Node.js version: $(node -v)"
-                  echo "npm version: $(npm -v)"
-            - name: Cache node modules
-              uses: actions/cache@v4
-              id: cache-nodemodules
-              with:
-                  path: |
-                      **/node_modules
-                      ~/.npm
-                  key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
-                  restore-keys: |
-                      ${{ runner.os }}-node-modules-
-              continue-on-error: true
+      - name: Verify secrets
+        run: |
+          echo "Verifying secrets..."
+          [ -z "$GOOGLE_CLIENT_ID" ] && echo "GOOGLE_CLIENT_ID is missing" || echo "GOOGLE_CLIENT_ID is set"
+          [ -z "$GOOGLE_CLIENT_SECRET" ] && echo "GOOGLE_CLIENT_SECRET is missing" || echo "GOOGLE_CLIENT_SECRET is set"
+          [ -z "$ENCRYPTION_KEY" ] && echo "ENCRYPTION_KEY is missing" || echo "ENCRYPTION_KEY is set"
+          [ -z "$ENCRYPTION_IV" ] && echo "ENCRYPTION_IV is missing" || echo "ENCRYPTION_IV is set"
+          [ -z "$NEXTAUTH_URL" ] && echo "NEXTAUTH_URL is missing" || echo "NEXTAUTH_URL is set"
+          [ -z "$NEXT_PUBLIC_API_URL" ] && echo "NEXT_PUBLIC_API_URL is missing" || echo "NEXT_PUBLIC_API_URL is set"
+          [ -z "$NEXTAUTH_SECRET" ] && echo "NEXTAUTH_SECRET is missing" || echo "NEXTAUTH_SECRET is set"
+          [ -z "$POSTGRES_DB" ] && echo "POSTGRES_DB is missing" || echo "POSTGRES_DB is set"
+          [ -z "$POSTGRES_USER" ] && echo "POSTGRES_USER is missing" || echo "POSTGRES_USER is set"
+          [ -z "$POSTGRES_PASSWORD" ] && echo "POSTGRES_PASSWORD is missing" || echo "POSTGRES_PASSWORD is set"
+          [ -z "$ENABLE_GOOGLE_AUTH" ] && echo "ENABLE_GOOGLE_AUTH is missing" || echo "ENABLE_GOOGLE_AUTH is set"
+        shell: bash
 
-            - name: Cache Next.js build output
-              uses: actions/cache@v4
-              with:
-                  path: ${{ github.workspace }}/.next/cache
-                  key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.{js,jsx,ts,tsx,cjs,mjs}')}}
-                  restore-keys: |
-                      ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
-                      ${{ runner.os }}-nextjs-
-              continue-on-error: true
+      - name: Verify environment setup
+        run: |
+          if [ -s ".env" ]; then
+            echo ".env file exists and is not empty."
+          else
+            echo ".env file is missing or empty."
+            exit 1
+          fi
 
-            - name: Create .env.production file
-              run: |
-                  pwd
-                  cat << EOF > .env
-                    GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}
-                    GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}
-                    ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}
-                    ENCRYPTION_IV=${{ secrets.ENCRYPTION_IV }}
-                    NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
-                    NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}
-                    DB_HOST=${{ secrets.DB_HOST }}
-                    POSTGRES_DB=${{ secrets.POSTGRES_DB }}
-                    POSTGRES_USER=${{ secrets.POSTGRES_USER }}
-                    POSTGRES_PW=${{ secrets.POSTGRES_PW }}
-                    ENABLE_GOOGLE_AUTH=${{ secrets.ENABLE_GOOGLE_AUTH }}
-                    DATABASE_URL=postgres://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PW }}@localhost:5432/${{ secrets.POSTGRES_DB }}
-                  EOF
-              continue-on-error: true
+      - name: Check PM2 installation
+        run: |
+          . ~/.nvm/nvm.sh
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+          if ! command -v pm2 &> /dev/null; then
+            echo "PM2 is not installed."
+            npm install -g pm2
+          else
+            echo "PM2 is installed."
+          fi
+          pm2 --version
 
-            - name: Verify environment setup
-              run: |
-                  if [ -s ".env.production" ]; then
-                    echo ".env.production file exists and is not empty."
-                  else
-                    echo ".env.production file is missing or empty."
-                    missing_variables=()
-                    if [ -z "${ENCRYPTION_KEY}" ]; then
-                      missing_variables+=("ENCRYPTION_KEY")
-                    fi
-                    if [ -z "${ENCRYPTION_IV}" ]; then
-                      missing_variables+=("ENCRYPTION_IV")
-                    fi
-                    if [ -z "${ENABLE_GOOGLE_AUTH}" ]; then
-                      missing_variables+=("ENABLE_GOOGLE_AUTH")
-                    fi
-                    if [ ${#missing_variables[@]} -eq 0 ]; then
-                      echo "All required environment variables are set."
-                    else
-                      echo "Error: The following required environment variables are not set: ${missing_variables[*]}"
-                      exit 1
-                    fi
-                  fi
-              continue-on-error: true
+      - name: Run startup script and restart PM2 Ecosystem
+        run: |
+          . ~/.nvm/nvm.sh
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-            - name: Install dependencies
-              if: steps.cache-nodemodules.outputs.cache-hit != 'true'
-              run: |
-                  . ~/.nvm/nvm.sh
-                  export NVM_DIR="$HOME/.nvm"
-                  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-                  npm ci
-              continue-on-error: true
+          # Run your startup script here
+          # Replace 'your-startup-script.js' with the actual name of your script
+          node your-startup-script.js
 
-            - name: Install dependencies
-              if: steps.cache-nodemodules.outputs.cache-hit != 'true'
-              run: |
-                  . ~/.nvm/nvm.sh
-                  export NVM_DIR="$HOME/.nvm"
-                  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-                  npm install --save
-              continue-on-error: true
-
-            - name: Build application
-              run: |
-                  . ~/.nvm/nvm.sh
-                  export NVM_DIR="$HOME/.nvm"
-                  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-                  npm run build
-              continue-on-error: true
-
-            - name: Run error handling script
-              if: failure()
-              run: |
-                  chmod +x ./.github/workflows/deploy-ssh.sh
-                  ./.github/workflows/deploy-ssh.sh
-              continue-on-error: true
-
-            - name: Check PM2 installation
-              run: |
-                  . ~/.nvm/nvm.sh
-                  export NVM_DIR="$HOME/.nvm"
-                  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-                  if ! command -v pm2 &> /dev/null; then
-                    echo "PM2 is not installed."
-                    npm install -g pm2
-                  else
-                    echo "PM2 is installed."
-                  fi
-                  pm2 --version
-            - name: Run Deployment
-              run: |
-                  . ~/.nvm/nvm.sh
-                  export NVM_DIR="$HOME/.nvm"
-                  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-                  pm2 --version
-                  NODE_PATH=$(which node)
-                  PM2_EXEC_PATH=$(which pm2)
-                  echo "Node path: $NODE_PATH"
-                  echo "PM2 path: $PM2_EXEC_PATH"
-                  $PM2_EXEC_PATH restart ecosystem.config.cjs
-              continue-on-error: true
+          # Restart PM2 Ecosystem
+          pm2 restart ecosystem.config.cjs
+      - name: Run startup script and restart PM2 Ecosystem
+        run: |
+          docker restart postgres
+      - name: Run error handling script
+        if: failure()
+        run: |
+          chmod +x ./.github/workflows/script.sh
+          ./.github/workflows/script.sh
+        continue-on-error: true
