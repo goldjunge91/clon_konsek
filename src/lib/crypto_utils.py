@@ -9,45 +9,6 @@ import binascii
 import os
 
 
-# env_path = find_dotenv()
-# if env_path:
-#     load_dotenv(env_path)
-#     print(f"Pfad zur .env-Datei: {env_path}")
-# else:
-#     print("Keine .env-Datei gefunden. Verwende Umgebungsvariablen.")
-# # Laden der Umgebungsvariablen
-# encryption_key_hex = os.getenv("ENCRYPTION_KEY")
-# encryption_iv = os.getenv("ENCRYPTION_IV")
-
-# if not encryption_key_hex or len(encryption_key_hex) != 64:
-#     raise ValueError("ENCRYPTION_KEY muss ein 64 Zeichen langer Hex-String sein.")
-
-# if not encryption_iv or len(encryption_iv) != 16:
-#     raise ValueError("ENCRYPTION_IV muss ein 16 Zeichen langer String sein.")
-
-
-# # Laden der Umgebungsvariablen
-# encryption_key_hex = os.getenv("ENCRYPTION_KEY")
-# encryption_iv = os.getenv("ENCRYPTION_IV")
-
-# load_dotenv(os.path.join(os.path.dirname(__file__), "../../.env"))
-# # # Pfad zur .env-Datei ausgeben
-# # TODO change my path
-# # env_path = "/home/runneruser/actions-runner/_work/pdf-website/pdf-website/.env"
-# # env_path = r"C:\\GIT\\pdf-website\\.env"
-
-# # Windows Debugging
-# env_path = "/home/runneruser/actions-runner/_work/pdf-website/pdf-website/.env"
-
-
-# load_dotenv(env_path)
-# print(f"Pfad zur .env-Datei: {load_dotenv}")
-
-
-# ENCRYPTION_KEY = bytes.fromhex(os.getenv("ENCRYPTION_KEY"))  # type: ignore
-# # ENCRYPTION_IV = os.getenv("ENCRYPTION_IV").encode()
-# ENCRYPTION_IV = os.getenv("ENCRYPTION_IV").encode()  # type: ignore
-
 # Versuche, die .env-Datei zu finden und zu laden
 dotenv_path = os.path.join(os.path.dirname(__file__), "../../.env")
 if os.path.exists(dotenv_path):
@@ -57,18 +18,33 @@ else:
     print("Keine .env-Datei gefunden. Verwende Umgebungsvariablen.")
 
 # Laden der Umgebungsvariablen
-encryption_key_hex = os.getenv("ENCRYPTION_KEY")
+encryption_key = os.getenv("ENCRYPTION_KEY")
 encryption_iv = os.getenv("ENCRYPTION_IV")
 
 # Prüfung der geladenen Umgebungsvariablen
-if not encryption_key_hex or len(encryption_key_hex) != 64:
-    raise ValueError("ENCRYPTION_KEY muss ein 64 Zeichen langer Hex-String sein.")
+if not encryption_key or len(encryption_key) != 64:
+    raise ValueError(
+        "Ungültiger ENCRYPTION_KEY: Der Schlüssel muss ein 64 Zeichen langer Hex-String sein. "
+        "Dies entspricht einem 256-Bit-Schlüssel (32 Bytes). "
+        "Beispiel eines gültigen Schlüssels: '0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef'. "
+        "Bitte überprüfen Sie Ihre Konfiguration und stellen Sie sicher, dass der ENCRYPTION_KEY "
+        "korrekt gesetzt ist und die erforderliche Länge hat."
+    )
 
-if not encryption_iv or len(encryption_iv) != 16:
-    raise ValueError("ENCRYPTION_IV muss ein 16 Zeichen langer String sein.")
+if not encryption_iv or len(encryption_iv) != 32:
+        raise ValueError(
+        "Ungültiger ENCRYPTION_IV: Der Initialisierungsvektor muss ein 32 Zeichen langer Hex-String sein. "
+        "Dies entspricht einem 128-Bit-IV (16 Bytes). "
+        "Beispiel eines gültigen IVs: '0123456789abcdef0123456789abcdef'. "
+        "Bitte überprüfen Sie Ihre Konfiguration und stellen Sie sicher, dass der ENCRYPTION_IV "
+        "korrekt gesetzt ist und die erforderliche Länge hat. "
+        "Der IV sollte für jede Verschlüsselung einzigartig sein, um die Sicherheit zu gewährleisten."
+    )
 
-ENCRYPTION_KEY = bytes.fromhex(encryption_key_hex)
-ENCRYPTION_IV = encryption_iv.encode()
+
+# Konvertierung der Hex-Strings zu Bytes
+ENCRYPTION_KEY = bytes.fromhex(encryption_key)
+ENCRYPTION_IV = bytes.fromhex(encryption_iv)
 
 
 

@@ -558,6 +558,16 @@ if __name__ == "__main__":
         logging.info(total_time)
         progress_logger.info(f"Program finished. Total runtime: {total_time} seconds.")
         schedule_delete_db_update_db(new_status="completed", task_id=task_id)
-        # schedule_delete_db_update_db("completed", task_id)  # type: ignore
+        result = schedule_delete_db_update_db(new_status="completed", task_id=task_id)
+        if result["success"]:
+            logging.info(result["message"])
+            if result["db_updated"]:
+                logging.info("Datenbank erfolgreich aktualisiert.")
+            if result["cron_job_scheduled"]:
+                logging.info("Cron-Job für die Löschung erfolgreich geplant.")
+        else:
+            logging.error(f"Fehler beim Aktualisieren und Planen der Löschung: {result['message']}")
+
+
         logging.info("Program finished.")
         progress_logger.info("Program finished.")
