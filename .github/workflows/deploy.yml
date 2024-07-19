@@ -130,11 +130,33 @@ jobs:
 
            # Restart PM2 Ecosystem
            pm2 restart ecosystem.config.cjs
+      - name: Debug information
+        run: |
+          echo "Checking application status:"
+          pm2 show pdf_konsek
+          echo "Checking application logs:"
+          pm2 logs pdf_konsek --lines 50
+          echo "Checking listening ports:"
+          netstat -tuln | grep LISTEN
+          echo "Checking nginx configuration (if applicable):"
+          sudo nginx -T || echo "Nginx not installed or not configured"
+        continue-on-error: true
 
-      - name: Run error handling script
+      - name: Stop PM2 if previous steps failed
         if: failure()
         run: |
-          cd /home/runneruser/actions-runner/_work/pdf-website/pdf-website
-          chmod +x ./pm2-set-env.sh
-          ./pm2-set-env.sh
-        continue-on-error: true
+          . ~/.nvm/nvm.sh
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+          echo "Stopping PM2 processes due to previous step failure"
+          pm2 stop all || true
+          pm2 list
+
+      # - name: Run error handling script
+      #   if: failure()
+      #   run: |
+      #     cd /home/runneruser/actions-runner/_work/pdf-website/pdf-website
+      #     chmod +x ./pm2-set-env.sh
+      #     ./pm2-set-env.sh
+      #   continue-on-error: true
