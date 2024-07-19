@@ -186,9 +186,11 @@ npm run container:crontab   # Crontab UI Container starten
 
 ### Verschlüsselungs- und Docker-Variablen
 
-- `ENCRYPTION_KEY` = 64_Zeichen_langer_Hex-String.
-- `ENCRYPTION_IV` = 16_Zeichen_langer_IV.
--
+- - `ENCRYPTION_IV` = Initialisierungsvektor (IV) für die Verschlüsselung (16 Bytes, dargestellt als 32 Zeichen langer Hex-String)
+- `ENCRYPTION_KEY` = Verschlüsselungsschlüssel (32 Bytes, dargestellt als 64 Zeichen langer Hex-String)
+
+-node -e "console.log('ENCRYPTION_IV=' + require('crypto').randomBytes(16).toString('hex')); console.log('ENCRYPTION_KEY=' + require('crypto').randomBytes(32).toString('hex'));"
+
 - `DATABASE_URL` = URL Ihrer Datenbank.
 -
 - `POSTGRES_USER` = Datenbank Username.

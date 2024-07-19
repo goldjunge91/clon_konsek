@@ -12,7 +12,8 @@
 	"plugins": [
 		"@typescript-eslint",
 		"react",
-		"css-modules"
+		"css-modules",
+		"@next/eslint-plugin-next" // latest
 	],
 	"extends": [
 		"eslint:recommended",
