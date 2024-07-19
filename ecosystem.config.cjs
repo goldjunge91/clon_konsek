@@ -1,7 +1,3 @@
-/* eslint-disable */
-/* eslint eqeqeq: "off", 0: "error" */
-/* eslint disable*/
-/* eslint-disable no-undef */
 module.exports = {
 	apps: [
 		{

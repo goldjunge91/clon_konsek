@@ -8,7 +8,6 @@ jobs:
   build:
     runs-on: self-hosted
     env:
-      NODE_ENV: production
       GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
       GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
       ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
@@ -18,7 +17,7 @@ jobs:
       NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
       POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
       POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PW }}
+      POSTGRES_PW: ${{ secrets.POSTGRES_PW }}
       ENABLE_GOOGLE_AUTH: ${{ secrets.ENABLE_GOOGLE_AUTH }}
       DATABASE_URL: postgresql://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PW }}@localhost:5432/${{ secrets.POSTGRES_DB }}
 
@@ -43,6 +42,7 @@ jobs:
           ENCRYPTION_IV=${{ secrets.ENCRYPTION_IV }}
           NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
           NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}
+          NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}
           DB_HOST=${{ secrets.DB_HOST }}
           POSTGRES_DB=${{ secrets.POSTGRES_DB }}
           POSTGRES_USER=${{ secrets.POSTGRES_USER }}
@@ -63,11 +63,36 @@ jobs:
           [ -z "$NEXTAUTH_SECRET" ] && echo "NEXTAUTH_SECRET is missing" || echo "NEXTAUTH_SECRET is set"
           [ -z "$POSTGRES_DB" ] && echo "POSTGRES_DB is missing" || echo "POSTGRES_DB is set"
           [ -z "$POSTGRES_USER" ] && echo "POSTGRES_USER is missing" || echo "POSTGRES_USER is set"
-          [ -z "$POSTGRES_PASSWORD" ] && echo "POSTGRES_PASSWORD is missing" || echo "POSTGRES_PASSWORD is set"
+          [ -z "$POSTGRES_PW" ] && echo "POSTGRES_PASSWORD is missing" || echo "POSTGRES_PASSWORD is set"
           [ -z "$ENABLE_GOOGLE_AUTH" ] && echo "ENABLE_GOOGLE_AUTH is missing" || echo "ENABLE_GOOGLE_AUTH is set"
         shell: bash
         continue-on-error: true
+      - name: Check Node.js version
+        run: |
+          . ~/.nvm/nvm.sh
+          echo "Node.js version: $(node -v)"
+          echo "npm version: $(npm -v)"
+      - name: Cache node modules
+        uses: actions/cache@v4
+        id: cache-nodemodules
+        with:
+          path: |
+            **/node_modules
+            ~/.npm
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules-
+        continue-on-error: true
 
+      - name: Cache Next.js build output
+        uses: actions/cache@v4
+        with:
+          path: ${{ github.workspace }}/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.{js,jsx,ts,tsx,cjs,mjs}')}}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+            ${{ runner.os }}-nextjs-
+        continue-on-error: true
       - name: Verify environment setup
         run: |
           if [ -s ".env" ]; then
