@@ -1,23 +1,6 @@
 name: Node.js Deployment
 
 on:
-  workflow_dispatch:
-    inputs:
-      app_name:
-        description: "Name of the PM2 app to start"
-        required: true
-        default: "pdf_konsek"
-        type: string
-      action:
-        description: "Action to perform (start, restart, stop)"
-        required: true
-        default: "restart"
-        type: choice
-        options:
-          - start
-          - restart
-          - stop
-
   push:
     branches: ["production"]
 
@@ -155,7 +138,6 @@ jobs:
         run: |
           . ~/.nvm/nvm.sh
           cd /home/runneruser/actions-runner/_work/pdf-website/pdf-website
-          chmod +x ./pm2-set-env.sh
           pm2 restart ecosystem.config.cjs
           pm2 ${{ github.event.inputs.action }} ${{ github.event.inputs.app_name }}
       # - name: Debug information
