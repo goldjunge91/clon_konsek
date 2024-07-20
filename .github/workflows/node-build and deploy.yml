@@ -139,10 +139,6 @@ jobs:
             echo "PM2 is installed."
           fi
           pm2 --version
-      - name: Docker restart
-        run: |
-          docker restart postgres
-        continue-on-error: true
 
       - name: Run startup script and restart PM2 Ecosystem
         run: |
@@ -157,6 +153,10 @@ jobs:
            pm2 restart ecosystem.config.cjs
       - name: Run startup script and manage PM2 ecosystem
         run: |
+          . ~/.nvm/nvm.sh
+          cd /home/runneruser/actions-runner/_work/pdf-website/pdf-website
+          chmod +x ./pm2-set-env.sh
+          pm2 restart ecosystem.config.cjs
           pm2 ${{ github.event.inputs.action }} ${{ github.event.inputs.app_name }}
       # - name: Debug information
       #   run: |
