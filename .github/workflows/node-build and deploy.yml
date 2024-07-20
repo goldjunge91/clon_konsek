@@ -139,7 +139,6 @@ jobs:
           . ~/.nvm/nvm.sh
           cd /home/runneruser/actions-runner/_work/pdf-website/pdf-website
           pm2 restart ecosystem.config.cjs
-          pm2 ${{ github.event.inputs.action }} ${{ github.event.inputs.app_name }}
       # - name: Debug information
       #   run: |
       #     echo "Checking application status:"
