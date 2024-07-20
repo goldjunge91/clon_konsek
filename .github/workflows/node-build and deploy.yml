@@ -1,14 +1,25 @@
-name: Node.js
+name: Node.js Deployment
 
 on:
-  push:
-    branches: ["production"]
   workflow_dispatch:
     inputs:
-      environment:
-        description: "Environment to deploy to"
+      app_name:
+        description: "Name of the PM2 app to start"
         required: true
-        default: "production"
+        default: "pdf_konsek"
+        type: string
+      action:
+        description: "Action to perform (start, restart, stop)"
+        required: true
+        default: "restart"
+        type: choice
+        options:
+          - start
+          - restart
+          - stop
+
+  push:
+    branches: ["production"]
 
 jobs:
   build:
@@ -144,6 +155,9 @@ jobs:
 
            # Restart PM2 Ecosystem
            pm2 restart ecosystem.config.cjs
+      - name: Run startup script and manage PM2 ecosystem
+        run: |
+          pm2 ${{ github.event.inputs.action }} ${{ github.event.inputs.app_name }}
       # - name: Debug information
       #   run: |
       #     echo "Checking application status:"
