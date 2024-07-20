@@ -330,20 +330,20 @@ def process_urls_to_pdf(user_email, user_password, user_link, file_path):
             csv_file_path, delimiter=";"
         )  # CSV-Datei einlesen
         folder_path = os.path.dirname(file_path)  # Ordnerpfad bestimmen
-        pdf_folder = os.path.join(
+        verzeichnis = os.path.join(
             folder_path, "pdf/"
         )  # Pfad zum PDF-Ordner zusammenstellen
-        # logging.info(f'Aktuelles Datum und Uhrzeit: {now}, \"{pdf_folder}\" Erste Zeile')
+        # logging.info(f'Aktuelles Datum und Uhrzeit: {now}, \"{verzeichnis}\" Erste Zeile')
         try:
-            os.makedirs(pdf_folder, exist_ok=True)
+            os.makedirs(verzeichnis, exist_ok=True)
         except FileExistsError:
-            logging.warning(f"Der Ordner {pdf_folder} existiert bereits.")
+            logging.warning(f"Der Ordner {verzeichnis} existiert bereits.")
             if "URL" in urls_data_frame.columns and "Title" in urls_data_frame.columns:
                 for index, row in enumerate(urls_data_frame.itertuples(), start=1):
                     url = row.URL  # URL extrahieren
                     pdf_name = row.Title  # Titelschlüssel extrahieren
                     pdf_path = os.path.join(
-                        pdf_folder, clean_filename(f"{pdf_name}.pdf")
+                        verzeichnis, clean_filename(f"{pdf_name}.pdf")
                     )
                     if not os.path.exists(pdf_path):
                         create_pdf_from_url(driver, url, pdf_path)
@@ -369,58 +369,63 @@ def process_urls_to_pdf(user_email, user_password, user_link, file_path):
     logging.info("Ende von process_urls_to_pdf")
 
 
-# def zip_pdf_folder(pdf_folder, zip_password, zip_name, zip_path):
+# def zip_verzeichnis(verzeichnis, zip_password, zip_name, zip_path):
+# alter code zum zippen
 #     try:
 #         with pyzipper.AESZipFile(zip_path, "w", compression=pyzipper.ZIP_LZMA) as zf:
 #             zf.setpassword(zip_password.encode())
 #             zf.setencryption(pyzipper.WZ_AES, nbits=256)
-#             for root, dirs, files in os.walk(pdf_folder):
+#             for root, dirs, files in os.walk(verzeichnis):
 #                 for file in files:
 #                     file_path = os.path.join(root, file)
-#                     zf.write(file_path, os.path.relpath(file_path, pdf_folder))
+#                     zf.write(file_path, os.path.relpath(file_path, verzeichnis))
 #         logging.info(f"PDF-Ordner erfolgreich als ZIP-Datei gespeichert: {zip_path}")
-#         shutil.rmtree(pdf_folder)
-#         logging.info(f"PDF-Ordner gelöscht: {pdf_folder}")
+#         shutil.rmtree(verzeichnis)
+#         logging.info(f"PDF-Ordner gelöscht: {verzeichnis}")
 #     except Exception as error:
 #         logging.error(f"Fehler beim Komprimieren des PDF-Ordners: {error}")
 #         raise
 
 
-def zip_pdf_folder(pdf_folder, zip_password, zip_name, zip_path):
+def zip_verzeichnis(verzeichnis, zip_password, zip_name, zip_path):
     try:
-        # Collect all files in the pdf_folder
+        # Sammle alle Dateien im verzeichnis
         files_to_zip = []
-        for root, dirs, files in os.walk(pdf_folder):
+        for root, dirs, files in os.walk(verzeichnis):
             for file in files:
                 file_path = os.path.join(root, file)
                 files_to_zip.append(file_path)
 
-        # Finden des  log file path based über zip_name
-        base_path = os.path.dirname(pdf_folder)
-        log_file = os.path.join(base_path, f"{zip_name}.log")
+        # Ermitteln des Logfile-Pfads basierend auf zip_name
+        log_tofile = os.path.dirname(os.path.dirname(verzeichnis))  # Eine Ebene höher
+        log_file = os.path.join(log_tofile, f"{zip_name}.log")
 
-        # Add log file auf die list
+        # Füge das Logfile zur Liste hinzu, falls vorhanden
         if os.path.isfile(log_file):
             files_to_zip.append(log_file)
         else:
-            raise ValueError(f"Log file not found: {log_file}")
+            logging.warning(f"Log file not found: {log_file}")
 
         # Debug: Ausgabe des Inhalts des Verzeichnisses
         logging.info(f"Dateien zum Archivieren: {files_to_zip}")
 
-        # Check if there are any files to zip
+        # Überprüfen, ob Dateien zum Archivieren vorhanden sind
         if not files_to_zip:
-            raise ValueError(f"No files found in the specified directory: {pdf_folder}")
+            logging.warning(f"No files found in the specified directory: {verzeichnis}")
+        else:
+            # Erstelle die ZIP-Datei mit pyminizip
+            pyminizip.compress_multiple(files_to_zip, [], zip_path, zip_password, 5)
+            logging.info(
+                f"PDF-Ordner und ggf. Logfile erfolgreich als ZIP-Datei gespeichert: {zip_path}"
+            )
 
-        # Create the zip file
-        pyminizip.compress_multiple(files_to_zip, [], zip_path, zip_password, 5)
+            # Entfernen des ursprünglichen PDF-Ordners und Logfiles
+            shutil.rmtree(verzeichnis)  # Nur den PDF-Ordner löschen
+            logging.info(f"PDF-Ordner gelöscht: {verzeichnis}")
+            if os.path.isfile(log_file):
+                os.remove(log_file)
+                logging.info(f"Logfile gelöscht: {log_file}")
 
-        logging.info(
-            f"PDF-Ordner und Logfile erfolgreich als ZIP-Datei gespeichert: {zip_path}"
-        )
-        # Remove the original PDF folder and log file
-        shutil.rmtree(pdf_folder)
-        logging.info(f"PDF-Ordner gelöscht: {pdf_folder}")
     except Exception as error:
         logging.error(f"Fehler beim Komprimieren des PDF-Ordners: {error}")
         raise
@@ -494,9 +499,9 @@ if __name__ == "__main__":
         driver.find_element(By.NAME, "password").send_keys(user_password, Keys.RETURN)
         WebDriverWait(driver, 10)
         urls_data_frame, base_url, dataToSave = links(file_path)
-        pdf_folder = os.path.join(log_folder, "pdf/")
+        verzeichnis = os.path.join(log_folder, "pdf/")
         progress_logger.info(f"Start of extraction: {current_datetime}, Start Process")
-        os.makedirs(pdf_folder, exist_ok=True)
+        os.makedirs(verzeichnis, exist_ok=True)
         total_links = len(urls_data_frame)
         progress_logger.info(f"################ Total number of links ################")
         progress_logger.info(
@@ -510,7 +515,7 @@ if __name__ == "__main__":
             for index, row in enumerate(urls_data_frame.itertuples(), start=1):
                 url = row.URL
                 pdf_name = row.Title
-                pdf_path = os.path.join(pdf_folder, clean_filename(f"{pdf_name}.pdf"))
+                pdf_path = os.path.join(verzeichnis, clean_filename(f"{pdf_name}.pdf"))
                 if not os.path.exists(pdf_path):
                     create_pdf_from_url(driver, url, pdf_path)
                     logging.info(f"{index} of {total_links} created: {url}")
@@ -531,7 +536,7 @@ if __name__ == "__main__":
         logging.info("All files created successfully!")
         progress_logger.info("All files created successfully!")
         zip_path = os.path.join(os.path.dirname(file_path), f"{zip_name}.zip")
-        zip_pdf_folder(pdf_folder, zip_password, zip_name, zip_path)
+        zip_verzeichnis(verzeichnis, zip_password, zip_name, zip_path)
         folder_to_delete = os.path.join(base_path, task_id)
     except Exception as error:
         logging.exception("Error in main script: ")
