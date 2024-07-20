@@ -235,11 +235,16 @@ def process_csv(file_path):
         encoding = detect_encoding(file_path)
         df = pd.read_csv(file_path, delimiter=";", encoding=encoding)
 
-        df[["Title", "URL"]] = df["Titel"].str.extract(
-            r"^(.*?)\s*(\(https?://[^\s()]+\))?$", expand=True
-        )
-        df["URL"] = df["URL"].str.strip("()")
-        df["URL"] = df["URL"].fillna(df["Title"])
+        if "Titel" not in df.columns:
+            logging.warning("'Titel' column not found. Using available columns.")
+            df["Title"] = df.iloc[:, 0]  # erste spalte als Title
+            df["URL"] = df.iloc[:, 0]  # erste spalte als url
+        else:
+            df[["Title", "URL"]] = df["Titel"].str.extract(
+                r"^(.*?)\s*(\(https?://[^\s()]+\))?$", expand=True
+            )
+            df["URL"] = df["URL"].str.strip("()")
+            df["URL"] = df["URL"].fillna(df["Title"])
         df.to_csv(file_path, index=False, sep=";", encoding=encoding)
         return df
     except Exception as error:
@@ -280,13 +285,24 @@ def links(data):
             df = data
         else:
             df = process_file(data)
-        if "URL" in df.columns:
-            base_url = df["URL"].str.extract(r"^(https?://[^/]+)")[0].mode()[0]
-        else:
+
+        if "URL" not in df.columns:
+            logging.warning("'URL' column not found. Using available data.")
             base_url = ""
+        else:
+            base_url = df["URL"].str.extract(r"^(https?://[^/]+)")[0].mode()[0]
+
+        # if "URL" in df.columns:
+        #     base_url = df["URL"].str.extract(r"^(https?://[^/]+)")[0].mode()[0]
+        # else:
+        #     base_url = ""
         # logging.info(f"Func_links. \n")
 
-        dataToSave = df[["Title", "URL"]]
+        dataToSave = (
+            df[["Title", "URL"]]
+            if "Title" in df.columns and "URL" in df.columns
+            else df
+        )
         return df, base_url, dataToSave
     except Exception as error:
         logging.error("Fehler bei der Verarbeitung der Daten: ", error)
@@ -498,10 +514,16 @@ if __name__ == "__main__":
         driver.find_element(By.NAME, "username").send_keys(user_email)
         driver.find_element(By.NAME, "password").send_keys(user_password, Keys.RETURN)
         WebDriverWait(driver, 10)
-        urls_data_frame, base_url, dataToSave = links(file_path)
+
         verzeichnis = os.path.join(log_folder, "pdf/")
-        progress_logger.info(f"Start of extraction: {current_datetime}, Start Process")
         os.makedirs(verzeichnis, exist_ok=True)
+
+        try:
+            urls_data_frame, base_url, dataToSave = links(file_path)
+        except Exception as link_error:
+            logging.error(f"Error processing links: {link_error}")
+            urls_data_frame = pd.DataFrame(columns=["URL", "Title"])
+
         total_links = len(urls_data_frame)
         progress_logger.info(f"################ Total number of links ################")
         progress_logger.info(
@@ -510,36 +532,48 @@ if __name__ == "__main__":
         progress_logger.info(f"################ Total number of links ################")
         progress_logger.info(f"Quick timer to read total number of links: 5 seconds")
         time.sleep(5)
+
         progress_bar_width = 50
+
         if "URL" in urls_data_frame.columns and "Title" in urls_data_frame.columns:
             for index, row in enumerate(urls_data_frame.itertuples(), start=1):
-                url = row.URL
-                pdf_name = row.Title
-                pdf_path = os.path.join(verzeichnis, clean_filename(f"{pdf_name}.pdf"))
-                if not os.path.exists(pdf_path):
-                    create_pdf_from_url(driver, url, pdf_path)
-                    logging.info(f"{index} of {total_links} created: {url}")
-                    progress_logger.info(f"{index} of {total_links} created: {url}")
-                else:
-                    logging.info(f"File {pdf_path} already exists")
-                    progress_logger.info(f"File {pdf_path} already exists")
-                progress = index / total_links
-                filled_width = int(progress * progress_bar_width)
-                progress_bar = "█" * filled_width + "░" * (
-                    progress_bar_width - filled_width
-                )
-                progress_logger.info(
-                    f"Progress: [{progress_bar}] {index}/{total_links}"
-                )
+                try:
+                    url = row.URL
+                    pdf_name = row.Title
+                    pdf_path = os.path.join(
+                        verzeichnis, clean_filename(f"{pdf_name}.pdf")
+                    )
+                    if not os.path.exists(pdf_path):
+                        create_pdf_from_url(driver, url, pdf_path)
+                        logging.info(f"{index} of {total_links} created: {url}")
+                        progress_logger.info(f"{index} of {total_links} created: {url}")
+                    else:
+                        logging.info(f"File {pdf_path} already exists")
+                        progress_logger.info(f"File {pdf_path} already exists")
+
+                    progress = index / total_links
+                    filled_width = int(progress * progress_bar_width)
+                    progress_bar = "█" * filled_width + "░" * (
+                        progress_bar_width - filled_width
+                    )
+                    progress_logger.info(
+                        f"Progress: [{progress_bar}] {index}/{total_links}"
+                    )
+                except Exception as pdf_error:
+                    logging.error(f"Error processing PDF {index}: {pdf_error}")
         else:
             logging.error("The columns 'URL' and 'Title' are not present in the file.")
-        logging.info("All files created successfully!")
-        progress_logger.info("All files created successfully!")
+
+        logging.info("All files processed!")
+        progress_logger.info("All files processed!")
+
         zip_path = os.path.join(os.path.dirname(file_path), f"{zip_name}.zip")
         zip_verzeichnis(verzeichnis, zip_password, zip_name, zip_path)
         folder_to_delete = os.path.join(base_path, task_id)
+
     except Exception as error:
         logging.exception("Error in main script: ")
+
     finally:
         end_time = time.time()
         total_time = end_time - start_time
