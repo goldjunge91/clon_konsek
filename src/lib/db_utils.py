@@ -170,7 +170,7 @@ def schedule_delete_db_update_db(new_status: str, task_id: str) -> bool:
         cron = CronTab(user=True)  # Planen des Cronjobs
         # Erstellen eines neuen Cronjobs
         job = cron.new(command=f"python3 {os.path.abspath(__file__)} delete {task_id}")
-        execution_time = datetime.now() + timedelta(minutes=120)
+        execution_time = datetime.now() + timedelta(minutes=5)
         job.setall(
             execution_time.strftime("%M %H %d %m *")
         )  # Setzen des Zeitplans für den Cronjob (120 Minuten in der Zukunft)
