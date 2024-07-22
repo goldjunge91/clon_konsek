@@ -209,6 +209,7 @@ npm run container:crontab   # Crontab UI Container starten
     - `/app`: Next.js App Router und Seitenkomponenten
     - `/components`: Wiederverwendbare React-Komponenten
     - `/lib`: Hilfsfunktionen und Dienstprogramme
+    - `/db`: Datenbank schema und zugriffkonfiguration
     - `/data-access`: Datenbankzugriff und Datenmodelle
 
 ### Unterverzeichnisse und wichtige Dateien
