@@ -13,39 +13,9 @@ import shutil
 from pathlib import Path
 from urllib.parse import quote_plus, urlparse
 
-
-# def process_database_url(url):
-#     # Parse die URL
-#     parsed = urlparse(url)
-
-#     # Extrahiere den Benutzernamen und das Passwort
-#     userpass, at, hostport = parsed.netloc.rpartition('@')
-#     user, colon, password = userpass.partition(':')
-
-#     # Wenn das Passwort ein '@' enthält, muss es speziell behandelt werden
-#     if '@' in password:
-#         user, password = userpass.split(':', 1)
-
-#     # Extrahiere Host und Port
-#     host, colon, port = hostport.partition(':')
-
-#     # Extrahiere den Datenbanknamen
-#     path = parsed.path.lstrip('/')
-
-#     return {
-#         'dbname': path,
-#         'user': user,
-#         'password': password,
-#         'host': host,
-#         'port': port or '5432'  # Standard-Port, falls nicht angegeben
-#     }
-
-# Definition der Dateiendung für Log-Dateien
 LOG_FILE_EXT = ".log"
 
-# Laden der Umgebungsvariablen aus der .env-Datei
 
-# Definition des Basispfads für Downloads
 base_path = Path(
     "/home/runneruser/actions-runner/_work/pdf-website/pdf-website/DATA/downloads/"
 ).joinpath("")
@@ -170,7 +140,7 @@ def schedule_delete_db_update_db(new_status: str, task_id: str) -> bool:
         cron = CronTab(user=True)  # Planen des Cronjobs
         # Erstellen eines neuen Cronjobs
         job = cron.new(command=f"python3 {os.path.abspath(__file__)} delete {task_id}")
-        execution_time = datetime.now() + timedelta(minutes=5)
+        execution_time = datetime.now() + timedelta(minutes=120)
         job.setall(
             execution_time.strftime("%M %H %d %m *")
         )  # Setzen des Zeitplans für den Cronjob (120 Minuten in der Zukunft)
